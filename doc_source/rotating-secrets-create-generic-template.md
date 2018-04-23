@@ -12,6 +12,7 @@ To run the commands that enable and configure rotation you must have the followi
 `lambda:InvokeFunction` \- to attach the rotation function to the secret
 `lambda:UpdateFunctionConfiguration `\- to allow the console to update the VPC configuration of the Lambda function so it can communicate with a database or service that resides in a VPC
 `secretsmanager:RotateSecret` \- to configure and trigger the initial rotation
+You can grant all of these permissions to an IAM user or role by attaching the [SecretsManagerReadWrite](https://console.aws.amazon.com/iam/home#/policies/arn:aws:iam::aws:policy/SecretsManagerReadWrite) AWS managed policy\. 
 
 The commands shown below apply the generic `SecretsManagerRotationTemplate` to your Lambda function\. This template comes from the Serverless Application Repository and is used by AWS CloudFormation to automate most of the steps for you\.
 

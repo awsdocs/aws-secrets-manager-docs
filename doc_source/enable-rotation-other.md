@@ -40,7 +40,7 @@ To create a Lambda function using the console you must have these permissions:
 `secretsmanager:RotateSecret` \- to attach the rotation function to the secret or to trigger rotation
 
 You can use the following commands to enable and configure rotation in AWS Secrets Manager:
-+ **API/SDK:** [http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_RotateSecret](http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_RotateSecret)
++ **API/SDK:** [http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_RotateSecret.html](http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_RotateSecret.html)
 + **CLI:** [http://docs.aws.amazon.com/cli/latest/reference/secretsmanager/rotate-secret.html](http://docs.aws.amazon.com/cli/latest/reference/secretsmanager/rotate-secret.html)
 
 **Example**  

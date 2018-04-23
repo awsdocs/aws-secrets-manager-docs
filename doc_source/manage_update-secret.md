@@ -43,7 +43,7 @@ You can use the following commands to update the encrypted secret value stored i
 `UpdateSecret` automatically moves the staging label `AWSCURRENT` to the new version of the secret\.   
 `PutSecretValue` *does not* automatically move staging labels, although it does add `AWSCURRENT` if this command creates the first version of the secret\. It otherwise only attaches or moves those labels that you explicitly request with the `VersionStages` parameter\.  
 Any time the staging label `AWSCURRENT` moves from one version to another, Secrets Manager automatically moves the staging label `AWSPREVIOUS` to the version that `AWSCURRENT` was just removed from\.
-+ **API/SDK:** [http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UpdateSecret](http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UpdateSecret), [http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_PutSecretValue](http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_PutSecretValue)
++ **API/SDK:** [http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UpdateSecret](http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UpdateSecret), [http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_PutSecretValue.html](http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_PutSecretValue.html)
 + **CLI:** [http://docs.aws.amazon.com/cli/latest/reference/secretsmanager/update-secret.html](http://docs.aws.amazon.com/cli/latest/reference/secretsmanager/update-secret.html), [http://docs.aws.amazon.com/cli/latest/reference/secretsmanager/put-secret-value.html](http://docs.aws.amazon.com/cli/latest/reference/secretsmanager/put-secret-value.html)
 
 **Example**  
@@ -79,7 +79,7 @@ Follow the steps under one of the following tabs:
 #### [ Using the AWS CLI or AWS SDK operations ]<a name="proc-description-api"></a>
 
 You can use the following commands to modify the description of a secret in AWS Secrets Manager:
-+ **API/SDK:** [http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UpdateSecret](http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UpdateSecret)
++ **API/SDK:** [http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UpdateSecret.html](http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UpdateSecret.html)
 + **CLI:** [http://docs.aws.amazon.com/cli/latest/reference/secretsmanager/update-secret.html](http://docs.aws.amazon.com/cli/latest/reference/secretsmanager/update-secret.html)
 
 **Example**  
@@ -117,7 +117,7 @@ If you change the encryption key used by a secret, old versions of the secret ar
 #### [ Using the AWS CLI or AWS SDK operations ]<a name="proc-kmskey-api"></a>
 
 You can use the following commands to modify the KMS encryption key used by the secret\. You must specify the KMS CMK by its ARN\.
-+ **API/SDK:** [http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UpdateSecret](http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UpdateSecret)
++ **API/SDK:** [http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UpdateSecret.html](http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UpdateSecret.html)
 + **CLI:** [http://docs.aws.amazon.com/cli/latest/reference/secretsmanager/update-secret.html](http://docs.aws.amazon.com/cli/latest/reference/secretsmanager/update-secret.html)
 
 **Example**  
@@ -136,7 +136,7 @@ Follow the steps under one of the following tabs:
 #### [ Using the AWS CLI or AWS SDK operations ]<a name="proc-tags-api"></a>
 
 You can use the following commands to add or remove the tags attached to a secret in AWS Secrets Manager\. Key names and values are case sensitive\. Only one tag on a secret can have a given key name\. To edit an existing tag, add a tag with the same key name\. It does not add a new key/value pair, it instead updates the value in the existing pair\. To change a key name, you must remove the first key and add a second with the new name\.
-+ **API/SDK:** [http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_TagResource](http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_TagResource), [http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UntagResource](http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UntagResource)
++ **API/SDK:** [http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_TagResource](http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_TagResource), [http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UntagResource.html](http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UntagResource.html)
 + **CLI:** [http://docs.aws.amazon.com/cli/latest/reference/secretsmanager/tag-resource.html](http://docs.aws.amazon.com/cli/latest/reference/secretsmanager/tag-resource.html), [http://docs.aws.amazon.com/cli/latest/reference/secretsmanager/untag-resource.html](http://docs.aws.amazon.com/cli/latest/reference/secretsmanager/untag-resource.html)
 
 **Example**  

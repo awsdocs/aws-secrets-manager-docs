@@ -166,7 +166,7 @@ You can attach policies to IAM identities\. For example, you can do the followin
 
 For more information about using IAM to delegate permissions, see [Access Management](http://docs.aws.amazon.com/IAM/latest/UserGuide/access.html) in the *IAM User Guide*\.
 
-The following example policy can be attached to a user, group, or role and allows the affected user or role to perform the `DescribeSecret` and `GetSecretValue` operations in your account only on secrets whose path and name begins with the path "TestEnv/"\. The user or role is also restricted to retrieving only the version of the secret that has the staging label `AWSCURRENT` attached\.
+The following example policy can be attached to a user, group, or role and allows the affected user or role to perform the `DescribeSecret` and `GetSecretValue` operations in your account only on secrets whose path and name begins with the path "TestEnv/"\. The user or role is also restricted to retrieving only the version of the secret that has the staging label `AWSCURRENT` attached\. Replace the *<region>* and *<account\_id>* placeholders in the following examples with your actual values\.
 
 ```
 {
@@ -176,13 +176,13 @@ The following example policy can be attached to a user, group, or role and allow
       "Sid" : "Stmt1DescribeSecret",  
       "Effect": "Allow",
       "Action": [ "secretsmanager:DescribeSecret" ],
-      "Resource": "arn:aws:secretsmanager:::secret:TestEnv/*"
+      "Resource": "arn:aws:secretsmanager:<region>:<account_id>:secret:TestEnv/*"
     },
     {
       "Sid" : "Stmt2GetSecretValue",  
       "Effect": "Allow",
       "Action": [ "secretsmanager:GetSecretValue" ],
-      "Resource": "arn:aws:secretsmanager:::secret:TestEnv/-*",
+      "Resource": "arn:aws:secretsmanager:<region>:<account_id>:secret:TestEnv/-*",
       "Condition" : { 
         "ForAnyValue:StringLike" : {
           "secretsmanager:Label" : "AWSCURRENT" 
