@@ -32,7 +32,7 @@ If the database or service your credentials are for resides in an Amazon VPC, th
    $ aws serverlessrepo create-cloud-formation-change-set \
              --application-id arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRotationTemplate \
              --stack-name MyLambdaCreationStack \
-             --parameter-overrides '[{"Name":"endpoint","Value":"https://secretsmanager.region.amazonaws.com"},"Name":"functionName","Value":"MySecretsManagerRotationFuncion"}]'
+             --parameter-overrides '[{"Name":"endpoint","Value":"https://secretsmanager.region.amazonaws.com"},{"Name":"functionName","Value":"MySecretsManagerRotationFuncion"}]'
    {
        "ApplicationId": "arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRDSMySQLRotationSingleUser",
        "ChangeSetId": "arn:aws:cloudformation:region:123456789012:changeSet/EXAMPLE1-90ab-cdef-fedc-ba987EXAMPLE/EXAMPLE2-90ab-cdef-fedc-ba987EXAMPLE",
