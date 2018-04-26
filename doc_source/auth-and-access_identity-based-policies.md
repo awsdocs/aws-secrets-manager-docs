@@ -112,7 +112,7 @@ The first statement of the following policy grants the user read access to the m
             "Action": "secretsmanager:*",
             "Resource": [
                 "arn:aws:secretsmanager:<region>:<account-id-number>:secret:a_specific_secret_name-a1b2c3",
-                "arn:aws:secretsmanager:<region>:<account-id-number>:secret:my_prefix-*
+                "arn:aws:secretsmanager:<region>:<account-id-number>:secret:my_prefix-*"
             ]
         }
     ]
