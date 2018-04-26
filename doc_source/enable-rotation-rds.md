@@ -81,27 +81,8 @@ You can use the following Secrets Manager commands to configure rotation for a e
 
 You will also need to use commands from AWS CloudFormation and AWS Lambda\. Refer to the documentation for those services for more information about the commands used below\.
 
-**Rotation Function Templates**  
-You need to choose the rotation function template from the Serverless App Repository\. Select the one that corresponds to your scenario:
-+ **RDS MySQL database**—This option uses the credentials for a single user stored in the secret to change its own password\.
-
-  `arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRDSMySQLRotationSingleUser`
-+ **RDS MySQL database**—This option clones the user identified in the secret and then with each rotation, alternates between the two users, creating a new password each time\. It requires a second master secret that has permissions to change the password for the two users\.
-
-  `arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRDSMySQLRotationMultiUser`
-+ **RDS PostgreSQL database**—This option uses the credentials for a single user stored in the secret to change its own password\.
-
-  `arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRDSPostgreSQLRotationSingleUser`
-+ **RDS PostgreSQL database**—This option clones the user identified in the secret and then with each rotation, alternates between the two users, creating a new password each time\. It requires a second master secret that has permissions to change the password for the two users\.
-
-  `arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRDSPostgreSQLRotationMultiUser`
-
-  This option clones the user identified in the secret and then with each rotation, alternates between the two users, creating a new password each time\. 
-+ **Generic template**—This option requires you to create your own strategy and implement it in code\. The template includes an outline that describes the steps that you must perform during each phase of a rotation\.
-
-  `arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRotationTemplate`
-
-Here is an example CLI session that performs the equivalent of the console\-based rotation configuration described in the **Using the console** tab\. You create the function using a AWS CloudFormation change set and then configure the resulting function with the required permissions\. Finally, you configure the secret with the ARN of the completed function and rotate once to test it\.
+**To create a Lambda rotation function by using an AWS Serverless Application Repository template**  
+The following is an example CLI session that performs the equivalent of the console\-based rotation configuration described in the **Using the console** tab\. You create the function using a AWS CloudFormation change set and then configure the resulting function with the required permissions\. Finally, you configure the secret with the ARN of the completed function and rotate once to test it\.
 
 The following example uses the generic template and so uses the last ARN shown above\.
 
@@ -109,11 +90,11 @@ If your database or service resides in an Amazon VPC, then you must include the 
 
 The first command sets up a AWS CloudFormation change set based on the Secrets Manager provided template\.
 
-The `--application-id` parameter specifies the template to use\. It must be one of the five values in the previous list\.
+You use the `--application-id` parameter to specify which template to use\. The value is the ARN of the template\. For the list of AWS provided templates and their ARN, see [AWS Templates You Can Use to Create Lambda Rotation Functions ](reference_available-rotation-templates.md)\.
 
-The templates require additional parameters provided with `--parameter-overrides` as shown in the example that follows\. This parameter is required to pass two pieces of information to the template that affect how the rotation function is created:
+The templates also require additional parameters provided with `--parameter-overrides` as shown in the example that follows\. This parameter is required to pass two pieces of information to the template that affect how the rotation function is created:
 + **endpoint**: the URL of the service endpoint that you want the rotation function to query\. Typically, this will be `https://secretsmanager.region.amazonaws.com`
-+ **functionname**: the name of the Lambda rotation function that you want created\.
++ **functionname**: the name of the completed Lambda rotation function that is created by this process\.
 
 ```
 $ aws serverlessrepo create-cloud-formation-change-set \

@@ -53,7 +53,7 @@ Each context key can be compared using a condition operator to a value that you 
 For example, you could choose to allow someone to retrieve *only* the `AWSCURRENT` version a secret value by using a `Condition` element similar to the following:
 
 ```
-"Effect": "Deny",
+    "Effect": "Allow",
     "Condition": {"StringEqualsIgnoreCase" : {"VersionStage" : "AWSCURRENT"}}
 ```
 

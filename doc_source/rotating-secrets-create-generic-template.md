@@ -4,6 +4,8 @@ If you create a secret for anything other than one of the supported Amazon RDS d
 
 The procedure in this topic tells you how to create the Lambda function using a AWS CloudFormation change set that you create and run\. You then attach some permissions\. At that point you can edit the code to make the rotation function work the way you want it to\. Finally, you associate the completed function with your secret so that Secrets Manager calls the function every time rotation is triggered\.
 
+You can specify the "generic" template that you must fully implement, or choose one of the templates that completely implement a rotation strategy for a certain database or service and use that as a starting point to customize the function to meet your needs\. 
+
 **Minimum permissions**  
 To run the commands that enable and configure rotation you must have the following permissions:  
 `serverlessrepo:CreateCloudFormationChangeSet` \- to create the AWS CloudFormation change set that configures and creates the Lambda rotation function
@@ -14,7 +16,7 @@ To run the commands that enable and configure rotation you must have the followi
 `secretsmanager:RotateSecret` \- to configure and trigger the initial rotation
 You can grant all of these permissions to an IAM user or role by attaching the [SecretsManagerReadWrite](https://console.aws.amazon.com/iam/home#/policies/arn:aws:iam::aws:policy/SecretsManagerReadWrite) AWS managed policy\. 
 
-The commands shown below apply the generic `SecretsManagerRotationTemplate` to your Lambda function\. This template comes from the Serverless Application Repository and is used by AWS CloudFormation to automate most of the steps for you\.
+The commands shown below apply the generic `SecretsManagerRotationTemplate` to your Lambda function\. This template comes from the AWS Serverless Application Repository and is used by AWS CloudFormation to automate most of the steps for you\. The complete set of templates and the ARN you must specify can be found at [AWS Templates You Can Use to Create Lambda Rotation Functions ](reference_available-rotation-templates.md)\. 
 
 The ARN of the generic template is as follows and must be entered exactly as shown:
 
@@ -32,7 +34,7 @@ If the database or service your credentials are for resides in an Amazon VPC, th
    $ aws serverlessrepo create-cloud-formation-change-set \
              --application-id arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRotationTemplate \
              --stack-name MyLambdaCreationStack \
-             --parameter-overrides '[{"Name":"endpoint","Value":"https://secretsmanager.region.amazonaws.com"},"Name":"functionName","Value":"MySecretsManagerRotationFuncion"}]'
+             --parameter-overrides '[{"Name":"endpoint","Value":"https://secretsmanager.region.amazonaws.com"},{"Name":"functionName","Value":"MySecretsManagerRotationFuncion"}]'
    {
        "ApplicationId": "arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRDSMySQLRotationSingleUser",
        "ChangeSetId": "arn:aws:cloudformation:region:123456789012:changeSet/EXAMPLE1-90ab-cdef-fedc-ba987EXAMPLE/EXAMPLE2-90ab-cdef-fedc-ba987EXAMPLE",
