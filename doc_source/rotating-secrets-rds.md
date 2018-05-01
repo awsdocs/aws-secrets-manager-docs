@@ -25,5 +25,4 @@ If you ever need to change the permissions granted to the users, ensure that you
 
 **Topics**
 + [Enabling Rotation for an RDS Database Secret](enable-rotation-rds.md)
-+ [Permissions Required to Automatically Rotate RDS Database Secrets](rotating-secrets-required-permissions.md)
 + [Customizing the Secrets Manager Provided Lambda Rotation Function](rotating-secrets-customize-rds-lambda.md)

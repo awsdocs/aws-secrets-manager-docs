@@ -7,6 +7,8 @@ When you enable rotation for a secret using the **Credentials for RDS database**
 When you enable rotation for a secret with **Credentials for other database** or some **Other type of secret**, you must provide the code for the Lambda function\. The code includes the commands required to interact with your secured service to update or add credentials\.
 
 **Topics**
++ [Permissions Required to Automatically Rotate Secrets](rotating-secrets-required-permissions.md)
 + [Rotating Secrets for Supported Amazon RDS Databases](rotating-secrets-rds.md)
 + [Rotating AWS Secrets Manager Secrets for Other Databases or Services](rotating-secrets-other.md)
 + [Understanding and Customizing Your Lambda Rotation Function](rotating-secrets-lambda-function-customizing.md)
++ [Deleting Lambda Rotation Functions That You No Longer Need](rotating-secrets-managing-functions.md)

@@ -45,7 +45,60 @@ You also can aggregate AWS Secrets Manager log files from multiple AWS regions a
 
 For more information, see [Receiving CloudTrail Log Files from Multiple Regions](http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-receive-logs-from-multiple-accounts.html) and [Receiving CloudTrail Log Files from Multiple Accounts](http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-receive-logs-from-multiple-accounts.html)\.
 
-### Understanding AWS Secrets Manager Log File Entries<a name="understanding-service-name-entries"></a>
+### Retrieving Secrets Manager Log File Entries<a name="retrieve-ct-entries"></a>
+
+You can retrieve individual events from CloudTrail using any of the following techniques:
+
+**To retrieve Secrets Manager events from CloudTrail logs**
+
+------
+#### [ Using the AWS Console ]
+
+The CloudTrail console enables you to view events that occurred within the past 90 days\.
+
+1. Open the CloudTrail console at [https://console\.aws\.amazon\.com/cloudtrail/](https://console.aws.amazon.com/cloudtrail/)\.
+
+1. Ensure that the console is pointing at the region in which your events occurred\. The console shows only those events that occurred in the selected region\. Choose the region from the drop\-down list in the upper\-right corner of the console\.
+
+1. In the left\-hand navigation pane, choose **Event history**\.
+
+1. Choose **Filter** criteria and/or a **Time range** to help you find the event that you're looking for\. For example, to see all Secrets Manager events, for **Select attribute** choose **Event source**, and then for **Enter event source** choose **secretsmanager\.amazonaws\.com**\.
+
+1. Choose the expand arrow next to event you want to view to see additional details\. To see all of the information available, choose **View event**\.
+
+------
+#### [ Using the AWS CLI ]
+
+1. Open a command window where you can run AWS CLI commands\.
+
+1. Run a command similar to the following example\. The output is shown word\-wrapped here for readablility but the real output is not\.
+
+   ```
+   $ aws cloudtrail lookup-events --region us-east-1 --lookup-attributes AttributeKey=EventSource,AttributeValue=secretsmanager.amazonaws.com
+   {
+       "Events": [
+           {
+               "EventId": "EXAMPLE1-90ab-cdef-fedc-ba987EXAMPLE",
+               "EventName": "CreateSecret",
+               "EventTime": 1525106994.0,
+               "Username": "Administrator",
+               "Resources": [],
+               "CloudTrailEvent": "{\"eventVersion\":\"1.05\",\"userIdentity\":{\"type\":\"IAMUser\",\"principalId\":\"AKIAIOSFODNN7EXAMPLE\",
+                     \"arn\":\"arn:aws:iam::123456789012:user/Administrator\",\"accountId\":\"123456789012\",\"accessKeyId\":\"AKIAIOSFODNN7EXAMPLE\",
+                     \"userName\":\"Administrator\"},\"eventTime\":\"2018-04-30T16:49:54Z\",\"eventSource\":\"secretsmanager.amazonaws.com\",
+                     \"eventName\":\"CreateSecret\",\"awsRegion\":\"us-east-1\",\"sourceIPAddress\":\"192.168.100.101\",
+                     \"userAgent\":\"<useragent string>\",\"requestParameters\":{\"name\":\"MyTestSecret\",
+                     \"clientRequestToken\":\"EXAMPLE2-90ab-cdef-fedc-ba987EXAMPLE\"},\"responseElements\":null,
+                     \"requestID\":\"EXAMPLE3-90ab-cdef-fedc-ba987EXAMPLE\",\"eventID\":\"EXAMPLE4-90ab-cdef-fedc-ba987EXAMPLE\",
+                     \"eventType\":\"AwsApiCall\",\"recipientAccountId\":\"123456789012\"}"
+           }
+       ]
+   }
+   ```
+
+------
+
+### Understanding Secrets Manager Log File Entries<a name="understanding-service-name-entries"></a>
 
 CloudTrail log files can contain one or more log entries\. Each entry lists multiple JSON\-formatted events\. A log entry represents a single request from any source and includes information about the requested action, the date and time of the action, request parameters, and so on\. Log entries are not an ordered stack trace of the public API calls, so they do not appear in any specific order\. 
 
@@ -110,7 +163,7 @@ The following example shows a CloudTrail log entry for a sample `DeleteSecret` c
     "responseElements": {
       "name": "MyDatabaseSecret",
       "deletionDate": "May 3, 2018 5:51:02 PM",
-      "aRN": "arn:aws:secretsmanager:us-west-2:123456789012:secret:MyDatabaseSecret-p5mycT"
+      "aRN": "arn:aws:secretsmanager:us-west-2:123456789012:secret:MyDatabaseSecret-a1b2c3"
     },
     "requestID": "EXAMPLE2-90ab-cdef-fedc-ba987EXAMPLE",
     "eventID": "EXAMPLE3-90ab-cdef-fedc-ba987EXAMPLE",
