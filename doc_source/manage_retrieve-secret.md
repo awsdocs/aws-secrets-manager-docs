@@ -13,7 +13,7 @@ Follow the steps under one of the following tabs:
 **Minimum permissions**  
 To retrieve a secret in the console you must have these permissions:  
 `secretsmanager:ListSecrets` – to navigate to the secret you want to retrieve
-`secretsmanager:GetSecretValue` — to retrieve the non\-encrypted parts of the secret
+`secretsmanager:DescribeSecret` — to retrieve the non\-encrypted parts of the secret
 `secretsmanager:GetSecretValue` – to retrieve the encrypted part of the secret
 `kms:Decrypt` – Only required if you used a custom KMS CMK to encrypt your secret
 
