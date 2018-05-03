@@ -92,8 +92,8 @@ For a list of all the permissions that are available to assign in an IAM policy,
 
 In addition to restricting access to specific actions, you also can restrict access to specific secrets in your account\. The `Resource` elements in the previous examples all specify the wildcard character \("\*"\), which means "any resource that this action can interact with"\. Instead, you can replace the "\*" with the Amazon Resource Name \(ARN\) of specific secrets to which you want to allow access\. 
 
-**Example: Granting permissions to a single secret**  
-The first statement of the following policy grants the user read access to the metadata about all of the secrets in the account, but the second statement allows the user to perform any Secrets Manager actions on only a single, specified secret by name, or on any secret that begins with the string `my_prefix-`:
+**Example Example: Granting permissions to a single secret by name**  
+The first statement of the following policy grants the user read access to the metadata about all of the secrets in the account, but the second statement allows the user to perform any Secrets Manager actions on only a single, specified secret by name, or on any secret that begins with the string "`another_secret_name-`" followed by exactly 6 characters:  
 
 ```
 {
@@ -112,15 +112,14 @@ The first statement of the following policy grants the user read access to the m
             "Action": "secretsmanager:*",
             "Resource": [
                 "arn:aws:secretsmanager:<region>:<account-id-number>:secret:a_specific_secret_name-a1b2c3",
-                "arn:aws:secretsmanager:<region>:<account-id-number>:secret:my_prefix-*"
+                "arn:aws:secretsmanager:<region>:<account-id-number>:secret:another_secret_name-??????"
             ]
         }
     ]
 }
 ```
-
-You get the ARN for the secret from the AWS Secrets Manager console \(on the **Details** page for a secret\) or by calling the `List*` APIs\. The user or group that you apply this policy to can perform any action \(`"secretsmanager:*"`\) on the one secret identified by the Amazon Resource Name \(ARN\)\. 
-
+Using the '??????' as a wildcard to match the 6 random characters assigned by Secrets Manager avoids a problem that occurs if you use the '\*' wildcard instead\. If you use the syntax "`another_secret_name-*`", it matches not just the intended secret with the 6 random characters, but it also matches "`another_secret_name-<anything-here>a1b2c3`"\. Using the '??????' syntax enables you to securely grant permissions to a secret that does not yet exist, because you can predict all of the parts of the ARN except those 6 random characters\. Be aware, however, that if you delete the secret and recreate it with the same name, the user automatically receives permission to the new secret even though the 6 characters will be different\.  
+You get the ARN for the secret from the AWS Secrets Manager console \(on the **Details** page for a secret\) or by calling the `List*` APIs\. The user or group that you apply this policy to can perform any action \(`"secretsmanager:*"`\) on only the two secrets identified by the Amazon Resource Name \(ARN\) in the example\.   
 If you don't care about the region or account that owns a secret, you must specify a wildcard character \* and not an empty field for the region and account ID number fields of the ARN\.
 
 For more information about the ARNs for various resources, see [Resources That You Can Reference in an IAM Policy ](reference_iam-permissions.md#iam-resources)\. 
