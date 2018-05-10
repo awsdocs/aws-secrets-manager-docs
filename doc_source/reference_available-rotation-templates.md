@@ -11,6 +11,7 @@ Each template below creates a Lambda rotation function for a different combinati
 ```
 arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRDSMySQLRotationSingleUser
 ```
++ **Name:** SecretsManagerRDSMySQLRotationSingleUser
 + **Supported database/service:** MySQL database hosted on an Amazon Relational Database Service \(Amazon RDS\) database instance\.
 + **Rotation strategy:** Changes the password for a user whose credentials are stored in the secret that is rotated\. For more information about this strategy, see [Rotating AWS Secrets Manager Secrets for One User with a Single Password Only](rotating-secrets-one-user-one-password.md)\.
 + **Expected `SecretString` structure:** 
@@ -25,12 +26,14 @@ arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRDSMySQ
     "port": "<optional: TCP port number. If not specified, defaults to 3306>"
   }
   ```
++ **Source code:** [Secrets Manager Lambda Rotation Template: RDS MySQL Single User](reference_template_MySql_SingleUser.md)
 
 ## RDS MySQL Master User<a name="sar-template-mysql-masteruser"></a>
 
 ```
 arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRDSMySQLRotationMultiUser
 ```
++ **Name:** SecretsManagerRDSMySQLRotationMultiUser
 + **Supported database/service:** MySQL database hosted on an Amazon RDS database instance\.
 + **Rotation strategy:** Two users are alternated during rotation using the credentials of a separate master user which is stored in a separate secret\. The user that is not currently active has its password changed before it is made the active user\. For more information about this strategy, see [Rotating AWS Secrets Manager Secrets By Switching Between Two Existing Users](rotating-secrets-two-users.md)\.
 + **Expected `SecretString` structure:** 
@@ -46,12 +49,14 @@ arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRDSMySQ
     "masterarn": "<required: the ARN of the master secret used to create 2nd user and change passwords>"
   }
   ```
++ **Source code:** [Secrets Manager Lambda Rotation Template: RDS MySQL Multiple User](reference_template_MySql_MultiUser.md)
 
 ## RDS PostgreSQL Single User<a name="sar-template-postgre-singleuser"></a>
 
 ```
 arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRDSPostgreSQLRotationSingleUser
 ```
++ **Name:** SecretsManagerRDSPostgreSQLRotationSingleUser
 + **Supported database/service:** PostgreSQL database hosted on an Amazon RDS database instance\.
 + **Rotation strategy:** Changes the password for a user whose credentials are stored in the secret that is rotated\. For more information about this strategy, see [Rotating AWS Secrets Manager Secrets for One User with a Single Password Only](rotating-secrets-one-user-one-password.md)\.
 + **Expected `SecretString` structure:** 
@@ -66,12 +71,14 @@ arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRDSPost
     "port": "<optional: TCP port number. If not specified, defaults to 5432>"
   }
   ```
++ **Source code:** [Secrets Manager Lambda Rotation Template: RDS PostgreSQL Single User](reference_template_PostgreSql_SingleUser.md)
 
 ## RDS PostgreSQL Master User<a name="sar-template-postgre-masteruser"></a>
 
 ```
 arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRDSPostgreSQLRotationMultiUser
 ```
++ **Name:** SecretsManagerRDSPostgreSQLRotationMultiUser
 + **Supported database/service:** PostgreSQL database hosted on an Amazon RDS database instance\.
 + **Rotation strategy:** Two users are alternated during rotation using the credentials of a separate master user which is stored in a separate secret\. The user that is not currently active has its password changed before it is made the active user\. For more information about this strategy, see [Rotating AWS Secrets Manager Secrets By Switching Between Two Existing Users](rotating-secrets-two-users.md)\.
 + **Expected `SecretString` structure:** 
@@ -87,12 +94,15 @@ arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRDSPost
     "masterarn": "<required: the ARN of the master secret used to create 2nd user and change passwords>"
   }
   ```
++ **Source code:** [Secrets Manager Lambda Rotation Template: RDS PostgreSQL Single User](reference_template_PostgreSql_MultiUser.md)
 
 ## Generic Rotation Function Template<a name="sar-template-generic"></a>
 
 ```
 arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRotationTemplate
 ```
++ **Name:** SecretsManagerRotationTemplate
 + **Supported database/service:** None \- You supply the code to interact with whatever service you want\.
 + **Rotation strategy:** None \- You supply the code to implement whatever rotation strategy you want\. For more information about customizing your own function, see [Understanding and Customizing Your Lambda Rotation Function](rotating-secrets-lambda-function-customizing.md)
 + **Expected `SecretString` structure:** You define this as part of the code that you write\.
++ **Source code:** [Secrets Manager Lambda Rotation Template: Generic Template That You Must Customize and Complete](reference_template_Generic.md)
