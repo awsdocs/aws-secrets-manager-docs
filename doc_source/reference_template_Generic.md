@@ -1,10 +1,10 @@
 # Secrets Manager Lambda Rotation Template: Generic Template That You Must Customize and Complete<a name="reference_template_Generic"></a>
 
-The following is the source code that is initially placed into the Lambda rotation function when you choose the **SecretsManagerRotationTemplate** template option from the AWS Serverless Application Repository\. This template is never provided by choosing options in the console\. Instead, to create this function manually, follow the instructions at [Rotating AWS Secrets Manager Secrets for Other Databases or Services](rotating-secrets-create-generic-template.md) and specify this template\.
+The following is the source code that's initially placed into the Lambda rotation function when you choose the **SecretsManagerRotationTemplate** template option from the AWS Serverless Application Repository\. This template is never provided by choosing options in the console\. Instead, to create this function manually, follow the instructions at [Rotating AWS Secrets Manager Secrets for Other Databases or Services](rotating-secrets-create-generic-template.md) and specify this template\.
 
 For more information about creating your own rotation function, see [Overview of the Lambda Rotation Function](rotating-secrets-lambda-function-overview.md)\.
 
-This template function is written in [Python](https://www.python.org/) and uses the [AWS boto3 SDK for Python](https://aws.amazon.com/sdk-for-python/)\.
+This template function is written in [Python](https://www.python.org/), and uses the [AWS Boto3 SDK for Python](https://aws.amazon.com/sdk-for-python/)\.
 
 ```
 import boto3

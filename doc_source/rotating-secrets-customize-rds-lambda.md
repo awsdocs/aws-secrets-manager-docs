@@ -1,10 +1,10 @@
-# Customizing the Secrets Manager Provided Lambda Rotation Function<a name="rotating-secrets-customize-rds-lambda"></a>
+# Customizing the Lambda Rotation Function Provided by Secrets Manager<a name="rotating-secrets-customize-rds-lambda"></a>
 
 You can customize the Lambda rotation function to meet your organization's unique requirements\. Such requirements might include:
 + Add additional tests on the new version of the secret\. You want to ensure that the permissions associated with the new credentials are correct\.
-+ You want to use a different strategy for rotating your secrets than the one used by the Secrets Manager provided Lambda function\. 
++ You want to use a different strategy for rotating your secrets than the one used by the Lambda function provided by Secrets Manager\. 
 
-To customize the function, you must first discover which function Secrets Manager created for you\. You cannot see the ARN of the function in the console, but you can retrieve it by using the AWS CLI or equivalent AWS SDK operations\. 
+To customize the function, you must first discover which function Secrets Manager created for you\. You can't see the ARN of the function in the console, but you can retrieve it by using the AWS CLI or equivalent AWS SDK operations\. 
 
 ```
 $ aws secretsmanager describe-secret --secret-id MyDatabaseSecret
@@ -33,7 +33,7 @@ Follow the steps under one of the following tabs:
 ------
 #### [ Using the AWS CLI or AWS SDK operations ]
 
-1. Determine the name of the Lambda rotation function for your secret by running the following command and examining the part of the `RotationLambdaARN` that follows `:function:`
+1. Determine the name of the Lambda rotation function for your secret\. To do this, run the following command and examine the part of the `RotationLambdaARN` that follows `:function:`\.
 
    ```
    $ describe-secret --secret-id MySecret

@@ -4,7 +4,7 @@ You can configure AWS Secrets Manager to automatically rotate the secret for a s
 
 When you enable rotation for a secret for another database or some other type of service, you must create and configure the Lambda function and write the code\.
 
-Before you can enable rotation for other databases or services, you must first create the Lambda rotation function\. AWS does provide a generic template Lambda rotation function that you can use as a starting point\. The following procedure describes how to create a new Lambda function based on this template\. When you then [enable rotation](enable-rotation-other.md), you need only add the ARN of the completed function to your secret\.
+Before you can enable rotation for other databases or services, you must first create the Lambda rotation function\. AWS does provide a generic template Lambda rotation function that you can use as a starting point\. The following procedure describes how to create a new Lambda function based on this template\. When you then [enable rotation](enable-rotation-other.md), you only need to add the Amazon Resource Name \(ARN\) of the completed function to your secret\.
 
 **Topics**
 + [Rotating AWS Secrets Manager Secrets for Other Databases or Services](rotating-secrets-create-generic-template.md)

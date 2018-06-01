@@ -1,10 +1,10 @@
 # Secrets Manager Lambda Rotation Template: RDS PostgreSQL Single User<a name="reference_template_PostgreSql_SingleUser"></a>
 
-The following is the source code that is initially placed into the Lambda rotation function when you choose the **SecretsManagerRDSPostgreSQLRotationSingleUser** template option from the AWS Serverless Application Repository\.
+The following is the source code that's initially placed into the Lambda rotation function when you choose the **SecretsManagerRDSPostgreSQLRotationSingleUser** template option from the AWS Serverless Application Repository\.
 
-For more information about the rotation strategy implemented by this function, see [Rotating AWS Secrets Manager Secrets for One User with a Single Password Only](rotating-secrets-one-user-one-password.md)\.
+For more information about the rotation strategy that's implemented by this function, see [Rotating AWS Secrets Manager Secrets for One User with a Single Password](rotating-secrets-one-user-one-password.md)\.
 
-This function is written in [Python](https://www.python.org/) and uses the [AWS boto3 SDK for Python](https://aws.amazon.com/sdk-for-python/)\.
+This function is written in [Python](https://www.python.org/), and uses the [AWS Boto3 SDK for Python](https://aws.amazon.com/sdk-for-python/)\.
 
 ```
 import boto3

@@ -91,9 +91,9 @@ In this step, you create a secret in Secrets Manager, and populate it with the d
 
 1. On the **Create Secret** page, in the **Select secret type** section, choose **Credentials for RDS database**\.
 
-1. For **User name**, type **adminuser** to match the name of the master user that you previously provided in Step 1e\.
+1. For **User name**, type **adminuser** to match the name of the master user that you previously provided in Step 1\.5\.
 
-1. For **Password**, type the same password that you provided for **adminuser** in Step 1e\.
+1. For **Password**, type the same password that you provided for **adminuser** in Step 1\.5\.
 
 1. For **Select the encryption key**, leave it set to **DefaultEncryptionKey**\.
 

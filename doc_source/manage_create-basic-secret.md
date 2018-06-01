@@ -60,6 +60,8 @@ The permissions granted by the **IAMFullAccess** AWS managed policy – required
 
 1. For **Secret name**, type an optional path and name, such as **production/MyAwesomeAppSecret** or **development/TestSecret**\. You can optionally add a description to help you remember the purpose of this secret later on\.
 
+   The secret name must be ASCII letters, digits, or any of the following characters : /\_\+=,\.@\-
+
 1. \(Optional\) At this point, you can configure rotation for your secret\. Because we're working on a "basic" secret without rotation, leave it at **Disable automatic rotation**, and then choose **Next**\.
 
    For information about how to configure rotation on new or existing secrets, see [Rotating Your AWS Secrets Manager Secrets](rotating-secrets.md)\.

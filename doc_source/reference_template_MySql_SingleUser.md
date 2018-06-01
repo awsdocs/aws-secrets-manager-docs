@@ -1,10 +1,12 @@
 # Secrets Manager Lambda Rotation Template: RDS MySQL Single User<a name="reference_template_MySql_SingleUser"></a>
 
-The following is the source code that is initially placed into the Lambda rotation function when you choose the **SecretsManagerRDSMySQLRotationSingleUser** template option from the AWS Serverless Application Repository\. This template is automatically used to create the function when you enable rotation by using the Secrets Manager console and specify that the secret is for an Amazon RDS MySQL database, and that you want to rotate the secret using the credentials stored in the same secret\. To create this function manually, follow the instructions at [Rotating AWS Secrets Manager Secrets for Other Databases or Services](rotating-secrets-create-generic-template.md) and specify this template\.
+The following is the source code that's initially placed into the Lambda rotation function when you choose the **SecretsManagerRDSMySQLRotationSingleUser** template option from the AWS Serverless Application Repository\. This template is automatically used to create the function when you enable rotation by using the Secrets Manager console\. \(In the console, you specify that the secret is for an Amazon RDS MySQL database, and that you want to rotate the secret using the credentials that are stored in the same secret\.\) 
 
-For more information about the rotation strategy implemented by this function, see [Rotating AWS Secrets Manager Secrets for One User with a Single Password Only](rotating-secrets-one-user-one-password.md)\.
+To create this function manually, follow the instructions at [Rotating AWS Secrets Manager Secrets for Other Databases or Services](rotating-secrets-create-generic-template.md), and specify this template\.
 
-This function is written in [Python](https://www.python.org/) and uses the [AWS boto3 SDK for Python](https://aws.amazon.com/sdk-for-python/)\.
+For more information about the rotation strategy that's implemented by this function, see [Rotating AWS Secrets Manager Secrets for One User with a Single Password](rotating-secrets-one-user-one-password.md)\.
+
+This function is written in [Python](https://www.python.org/), and uses the [AWS Boto3 SDK for Python](https://aws.amazon.com/sdk-for-python/)\.
 
 ```
 import boto3
