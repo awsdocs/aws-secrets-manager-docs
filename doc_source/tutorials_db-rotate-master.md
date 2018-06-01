@@ -124,7 +124,7 @@ If you're running this tutorial on some other platform, you might have to transl
    
    Connection id:          48
    Current database:
-   Current user:           adminuser@192-168-1-1.example.com
+   Current user:           mytestuser@192-168-1-1.example.com
    SSL:                    Not in use
    Current pager:          less
    Using outfile:          ''
@@ -184,9 +184,11 @@ Now that the initial credentials in your secret have been validated, you can con
    + For **Service**, choose **Secrets Manager**\.
    + For **Actions**, choose **GetSecretValue**\.
    + For **Resources**, choose **Add ARN** next to the **secret** resource type entry\.
-   + In the **Add ARN\(s\)** dialog box, paste the ARN of the master secret that you copied previously\.
+   + In the **Add ARN\(s\)** dialog box, paste the ARN of the master secret that you copied previously, and then choose **Add**\.
 
-1. Choose **Review policy**, and then choose **Create policy**\.
+1. Choose **Review policy**, and for **Name**, type **AccessToMasterSecret**\.
+
+1.  Choose **Create policy**\.
 **Note**  
 As an alternative to using the Visual Editor as described in the previous steps, you can paste the following statement into an existing or new policy:  
 
@@ -198,7 +200,7 @@ As an alternative to using the Visual Editor as described in the previous steps,
 
 1. On the **Secrets** list page, choose the name of your user secret\.
 
-1. Choose **Retrieve secret value** and view your current password\. It's either the original password or a new one that's created by a successful rotation\. If the original password is still there, close the **Secret value** section and reopen it until it successfully changes\. After it does change, move on to the next step\.
+1. Choose **Retrieve secret value** and view your current password\. It's either the original password or a new one that's created by a successful rotation\. If the original password is still there, close the **Secret value** section and reopen it until it successfully changes\. It might take a few minutes\. After it does change, move on to the next step\.
 
 ## Step 4: Verify Successful Rotation<a name="tut-db-rotate-master-step4"></a>
 
@@ -207,7 +209,7 @@ Now that you have rotated the secret, you can confirm that the new credentials i
 1. Run the commands that retrieve the secret, and store them temporarily in environment variables\.
 
    ```
-   $ secret=$(aws secretsmanager get-secret-value --secret-id MyTestDatabaseSecret | jq .SecretString | jq fromjson)
+   $ secret=$(aws secretsmanager get-secret-value --secret-id MyTestDatabaseUserSecret | jq .SecretString | jq fromjson)
    $ user=$(echo $secret | jq -r .username)
    $ password=$(echo $secret | jq -r .password)
    $ endpoint=$(echo $secret | jq -r .host)
@@ -234,7 +236,7 @@ Now that you have rotated the secret, you can confirm that the new credentials i
    mysql>
    ```
 
-1. At the `mysql>` prompt, run a command that verifies your connection to the database by using the credentials from the secret\. Ensure that the **Current user** in the output is the user that's specified in your secret\.
+1. At the `mysql>` prompt, run a command that verifies your connection to the database by using the credentials from the secret\. Check that the **Current user** in the output is either the user that's specified in your first user secret, or that same user name suffixed with "\_clone"\. This shows that the rotation has successfully cloned your original nuser and alternated it in a new version of the secret\.
 
    ```
    mysql> status;
@@ -243,7 +245,7 @@ Now that you have rotated the secret, you can confirm that the new credentials i
    
    Connection id:          48
    Current database:
-   Current user:           adminuser@192-168-1-1.example.com
+   Current user:           mytestuser_clone@192-168-1-1.example.com
    SSL:                    Not in use
    Current pager:          less
    Using outfile:          ''
