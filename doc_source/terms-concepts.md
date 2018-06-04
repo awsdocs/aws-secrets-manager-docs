@@ -40,7 +40,7 @@ In Secrets Manager, a secret contains not only the encrypted secret text, but al
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/secretsmanager/latest/userguide/images/secret-concept.png)
 + **Metadata – Details about the secret**
   + Basic information that includes the name of the secret, a description, and the Amazon Resource Name \(ARN\) that serves as a unique identifier\. 
-  + The ARN of the AWS Key Management Service \(AWS KMS\) key that Secrets Manager uses to encrypt and decrypt the protected text in the secret\. If this isn't present, Secrets Manager uses the default KMS key for the account\. 
+  + The ARN of the AWS Key Management Service \(AWS KMS\) key that Secrets Manager uses to encrypt and decrypt the protected text in the secret\. If this isn't present, Secrets Manager uses the default AWS KMS key for the account\. 
   + Information about how frequently the key is automatically [rotated](#term_rotation) and what Lambda function to use to perform the rotation\.
   + A user\-provided set of [tags](http://docs.aws.amazon.com/awsconsolehelpdocs/latest/gsg/tag-editor.html)\. Tags are key\-value pairs that you can attach to AWS resources for organizing, logical grouping, and [cost allocation](http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what)\.
 + **Versions – A collection of one or more [versions](#term_version) of the encrypted secret text**

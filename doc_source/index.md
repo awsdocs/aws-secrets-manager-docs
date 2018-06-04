@@ -61,4 +61,5 @@ Amazon's trademarks and trade dress may not be used in
    + [Troubleshooting General Issues](troubleshoot_general.md)
    + [Troubleshooting AWS Secrets Manager Rotation of Secrets](org_troubleshoot_rotation.md)
 + [Calling the API by Making HTTP Query Requests](query-requests.md)
++ [Document History for AWS Secrets Manager](document-history.md)
 + [AWS Glossary](glossary.md)
