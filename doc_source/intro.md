@@ -75,6 +75,15 @@ You can also store secrets for almost any other kind of database or service\. Ho
 
 You can attach AWS Identity and Access Management \(IAM\) permission policies to your users, groups, and roles that grant or deny access to specific secrets, and restrict what they can do with those secrets\. For example, you might attach one policy to a group whose members need the ability to fully manage and configure your secrets\. Another policy attached to a role that's used by an application might grant only read permission on the one secret that the application needs to run\.
 
+## Compliance with Standards<a name="asm_compliance"></a>
+
+AWS Secrets Manager has undergone auditing for the following standards and can be part of your solution when you need to obtain compliance certification\.
+
+
+|  |  | 
+| --- |--- |
+| ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/secretsmanager/latest/userguide/images/HIPAA.jpg) |  AWS has expanded its Health Insurance Portability and Accountability Act \(HIPAA\) compliance program to include AWS Secrets Manager as a [HIPAA Eligible Service](https://aws.amazon.com/compliance/hipaa-eligible-services-reference/)\. If you have an executed Business Associate Agreement \(BAA\) with AWS, you can use Secrets Manager to help build your HIPAA\-compliant applications\. AWS offers a [HIPAA\-focused Whitepaper](https://d0.awsstatic.com/whitepapers/compliance/AWS_HIPAA_Compliance_Whitepaper.pdf) for customers who are interested in learning more about how they can leverage AWS for the processing and storage of health information\. For more information, see [HIPAA Compliance](https://aws.amazon.com/compliance/hipaa-compliance/)  | 
+
 ## Accessing Secrets Manager<a name="asm_access"></a>
 
 You can work with Secrets Manager in any of the following ways:
