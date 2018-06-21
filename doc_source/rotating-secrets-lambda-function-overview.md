@@ -14,7 +14,7 @@ Secrets Manager invokes the Lambda function with the following JSON request stru
 }
 ```
 
-The parameters of the request are described as follows: 
+The parameters of the request are described as follows:
 + **Step** – Specifies which part of the rotation function's behavior to invoke\. Each of the different values identifies a step of the rotation process\. The following section [The Steps of the Lambda Rotation Function](#rotation-explanation-of-steps) explains each step in detail\. The separation into independently invoked steps enables the AWS Secrets Manager team to add additional functionality in the future that might need to occur between steps\.
 + **secretId** – The ID or Amazon Resource Name \(ARN\) for the secret that you want to rotate\. Every secret is assigned an ARN when you initially create it\. The version that's rotated is automatically the "default" version that's labeled `AWSCURRENT`\.
 + **clientRequestToken** – A string that Secrets Manager provides to the Lambda function\. You must pass it in turn to any Secrets Manager APIs that you call from within the Lambda function\. Secrets Manager uses this token to ensure the idempotency of requests during any required retries \(caused by failures of individual calls\)\. This value is a [UUID\-type](https://wikipedia.org/wiki/Universally_unique_identifier) value to ensure uniqueness within the specified secret\. This value becomes the `SecretVersionId` of the new version of the secret\.
