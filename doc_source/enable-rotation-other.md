@@ -7,6 +7,11 @@ Configuring rotation causes the secret to rotate once as soon as you store the s
 
 You must have already created your Lambda rotation function\. If you haven't yet created the function, then perform the steps in [Rotating AWS Secrets Manager Secrets for Other Databases or Services](rotating-secrets-create-generic-template.md)\. Return to this procedure when the function is created and ready to associate with your secret\.
 
+**Prerequisites: Network Requirements to Enable Rotation**  
+To successfully enable rotation, you must have your network environment configured correctly\.
++ **The Lambda function must be able to communicate with your database or service\.** If your database or service is running on an Amazon EC2 instance in a [VPC](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/auth-and-access.xmlVPC_Introduction.html), then we recommend that you configure your Lambda function to run in the same VPC\. This enables direct connectivity between the rotation function and your service\. To configure this, on the Lambda function's details page, scroll down to the **Network** section and choose the **VPC** from the drop\-down list to match the one the instance with your service is running in\. You must also make sure that the EC2 security groups attached to your instance enable communication between the instance and Lambda\.
++ **The Lambda function must be able to communicate with the Secrets Manager service endpoint\.** Each of the [available endpoints for Secrets Manager](http://docs.aws.amazon.com/general/latest/gr/rande.html#asm_region) is on the public Internet, so your Lambda must be able to access the Internet\. If your service and Lambda rotation function reside in a VPC, you must provide a way for resources in the VPC to connect to the Internet\. You can do this by adding a [NAT Gateway](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-nat.html) or [Internet Gateway](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/auth-and-access.xmlVPC_Internet_Gateway.html) to your VPC\.
+
 **To enable and configure rotation for a secret for another database or service**  
 Follow the steps under one of the following tabs:
 

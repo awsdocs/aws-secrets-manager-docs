@@ -8,12 +8,9 @@ Secrets Manager invokes the Lambda function with the following JSON request stru
 
 ```
 {
-  "version" : "1.0",
-  "request" : {
-    "Step" : "request.type",
-    "SecretId" : "string",
-    "ClientRequestToken" : "string"
-  }
+  "Step" : "request.type",
+  "SecretId" : "string",
+  "ClientRequestToken" : "string"
 }
 ```
 

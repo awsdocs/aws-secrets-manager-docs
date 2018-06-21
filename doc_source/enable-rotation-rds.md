@@ -5,6 +5,11 @@ You can enable rotation for a secret that has credentials for a [supported Amazo
 **Warning**  
 Enabling rotation causes the secret to rotate once immediately when you save the secret\. Before you enable rotation, ensure that all of your applications that use this secret's credentials are updated to retrieve the secret from Secrets Manager\. The original credentials might not be usable after the initial rotation\. Any applications that you fail to update break as soon as the old credentials are no longer valid\.
 
+**Prerequisites: Network Requirements to Enable Rotation**  
+To successfully enable rotation, you must have your network environment configured correctly\.
++ **The Lambda function must be able to communicate with the database\.** If your RDS database instance is running in a [VPC](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/auth-and-access.xmlVPC_Introduction.html), we recommend that you configure your Lambda function to run in the same VPC\. This enables direct connectivity between the rotation function and your service\. To configure this, on the Lambda function's details page, scroll down to the **Network** section and choose the **VPC** from the drop\-down list to match the one your instance is running in\. You must also make sure that the EC2 security groups attached to your instance enable communication between the instance and Lambda\.
++ **The Lambda function must be able to communicate with the Secrets Manager service endpoint\.** Each of the [available endpoints for Secrets Manager](http://docs.aws.amazon.com/general/latest/gr/rande.html#asm_region) is on the public Internet, so your Lambda must be able to access the Internet\. If your database instance and your Lambda rotation function reside in a VPC, you must provide a way for resources in the VPC to connect to the Internet\. You can do this by adding a [NAT Gateway](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-nat.html) or [Internet Gateway](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/auth-and-access.xmlVPC_Internet_Gateway.html) to your VPC\.
+
 **To enable and configure rotation for a supported Amazon RDS database secret**  
 Follow the steps under one of the following tabs:
 
