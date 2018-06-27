@@ -66,6 +66,9 @@ $ aws secretsmanager delete-secret --secret-id development/MyTestDatabase --reco
 ```
 At any time after the date and time that are specified in the `DeletionDate` field, AWS Secrets Manager permanently deletes the secret\.
 
+**Handy tip**  
+If you have any doubts about whether a secret is still in use, you can create an Amazon CloudWatch alarm that alerts you to any attempt to access a secret during the recovery window\. For more information, see [Monitoring Secret Versions Scheduled for Deletion](monitoring.md#monitoring_cloudwatch_deleted-secrets)\.
+
 ------<a name="proc-restore-secret"></a>
 
 **To restore a secret that's scheduled for deletion**  

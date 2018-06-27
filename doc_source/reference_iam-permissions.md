@@ -1,21 +1,23 @@
-# Actions, Resources, and Context Keys You Can Use in an IAM Policy for AWS Secrets Manager<a name="reference_iam-permissions"></a>
+# Actions, Resources, and Context Keys You Can Use in an IAM Policy or Secret Policy for AWS Secrets Manager<a name="reference_iam-permissions"></a>
 
-## Actions That You Can Reference in an IAM Policy<a name="iam-actions"></a>
+## Actions That You Can Reference in an IAM Policy or Secret Policy<a name="iam-actions"></a>
 
-The following table shows the permissions that you can specify in an IAM permissions policy to control access to your secrets\. Each permission on an "Action" can be associated with a "Resource" that specifies what the action can work on\. 
+The following table shows the permissions that you can specify in an IAM policy or secret policy to control access to your secrets\. Each permission on an "Action" can be associated with a "Resource" that specifies what the action can work on\. 
 
-You can restrict use of some actions to only those secrets with Amazon Resource Names \(ARNs\) that match the `Resource` element in the policy\. See the section [Resources That You Can Reference in an IAM Policy ](#iam-resources) later in this topic\.
+You can restrict use of some actions to only those secrets with Amazon Resource Names \(ARNs\) that match the `Resource` element in the policy\. See the section [Resources That You Can Reference in an IAM Policy or Secret Policy](#iam-resources) later in this topic\.
+
+In addition to the AWS Secrets Manager\-specific context keys shown in the last column, you also use the [AWS Global Condition Context Keys](http://docs.aws.amazon.com/IAM/latest/UserGuide/auth-and-access.xmlreference_policies_condition-keys.html)\.
 
 If you see an expand arrow \(**↗**\) in the upper\-right corner of the table, you can open the table in a new window\. To close the window, choose the close button \(**X**\) in the lower\-right corner\.
 
 
 ****  
 
-|  Permission for "Action" element  |  API operation that's enabled by this action  |  Resource ARNs that can be used as a "Resource" with this action  |  Context keys that can be used with this action  | 
+|  Permission for "Action" element  |  API operation that's enabled by this action  |  Resource ARNs that can be used as a "Resource" with this action  |  Secrets Manager Context keys that can be used with this action  | 
 | --- | --- | --- | --- | 
 |  secretsmanager:CancelRotateSecret  |  [CancelRotateSecret](http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_CancelRotateSecret.html)  |  [Secret](#iam-resources-secret)  |  [SecretId](#iam-contextkey-secretid)  | 
 |  secretsmanager:CreateSecret  |  [CreateSecret](http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_CreateSecret.html)  |  |  [Name](#iam-contextkey-name) [Description](#iam-contextkey-description) [KmsKeyId](#iam-contextkey-kmskeyid)  | 
-|  secretsmanager:DeleteSecret  |  [DeleteSecret](http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_DeleteSecret.html)  |  [Secret](#iam-resources-secret)  |  [SecretId](#iam-contextkey-secretid) [VersionId](#iam-contextkey-versionid)  | 
+|  secretsmanager:DeleteSecret  |  [DeleteSecret](http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_DeleteSecret.html)  |  [Secret](#iam-resources-secret)  |  [SecretId](#iam-contextkey-secretid)  | 
 |  secretsmanager:DescribeSecret  |  [DesecribeSecret](http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_DescribeSecret.html)  |  [Secret](#iam-resources-secret)  |  [SecretId](#iam-contextkey-secretid)  | 
 |  secretsmanager:GetRandomPassword  |  [GetRandomPassword](http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetRandomPassword.html)  |  |  | 
 |  secretsmanager:GetSecretValue  |  [GetSecretValue](http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html)  |  [Secret](#iam-resources-secret)  |  [SecretId](#iam-contextkey-secretid) [VersionId](#iam-contextkey-versionid) [VersionStage](#iam-contextkey-versionstage)  | 
@@ -29,7 +31,7 @@ If you see an expand arrow \(**↗**\) in the upper\-right corner of the table, 
 |  secretsmanager:UpdateSecret  |  [UpdateSecret](http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UpdateSecret.html)  |  [Secret](#iam-resources-secret)  |  [SecretId](#iam-contextkey-secretid) [Description](#iam-contextkey-description) [KmsKeyId](#iam-contextkey-kmskeyid)  | 
 |  secretsmanager:UpdateSecretVersionStage  |  [UpdateSecretVersionStage](http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UpdateSecretVersionStage.html)  |  [Secret](#iam-resources-secret)  |  [SecretId](#iam-contextkey-secretid) [VersionStage](#iam-contextkey-versionstage)  | 
 
-## Resources That You Can Reference in an IAM Policy<a name="iam-resources"></a>
+## Resources That You Can Reference in an IAM Policy or Secret Policy<a name="iam-resources"></a>
 
 The following table shows the ARN formats that are supported in IAM policies for AWS Secrets Manager\. You can view the IDs for each entity on the **Secret details** page for each secret in the Secrets Manager console\.
 
@@ -44,7 +46,7 @@ If you see an expand arrow \(**↗**\) in the upper\-right corner of the table, 
 
 Secrets Manager constructs the last part of the ARN by appending a dash and six random alphanumeric characters at the end of your secret's name\. This helps ensure that if you ever delete a secret and then recreate another with the same name that individuals with permissions to the original secret don't automatically get access to the new secret because the six random characters will be different\.
 
-## Context Keys That You Can Reference in an IAM Policy<a name="iam-contextkeys"></a>
+## Context Keys That You Can Reference in an IAM Policy or Secret Policy<a name="iam-contextkeys"></a>
 
 Context keys in AWS Secrets Manager generally correspond to the request parameters of an API call\. This enables you to allow or block almost any request based on the value of a parameter\.
 
@@ -53,11 +55,10 @@ Each context key can be compared using a condition operator to a value that you 
 For example, you could choose to allow someone to retrieve *only* the `AWSCURRENT` version a secret value by using a `Condition` element similar to the following:
 
 ```
-    "Effect": "Allow",
-    "Condition": {"StringEqualsIgnoreCase" : {"VersionStage" : "AWSCURRENT"}}
+    "Condition": {"ForAnyValue:StringEquals" : {"secretsmanager:VersionStage" : "AWSCURRENT"}}
 ```
 
-The following table shows the context keys that you can specify in the `Condition` element of an IAM permissions policy to more granularly control access to an action\.
+The following table shows the Secrets Manager\-specific context keys that you can specify in the `Condition` element of an IAM permissions policy to more granularly control access to an action\. In addition to the keys below, you can also use the [AWS Global Condition Context Keys](http://docs.aws.amazon.com/IAM/latest/UserGuide/auth-and-access.xmlreference_policies_condition-keys.html)\.
 
 
 ****  

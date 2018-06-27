@@ -4,7 +4,7 @@ We welcome your feedback\. You can send comments to [awssecretsmanager\-feedback
 
 To make feature requests for the AWS Secrets Manager console or command line tools, we recommend that you submit them in email to [awssecretsmanager\-feedback@amazon\.com](mailto:awssecretsmanager-feedback@amazon.com)\.
 
-To provide feedback for our documentation, you can use the feedback link at the bottom of each webpage\. Be specific about the issue you're facing and how the documentation failed to help you\. Let us know what you saw and how that differed from what you expected\. That'll help us to understand what we need to do to improve the documentation\.
+To provide feedback for our documentation, you can use the feedback link at the bottom of each webpage\. Be specific about the issue you're facing and how the documentation failed to help you\. Let us know what you saw and how that differed from what you expected\. That helps us to understand what we need to do to improve the documentation\.
 
 Here are some additional resources that are available to you:
 + **[AWS Training Catalog](https://aws.amazon.com/training/course-descriptions/)** – Role\-based and specialty courses, as well as self\-paced labs, to help you sharpen your AWS skills and gain practical experience\.

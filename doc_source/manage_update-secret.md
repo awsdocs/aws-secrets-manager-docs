@@ -8,7 +8,8 @@ This section includes procedures and commands that describe how to modify the fo
 + [Encrypted secret value](#proc-encrypted-secret-value)
 + [Description](#proc-description)
 + [AWS KMS encryption key](#proc-kmskey)
-+ [Tags](#proc-tags)<a name="proc-encrypted-secret-value"></a>
++ [Tags](#proc-tags)
++ [Permission policy](manage_secret-policy.md)<a name="proc-encrypted-secret-value"></a>
 
 **To modify the encrypted secret value stored in a secret**  
 Follow the steps under one of the following tabs:

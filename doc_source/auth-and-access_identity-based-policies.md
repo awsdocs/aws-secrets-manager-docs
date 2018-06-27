@@ -36,7 +36,7 @@ Complete the following steps to grant full AWS Secrets Manager administrator per
 
    In the IAM console, navigate to **Policies**\.
 
-1. For **Filter: Policy type**, choose **AWS managed**, and then in the **Search** box start typing **AWSSecretsManagerFullAccess** until you can see the policy in the list\.
+1. For **Filter: Policy type**, choose **AWS managed**, and then in the **Search** box start typing **SecretsManagerReadWrite** until you can see the policy in the list\.
 
 1. Choose the **SecretsManagerReadWrite** policy name\.
 
@@ -65,7 +65,7 @@ When you write an application to use Secrets Manager to retrieve and use a secre
  }
 ```
 
-For a list of all the permissions that are available to assign in an IAM policy, see [Actions, Resources, and Context Keys You Can Use in an IAM Policy for AWS Secrets Manager](reference_iam-permissions.md)\.
+For a list of all the permissions that are available to assign in an IAM policy, see [Actions, Resources, and Context Keys You Can Use in an IAM Policy or Secret Policy for AWS Secrets Manager](reference_iam-permissions.md)\.
 
 ## Limiting Access to Specific Actions<a name="permissions_grant-limited-actions"></a>
 
@@ -86,7 +86,7 @@ If you want to grant limited permissions instead of full permissions, you can cr
  }
 ```
 
-For a list of all the permissions that are available to assign in an IAM policy, see [Actions, Resources, and Context Keys You Can Use in an IAM Policy for AWS Secrets Manager](reference_iam-permissions.md)\.
+For a list of all the permissions that are available to assign in an IAM policy, see [Actions, Resources, and Context Keys You Can Use in an IAM Policy or Secret Policy for AWS Secrets Manager](reference_iam-permissions.md)\.
 
 ## Limiting Access to Specific Secrets<a name="permissions_grant-limited-resources"></a>
 
@@ -122,7 +122,7 @@ Using the '??????' as a wildcard to match the 6 random characters assigned by Se
 You get the ARN for the secret from the AWS Secrets Manager console \(on the **Details** page for a secret\) or by calling the `List*` APIs\. The user or group that you apply this policy to can perform any action \(`"secretsmanager:*"`\) on only the two secrets identified by the Amazon Resource Name \(ARN\) in the example\.   
 If you don't care about the region or account that owns a secret, you must specify a wildcard character \* and not an empty field for the region and account ID number fields of the ARN\.
 
-For more information about the ARNs for various resources, see [Resources That You Can Reference in an IAM Policy ](reference_iam-permissions.md#iam-resources)\. 
+For more information about the ARNs for various resources, see [Resources That You Can Reference in an IAM Policy or Secret Policy](reference_iam-permissions.md#iam-resources)\. 
 
 ## Limiting Access to Secrets that Have Specific Staging Labels or Tags<a name="permissions_grant-limited-condition"></a>
 

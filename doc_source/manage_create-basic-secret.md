@@ -60,7 +60,7 @@ The permissions granted by the **IAMFullAccess** AWS managed policy – required
 
 1. For **Secret name**, type an optional path and name, such as **production/MyAwesomeAppSecret** or **development/TestSecret**\. You can optionally add a description to help you remember the purpose of this secret later on\.
 
-   The secret name must be ASCII letters, digits, or any of the following characters : /\_\+=,\.@\-
+   The secret name must be ASCII letters, digits, or any of the following characters: /\_\+=\.@\-
 
 1. \(Optional\) At this point, you can configure rotation for your secret\. Because we're working on a "basic" secret without rotation, leave it at **Disable automatic rotation**, and then choose **Next**\.
 
@@ -89,6 +89,6 @@ $ aws secretsmanager create-secret --name production/MyAwesomeAppSecret --secret
 
 The `ClientRequestToken` parameter isn't required because we're using the AWS CLI, which automatically generates and supplies one for us\. We also don't need the `KmsKeyId` parameter because we're using the default Secrets Manager CMK for the account\. If you're using `SecretString`, you can't use `SecretBinary`\. `SecretType` is reserved for use by the Secrets Manager console\.
 
-In a working environment, where your customers use an app that uses the secret to access a database, you might still need to grant permissions to the IAM user or role that the app uses to access the secret\. You can attach a policy to the user or role that identifies that identifies the secret in the `Resource` element\.
+In a working environment, where your customers use an app that uses the secret to access a database, you might still need to grant permissions to the IAM user or role that the app uses to access the secret\. You can do this by attaching a resource\-based policy directly to the secret, and listing the user or role in the `Principal` element\. Or you can attach a policy to the user or role that identifies that identifies the secret in the `Resource` element\.
 
 ------

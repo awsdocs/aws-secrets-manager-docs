@@ -13,9 +13,9 @@ Follow the steps under one of the following tabs:
 **Minimum permissions**  
 To retrieve a secret in the console, you must have these permissions:  
 `secretsmanager:ListSecrets` – Used to navigate to the secret you want to retrieve\.
-`secretsmanager:DescribeSecret` — to retrieve the non\-encrypted parts of the secret
+`secretsmanager:DescribeSecret` — Used to retrieve the non\-encrypted parts of the secret\.
 `secretsmanager:GetSecretValue` – Used to retrieve the encrypted part of the secret\.
-`kms:Decrypt` – This is required only if you used a custom AWS KMS customer master key \(CMK\) to encrypt your secret\.
+`kms:Decrypt` – Required only if you used a custom AWS KMS customer master key \(CMK\) to encrypt your secret\.
 
 1. Open the Secrets Manager console at [https://console\.aws\.amazon\.com/secretsmanager/](https://console.aws.amazon.com/secretsmanager/)\.
 

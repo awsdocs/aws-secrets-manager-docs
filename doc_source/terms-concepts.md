@@ -72,7 +72,7 @@ For more information about rotation, see [Rotating Your AWS Secrets Manager Secr
 
 ## Version<a name="term_version"></a>
 
-Multiple versions of a secret exist to support [rotation of a secret](#term_rotation)\. Different versions are distinguished by their staging labels\. For most scenarios, you don't have to worry about versions of the secret\. Secrets Manager and the provided Lambda rotation function manage these details for you\. However, if you create your own Lambda rotation function, your code must manage multiple versions of a secret and move the staging labels between versions appropriately\. Versions also each have a unique identifier \(typically a [UUID](https://wikipedia.org/wiki/UUID) value\) that always stays with the same version, unlike staging labels that you can move between versions\. 
+Multiple versions of a secret exist to support [rotation of a secret](#term_rotation)\. Different versions are distinguished by their [staging labels](#term_staging-label)\. For most scenarios, you don't have to worry about versions of the secret\. Secrets Manager and the provided Lambda rotation function manage these details for you\. However, if you create your own Lambda rotation function, your code must manage multiple versions of a secret and move the staging labels between versions appropriately\. Versions also each have a unique identifier \(typically a [UUID](https://wikipedia.org/wiki/UUID) value\) that always stays with the same version, unlike staging labels that you can move between versions\. 
 
 You typically configure your clients to always ask for the "default" version of the secret\. This is the version that has the `AWSCURRENT` label attached\. Other versions can exist, but they're only accessed if you specifically request a specific version ID or staging label\. If you ask for the secret value and you don't specify either a version ID or a staging label, then by default you get the version with the staging label `AWSCURRENT`\.
 
@@ -89,7 +89,7 @@ Whenever you query for the encrypted secret value, you can specify the version o
 
 ## Staging Label<a name="term_staging-label"></a>
 
-Secrets Manager uses staging labels to enable you to identify different versions of a secret during [rotation](#term_rotation)\. A staging label is a simple text string\. Whenever you query for the encrypted secret value, you can specify the version of the secret that you want\. If you don't specify a version \(either by version ID or staging label\), Secrets Manager defaults to the version with the staging label `AWSCURRENT` attached\. This is the one staging label that's guaranteed to always be attached to one version of the secret\. See the brief introduction to [rotation](#term_rotation) for an example of how this can work\.
+Secrets Manager uses staging labels to enable you to identify different [versions](#term_version) of a secret during [rotation](#term_rotation)\. A staging label is a simple text string\. Whenever you query for the encrypted secret value, you can specify the version of the secret that you want\. If you don't specify a version \(either by version ID or staging label\), Secrets Manager defaults to the version with the staging label `AWSCURRENT` attached\. This is the one staging label that's guaranteed to always be attached to one version of the secret\. See the brief introduction to [rotation](#term_rotation) for an example of how this can work\.
 
 A version of a secret can have from 0 to 20 staging labels attached\.
 

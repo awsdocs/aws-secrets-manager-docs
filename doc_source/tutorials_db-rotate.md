@@ -32,6 +32,13 @@ The tutorial also uses a Linux JSON parsing tool called **jq**\. To download the
 For the sake of simplicity, this tutorial uses jq to parse the secret value into environment variables to allow for easy command line manipulation\. This is NOT a security best practice for a production environment\. In a production environment, we recommend that you don't store passwords in environment variables, and work with them in plaintext at the command line\.  
 Also, the database that's configured in this tutorial is open to the public internet on port 3306, again for simplicity in setup for the tutorial\. The Lambda function must be able to access both the public AWS Secrets Manager service endpoint and your database\. Making the database publicly accessible is the easiest way to do this\. However, it's not the most secure way\. Follow the guidance in the Lambda and Amazon EC2 VPC documentation to securely configure your production services and database\.
 
+## Required Permissions<a name="tut_db-rotate-perms"></a>
+
+To successfully run this tutorial, you must have all of the permissions associated with the [SecretsManagerReadWrite AWS managed policy](https://console.aws.amazon.com/iam/home?#/policies/arn:aws:iam::aws:policy/SecretsManagerReadWrite)\. You must also have permission to create an IAM role and attach a permission policy to it\. You can grant either the [IAMFullAccess AWS managed policy](https://console.aws.amazon.com/iam/home?#/policies/arn:aws:iam::aws:policy/IAMFullAccess), or explicitly assign `iam:CreateRole` and `iam:AttachRolePolicy`\. 
+
+**Warning**  
+The `iam:CreateRole` and `iam:AttachRolePolicy` enable a user to effectively grant themselves any permission, so grant these only to trusted users in an account\.
+
 ## Step 1: Set Up a Test Database<a name="tut-db-rotate-step1"></a>
 
 In this step, you sign in to your account and set up a MySQL database in Amazon RDS\.
@@ -161,6 +168,8 @@ If you're running this tutorial on some other platform, you might have to transl
    
    mysql>
    ```
+**Troubleshooting tip:**  
+If the `mysql` command fails to connect to the database then check the security group attached to the VPC that the database is running in\. The default rules in a security group enable all outbound traffic, but they block all inbound traffic except for the traffic which you explicitly allow by defining a rule\. If your computer is running on the public internet then your security group must enable inbound traffic from the internet \(any address\) on the TCP port that you configured your database to communicated on\. This is typically port 3306\. If you configure MySQL to use a different TCP port, ensure that you update the security rule to match\. 
 
 1. At the `mysql>` prompt, run a command that verifies your connection to the database by using the credentials from the secret\. Ensure that the **Current user** in the output is the user that's specified in your secret\.
 

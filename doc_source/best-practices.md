@@ -6,6 +6,7 @@ The following recommendations help you to more securely use AWS Secrets Manager:
 + [Protect Additional Sensitive Information](#best-practice_what-not-to-put-in-secret-text)
 + [Mitigate the Risks of Logging and Debugging Your Lambda Function](#best-practice_lamda-debug-statements)
 + [Mitigate the Risks of Using the AWS CLI to Store Your Secrets](#best-practice_cli-exposure-risks)
++ [Cross\-account Access \- Should I Specify a User/Role or the Account?](#best-practice_cross-account-role-vs-account)
 
 ## Protect Additional Sensitive Information<a name="best-practice_what-not-to-put-in-secret-text"></a>
 
@@ -81,3 +82,29 @@ THIS IS MY TOP SECRET PASSWORD^Z                                                
 C:\> aws secretsmanager create-secret --name TestSecret --secret-string file://secret.txt      # The Secrets Manager command takes the --secret-string parameter from the contents of the file
 C:\> sdelete secret.txt                                                                        # The file is destroyed so it can no longer be accessed.
 ```
+
+## Cross\-account Access \- Should I Specify a User/Role or the Account?<a name="best-practice_cross-account-role-vs-account"></a>
+
+When you want to use a resource\-based policy that's attached to a secret to grant access to an IAM principal in a different AWS account, you have two options:
++ **Specify only the other account ID** – In the `Principal` element of the statement, you specify the Amazon Resource Name \(ARN\) of the "foreign" account's root\. This enables the administrator of the foreign account to delegate access to roles in the foreign account\. The administrator must then assign IAM permission policies to the role or roles that must be able to access the secret\.
+
+  ```
+  "Principal": {"AWS": arn:aws:iam::AccountId:root}
+  ```
++ **Specify the exact user or role in the other account** – You specify an exact user or role ARN as the `Principal` of a secret\-based policy\. You get the ARN from the administrator of the other account\. Only that single user or role in the account is able to access the resource\.
+
+  ```
+  "Principal": [ 
+      {"AWS": "arn:aws:iam::AccountId:role/MyCrossAccountRole"},
+      {"AWS": "arn:aws:iam::AccountId:user/MyUserName"}
+  ]
+  ```
+
+As a best practice, we recommend that you specify only the account in the secret\-based policy, for the following reasons: 
++ In both cases, you're trusting the administrator of the other account\. In the first case, you trust the administrator to ensure that only authorized individuals have access to the IAM user, or can assume the specified role\. This is essentially the same level of trust as specifying only the account ID\. You trust that account and its administrator\. When you specify only the account ID, you give the administrator the flexibility to manage their users as they see fit\.
++ When you specify an exact role, it's internally converted to a "principal ID" that's unique to that role\. If you delete the role and recreate it with the same name, it gets a new principal ID\. This means that the new role doesn't automatically get access to the resource\. This functionality is for security reasons, but it means that an accidental delete and restore can result in "broken" access\.
+
+When you grant permissions to only the account root, that set of permissions then becomes the limit of what the administrator of that account can delegate to their users and roles\. The administrator can't grant a permission to the resource that you didn't grant to the account first\.
+
+**Important**  
+If you choose to grant cross\-account access directly to the secret without using a role then the secret must be encrypted by using a custom AWS KMS customer master key \(CMK\)\. A principal from a different account must be granted permission to both the secret and to the custom AWS KMS CMK\. 

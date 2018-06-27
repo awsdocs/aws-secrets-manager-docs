@@ -32,7 +32,7 @@ The following diagram illustrates the most basic scenario\. It shows how you can
 1. The client app parses the credentials, connection string, and any other required information from the response and then uses that information to access the database server\.
 
 **Note**  
-Secrets Manager knows how to work with many types of secrets\. However, Secrets Manager can *natively* rotate credentials for [select AWS databases](#full-rotation-support) without requiring any additional programming\. However, rotating the secrets for other databases or services requires you to create a custom Lambda function to define how Secrets Manager interacts with the database or service\. You need some programming skill to create that function\. For more information, see [Rotating Your AWS Secrets Manager Secrets](rotating-secrets.md)\.
+Secrets Manager knows how to work with many types of secrets\. However, Secrets Manager can *natively* rotate credentials for [supported AWS databases](#full-rotation-support) without requiring any additional programming\. However, rotating the secrets for other databases or services requires you to create a custom Lambda function to define how Secrets Manager interacts with the database or service\. You need some programming skill to create that function\. For more information, see [Rotating Your AWS Secrets Manager Secrets](rotating-secrets.md)\.
 
 ## Features of Secrets Manager<a name="features"></a>
 
@@ -75,6 +75,8 @@ You can also store secrets for almost any other kind of database or service\. Ho
 
 You can attach AWS Identity and Access Management \(IAM\) permission policies to your users, groups, and roles that grant or deny access to specific secrets, and restrict what they can do with those secrets\. For example, you might attach one policy to a group whose members need the ability to fully manage and configure your secrets\. Another policy attached to a role that's used by an application might grant only read permission on the one secret that the application needs to run\.
 
+Alternatively, you can attach a resource\-based policy directly to the secret to grant permissions that specify who is allowed to read or modify the secret and its versions\. Unlike an identity\-based policy \(which automatically applies to the user, group, or role that it's attached to\), a resource\-based policy attached to a secret uses the `Principal` element to identify who the policy applies to\. The `Principal` element can include users and roles from the same account as the secret or principals from other accounts\.
+
 ## Compliance with Standards<a name="asm_compliance"></a>
 
 AWS Secrets Manager has undergone auditing for the following standards and can be part of your solution when you need to obtain compliance certification\.
@@ -114,4 +116,4 @@ If you create your own customer master keys by using AWS KMS to encrypt your sec
 
 ### AWS CloudTrail Logging – Storage and Notification<a name="pricing-cloudtrail"></a>
 
-If you enable AWS CloudTrail on your account, you can obtain logs of API calls that AWS Secrets Manager makes\. There's no additional charge for AWS CloudTrail\. However, you can incur charges for Amazon S3 for log storage and for Amazon SNS if you enable notification\. For more information, see the [AWS CloudTrail](https://aws.amazon.com/cloudtrail/pricing) pricing page\.
+If you enable AWS CloudTrail on your account, you can obtain logs of API calls that AWS Secrets Manager makes\. Secrets Manager logs all events as management events\. There are no data events\. There's no additional charge for capturing a single trail in AWS CloudTrail to capture management events\. The first copy of all management events is stored in that trail for free\. However, you can incur charges for Amazon S3 for log storage and for Amazon SNS if you enable notification\. Also, if you set up additional trails, the additional copies of management events can incur costs\. For more information, see the [AWS CloudTrail](https://aws.amazon.com/cloudtrail/pricing) pricing page\.

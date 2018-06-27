@@ -7,3 +7,4 @@ In this section, we describe how to create, update, and retrieve secrets by usin
 + [Modifying a Secret](manage_update-secret.md)
 + [Retrieving the Secret Value](manage_retrieve-secret.md)
 + [Deleting and Restoring a Secret](manage_delete-restore-secret.md)
++ [Managing a Resource\-based Policy for a Secret](manage_secret-policy.md)
