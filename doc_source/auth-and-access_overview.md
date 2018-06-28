@@ -191,7 +191,7 @@ The following example policy can be attached to a user, group, or role\. It allo
       "Resource": "arn:aws:secretsmanager:<region>:<account_id>:secret:TestEnv/-*",
       "Condition" : { 
         "ForAnyValue:StringLike" : {
-          "secretsmanager:Label" : "AWSCURRENT" 
+          "secretsmanager:VersionStage" : "AWSCURRENT" 
         } 
       }
     }
