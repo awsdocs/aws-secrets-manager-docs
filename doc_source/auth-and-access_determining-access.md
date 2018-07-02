@@ -35,9 +35,9 @@ Examine the secret policy document and take note of all principals that are spec
 
 ```
 {
-  "Sid": "Allow all users in an account read access to the secret",
+  "Sid": "Allow users or roles in account 111122223333 who are delegated access by that account's administrator to have read access to the secret",
   "Effect": "Allow",
-  "Principal":  {"AWS": "arn:aws:iam::111122223333:user\*"},
+  "Principal":  {"AWS": "arn:aws:iam::111122223333:root"},
   "Action": [
     "secretsmanager:List*",
     "secretsmanager:Describe*",
@@ -47,7 +47,7 @@ Examine the secret policy document and take note of all principals that are spec
 }
 ```
 
-In the preceding policy statement, `arn:aws:iam::111122223333:user\*` refers to the AWS account 111122223333 and explicitly grants access to users in that account\. 
+In the preceding policy statement, `arn:aws:iam::111122223333:root` refers to the AWS account 111122223333 and allows the administrator of that account to grant access to any users or roles in that account\. 
 
 You must also [examine all IAM policies](http://docs.aws.amazon.com/kms/latest/developerguide/determining-access.html#determining-access-iam-policies) in all AWS accounts that are listed as principals to determine whether they allow access to this secret\.
 
@@ -55,7 +55,7 @@ You must also [examine all IAM policies](http://docs.aws.amazon.com/kms/latest/d
 
 ```
 {
-  "Sid": "Allow full access to an individual user",
+  "Sid": "Grant full access to an individual user",
   "Effect": "Allow",
   "Principal":  {"AWS": "arn:aws:iam::111122223333:user/SecretsManagerAdmin" },
   "Action": [ "secretsmanager": "*" ],
@@ -69,7 +69,7 @@ In the preceding policy statement, `arn:aws:iam::111122223333:user/SecretsManage
 
 ```
 {
-  "Sid": "Allow an app associates with an IAM role to only read the current version of a secret",
+  "Sid": "Allow an app associated with an IAM role to only read the current version of a secret",
   " Effect": "Allow",
   "Principal":  {"AWS": "arn:aws:iam::111122223333:role/EncryptionApp" },
   "Action": ["secretsmanager:GetSecret"],

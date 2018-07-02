@@ -38,17 +38,15 @@ The following policy, when it's attached directly to a secret \(as part of the m
 
 ```
 {
-    "Policy": {
-        "Version": "2012-10-17",
-        "Statement": [
-            {
-                "Effect": "Allow",
-                "Principal": {"AWS": "arn:aws:iam::123456789012:user/mateo" },
-                "Action": "secretsmanager:GetSecretValue",
-                "Resource": "*"
-            }
-        ]
-    }
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {"AWS": "arn:aws:iam::123456789012:user/mateo" },
+            "Action": "secretsmanager:GetSecretValue",
+            "Resource": "*"
+        }
+    ]
 }
 ```
 

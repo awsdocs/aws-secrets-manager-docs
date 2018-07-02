@@ -34,7 +34,7 @@ If the database or service that your credentials are for resides in a VPC provid
    $ aws serverlessrepo create-cloud-formation-change-set \
              --application-id arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRotationTemplate \
              --stack-name MyLambdaCreationStack \
-             --parameter-overrides '[{"Name":"endpoint","Value":"https://secretsmanager.region.amazonaws.com"},{"Name":"functionName","Value":"MySecretsManagerRotationFuncion"}]'
+             --parameter-overrides '[{"Name":"endpoint","Value":"https://secretsmanager.region.amazonaws.com"},{"Name":"functionName","Value":"MySecretsManagerRotationFunction"}]'
    {
        "ApplicationId": "arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRDSMySQLRotationSingleUser",
        "ChangeSetId": "arn:aws:cloudformation:region:123456789012:changeSet/EXAMPLE1-90ab-cdef-fedc-ba987EXAMPLE/EXAMPLE2-90ab-cdef-fedc-ba987EXAMPLE",
@@ -54,8 +54,8 @@ If the database or service that your credentials are for resides in a VPC provid
    $ aws lambda list-functions
      {
        ...
-       "FunctionName": "MySecretsManagerRotationFuncion",
-       "FunctionArn": "arn:aws:lambda:us-west-2:123456789012:function:MySecretsManagerRotationFuncion",
+       "FunctionName": "MySecretsManagerRotationFunction",
+       "FunctionArn": "arn:aws:lambda:us-west-2:123456789012:function:MySecretsManagerRotationFunction",
        ...
      }
    ```
@@ -73,11 +73,11 @@ If the database or service that your credentials are for resides in a VPC provid
    }
    ```
 
-1. The following command is required only if your database is running in a VPC\. If it isn't, skip this command\. Look up the VPC information for your Amazon RDS database instance by using either the Amazon RDS console, or by using the `aws rds describe-instances` CLI command\. Then put that information in the following command and run it\.
+1. The following command is required only if your database is running in a VPC\. If it isn't, skip this command\. This command configures the Lambda rotation function to run in the VPC that your Amazon RDS DB instance is running in\. Look up the VPC information for your Amazon RDS DB instance by using either the Amazon RDS console, or by using the `aws rds describe-instances` CLI command\. Then put that information in the following command and run it\.
 
    ```
    $ aws lambda update-function-configuration \
-             --function-name arn:aws:lambda:us-west-2:123456789012:function:MySecretsManagerRotationFuncion \
+             --function-name arn:aws:lambda:us-west-2:123456789012:function:MySecretsManagerRotationFunction \
              --vpc-config SubnetIds=<COMMA SEPARATED LIST OF VPC SUBNET IDS>,SecurityGroupIds=<COMMA SEPARATED LIST OF SECURITY GROUP IDs> \
    ```
 
@@ -92,7 +92,7 @@ If the database or service that your credentials are for resides in a VPC provid
    ```
    $ aws secretsmanager rotate-secret \
              --secret-id production/MyAwesomeAppSecret \
-             --rotation-lambda-arn arn:aws:lambda:us-west-2:123456789012:function:MySecretsManagerRotationFuncion \
+             --rotation-lambda-arn arn:aws:lambda:us-west-2:123456789012:function:MySecretsManagerRotationFunction \
              --rotation-rules AutomaticallyAfterDays=7
    ```
 
