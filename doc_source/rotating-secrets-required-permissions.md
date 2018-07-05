@@ -2,11 +2,11 @@
 
 When you use the AWS Secrets Manager console to configure rotation for a secret for one of the [fully supported databases](rotating-secrets-rds.md#rds-supported-database-list), the console configures just about everything for you\. So you shouldn't have to manually configure the permissions described in this section\. But if you create your own rotation function or choose to do anything manually for other reasons, you might have to also manually configure the permissions for that part of the rotation\.
 
-## Permissions of Users Who Configure Rotation versus Users Who Trigger Rotation<a name="rotating-secrets-required-permissions-user-vs-function"></a>
+## Permissions of Users Who Configure Rotation vs\. Users Who Trigger Rotation<a name="rotating-secrets-required-permissions-user-vs-function"></a>
 
-There are two separate sets of permissions required for ***user*** operations involving secret rotation:
-+ **Permissions required to configure rotation** – These permissions are assigned to a trusted user who you want to be able to configure secret rotation\. For more information, see [Granting Full Secrets Manager Administrator Permissions to a User](http://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access_identity-based-policies.html#permissions_grant-admin-actions)\.
-+ **Permissions required to rotate the secret** – The only permission an IAM user needs to trigger rotation after it is configured is the `secretsmanager:RotateSecret`\. Once rotation starts, the Lambda rotation function uses its attached IAM role and its permissions to authorize the operations performed during rotation, including any required AWS KMS operations\.
+There are two separate sets of permissions required for ***user*** operations that involve secret rotation:
++ **Permissions that are required to configure rotation** – These permissions are assigned to a trusted user who you want to be able to configure secret rotation\. For more information, see [Granting Full Secrets Manager Administrator Permissions to a User](http://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access_identity-based-policies.html#permissions_grant-admin-actions)\.
++ **Permissions that are required to rotate the secret** – The only permission an IAM user needs to trigger rotation after it's configured is the `secretsmanager:RotateSecret` permission\. After rotation starts, the Lambda rotation function takes over and uses its attached IAM role and its permissions to authorize the operations that are performed during rotation, including any required AWS KMS operations\.
 
 The rest of this topic discusses the permissions that the Lambda rotation function must have to successfully rotate a secret\.
 
