@@ -143,7 +143,7 @@ One important advantage of using an AWS managed policy is that it's maintained b
 
 This is a very brief overview of IAM permission policies from the perspective of Secrets Manager\. For more detail about IAM policy syntax, see the [AWS IAM Policy Reference](http://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html) in the *IAM User Guide*\.
 
-Secrets Manager defines a set of API operations that can interact with or manipulate a secret in some way\. To grant permissions for these operations, Secrets Manager defines a set of corresponding [actions](reference_iam-permissions.md) that you can specify in a policy\. For example, Secrets Manager defines actions that work on a secret, such as `CreateSecret`, `GetSecretalue`, `ListSecrets`, and `RotateSecret`\.
+Secrets Manager defines a set of API operations that can interact with or manipulate a secret in some way\. To grant permissions for these operations, Secrets Manager defines a set of corresponding [actions](reference_iam-permissions.md) that you can specify in a policy\. For example, Secrets Manager defines actions that work on a secret, such as `CreateSecret`, `GetSecretValue`, `ListSecrets`, and `RotateSecret`\.
 
 A policy document must have a `Version` element\. We recommend always using the latest version to ensure that you can use all of the available features\. As of this writing, the only available version is `2012-10-17` \(the latest version\)\. 
 
@@ -207,7 +207,7 @@ For more example identity\-based policies, see [Using Identity\-Based Policies \
 
 Each Secrets Manager secret can have one resource\-based permissions policy \(a *secret policy*\) attached to it\. You can use a secret policy to grant cross\-account permissions as an alternative to using identity\-based policies with IAM roles\. For example, you can grant permissions to a user in account B to access your secret in account A by simply adding permissions to the secret policy, and identifying the user in account B as a `Principal`—instead of creating an IAM role\.
 
-The following is an example Secrets Manager secret policy that has one statement\. The statement allows the administrator of account 123456789012 to delegate permissions to users and roles in that account\. The permissions that the administrator can delegate are limited to the `secretsmanager:GetSecret` action on a single secret named "prod/ServerA\-a1b2c3"\. The condition ensures that the user can retrieve only the current version of the secret\.
+The following is an example Secrets Manager secret policy that has one statement\. The statement allows the administrator of account 123456789012 to delegate permissions to users and roles in that account\. The permissions that the administrator can delegate are limited to the `secretsmanager:GetSecretValue` action on a single secret named "prod/ServerA\-a1b2c3"\. The condition ensures that the user can retrieve only the current version of the secret\.
 
 ```
 {
