@@ -81,6 +81,17 @@ If the database or service that your credentials are for resides in a VPC provid
              --vpc-config SubnetIds=<COMMA SEPARATED LIST OF VPC SUBNET IDS>,SecurityGroupIds=<COMMA SEPARATED LIST OF SECURITY GROUP IDs> \
    ```
 
+1. If the VPC with your database instance and Lambda rotation function doesn't have internet access, then you must configure the VPC with a private service endpoint for Secrets Manager\. This enables the rotation function to access Secrets Manager at an endpoint within the VPC\.
+
+   ```
+   $ aws ec2 create-vpc-endpoint --vpc-id <VPC ID> /
+                                 --vpc-endpoint-type Interface /
+                                 --service-name com.amazonaws.<region>.secretsmanager /
+                                 --subnet-ids <COMMA SEPARATED LIST OF VPC SUBNET IDS> /
+                                 --security-group-ids <COMMA SEPARATED LIST OF SECURITY GROUP IDs> /
+                                 --private-dns-enabled
+   ```
+
 1. At this point, your Lambda rotation function is ready for you to enter the code\.
 
    Open the AWS Lambda console at [https://console\.aws\.amazon\.com/lambda/](https://console.aws.amazon.com/lambda/)\.

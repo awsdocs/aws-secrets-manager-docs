@@ -47,7 +47,7 @@ If you see an expand arrow \(**↗**\) in the upper\-right corner of the table, 
 | --- | --- | 
 |  Secret |  arn:aws:secretsmanager:*<Region>*:*<AccountId>*:secret:*OptionalPath/**SecretName*\-*6RandomCharacters*  | 
 
-Secrets Manager constructs the last part of the ARN by appending a dash and six random alphanumeric characters at the end of your secret's name\. This helps ensure that if you ever delete a secret and then recreate another with the same name that individuals with permissions to the original secret don't automatically get access to the new secret because the six random characters will be different\.
+Secrets Manager constructs the last part of the ARN by appending a dash and six random alphanumeric characters at the end of your secret's name\. If you ever delete a secret and then recreate another with the same name, this formatting helps ensure that individuals with permissions to the original secret don't automatically get access to the new secret because the six random characters will be different\.
 
 ## Context Keys That You Can Reference in an IAM Policy or Secret Policy<a name="iam-contextkeys"></a>
 
@@ -72,8 +72,34 @@ The following table shows the Secrets Manager\-specific context keys that you ca
 |   Description  |  Filters the request based on the Description parameter in the request\.  | 
 |   KmsKeyId  |  Filters the request based on the KmsKeyId parameter of the request\. This enables you to limit which keys can be used in a request\.  | 
 |   Name  |  Filters the request based on Name parameter value of the request\. This enables you to restrict a secret's name to only those matching this value\.  | 
-|   RotationLambdaArn  |  Filters the request based on the RotationLambdaARN parameter\. This enables you to restrict which Lambda rotation functions can be used with a secret\. It can be used with both CreateSecret and the operations that modify existing secrets\.  | 
+|   RotationLambdaArn  |  Filters the request based on the `RotationLambdaARN` parameter\. This enables you to restrict which Lambda rotation functions can be used with a secret\. It can be used with both CreateSecret and the operations that modify existing secrets\.  | 
 |   VersionId  |  Filters the request based on the VersionId parameter of the request\. This enables you to restrict which versions of a secret can be accessed\.   | 
 |   VersionStage  |  Filters the request based on the staging labels that are identified in the VersionStage parameter of a request\. This enables you to restrict access to only the secret versions that have a staging label that matches one of the values in this string array parameter\. Because this is a multi\-valued string array, [you must use one of the set operators to compare strings with this value\.](http://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_multi-value-conditions.html)  | 
 |   resource/AllowRotationLambda  | Filters the request based on the ARN of the Lambda rotation function attached to the resource that the request is targeting\. This enables you to restrict access to only those secrets that already have a rotation Lambda ARN that matches this value\. | 
 | resourcetag/tagname | Filters the request based on a tag attached to the secret\. Replace tagname with the actual tag name\. You can then use condition operators to ensure that the tag is present, and that it has the requested value\. | 
+
+### AWS Global Condition Keys<a name="iam-contextkeys-global"></a>
+
+AWS provides [global condition keys](http://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#AvailableKeys), which are a set of predefined condition keys for all AWS services that use IAM for access control\. For example, you can use the `aws:PrincipalType` condition key to allow access only when the principal in the request is the type you specify\.
+
+Secrets Manager supports all global condition keys, including the `aws:TagKeys` and `aws:RequestTag` condition keys that control access based on the resource tag in the request\. These condition keys are supported by some, but not all, AWS services\.
+
+**Topics**
++ [Using the IP Address Condition in Policies with Secrets Manager Permissions](#iam-contextkeys-ipaddress)
++ [Using VPC Endpoint Conditions in Policies with Secrets Manager Permissions](#iam-contextkeys-vpcendpoint)
+
+#### Using the IP Address Condition in Policies with Secrets Manager Permissions<a name="iam-contextkeys-ipaddress"></a>
+
+You can use Secrets Manager to protect your credentials for a database or service\. However, use caution when you specify the [IP address condition operators](http://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition_operators.html#Conditions_IPAddress) or the `aws:SourceIp` condition key in the same policy statement that allows or denies access to Secrets Manager\. For example, the policy in [AWS: Denies Access to AWS Based on the Source IP](http://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_examples_aws_deny-ip.html) restricts AWS actions to requests from the specified IP range\.
+
+If you attach a similar policy to a secret that enables the secret to be accessed only from your corporate network's IP address range, then your requests as an IAM user invoking the request from the corporate network work fine\. However, if you enable other services to access the secret on your behalf, such as when you enable rotation with a Lambda function, that function calls the Secrets Manager operations from an AWS\-internal address space\. Requests that are impacted by the policy with the IP address filter fail\.
+
+Also, the `aws:sourceIP` condition key isn't effective when the request comes from an [Amazon VPC endpoint](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-endpoints.html)\. To restrict requests to a specific VPC endpoint, including a [Secrets Manager VPC endpoint](http://docs.aws.amazon.com/kms/latest/developerguide/kms-vpc-endpoint.html), use the `aws:sourceVpce` or `aws:sourceVpc` condition keys\. For more information, see [VPC Endpoints \- Controlling the Use of Endpoints](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-endpoints.html#vpc-endpoints-iam-access) in the *Amazon VPC User Guide*\.
+
+#### Using VPC Endpoint Conditions in Policies with Secrets Manager Permissions<a name="iam-contextkeys-vpcendpoint"></a>
+
+[Secrets Manager supports Amazon VPC endpoints](rotation-network-rqmts.md#vpc-endpoint) that are provided by [AWS PrivateLink](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Introduction.html#what-is-privatelink)\. You can use the following [global condition keys](http://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#AvailableKeys) in IAM policies or [resource\-based policies](auth-and-access_resource-based-policies.md) to allow or deny access to requests from a particular VPC or VPC endpoint\.
++ `aws:SourceVpc` limits access to requests from the specified VPC\.
++ `aws:SourceVpce` limits access to requests from the specified VPC endpoint\.
+
+If you use these condition keys in a secret policy statement that allows or denies access to Secrets Manager secrets, you can inadvertently deny access to services that use Secrets Manager to access secrets on your behalf\. Only some AWS services can run with an endpoint within your VPC\. If you restrict requests for a secret to a VPC or VPC endpoint, then calls to Secrets Manager from a service that isn't configured to run in that VPC can fail\.

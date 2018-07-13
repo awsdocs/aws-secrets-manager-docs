@@ -201,7 +201,7 @@ The following example policy can be attached to a user, group, or role\. It allo
 
 Because a secret version can have multiple staging labels attached, you need to use the [IAM policy language's "set operators"](http://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_multi-value-conditions.html) to compare them in a policy\. In the previous example, `ForAnyValue:StringLike` says that if any one of the staging labels that are attached to the secret version being evaluated matches the string "`AWSCURRENT`", then the statement matches, and the `Effect` is applied\.
 
-For more example identity\-based policies, see [Using Identity\-Based Policies \(IAM Policies\) for AWS Secrets Manager](auth-and-access_identity-based-policies.md)\. For more information about users, groups, roles, and permissions, see [Identities \(Users, Groups, and Roles\)](http://docs.aws.amazon.com/IAM/latest/UserGuide/id.html) in the *IAM User Guide*\.
+For more example identity\-based policies, see [Using Identity\-based Policies \(IAM Policies\) for Secrets Manager](auth-and-access_identity-based-policies.md)\. For more information about users, groups, roles, and permissions, see [Identities \(Users, Groups, and Roles\)](http://docs.aws.amazon.com/IAM/latest/UserGuide/id.html) in the *IAM User Guide*\.
 
 #### Resource\-based Policies<a name="auth-and-access_resource-policies"></a>
 

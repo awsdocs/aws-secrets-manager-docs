@@ -16,5 +16,5 @@ For the permissions that are available specifically for use with AWS Secrets Man
 
 The following sections describe how to manage permissions for AWS Secrets Manager\. We recommend that you read the overview first\.
 + [Overview of Managing Access Permissions to Your Secrets Manager Secrets](auth-and-access_overview.md)
-+ [Using Identity\-Based Policies \(IAM Policies\) for AWS Secrets Manager](auth-and-access_identity-based-policies.md)
++ [Using Identity\-based Policies \(IAM Policies\) for Secrets Manager](auth-and-access_identity-based-policies.md)
 + [Using Resource\-based Policies for Secrets Manager](auth-and-access_resource-based-policies.md)

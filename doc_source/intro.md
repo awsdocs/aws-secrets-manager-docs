@@ -68,10 +68,10 @@ Staging labels help you to keep track of the different versions of your secrets\
 
 #### Databases with Fully Configured and Ready\-to\-Use Rotation Support<a name="full-rotation-support"></a>
 
-When you choose to enable rotation, the following Amazon Relational Database Service \(Amazon RDS\) databases are fully supported with AWS written and tested Lambda rotation function templates, and full configuration of the rotation process:
-+ Amazon Aurora
-+ MySQL
-+ PostgreSQL
+When you choose to enable rotation, the following Amazon Relational Database Service \(Amazon RDS\) databases are fully supported with AWS written and tested Lambda rotation function templates, and full configuration of the rotation process:<a name="rds-supported-database-list"></a>
++ Amazon Aurora on Amazon RDS
++ MySQL on Amazon RDS
++ PostgreSQL on Amazon RDS
 
 You can also store secrets for almost any other kind of database or service\. However, to automatically rotate them you'll need to create and configure a custom Lambda rotation function yourself\. For more information about writing a custom Lambda function for a database or service, see [Overview of the Lambda Rotation Function](rotating-secrets-lambda-function-overview.md)\. 
 
@@ -88,7 +88,7 @@ AWS Secrets Manager has undergone auditing for the following standards and can b
 
 |  |  | 
 | --- |--- |
-| ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/secretsmanager/latest/userguide/images/HIPAA.jpg) |  AWS has expanded its Health Insurance Portability and Accountability Act \(HIPAA\) compliance program to include AWS Secrets Manager as a [HIPAA Eligible Service](https://aws.amazon.com/compliance/hipaa-eligible-services-reference/)\. If you have an executed Business Associate Agreement \(BAA\) with AWS, you can use Secrets Manager to help build your HIPAA\-compliant applications\. AWS offers a [HIPAA\-focused whitepaper](https://d0.awsstatic.com/whitepapers/compliance/AWS_HIPAA_Compliance_Whitepaper.pdf) for customers who are interested in learning more about how they can leverage AWS for the processing and storage of health information\. For more information, see [HIPAA Compliance](https://aws.amazon.com/compliance/hipaa-compliance/)\.  | 
+| ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/secretsmanager/latest/userguide/images/HIPAA.jpg) |  AWS has expanded its Health Insurance Portability and Accountability Act \(HIPAA\) compliance program to include AWS Secrets Manager as a [HIPAA\-eligible service](https://aws.amazon.com/compliance/hipaa-eligible-services-reference/)\. If you have an executed Business Associate Agreement \(BAA\) with AWS, you can use Secrets Manager to help build your HIPAA\-compliant applications\. AWS offers a [HIPAA\-focused whitepaper](https://d0.awsstatic.com/whitepapers/compliance/AWS_HIPAA_Compliance_Whitepaper.pdf) for customers who are interested in learning more about how they can leverage AWS for the processing and storage of health information\. For more information, see [HIPAA Compliance](https://aws.amazon.com/compliance/hipaa-compliance/)\.  | 
 
 ## Accessing Secrets Manager<a name="asm_access"></a>
 

@@ -1,6 +1,6 @@
 # Permissions Required to Automatically Rotate Secrets<a name="rotating-secrets-required-permissions"></a>
 
-When you use the AWS Secrets Manager console to configure rotation for a secret for one of the [fully supported databases](rotating-secrets-rds.md#rds-supported-database-list), the console configures just about everything for you\. So you shouldn't have to manually configure the permissions described in this section\. But if you create your own rotation function or choose to do anything manually for other reasons, you might have to also manually configure the permissions for that part of the rotation\.
+When you use the AWS Secrets Manager console to configure rotation for a secret for one of the [fully supported databases](intro.md#rds-supported-database-list), the console configures just about everything for you\. So you shouldn't have to manually configure the permissions described in this section\. But if you create your own rotation function or choose to do anything manually for other reasons, you might have to also manually configure the permissions for that part of the rotation\.
 
 ## Permissions of Users Who Configure Rotation vs\. Users Who Trigger Rotation<a name="rotating-secrets-required-permissions-user-vs-function"></a>
 

@@ -1,6 +1,6 @@
 # Enabling Rotation for an Amazon RDS Database Secret<a name="enable-rotation-rds"></a>
 
-You can enable rotation for a secret that has credentials for a [supported Amazon RDS database](rotating-secrets-rds.md#rds-supported-database-list) by using the [AWS Secrets Manager console](#proc-enable-rotation-rds-console), the AWS CLI, or one of the AWS SDKs\.
+You can enable rotation for a secret that has credentials for a [supported Amazon RDS database](intro.md#rds-supported-database-list) by using the [AWS Secrets Manager console](#proc-enable-rotation-rds-console), the AWS CLI, or one of the AWS SDKs\.
 
 **Warning**  
 Enabling rotation causes the secret to rotate once immediately when you save the secret\. Before you enable rotation, ensure that all of your applications that use this secret's credentials are updated to retrieve the secret from Secrets Manager\. The original credentials might not be usable after the initial rotation\. Any applications that you fail to update break as soon as the old credentials are no longer valid\.
@@ -8,7 +8,7 @@ Enabling rotation causes the secret to rotate once immediately when you save the
 **Prerequisites: Network Requirements to Enable Rotation**  
 To successfully enable rotation, you must have your network environment configured correctly\.
 + **The Lambda function must be able to communicate with the database\.** If your RDS database instance is running in a [VPC](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/auth-and-access.xmlVPC_Introduction.html), we recommend that you configure your Lambda function to run in the same VPC\. This enables direct connectivity between the rotation function and your service\. To configure this, on the Lambda function's details page, scroll down to the **Network** section and choose the **VPC** from the drop\-down list to match the one your instance is running in\. You must also make sure that the EC2 security groups attached to your instance enable communication between the instance and Lambda\.
-+ **The Lambda function must be able to communicate with the Secrets Manager service endpoint\.** Each of the [available endpoints for Secrets Manager](http://docs.aws.amazon.com/general/latest/gr/rande.html#asm_region) is on the public Internet, so your Lambda must be able to access the Internet\. If your database instance and your Lambda rotation function reside in a VPC, you must provide a way for resources in the VPC to connect to the Internet\. You can do this by adding a [NAT Gateway](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-nat.html) or [Internet Gateway](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/auth-and-access.xmlVPC_Internet_Gateway.html) to your VPC\.
++ **The Lambda function must be able to communicate with the Secrets Manager service endpoint\.** If your Lambda rotation function can access the internet, either because the function isn't configured to run in a VPC, or because the VPC has an [attached NAT gateway](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-nat-gateway.html), then you can use [any of the available public endpoints for Secrets Manager](http://docs.aws.amazon.com/general/latest/gr/rande.html#asm_region)\. Alternatively, if your Lambda function is configured to run in a VPC that doesn't have internet access at all, then you can [configure the VPC with a private Secrets Manager service endpoint](rotation-network-rqmts.md)\.
 
 **To enable and configure rotation for a supported Amazon RDS database secret**  
 Follow the steps under one of the following tabs:
@@ -48,7 +48,7 @@ This option requires the Lambda function to clone the permissions of the origina
 
    1. When rotation configuration completes, the following message appears at the top of the page:
 
-      *Your secret *<secret name>* has been successfully stored and secret rotation is enabled\. To finish configuring rotation, you need to provide the *role* permissions to access the value of the secret *<ARN of your master secret>**\.
+      *Your secret *<secret name>* has been successfully stored and secret rotation is enabled\. To finish configuring rotation, you need to provide the *role* permissions to access the value of the secret *<Amazon Resource Name \(ARN\) of your master secret>**\.
 
       You must manually modify the policy for the role to grant the rotation function GetSecretValue access to the master secret\. Secrets Manager can't do this for you for security reasons\. Rotation of the secret fails until you complete the following steps because it can't access the master secret\.
 
@@ -97,7 +97,9 @@ The following is an example AWS CLI session that performs the equivalent of the 
 
 The following example uses the generic template, so it uses the last ARN that was shown earlier\.
 
-If your database or service resides in a VPC provided by Amazon VPC, then you must include the fourth command below that configures the function to communicate with that VPC\. If no VPC is involved, then you can skip that command\.
+If your database or service resides in a VPC provided by Amazon VPC, then you must include the fourth of the following commands to configure the function to communicate with that VPC\. If no VPC is involved, then you can skip that command\.
+
+Also, if your VPC doesn't have access to the public internet, then you must configure your VPC with a private service endpoint for Secrets Manager\. The fifth of the following commands does that\.
 
 The first command sets up an AWS CloudFormation change set based on the template provided by Secrets Manager\.
 
@@ -138,7 +140,7 @@ $ aws lambda add-permission \
 }
 ```
 
-The following command is required only if your database is running in a VPC\. If it isn't, skip this command\. Look up the VPC information for your Amazon RDS instance by using either the Amazon RDS console, or by using the `aws rds describe-instances` CLI command\. Then put that information in the following command and run it\.
+The following command is required only if your database is running in a VPC\. If it isn't, skip this command\. Look up the VPC information for your Amazon RDS DB instance by using either the Amazon RDS console, or by using the `aws rds describe-instances` CLI command\. Then put that information in the following command and run it\.
 
 ```
 $ aws lambda update-function-configuration \
@@ -146,7 +148,18 @@ $ aws lambda update-function-configuration \
           --vpc-config SubnetIds=<COMMA SEPARATED LIST OF VPC SUBNET IDS>,SecurityGroupIds=<COMMA SEPARATED LIST OF SECURITY GROUP IDs>
 ```
 
-If you created a function using a template that requires a master secret, then you must also add the following statement to the function's role policy\. For complete instructions, see [Granting a Rotation Function Permission to Access a Separate Master Secret](auth-and-access_identity-based-policies.md#permissions-grant-rotation-role-access-to-master-secret)\.
+If the VPC with your database instance and Lambda rotation function doesn't have internet access, then you must configure the VPC with a private service endpoint for Secrets Manager\. This enables the rotation function to access Secrets Manager at an endpoint within the VPC\.
+
+```
+$ aws ec2 create-vpc-endpoint --vpc-id <VPC ID> /
+                              --vpc-endpoint-type Interface /
+                              --service-name com.amazonaws.<region>.secretsmanager /
+                              --subnet-ids <COMMA SEPARATED LIST OF VPC SUBNET IDS> /
+                              --security-group-ids <COMMA SEPARATED LIST OF SECURITY GROUP IDs> /
+                              --private-dns-enabled
+```
+
+If you created a function using a template that requires a master secret, then you must also add the following statement to the function's role policy\. This grants permission to the rotation function to retrieve the secret value for the master secret\. For complete instructions, see [Granting a Rotation Function Permission to Access a Separate Master Secret](auth-and-access_identity-based-policies.md#permissions-grant-rotation-role-access-to-master-secret)\.
 
 ```
         {

@@ -2,18 +2,12 @@
 
 You can configure AWS Secrets Manager to automatically rotate the secret for an Amazon RDS database\. Secrets Manager uses a Lambda function that Secrets Manager provides\.
 
-**Supported Amazon RDS Databases**<a name="rds-supported-database-list"></a>
+**Supported Amazon RDS Databases**  
+For the purposes of the Amazon RDS options in Secrets Manager, a "supported" database means that when you enable rotation, Secrets Manager provides a complete, ready\-to\-run Lambda rotation function that's designed for that database\. For a complete list of the supported databases, see [Databases with Fully Configured and Ready\-to\-Use Rotation Support](intro.md#full-rotation-support)\. For any other type of database, you can still rotate your secret\. However, you must use the workflow for **Other database**\. For those instructions, see [Rotating AWS Secrets Manager Secrets for Other Databases or Services](rotating-secrets-other.md)\.
 
-For the purposes of the Amazon RDS options in Secrets Manager, a "supported" database means that when you enable rotation, Secrets Manager provides a complete, ready\-to\-run Lambda rotation function that's designed for that database\. For any other type of Amazon RDS database, you can still rotate your secret\. However, you must use the workflow for **Other database**\. For those instructions, see [Rotating AWS Secrets Manager Secrets for Other Databases or Services](rotating-secrets-other.md)\. 
+When you enable rotation for a secret with **Credentials for RDS database** as the secret type, Secrets Manager automatically creates and configures a Lambda rotation function for you\. Then it equips your secret with the Amazon Resource Name \(ARN\) of the function\. Secrets Manager creates the IAM role that's associated with the function and configures it with all of the required permissions\. 
 
-The following list shows the Amazon RDS databases for which Secrets Manager provides and configures a complete, ready\-to\-use rotation function for you, without any additional steps\.
-+ Amazon Aurora on Amazon RDS
-+ MySQL running on Amazon RDS
-+ PostgreSQL running on Amazon RDS
-
-When you enable rotation for a secret with **Credentials for RDS database** as the secret type, Secrets Manager automatically creates and configures a Lambda rotation function for you, and then equips your secret with the Amazon Resource Name \(ARN\) of the function\. Secrets Manager creates the IAM role that's associated with the function and configures it with all of the required permissions\. 
-
-If your Amazon RDS database is running in a VPC provided by Amazon VPC, Secrets Manager also configures the Lambda function to communicate with that VPC\. The only requirement of the VPC is that it must have an NAT gateway to enable the Lambda rotation function to query the Secrets Manager service endpoint on the internet\. 
+If your Amazon RDS DB instance is running in a VPC provided by Amazon VPC and that VPC doesn't have public internet access, then Secrets Manager also configures the Lambda function to run within that VPC\. The other requirement is that the Lambda rotation function must be able to access a Secrets Manager service endpoint to call the required API operations\. If one or more of your resources in the VPC must communicate with the internet, then you can configure the VPC with a NAT gateway to enable the Lambda rotation function to query the public Secrets Manager service endpoint\. If there is no other need to communicate with the internet, you can [configure the VPC with a private Secrets Manager service endpoint](rotation-network-rqmts.md) that's accessible from within the VPC\. 
 
 Otherwise, you typically only need to provide a few details that determine which template is used to construct the Lambda function:
 + **Specify the secret that has credentials with permissions to rotate the secret**: Sometimes the user can change their own password\. Other times, the user has very restricted permissions and can't change their own password\. Instead, you must use the credentials for a different administrator or "super" user to change the user's credentials\. 

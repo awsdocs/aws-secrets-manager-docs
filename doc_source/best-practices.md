@@ -6,7 +6,8 @@ The following recommendations help you to more securely use AWS Secrets Manager:
 + [Protect Additional Sensitive Information](#best-practice_what-not-to-put-in-secret-text)
 + [Mitigate the Risks of Logging and Debugging Your Lambda Function](#best-practice_lamda-debug-statements)
 + [Mitigate the Risks of Using the AWS CLI to Store Your Secrets](#best-practice_cli-exposure-risks)
-+ [Cross\-account Access \- Should I Specify a User/Role or the Account?](#best-practice_cross-account-role-vs-account)
++ [Cross\-Account Access – Should I Specify a User/Role or the Account?](#best-practice_cross-account-role-vs-account)
++ [Run Everything in a VPC](#best-practice_using-a-vpc)
 
 ## Protect Additional Sensitive Information<a name="best-practice_what-not-to-put-in-secret-text"></a>
 
@@ -83,7 +84,7 @@ C:\> aws secretsmanager create-secret --name TestSecret --secret-string file://s
 C:\> sdelete secret.txt                                                                        # The file is destroyed so it can no longer be accessed.
 ```
 
-## Cross\-account Access \- Should I Specify a User/Role or the Account?<a name="best-practice_cross-account-role-vs-account"></a>
+## Cross\-Account Access – Should I Specify a User/Role or the Account?<a name="best-practice_cross-account-role-vs-account"></a>
 
 When you want to use a resource\-based policy that's attached to a secret to grant access to an IAM principal in a different AWS account, you have two options:
 + **Specify only the other account ID** – In the `Principal` element of the statement, you specify the Amazon Resource Name \(ARN\) of the "foreign" account's root\. This enables the administrator of the foreign account to delegate access to roles in the foreign account\. The administrator must then assign IAM permission policies to the role or roles that must be able to access the secret\.
@@ -107,4 +108,14 @@ As a best practice, we recommend that you specify only the account in the secret
 When you grant permissions to only the account root, that set of permissions then becomes the limit of what the administrator of that account can delegate to their users and roles\. The administrator can't grant a permission to the resource that you didn't grant to the account first\.
 
 **Important**  
-If you choose to grant cross\-account access directly to the secret without using a role then the secret must be encrypted by using a custom AWS KMS customer master key \(CMK\)\. A principal from a different account must be granted permission to both the secret and to the custom AWS KMS CMK\. 
+If you choose to grant cross\-account access directly to the secret without using a role, then the secret must be encrypted by using a custom AWS KMS customer master key \(CMK\)\. A principal from a different account must be granted permission to both the secret and the custom AWS KMS CMK\. 
+
+## Run Everything in a VPC<a name="best-practice_using-a-vpc"></a>
+
+Whenever possible, you should run as much of your infrastructure on private networks that aren't accessible from the public internet\. To do this, host your servers and services in a virtual private cloud \(VPC\) provided by Amazon VPC\. This is a virtualized private network that's accessible only to the resources in your account\. It's not visible to or accessible by the public internet, unless you explicitly configure it with access\. For example, you could add a NAT gateway\. For complete information about Amazon VPC, see the [Amazon VPC User Guide](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/)\.
+
+To enable secret rotation within a VPC environment, perform these steps:
+
+1. Configure your Lambda rotation function to run within the same VPC as the database server or service whose secret is rotated\. For more information, see [Configuring a Lambda Function to Access Resources in an Amazon VPC](http://docs.aws.amazon.com/lambda/latest/dg/vpc.html) in the *AWS Lambda Developer Guide*\.
+
+1. The Lambda rotation function, which is now running from within your VPC, must be able to access a Secrets Manager service endpoint\. If the VPC has no direct internet connectivity, then you can configure your VPC with a private Secrets Manager endpoint that can be accessed by all of the resources in your VPC\. For details, see [Configuring Your Network to Support Rotating Secrets](rotation-network-rqmts.md)\.

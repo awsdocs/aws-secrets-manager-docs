@@ -6,7 +6,7 @@ One advantage of resource\-based policies over identity\-based policies is that 
 
 For an overview of the basic elements for policies, see [Managing Access to Resources with Policies](auth-and-access_overview.md#auth-and-access_resource-access)\.
 
-For information about the alternative, identity\-based permission policies, see [Using Identity\-Based Policies \(IAM Policies\) for AWS Secrets Manager](auth-and-access_identity-based-policies.md)\.
+For information about the alternative, identity\-based permission policies, see [Using Identity\-based Policies \(IAM Policies\) for Secrets Manager](auth-and-access_identity-based-policies.md)\.
 
 **Topics**
 + [Controlling Which Principals Can Access a Secret](#permissions_grant-limited-principal)
