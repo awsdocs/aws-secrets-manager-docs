@@ -1,4 +1,4 @@
-# Troubleshooting AWS Secrets Manager Rotation of Secrets<a name="org_troubleshoot_rotation"></a>
+# Troubleshooting AWS Secrets Manager Rotation of Secrets<a name="troubleshoot_rotation"></a>
 
 Use the information here to help you diagnose and fix common errors that you might encounter when you're rotating Secrets Manager secrets\.
 
@@ -92,6 +92,8 @@ When you configure rotation, if you let Secrets Manager create the rotation func
 }
 ```
 
+[Suggest improvements to this example on GitHub\.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/iam_policies/secretsmanager/asm-official-role-policy-for-rotation-function-single-secret.json)
+
 Also, if your rotation uses separate master secret credentials to rotate this secret, then you must also grant permission to retrieve the secret value from the master secret\. For more information, see [My first rotation fails after I enable rotation](#tshoot-lambda-initialconfig-mastersecret)\. The combined policy might look like this:
 
 ```
@@ -119,3 +121,5 @@ Also, if your rotation uses separate master secret credentials to rotate this se
     ]
 }
 ```
+
+[Suggest improvements to this example on GitHub\.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/iam_policies/secretsmanager/asm-official-role-policy-for-rotation-function-master-secret.json)

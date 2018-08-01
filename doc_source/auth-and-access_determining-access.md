@@ -35,9 +35,9 @@ Examine the secret policy document and take note of all principals that are spec
 
 ```
 {
-  "Sid": "Allow users or roles in account 111122223333 who are delegated access by that account's administrator to have read access to the secret",
+  "Sid": "Allow users or roles in account 123456789012 who are delegated access by that account's administrator to have read access to the secret",
   "Effect": "Allow",
-  "Principal":  {"AWS": "arn:aws:iam::111122223333:root"},
+  "Principal":  {"AWS": "&region-arn;iam::123456789012:root"},
   "Action": [
     "secretsmanager:List*",
     "secretsmanager:Describe*",
@@ -47,6 +47,8 @@ Examine the secret policy document and take note of all principals that are spec
 }
 ```
 
+[Suggest improvements to this example on GitHub\.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/iam_policies/secretsmanager/asm-resource-policy-grants-xacct-read.json)
+
 In the preceding policy statement, `arn:aws:iam::111122223333:root` refers to the AWS account 111122223333 and allows the administrator of that account to grant access to any users or roles in that account\. 
 
 You must also [examine all IAM policies](http://docs.aws.amazon.com/kms/latest/developerguide/determining-access.html#determining-access-iam-policies) in all AWS accounts that are listed as principals to determine whether they allow access to this secret\.
@@ -55,30 +57,38 @@ You must also [examine all IAM policies](http://docs.aws.amazon.com/kms/latest/d
 
 ```
 {
-  "Sid": "Grant full access to an individual user",
-  "Effect": "Allow",
-  "Principal":  {"AWS": "arn:aws:iam::111122223333:user/SecretsManagerAdmin" },
-  "Action": [ "secretsmanager": "*" ],
-  "Resource": "*"
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "secretsmanager:*",
+            "Principal": {"AWS": "&region-arn;iam::123456789012:user/anaya"},
+            "Resource": "*"
+        }
+    ]
 }
 ```
 
-In the preceding policy statement, `arn:aws:iam::111122223333:user/SecretsManagerAdmin` refers to the IAM user named SecretsManagagerAdmin in AWS account 111122223333\. This user is allowed to perform all Secrets Manager actions\.
+[Suggest improvements to this example on GitHub\.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/iam_policies/secretsmanager/asm-resource-policy-grant-all-perms-to-anaya.json)
+
+In the preceding policy statement, `arn:aws:iam::111122223333:user/anaya` refers to the IAM user named Anaya in AWS account 111122223333\. This user is allowed to perform all Secrets Manager actions\.
 
 **Example Policy Statement 3**
 
 ```
 {
-  "Sid": "Allow an app associated with an IAM role to only read the current version of a secret",
+  "Sid": "Allow an app associated with an &IAM; role to only read the current version of a secret",
   " Effect": "Allow",
-  "Principal":  {"AWS": "arn:aws:iam::111122223333:role/EncryptionApp" },
+  "Principal":  {"AWS": "&region-arn;iam::123456789012:role/EncryptionApp" },</emphasis>
   "Action": ["secretsmanager:GetSecret"],
   "Condition": { "ForAnyValue:StringEquals": {"secretsmanager:VersionStage": "AWSCURRENT" } },
   "Resource": "*"
 }
 ```
 
-In the preceding policy statement, `arn:aws:iam::111122223333:role/EncryptionApp` refers to the IAM role named EncryptionApp in AWS account 111122223333\. Principals that can assume this role are allowed to perform the one action that's listed in the policy statement\. This action is to get the details for the current version of the secret\.
+[Suggest improvements to this example on GitHub\.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/iam_policies/secretsmanager/asm-resource-policy-grant-role-for-app-access-to-awscurrent.json)
+
+In the preceding policy statement, `arn:aws:iam::123456789012:role/EncryptionApp` refers to the IAM role named EncryptionApp in AWS account 123456789012\. Principals that can assume this role are allowed to perform the one action that's listed in the policy statement\. This action is to get the details for the current version of the secret\.
 
 To learn all the different ways that you can specify a principal in a secret policy document, see [Specifying a Principal](http://docs.aws.amazon.com/IAM/latest/UserGuide/auth-and-access.xmlreference_policies_elements.html#Principal_specifying) in the *IAM User Guide*\.
 
