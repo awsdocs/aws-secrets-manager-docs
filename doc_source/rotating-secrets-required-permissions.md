@@ -68,8 +68,7 @@ The Lambda function is invoked by the Secrets Manager service itself\. The servi
                 "Action": [
                     "ec2:CreateNetworkInterface",
                     "ec2:DeleteNetworkInterface",
-                    "ec2:DescribeNetworkInterfaces",
-                    "ec2:DetachNetworkInterface"
+                    "ec2:DescribeNetworkInterfaces"
                 ],
                 "Resource": "*",
                 "Effect": "Allow"
@@ -114,8 +113,7 @@ The Lambda function is invoked by the Secrets Manager service itself\. The servi
                 "Action": [
                     "ec2:CreateNetworkInterface",
                     "ec2:DeleteNetworkInterface",
-                    "ec2:DescribeNetworkInterfaces",
-                    "ec2:DetachNetworkInterface"
+                    "ec2:DescribeNetworkInterfaces"
                 ],
                 "Resource": "*",
                 "Effect": "Allow"
