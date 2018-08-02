@@ -116,7 +116,7 @@ Also, if your rotation uses separate master secret credentials to rotate this se
             "Sid": "AllowAccessToMasterSecret",
             "Effect": "Allow",
             "Action": "secretsmanager:GetSecretValue",
-            "Resource": "ARN_of_master_secret"
+            "Resource": "<arn_of_master_secret>"
         }
     ]
 }

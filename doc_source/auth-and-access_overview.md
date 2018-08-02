@@ -176,26 +176,26 @@ The following example policy can be attached to a user, group, or role\. It allo
 
 ```
 {
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid" : "Stmt1DescribeSecret",  
-      "Effect": "Allow",
-      "Action": [ "secretsmanager:DescribeSecret" ],
-      "Resource": "arn:aws:secretsmanager:<region>:<account_id>:secret:TestEnv/*"
-    },
-    {
-      "Sid" : "Stmt2GetSecretValue",  
-      "Effect": "Allow",
-      "Action": [ "secretsmanager:GetSecretValue" ],
-      "Resource": "arn:aws:secretsmanager:<region>:<account_id>:secret:TestEnv/-*",
-      "Condition" : { 
-        "ForAnyValue:StringLike" : {
-          "secretsmanager:VersionStage" : "AWSCURRENT" 
-        } 
-      }
-    }
-  ]
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+           "Sid" : "Stmt1DescribeSecret",  
+           "Effect": "Allow",
+           "Action": [ "secretsmanager:DescribeSecret" ],
+           "Resource": "arn:aws:secretsmanager:<region>:<account_id>:secret:TestEnv/*"
+        },
+        {
+            "Sid" : "Stmt2GetSecretValue",  
+            "Effect": "Allow",
+            "Action": [ "secretsmanager:GetSecretValue" ],
+            "Resource": "arn:aws:secretsmanager:<region>:<account_id>:secret:TestEnv/*",
+            "Condition" : { 
+                "ForAnyValue:StringLike" : {
+                    "secretsmanager:VersionStage" : "AWSCURRENT" 
+                } 
+            }
+        }
+    ]
 }
 ```
 
@@ -213,20 +213,20 @@ The following is an example Secrets Manager secret policy that has one statement
 
 ```
 {
-  "Version" : "2012-10-17",
-  "Statement" : [
-    {
-      "Effect": "Allow",
-      "Principal": {"AWS": "&region-arn;iam::123456789012:root" },
-      "Action": "secretsmanager:GetSecretValue",
-      "Resource": "arn:aws:secretsmanager:<region>:<account_id>:secret:prod/ServerA-a1b2c3",
-      "Condition": {
-        "ForAnyValue:StringEquals": {
-          "secretsmanager:VersionStage" : "AWSCURRENT"
+    "Version" : "2012-10-17",
+    "Statement" : [
+        {
+            "Effect": "Allow",
+            "Principal": {"AWS": "arn:aws:iam::123456789012:root" },
+            "Action": "secretsmanager:GetSecretValue",
+            "Resource": "arn:aws:secretsmanager:<region>:<account_id>:secret:prod/ServerA-a1b2c3",
+            "Condition": {
+                "ForAnyValue:StringEquals": {
+                    "secretsmanager:VersionStage" : "AWSCURRENT"
+                }
+            }
         }
-      }
-    }
-  ]
+    ]
 }
 ```
 

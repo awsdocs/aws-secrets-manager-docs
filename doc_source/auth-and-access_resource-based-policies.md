@@ -26,7 +26,7 @@ The following policy, when it's attached directly to a secret \(as part of the m
         {
             "Effect": "Allow",
             "Action": "secretsmanager:*",
-            "Principal": {"AWS": "&region-arn;iam::123456789012:user/anaya"},
+            "Principal": {"AWS": "arn:aws:iam::123456789012:user/anaya"},
             "Resource": "*"
         }
     ]
@@ -44,7 +44,7 @@ The following policy, when it's attached directly to a secret \(as part of the m
     "Statement": [
         {
             "Effect": "Allow",
-            "Principal": {"AWS": "&region-arn;iam::123456789012:user/mateo" },
+            "Principal": {"AWS": arn:aws:iam::123456789012:user/mateo" },
             "Action": "secretsmanager:GetSecretValue",
             "Resource": "*"
         }
@@ -66,7 +66,7 @@ If you then attach the following example resource\-based policy to the secret, a
   "Statement" : [
     {
       "Effect": "Allow",
-      "Principal": {"AWS": "&region-arn;iam::123456789012:role/EC2RoleToAccessSecrets",
+      "Principal": {"AWS": "arn:aws:iam::123456789012:role/EC2RoleToAccessSecrets",
       "Action": "secretsmanager:GetSecretValue",
       "Resource": "*"
       "Condition": {

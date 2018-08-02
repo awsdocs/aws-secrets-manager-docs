@@ -56,13 +56,13 @@ When you write an application to use Secrets Manager to retrieve and use a secre
 
 ```
 {
-     "Version": "2012-10-17",
-     "Statement": {
-         "Effect": "Allow",
-         "Action": "secretsmanager:GetSecretValue",
-         "Resource": "ARN-OF-SECRET-THE-APP-NEEDS-TO-ACCESS"
-     }
- }
+    "Version": "2012-10-17",
+    "Statement": {
+        "Effect": "Allow",
+        "Action": "secretsmanager:GetSecretValue",
+        "Resource": "<arn-of-the-secret-the-app-needs-to-access>"
+    }
+}
 ```
 
 [Suggest improvements to this example on GitHub\.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/iam_policies/secretsmanager/asm-user-policy-grants-gsv-to-one-secret.json)
@@ -138,17 +138,15 @@ The following policy, when it's attached to a user, group, or role, allows the u
 
 ```
 {
-    "Policy": {
-        "Version": "2012-10-17",
-        "Statement": [
-            {
-                "Effect": "Allow",
-                "Action": "secretsmanager:DescribeSecret",
-                "Resource": "*",
-                "Condition": { "StringEquals": { "secretsmanager:ResourceTag/ServerName": "ServerABC" } }
-            }
-        ]
-    }
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "secretsmanager:DescribeSecret",
+            "Resource": "*",
+            "Condition": { "StringEquals": { "secretsmanager:ResourceTag/ServerName": "ServerABC" } }
+        }
+    ]
 }
 ```
 
@@ -165,7 +163,7 @@ The following policy, when it's attached to a user, group, or role, allows the u
             {
                 "Effect": "Allow",
                 "Action": "secretsmanager:GetSecret",
-                "Resource": "&region-arn;secretsmanager:::secret:Prod*",
+                "Resource": "arn:aws:secretsmanager:::secret:Prod*",
                 "Condition": { "ForAnyValue:StringEquals": { "secretsmanager:VersionStage": "AWSCURRENT" } }
             }
         ]

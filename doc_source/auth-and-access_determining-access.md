@@ -35,15 +35,15 @@ Examine the secret policy document and take note of all principals that are spec
 
 ```
 {
-  "Sid": "Allow users or roles in account 123456789012 who are delegated access by that account's administrator to have read access to the secret",
-  "Effect": "Allow",
-  "Principal":  {"AWS": "&region-arn;iam::123456789012:root"},
-  "Action": [
-    "secretsmanager:List*",
-    "secretsmanager:Describe*",
-    "secretsmanager:Get*"
-  ],
-  "Resource": "*"
+    "Sid": "Allow users or roles in account 123456789012 who are delegated access by that account's administrator to have read access to the secret",
+    "Effect": "Allow",
+    "Principal":  {"AWS": "arn:aws:iam::123456789012:root"},
+    "Action": [
+        "secretsmanager:List*",
+        "secretsmanager:Describe*",
+        "secretsmanager:Get*"
+    ],
+    "Resource": "*"
 }
 ```
 
@@ -62,7 +62,7 @@ You must also [examine all IAM policies](http://docs.aws.amazon.com/kms/latest/d
         {
             "Effect": "Allow",
             "Action": "secretsmanager:*",
-            "Principal": {"AWS": "&region-arn;iam::123456789012:user/anaya"},
+            "Principal": {"AWS": "arn:aws:iam::123456789012:user/anaya"},
             "Resource": "*"
         }
     ]
@@ -77,12 +77,12 @@ In the preceding policy statement, `arn:aws:iam::111122223333:user/anaya` refers
 
 ```
 {
-  "Sid": "Allow an app associated with an &IAM; role to only read the current version of a secret",
-  " Effect": "Allow",
-  "Principal":  {"AWS": "&region-arn;iam::123456789012:role/EncryptionApp" },</emphasis>
-  "Action": ["secretsmanager:GetSecret"],
-  "Condition": { "ForAnyValue:StringEquals": {"secretsmanager:VersionStage": "AWSCURRENT" } },
-  "Resource": "*"
+    "Sid": "Allow an app associated with an &IAM; role to only read the current version of a secret",
+    "Effect": "Allow",
+    "Principal":  {"AWS": "arn:aws:iam::123456789012:role/EncryptionApp" },
+    "Action": ["secretsmanager:GetSecret"],
+    "Condition": { "ForAnyValue:StringEquals": {"secretsmanager:VersionStage": "AWSCURRENT" } },
+    "Resource": "*"
 }
 ```
 
