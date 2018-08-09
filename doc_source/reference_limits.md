@@ -32,13 +32,13 @@ The following are the rate limits for AWS Secrets Manager:
 
 |  |  | 
 | --- |--- |
-| Request type | Number per second \(bursts\) | 
+| Request type | Number per second | 
 | CreateSecret | 20 | 
 |  UpdateSecret UpdateSecretVersionStage PutSecretValue  | 20 | 
 | DeleteSecret | 20 | 
 | RestoreSecret | 20 | 
 | RotateSecret | 20 | 
-| ListSecrets | 2 \(10\) | 
-|  DescribeSecret GetSecretValue  | 100 \(500\) | 
+| ListSecrets | 2 | 
+|  DescribeSecret GetSecretValue  | 500 | 
 |  TagResource UntagResource  | 10 | 
-| GetRandomPassword | 5 | 
+| GetRandomPassword | 20 | 

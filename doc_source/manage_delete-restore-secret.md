@@ -17,6 +17,8 @@ Follow the steps under one of the following tabs:
 
 When you delete a secret, it's immediately deprecated\. However, it's not actually deleted until the number of days specified in the recovery window has gone by\. A deprecated secret can't be accessed\. If you have to access a secret that has been scheduled for deletion, you must restore the secret\. Then you can access the secret and its encrypted secret information\.
 
+You can permanently delete a secret immediately, without any recovery window, by using the AWS CLI or AWS SDKs\. However, you can't do this in the Secrets Manager console\.
+
 **Minimum permissions**  
 To delete a secret in the console, you must have these permissions:  
 `secretsmanager:ListSecrets` – Used to navigate to the secret that you want to delete\.
@@ -65,6 +67,23 @@ $ aws secretsmanager delete-secret --secret-id development/MyTestDatabase --reco
 }
 ```
 At any time after the date and time that are specified in the `DeletionDate` field, AWS Secrets Manager permanently deletes the secret\.
+
+You can also delete a secret immediately with no waiting time\.
+
+**Important**  
+A secret that is deleted with the `ForceDeleteWithoutRecovery` parameter cannot be recovered with the `RestoreSecret` operation\.
+
+**Example**  
+The following example of the AWS CLI command immediately deletes the secret without a recovery window\. The `DeletionDate` response field shows the current date and time instead of some future time\.  
+
+```
+$ aws secretsmanager delete-secret --secret-id development/MyTestDatabase --force-delete-without-recovery
+{
+    "SecretARN": "arn:aws:secretsmanager:region:accountid:secret:development/MyTestDatabase-AbCdEf",
+    "SecretName": "development/MyTestDatabase",
+    "DeletionDate": 1508750180.309
+}
+```
 
 **Handy tip**  
 If you have any doubts about whether a secret is still in use, you can create an Amazon CloudWatch alarm that alerts you to any attempt to access a secret during the recovery window\. For more information, see [Monitoring Secret Versions Scheduled for Deletion](monitoring.md#monitoring_cloudwatch_deleted-secrets)\.
