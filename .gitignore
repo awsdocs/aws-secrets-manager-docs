@@ -1,0 +1,6 @@
+*.running.properties.txt
+*\~
+*.mobi
+build/
+.gitallowed*
+
