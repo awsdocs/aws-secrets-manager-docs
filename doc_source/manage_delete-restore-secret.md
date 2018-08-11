@@ -1,6 +1,6 @@
 # Deleting and Restoring a Secret<a name="manage_delete-restore-secret"></a>
 
-Because of the critical nature of secrets, AWS Secrets Manager intentionally makes deleting a secret a difficult thing to do\. Secrets can't be *immediately* deleted\. Instead, they're immediately made inaccessible and scheduled for deletion after a recovery window of a *minimum* of seven days\. Until the recovery window ends, you can recover a secret that you previously deleted\.
+Because of the critical nature of secrets, AWS Secrets Manager intentionally makes deleting a secret a difficult thing to do\. Secrets are typically not *immediately* deleted\. Instead, they're immediately made inaccessible and scheduled for deletion after a recovery window of a *minimum* of seven days\. Until the recovery window ends, you can recover a secret that you previously deleted\. By using the CLI, you can delete a secret without a recovery window\.
 
 You also can't *directly* delete a version of a secret\. Instead, you remove all staging labels from the secret\. This marks the secret as deprecated, and enables Secrets Manager to automatically delete the version in the background\.
 
@@ -17,7 +17,7 @@ Follow the steps under one of the following tabs:
 
 When you delete a secret, it's immediately deprecated\. However, it's not actually deleted until the number of days specified in the recovery window has gone by\. A deprecated secret can't be accessed\. If you have to access a secret that has been scheduled for deletion, you must restore the secret\. Then you can access the secret and its encrypted secret information\.
 
-You can permanently delete a secret immediately, without any recovery window, by using the AWS CLI or AWS SDKs\. However, you can't do this in the Secrets Manager console\.
+You can permanently delete a secret without any recovery window, by using the AWS CLI or AWS SDKs\. However, you can't do this in the Secrets Manager console\.
 
 **Minimum permissions**  
 To delete a secret in the console, you must have these permissions:  
