@@ -120,7 +120,7 @@ If you're running this tutorial on some other platform, you might have to transl
    ```
    mysql> status;
    --------------
-   /apollo/env/envImprovement/bin/mysql_real  Ver 14.14 Distrib 5.6.39, for Linux (x86_64) using  EditLine wrapper
+   /path/mysql_real  Ver 14.14 Distrib 5.6.39, for Linux (x86_64) using  EditLine wrapper
    
    Connection id:          48
    Current database:
@@ -241,7 +241,7 @@ Now that you have rotated the secret, you can confirm that the new credentials i
    ```
    mysql> status;
    --------------
-   /apollo/env/envImprovement/bin/mysql_real  Ver 14.14 Distrib 5.6.39, for Linux (x86_64) using  EditLine wrapper
+   /path/mysql_real  Ver 14.14 Distrib 5.6.39, for Linux (x86_64) using  EditLine wrapper
    
    Connection id:          48
    Current database:

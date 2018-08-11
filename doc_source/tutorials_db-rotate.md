@@ -183,7 +183,7 @@ If the `mysql` command fails to connect to the database then check the security 
    ```
    mysql> status;
    --------------
-   /apollo/env/envImprovement/bin/mysql_real  Ver 14.14 Distrib 5.6.39, for Linux (x86_64) using  EditLine wrapper
+   /path/mysql_real  Ver 14.14 Distrib 5.6.39, for Linux (x86_64) using  EditLine wrapper
    
    Connection id:          48
    Current database:
@@ -270,7 +270,7 @@ Now that you've rotated the secret, you can confirm that the new credentials in 
    ```
    mysql> status;
    --------------
-   /apollo/env/envImprovement/bin/mysql_real  Ver 14.14 Distrib 5.6.39, for Linux (x86_64) using  EditLine wrapper
+   /path/mysql_real  Ver 14.14 Distrib 5.6.39, for Linux (x86_64) using  EditLine wrapper
    
    Connection id:          48
    Current database:

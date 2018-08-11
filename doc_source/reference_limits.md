@@ -32,13 +32,9 @@ The following are the rate limits for AWS Secrets Manager:
 
 |  |  | 
 | --- |--- |
-| Request type | Number per second | 
-| CreateSecret | 20 | 
-|  UpdateSecret UpdateSecretVersionStage PutSecretValue  | 20 | 
-| DeleteSecret | 20 | 
-| RestoreSecret | 20 | 
-| RotateSecret | 20 | 
-| ListSecrets | 2 | 
-|  DescribeSecret GetSecretValue  | 500 | 
-|  TagResource UntagResource  | 10 | 
-| GetRandomPassword | 20 | 
+| Request type | Number of operations permitted per second | 
+| Overall API limit for the account | 1000 | 
+|  DescribeSecret GetSecretValue  | 700 | 
+|  PutResourcePolicy GetResourcePolicy DeleteResourcePolicy CreateSecret UpdateSecret UpdateSecretVersionStage PutSecretValue DeleteSecret RestoreSecret RotateSecret CancelRotateSecret AssociateSecretLabels DisassociateSecretLabels GetRandomPassword  | 40 | 
+|  TagResource UntagResource  | 20 | 
+|  ListSecrets ListSecretVersionIds  | 5 | 
