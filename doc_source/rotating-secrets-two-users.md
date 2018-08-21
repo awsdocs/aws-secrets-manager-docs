@@ -53,10 +53,10 @@ Use the following logic as the basis for writing your rotation function:
   + Set the `username` entry in the copy of the secret's structure to the alternate user name\.
   + Generate a new password with the maximum length and complexity requirements that are supported by the protected resource\.
   + Set the `password` entry in the copy of the secret's structure to the new password\.
-  + Store the modified copy of the structure into the secret by passing it as the `SecureString` parameter in a call to `PutSecretValue`\. The new version of the secret is labeled `AWSPENDING`\.
+  + Store the modified copy of the structure into the secret by passing it as the `SecretString` parameter in a call to `PutSecretValue`\. The new version of the secret is labeled `AWSPENDING`\.
 + **setSecret phase**:
   + Retrieve the `AWSPENDING` version of the secret by using the `GetSecretValue` operation\.
-  + Extract the user name and password from the `SecureString` field\.
+  + Extract the user name and password from the `SecretString` field\.
   + Issue commands to the secured resource's authentication system to change the specified user's password to that value\.
 + **testSecret phase**:
   + Retrieve the `AWSPENDING` version of the secret by using the `GetSecretValue` operation\.

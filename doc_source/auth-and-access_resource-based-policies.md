@@ -66,9 +66,9 @@ If you then attach the following example resource\-based policy to the secret, a
   "Statement" : [
     {
       "Effect": "Allow",
-      "Principal": {"AWS": "arn:aws:iam::123456789012:role/EC2RoleToAccessSecrets",
+      "Principal": {"AWS": "arn:aws:iam::123456789012:role/EC2RoleToAccessSecrets"},
       "Action": "secretsmanager:GetSecretValue",
-      "Resource": "*"
+      "Resource": "*",
       "Condition": {
         "ForAnyValue:StringEquals": {
           "secretsmanager:VersionStage" : "AWSCURRENT"

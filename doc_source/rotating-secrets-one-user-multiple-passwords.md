@@ -60,12 +60,12 @@ When you use the Secrets Manager console to configure rotation, by default, expi
    1. Use the following logic as the basis for writing your rotation function:
       + **createSecret step**:
         + Retrieve the `AWSCURRENT` version of the secret by using the `GetSecretValue` operation\.
-        + Extract the `SecureString` value from the secret and store it in a structure that you can modify\.
-        + Determine which API key isn't the one that's referenced in the `AWSCURRENT` version of the secret\.
-        + Issue commands to the service to delete the API key that you determined in the previous step\.
+        + Extract the `SecretString` value from the secret and store it in a structure that you can modify\.
+        + Determine which API key is the inactive one \- the one that isn't referenced in the `AWSCURRENT` version of the secret\.
+        + Issue commands to the service to delete the inactive API key that you determined in the previous step\.
         + Issue commands to the service to create a new access key for the same user\.
         + Overwrite the API key and its identifier in the copy of the secret's structure with those from the new API key that you just created\. Keep all other details the same\.
-        + Store the modified copy of the protected secret text by passing it as the `SecureString` parameter in a call to `PutSecretValue`\. The new version of the secret is labeled `AWSPENDING`\.
+        + Store the modified copy of the protected secret text by passing it as the `SecretString` parameter in a call to `PutSecretValue`\. The new version of the secret is labeled `AWSPENDING`\.
       + **setSecret step**:
         + The setSecret step in this scenario doesn't do anything\. The API key is created in the `createSecret` step, because you must have the API key and its identifier to store in the secret\. You don't generate your own key like you do for most other scenarios\.
       + **testSecret step**:

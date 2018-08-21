@@ -63,10 +63,10 @@ This example scenario assumes that the user is allowed to change their own passw
    1. Customize the rotation function to meet your specific requirements\. You can use the following requirements for each step as the basis for writing the function\. 
       + **createSecret step**:
         + Retrieve the `AWSCURRENT` version of the secret by using the `GetSecretValue` operation\.
-        + Extract the protected secret text from the `SecureString` field, and store it in a structure that you can modify\.
+        + Extract the protected secret text from the `SecretString` field, and store it in a structure that you can modify\.
         + Generate a new password by using an algorithm that generates passwords with the maximum length and complexity requirements that are supported by the protected resource\.
         + Overwrite the `password` field in the structure with the new one that you generated in the previous step\. Keep all other details, such as `username` and the connection details the same\.
-        + Store the modified copy of the secret structure by passing it as the `SecureString` parameter in a call to `PutSecretValue`\. The new version of the secret is labeled `AWSPENDING`\.
+        + Store the modified copy of the secret structure by passing it as the `SecretString` parameter in a call to `PutSecretValue`\. The new version of the secret is labeled `AWSPENDING`\.
       + **setSecret step**:
         + Retrieve the `AWSPENDING` version of the secret by using the `GetSecretValue` operation\.
         + Issue commands to the secured resource's authentication system to change the existing user's password to the one stored in the new `AWSPENDING` version of the secret\.
