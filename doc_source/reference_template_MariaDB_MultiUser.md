@@ -1,6 +1,6 @@
-# Secrets Manager Lambda Rotation Template: RDS PostgreSQL Multiple User<a name="reference_template_PostgreSql_MultiUser"></a>
+# Secrets Manager Lambda Rotation Template: RDS MariaDB Multiple User<a name="reference_template_MariaDB_MultiUser"></a>
 
-The following is the source code that's initially placed into the Lambda rotation function when you choose the **SecretsManagerRDSPostgreSQLRotationMultiUser** template option from the AWS Serverless Application Repository\. This template is automatically used to create the function when you enable rotation by using the Secrets Manager console\. \(In the console, you specify that the secret is for an Amazon RDS PostgreSQL database, and that you want to rotate the secret using the credentials that are stored in a separate 'master user' secret\.\) 
+The following is the source code that's initially placed into the Lambda rotation function when you choose the **SecretsManagerRDSMariaDBRotationMultiUser** template option from the AWS Serverless Application Repository\. This template is automatically used to create the function when you enable rotation by using the Secrets Manager console\. \(In the console, you specify that the secret is for an Amazon RDS MariaDB database, and that you want to rotate the secret using the credentials that are stored in a separate 'master user' secret\.\) 
 
 To create this function manually, follow the instructions at [Rotating AWS Secrets Manager Secrets for Other Databases or Services](rotating-secrets-create-generic-template.md) and specify this template\.
 
@@ -16,17 +16,16 @@ import boto3
 import json
 import logging
 import os
-import pg
-import pgdb
+import pymysql
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
 
 def lambda_handler(event, context):
-    """Secrets Manager RDS PostgreSQL Handler
+    """Secrets Manager RDS MariaDB Handler
 
-    This handler uses the master-user rotation scheme to rotate an RDS PostgreSQL user credential. During the first rotation, this
+    This handler uses the master-user rotation scheme to rotate an RDS MariaDB user credential. During the first rotation, this
     scheme logs into the database as the master user, creates a new user (appending _clone to the username), and grants the
     new user all of the permissions from the user being rotated. Once the secret is in the state, every subsequent rotation
     simply creates a new secret with the AWSPREVIOUS user credentials, adds any missing permissions that are in the current
@@ -34,12 +33,12 @@ def lambda_handler(event, context):
 
     The Secret SecretString is expected to be a JSON string with the following format:
     {
-        'engine': <required: must be set to 'postgres'>,
+        'engine': <required: must be set to 'mariadb'>,
         'host': <required: instance host name>,
         'username': <required: username>,
         'password': <required: password>,
-        'dbname': <optional: database name, default to 'postgres'>,
-        'port': <optional: if not specified, default port 5432 will be used>,
+        'dbname': <optional: database name>,
+        'port': <optional: if not specified, default port 3306 will be used>,
         'masterarn': <required: the arn of the master secret which will be used to create users/change passwords>
     }
 
@@ -104,7 +103,7 @@ def create_secret(service_client, arn, token):
     """Generate a new secret
 
     This method first checks for the existence of a secret for the passed in token. If one does not exist, it will generate a
-    new secret and put it with the passed in token.
+    new secret and save it using the passed in token.
 
     Args:
         service_client (client): The secrets manager service client
@@ -167,7 +166,7 @@ def set_secret(service_client, arn, token):
     conn = get_connection(pending_dict)
     if conn:
         conn.close()
-        logger.info("setSecret: AWSPENDING secret is already set as password in PostgreSQL DB for secret arn %s." % arn)
+        logger.info("setSecret: AWSPENDING secret is already set as password in MariaDB DB for secret arn %s." % arn)
         return
 
     # Before we do anything with the secret, make sure the AWSCURRENT secret is valid by logging in to the db
@@ -193,19 +192,15 @@ def set_secret(service_client, arn, token):
     # Now set the password to the pending password
     try:
         with conn.cursor() as cur:
-            # Check if the user exists, if not create it and grant it all permissions from the current role
-            # If the user exists, just update the password
-            cur.execute("SELECT 1 FROM pg_roles where rolname = %s", (pending_dict['username'],))
-            if len(cur.fetchall()) == 0:
-                create_role = "CREATE ROLE %s" % pending_dict['username']
-                cur.execute(create_role + " WITH LOGIN PASSWORD %s", (pending_dict['password'],))
-                cur.execute("GRANT %s TO %s" % (current_dict['username'], pending_dict['username']))
-            else:
-                alter_role = "ALTER USER %s" % pending_dict['username']
-                cur.execute(alter_role + " WITH PASSWORD %s", (pending_dict['password'],))
-
+            # List the grants on the current user and add them to the pending user.
+            # This also creates the user if it does not already exist
+            cur.execute("SHOW GRANTS FOR %s", current_dict['username'])
+            for row in cur.fetchall():
+                grant = row[0].split(' TO ')
+                new_grant = "%s TO %s" % (grant[0], pending_dict['username'])
+                cur.execute(new_grant + " IDENTIFIED BY %s", pending_dict['password'])
             conn.commit()
-            logger.info("setSecret: Successfully created user %s in PostgreSQL DB for secret arn %s." % (pending_dict['username'], arn))
+            logger.info("setSecret: Successfully set password for %s in MariaDB DB for secret arn %s." % (pending_dict['username'], arn))
     finally:
         conn.close()
 
@@ -234,7 +229,7 @@ def test_secret(service_client, arn, token):
     # Try to login with the pending secret, if it succeeds, return
     conn = get_connection(get_secret_dict(service_client, arn, "AWSPENDING", token))
     if conn:
-        # This is where the lambda will validate the user's permissions. Uncomment/modify the below lines to
+        # This is where the lambda will validate the user's permissions. Modify the below lines to
         # tailor these validations to your needs
         try:
             with conn.cursor() as cur:
@@ -243,7 +238,7 @@ def test_secret(service_client, arn, token):
         finally:
             conn.close()
 
-        logger.info("testSecret: Successfully signed into PostgreSQL DB with AWSPENDING secret in %s." % arn)
+        logger.info("testSecret: Successfully signed into MariaDB DB with AWSPENDING secret in %s." % arn)
         return
     else:
         logger.error("testSecret: Unable to log into database with pending secret of secret ARN %s" % arn)
@@ -263,7 +258,7 @@ def finish_secret(service_client, arn, token):
         token (string): The ClientRequestToken associated with the secret version
 
     Raises:
-        ResourceNotFoundException: If the secret with the specified arn does not exist
+        ResourceNotFoundException: If the secret with the specified arn and stage does not exist
 
     """
     # First describe the secret to get the current version
@@ -284,7 +279,7 @@ def finish_secret(service_client, arn, token):
 
 
 def get_connection(secret_dict):
-    """Gets a connection to PostgreSQL DB from a secret dictionary
+    """Gets a connection to MariaDB DB from a secret dictionary
 
     This helper function tries to connect to the database grabbing connection info
     from the secret dictionary. If successful, it returns the connection, else None
@@ -293,21 +288,20 @@ def get_connection(secret_dict):
         secret_dict (dict): The Secret Dictionary
 
     Returns:
-        Connection: The pgdb.Connection object if successful. None otherwise
+        Connection: The pymysql.connections.Connection object if successful. None otherwise
 
     Raises:
         KeyError: If the secret json does not contain the expected keys
 
     """
-    # Parse and validate the secret JSON string
-    port = int(secret_dict['port']) if 'port' in secret_dict else 5432
-    dbname = secret_dict['dbname'] if 'dbname' in secret_dict else "postgres"
+    port = int(secret_dict['port']) if 'port' in secret_dict else 3306
+    dbname = secret_dict['dbname'] if 'dbname' in secret_dict else None
 
     # Try to obtain a connection to the db
     try:
-        conn = pgdb.connect(host=secret_dict['host'], user=secret_dict['username'], password=secret_dict['password'], database=dbname, port=port, connect_timeout=5)
+        conn = pymysql.connect(secret_dict['host'], user=secret_dict['username'], passwd=secret_dict['password'], port=port, db=dbname, connect_timeout=5)
         return conn
-    except pg.InternalError:
+    except pymysql.OperationalError:
         return None
 
 
@@ -333,8 +327,6 @@ def get_secret_dict(service_client, arn, stage, token=None):
 
         ValueError: If the secret is not valid JSON
 
-        KeyError: If the secret json does not contain the expected keys
-
     """
     required_fields = ['host', 'username', 'password']
 
@@ -347,8 +339,8 @@ def get_secret_dict(service_client, arn, stage, token=None):
     secret_dict = json.loads(plaintext)
 
     # Run validations against the secret
-    if 'engine' not in secret_dict or secret_dict['engine'] != 'postgres':
-        raise KeyError("Database engine must be set to 'postgres' in order to use this rotation lambda")
+    if 'engine' not in secret_dict or secret_dict['engine'] != 'mariadb':
+        raise KeyError("Database engine must be set to 'mariadb' in order to use this rotation lambda")
     for field in required_fields:
         if field not in secret_dict:
             raise KeyError("%s key is missing from secret JSON" % field)
@@ -377,7 +369,7 @@ def get_alt_username(current_username):
         return current_username[:(len(clone_suffix) * -1)]
     else:
         new_username = current_username + clone_suffix
-        if len(new_username) > 63:
-            raise ValueError("Unable to clone user, username length with _clone appended would exceed 63 characters")
+        if len(new_username) > 80:
+            raise ValueError("Unable to clone user, username length with _clone appended would exceed 80 characters")
         return new_username
 ```

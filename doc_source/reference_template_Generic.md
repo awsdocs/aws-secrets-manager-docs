@@ -7,6 +7,9 @@ For more information about creating your own rotation function, see [Overview of
 This template function is written in [Python](https://www.python.org/), and uses the [AWS Boto3 SDK for Python](https://aws.amazon.com/sdk-for-python/)\.
 
 ```
+# Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: MIT-0
+
 import boto3
 import logging
 import os

@@ -68,7 +68,7 @@ You can trigger the Lambda rotation function manually when you choose **Rotate s
 
 If you choose to create a secret for a custom service, then you must create the Lambda function yourself\. In the code of the function, you determine how to compose the JSON structure and parse it in your function\.
 
-No matter what service or database your secret is for, the Lambda rotation function for the secret must be able to access both your database/service and a Secrets Manager service endpoint\. If the Lambda rotation function and database/service reside in a VPC provided by Amazon VPC, then you must configure the VPC with either a [VPC service endpoint for Secrets Manager](rotation-network-rqmts.md), or [direct Internet connectivity by using a NAT gateway](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-nat-gateway.html), to allow access to the public Secrets Manager service endpoint\.
+No matter what service or database your secret is for, the Lambda rotation function for the secret must be able to access both your database/service and a Secrets Manager service endpoint\. If the Lambda rotation function and database/service reside in a VPC provided by Amazon VPC, then you must configure the VPC with either a [VPC service endpoint for Secrets Manager](rotation-network-rqmts.md), or [direct Internet connectivity by using a NAT gateway](http://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html), to allow access to the public Secrets Manager service endpoint\.
 
 For more information about rotation, see [Rotating Your AWS Secrets Manager Secrets](rotating-secrets.md)\.
 

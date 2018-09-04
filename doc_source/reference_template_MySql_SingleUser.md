@@ -9,6 +9,9 @@ For more information about the rotation strategy that's implemented by this func
 This function is written in [Python](https://www.python.org/), and uses the [AWS Boto3 SDK for Python](https://aws.amazon.com/sdk-for-python/)\.
 
 ```
+# Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: MIT-0
+
 import boto3
 import json
 import logging
@@ -28,12 +31,12 @@ def lambda_handler(event, context):
 
     The Secret SecretString is expected to be a JSON string with the following format:
     {
-        'engine': &lt;required: must be set to 'mysql'>,
-        'host': &lt;required: instance host name>,
-        'username': &lt;required: username>,
-        'password': &lt;required: password>,
-        'dbname': &lt;optional: database name>,
-        'port': &lt;optional: if not specified, default port 3306 will be used>
+        'engine': <required: must be set to 'mysql'>,
+        'host': <required: instance host name>,
+        'username': <required: username>,
+        'password': <required: password>,
+        'dbname': <optional: database name>,
+        'port': <optional: if not specified, default port 3306 will be used>
     }
 
     Args:

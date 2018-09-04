@@ -1,12 +1,17 @@
 # Secrets Manager Lambda Rotation Template: RDS PostgreSQL Single User<a name="reference_template_PostgreSql_SingleUser"></a>
 
-The following is the source code that's initially placed into the Lambda rotation function when you choose the **SecretsManagerRDSPostgreSQLRotationSingleUser** template option from the AWS Serverless Application Repository\.
+The following is the source code that's initially placed into the Lambda rotation function when you choose the **SecretsManagerRDSPostgreSQLRotationSingleUser** template option from the AWS Serverless Application Repository\. This template is automatically used to create the function when you enable rotation by using the Secrets Manager console\. \(In the console, you specify that the secret is for an Amazon RDS PostgreSQL database, and that you want to rotate the secret using the credentials that are stored in the same secret\.\) 
+
+To create this function manually, follow the instructions at [Rotating AWS Secrets Manager Secrets for Other Databases or Services](rotating-secrets-create-generic-template.md), and specify this template\.
 
 For more information about the rotation strategy that's implemented by this function, see [Rotating AWS Secrets Manager Secrets for One User with a Single Password](rotating-secrets-one-user-one-password.md)\.
 
 This function is written in [Python](https://www.python.org/), and uses the [AWS Boto3 SDK for Python](https://aws.amazon.com/sdk-for-python/)\.
 
 ```
+# Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: MIT-0
+
 import boto3
 import json
 import logging
@@ -27,12 +32,12 @@ def lambda_handler(event, context):
 
     The Secret SecretString is expected to be a JSON string with the following format:
     {
-        'engine': &lt;required: must be set to 'postgres'>,
-        'host': &lt;required: instance host name>,
-        'username': &lt;required: username>,
-        'password': &lt;required: password>,
-        'dbname': &lt;optional: database name, default to 'postgres'>,
-        'port': &lt;optional: if not specified, default port 5432 will be used>
+        'engine': <required: must be set to 'postgres'>,
+        'host': <required: instance host name>,
+        'username': <required: username>,
+        'password': <required: password>,
+        'dbname': <optional: database name, default to 'postgres'>,
+        'port': <optional: if not specified, default port 5432 will be used>
     }
 
     Args:

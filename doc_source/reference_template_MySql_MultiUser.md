@@ -9,6 +9,9 @@ For more information about the rotation strategy that's implemented by this func
 This function is written in [Python](https://www.python.org/), and uses the [AWS Boto3 SDK for Python](https://aws.amazon.com/sdk-for-python/)\.
 
 ```
+# Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: MIT-0
+
 import boto3
 import json
 import logging
@@ -127,7 +130,7 @@ def create_secret(service_client, arn, token):
         current_dict['username'] = get_alt_username(current_dict['username'])
 
         # Generate a random password
-        passwd = service_client.get_random_password(ExcludeCharacters='/@"\'\\')
+        passwd = service_client.get_random_password(ExcludeCharacters='`/@"\'\\')
         current_dict['password'] = passwd['RandomPassword']
 
         # Put the secret
@@ -194,7 +197,7 @@ def set_secret(service_client, arn, token):
             cur.execute("SHOW GRANTS FOR %s", current_dict['username'])
             for row in cur.fetchall():
                 grant = row[0].split(' TO ')
-                new_grant = "%s TO %s" % (grant[0], pending_dict['username'])
+                new_grant = "%s TO '%s'" % (grant[0], pending_dict['username'])
                 cur.execute(new_grant + " IDENTIFIED BY %s", pending_dict['password'])
             conn.commit()
             logger.info("setSecret: Successfully set password for %s in MySQL DB for secret arn %s." % (pending_dict['username'], arn))

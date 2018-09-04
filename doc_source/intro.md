@@ -72,6 +72,9 @@ When you choose to enable rotation, the following Amazon Relational Database Ser
 + Amazon Aurora on Amazon RDS
 + MySQL on Amazon RDS
 + PostgreSQL on Amazon RDS
++ Oracle on Amazon RDS
++ MariaDB on Amazon RDS
++ Microsoft SQL Server on Amazon RDS
 
 You can also store secrets for almost any other kind of database or service\. However, to automatically rotate them you'll need to create and configure a custom Lambda rotation function yourself\. For more information about writing a custom Lambda function for a database or service, see [Overview of the Lambda Rotation Function](rotating-secrets-lambda-function-overview.md)\. 
 

@@ -112,7 +112,7 @@ If you choose to grant cross\-account access directly to the secret without usin
 
 ## Run Everything in a VPC<a name="best-practice_using-a-vpc"></a>
 
-Whenever possible, you should run as much of your infrastructure on private networks that aren't accessible from the public internet\. To do this, host your servers and services in a virtual private cloud \(VPC\) provided by Amazon VPC\. This is a virtualized private network that's accessible only to the resources in your account\. It's not visible to or accessible by the public internet, unless you explicitly configure it with access\. For example, you could add a NAT gateway\. For complete information about Amazon VPC, see the [Amazon VPC User Guide](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/)\.
+Whenever possible, you should run as much of your infrastructure on private networks that aren't accessible from the public internet\. To do this, host your servers and services in a virtual private cloud \(VPC\) provided by Amazon VPC\. This is a virtualized private network that's accessible only to the resources in your account\. It's not visible to or accessible by the public internet, unless you explicitly configure it with access\. For example, you could add a NAT gateway\. For complete information about Amazon VPC, see the [Amazon VPC User Guide](http://docs.aws.amazon.com/vpc/latest/userguide/)\.
 
 To enable secret rotation within a VPC environment, perform these steps:
 

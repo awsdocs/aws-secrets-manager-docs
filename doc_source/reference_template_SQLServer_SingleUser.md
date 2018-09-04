@@ -1,10 +1,10 @@
-# Secrets Manager Lambda Rotation Template: RDS PostgreSQL Multiple User<a name="reference_template_PostgreSql_MultiUser"></a>
+# Secrets Manager Lambda Rotation Template: RDS SQLServer Single User<a name="reference_template_SQLServer_SingleUser"></a>
 
-The following is the source code that's initially placed into the Lambda rotation function when you choose the **SecretsManagerRDSPostgreSQLRotationMultiUser** template option from the AWS Serverless Application Repository\. This template is automatically used to create the function when you enable rotation by using the Secrets Manager console\. \(In the console, you specify that the secret is for an Amazon RDS PostgreSQL database, and that you want to rotate the secret using the credentials that are stored in a separate 'master user' secret\.\) 
+The following is the source code that's initially placed into the Lambda rotation function when you choose the **SecretsManagerRDSSQLServerRotationSingleUser** template option from the AWS Serverless Application Repository\. This template is automatically used to create the function when you enable rotation by using the Secrets Manager console\. \(In the console, you specify that the secret is for an Amazon RDS SQLServer database, and that you want to rotate the secret using the credentials that are stored in the same secret\.\) 
 
-To create this function manually, follow the instructions at [Rotating AWS Secrets Manager Secrets for Other Databases or Services](rotating-secrets-create-generic-template.md) and specify this template\.
+To create this function manually, follow the instructions at [Rotating AWS Secrets Manager Secrets for Other Databases or Services](rotating-secrets-create-generic-template.md), and specify this template\.
 
-For more information about the rotation strategy that's implemented by this function, see [Rotating AWS Secrets Manager Secrets by Alternating Between Two Existing Users](rotating-secrets-two-users.md)\.
+For more information about the rotation strategy that's implemented by this function, see [Rotating AWS Secrets Manager Secrets for One User with a Single Password](rotating-secrets-one-user-one-password.md)\.
 
 This function is written in [Python](https://www.python.org/), and uses the [AWS Boto3 SDK for Python](https://aws.amazon.com/sdk-for-python/)\.
 
@@ -16,31 +16,27 @@ import boto3
 import json
 import logging
 import os
-import pg
-import pgdb
+import pymssql
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
 
 def lambda_handler(event, context):
-    """Secrets Manager RDS PostgreSQL Handler
+    """Secrets Manager RDS SQL Server Handler
 
-    This handler uses the master-user rotation scheme to rotate an RDS PostgreSQL user credential. During the first rotation, this
-    scheme logs into the database as the master user, creates a new user (appending _clone to the username), and grants the
-    new user all of the permissions from the user being rotated. Once the secret is in the state, every subsequent rotation
-    simply creates a new secret with the AWSPREVIOUS user credentials, adds any missing permissions that are in the current
-    secret, changes that user's password, and then marks the latest secret as AWSCURRENT.
+    This handler uses the single-user rotation scheme to rotate an RDS SQL Server user credential. This rotation
+    scheme logs into the database as the user and rotates the user's own password, immediately invalidating the
+    user's previous password.
 
     The Secret SecretString is expected to be a JSON string with the following format:
     {
-        'engine': <required: must be set to 'postgres'>,
+        'engine': <required: must be set to 'sqlserver'>,
         'host': <required: instance host name>,
         'username': <required: username>,
         'password': <required: password>,
-        'dbname': <optional: database name, default to 'postgres'>,
-        'port': <optional: if not specified, default port 5432 will be used>,
-        'masterarn': <required: the arn of the master secret which will be used to create users/change passwords>
+        'dbname': <optional: database name, default to 'master'>,
+        'port': <optional: if not specified, default port 1433 will be used>
     }
 
     Args:
@@ -127,11 +123,8 @@ def create_secret(service_client, arn, token):
         get_secret_dict(service_client, arn, "AWSPENDING", token)
         logger.info("createSecret: Successfully retrieved secret for %s." % arn)
     except service_client.exceptions.ResourceNotFoundException:
-        # Get the alternate username swapping between the original user and the user with _clone appended to it
-        current_dict['username'] = get_alt_username(current_dict['username'])
-
         # Generate a random password
-        passwd = service_client.get_random_password(ExcludeCharacters='/@"\'\\')
+        passwd = service_client.get_random_password(ExcludeCharacters='/@"\'\\', PasswordLength=30)
         current_dict['password'] = passwd['RandomPassword']
 
         # Put the secret
@@ -143,9 +136,8 @@ def set_secret(service_client, arn, token):
     """Set the pending secret in the database
 
     This method tries to login to the database with the AWSPENDING secret and returns on success. If that fails, it
-    tries to login with the master credentials from the masterarn in the current secret. If this succeeds, it adds all
-    grants for AWSCURRENT user to the AWSPENDING user, creating the user and/or setting the password in the process.
-    Else, it throws a ValueError.
+    tries to login with the AWSCURRENT and AWSPREVIOUS secrets. If either one succeeds, it sets the AWSPENDING password
+    as the user password in the database. Else, it throws a ValueError.
 
     Args:
         service_client (client): The secrets manager service client
@@ -157,7 +149,7 @@ def set_secret(service_client, arn, token):
     Raises:
         ResourceNotFoundException: If the secret with the specified arn and stage does not exist
 
-        ValueError: If the secret is not valid JSON or master credentials could not be used to login to DB
+        ValueError: If the secret is not valid JSON or valid credentials are found to login to the database
 
         KeyError: If the secret json does not contain the expected keys
 
@@ -167,45 +159,50 @@ def set_secret(service_client, arn, token):
     conn = get_connection(pending_dict)
     if conn:
         conn.close()
-        logger.info("setSecret: AWSPENDING secret is already set as password in PostgreSQL DB for secret arn %s." % arn)
+        logger.info("setSecret: AWSPENDING secret is already set as password in SQL Server DB for secret arn %s." % arn)
         return
 
-    # Before we do anything with the secret, make sure the AWSCURRENT secret is valid by logging in to the db
+    # Now try the current password
     current_dict = get_secret_dict(service_client, arn, "AWSCURRENT")
     conn = get_connection(current_dict)
     if not conn:
-        logger.error("setSecret: Unable to log into database using current credentials for secret %s" % arn)
-        raise ValueError("Unable to log into database using current credentials for secret %s" % arn)
-    conn.close()
+        # If both current and pending do not work, try previous
+        try:
+            current_dict = get_secret_dict(service_client, arn, "AWSPREVIOUS")
+            conn = get_connection(current_dict)
+        except service_client.exceptions.ResourceNotFoundException:
+            conn = None
 
-    # Now get the master arn from the current secret
-    master_arn = current_dict['masterarn']
-    master_dict = get_secret_dict(service_client, master_arn, "AWSCURRENT")
-    if current_dict['host'] != master_dict['host']:
-        logger.warn("setSecret: Master database host %s is not the same host as current %s" % (master_dict['host'], current_dict['host']))
-
-    # Now log into the database with the master credentials
-    conn = get_connection(master_dict)
+    # If we still don't have a connection, raise a ValueError
     if not conn:
-        logger.error("setSecret: Unable to log into database using credentials in master secret %s" % master_arn)
-        raise ValueError("Unable to log into database using credentials in master secret %s" % master_arn)
+        logger.error("setSecret: Unable to log into database with previous, current, or pending secret of secret arn %s" % arn)
+        raise ValueError("Unable to log into database with previous, current, or pending secret of secret arn %s" % arn)
 
     # Now set the password to the pending password
     try:
-        with conn.cursor() as cur:
-            # Check if the user exists, if not create it and grant it all permissions from the current role
-            # If the user exists, just update the password
-            cur.execute("SELECT 1 FROM pg_roles where rolname = %s", (pending_dict['username'],))
-            if len(cur.fetchall()) == 0:
-                create_role = "CREATE ROLE %s" % pending_dict['username']
-                cur.execute(create_role + " WITH LOGIN PASSWORD %s", (pending_dict['password'],))
-                cur.execute("GRANT %s TO %s" % (current_dict['username'], pending_dict['username']))
+        with conn.cursor() as cursor:
+            # Get the current version and db
+            cursor.execute("SELECT @@VERSION AS version")
+            version = cursor.fetchall()[0]['version']
+            cursor.execute("SELECT DB_NAME() AS name")
+            current_db = cursor.fetchall()[0]['name']
+
+            # Determine if we are in a contained DB
+            containment = 0
+            if not version.startswith("Microsoft SQL Server 2008"): # SQL Server 2008 does not support contained databases
+                cursor.execute("SELECT containment FROM sys.databases WHERE name = %s", current_db)
+                containment = cursor.fetchall()[0]['containment']
+
+            # Set the user or login password (depending on database containment)
+            if containment == 0:
+                alter_stmt = "ALTER LOGIN %s" % pending_dict['username']
+                cursor.execute(alter_stmt + " WITH PASSWORD = %s OLD_PASSWORD = %s", (pending_dict['password'], current_dict['password']))
             else:
-                alter_role = "ALTER USER %s" % pending_dict['username']
-                cur.execute(alter_role + " WITH PASSWORD %s", (pending_dict['password'],))
+                alter_stmt = "ALTER USER %s" % pending_dict['username']
+                cursor.execute(alter_stmt + " WITH PASSWORD = %s OLD_PASSWORD = %s", (pending_dict['password'], current_dict['password']))
 
             conn.commit()
-            logger.info("setSecret: Successfully created user %s in PostgreSQL DB for secret arn %s." % (pending_dict['username'], arn))
+            logger.info("setSecret: Successfully set password for user %s in SQL Server DB for secret arn %s." % (pending_dict['username'], arn))
     finally:
         conn.close()
 
@@ -214,7 +211,7 @@ def test_secret(service_client, arn, token):
     """Test the pending secret against the database
 
     This method tries to log into the database with the secrets staged with AWSPENDING and runs
-    a permissions check to ensure the user has the correct permissions.
+    a permissions check to ensure the user has the corrrect permissions.
 
     Args:
         service_client (client): The secrets manager service client
@@ -226,7 +223,7 @@ def test_secret(service_client, arn, token):
     Raises:
         ResourceNotFoundException: If the secret with the specified arn and stage does not exist
 
-        ValueError: If the secret is not valid JSON or pending credentials could not be used to login to the database
+        ValueError: If the secret is not valid JSON or valid credentials are found to login to the database
 
         KeyError: If the secret json does not contain the expected keys
 
@@ -238,12 +235,11 @@ def test_secret(service_client, arn, token):
         # tailor these validations to your needs
         try:
             with conn.cursor() as cur:
-                cur.execute("SELECT NOW()")
-                conn.commit()
+                cur.execute("SELECT @@VERSION AS version")
         finally:
             conn.close()
 
-        logger.info("testSecret: Successfully signed into PostgreSQL DB with AWSPENDING secret in %s." % arn)
+        logger.info("testSecret: Successfully signed into SQL Server DB with AWSPENDING secret in %s." % arn)
         return
     else:
         logger.error("testSecret: Unable to log into database with pending secret of secret ARN %s" % arn)
@@ -253,7 +249,7 @@ def test_secret(service_client, arn, token):
 def finish_secret(service_client, arn, token):
     """Finish the rotation by marking the pending secret as current
 
-    This method moves the secret from the AWSPENDING stage to the AWSCURRENT stage.
+    This method finishes the secret rotation by staging the secret staged AWSPENDING with the AWSCURRENT stage.
 
     Args:
         service_client (client): The secrets manager service client
@@ -261,9 +257,6 @@ def finish_secret(service_client, arn, token):
         arn (string): The secret ARN or other identifier
 
         token (string): The ClientRequestToken associated with the secret version
-
-    Raises:
-        ResourceNotFoundException: If the secret with the specified arn does not exist
 
     """
     # First describe the secret to get the current version
@@ -284,7 +277,7 @@ def finish_secret(service_client, arn, token):
 
 
 def get_connection(secret_dict):
-    """Gets a connection to PostgreSQL DB from a secret dictionary
+    """Gets a connection to SQL Server DB from a secret dictionary
 
     This helper function tries to connect to the database grabbing connection info
     from the secret dictionary. If successful, it returns the connection, else None
@@ -293,21 +286,27 @@ def get_connection(secret_dict):
         secret_dict (dict): The Secret Dictionary
 
     Returns:
-        Connection: The pgdb.Connection object if successful. None otherwise
+        Connection: The pymssql.Connection object if successful. None otherwise
 
     Raises:
         KeyError: If the secret json does not contain the expected keys
 
     """
     # Parse and validate the secret JSON string
-    port = int(secret_dict['port']) if 'port' in secret_dict else 5432
-    dbname = secret_dict['dbname'] if 'dbname' in secret_dict else "postgres"
+    port = str(secret_dict['port']) if 'port' in secret_dict else '1433'
+    dbname = secret_dict['dbname'] if 'dbname' in secret_dict else 'master'
 
     # Try to obtain a connection to the db
     try:
-        conn = pgdb.connect(host=secret_dict['host'], user=secret_dict['username'], password=secret_dict['password'], database=dbname, port=port, connect_timeout=5)
+        conn = pymssql.connect(server=secret_dict['host'],
+                               user=secret_dict['username'],
+                               password=secret_dict['password'],
+                               database=dbname,
+                               port=port,
+                               login_timeout=5,
+                               as_dict=True)
         return conn
-    except pg.InternalError:
+    except pymssql.OperationalError:
         return None
 
 
@@ -333,8 +332,6 @@ def get_secret_dict(service_client, arn, stage, token=None):
 
         ValueError: If the secret is not valid JSON
 
-        KeyError: If the secret json does not contain the expected keys
-
     """
     required_fields = ['host', 'username', 'password']
 
@@ -347,37 +344,12 @@ def get_secret_dict(service_client, arn, stage, token=None):
     secret_dict = json.loads(plaintext)
 
     # Run validations against the secret
-    if 'engine' not in secret_dict or secret_dict['engine'] != 'postgres':
-        raise KeyError("Database engine must be set to 'postgres' in order to use this rotation lambda")
+    if 'engine' not in secret_dict or secret_dict['engine'] != 'sqlserver':
+        raise KeyError("Database engine must be set to 'sqlserver' in order to use this rotation lambda")
     for field in required_fields:
         if field not in secret_dict:
             raise KeyError("%s key is missing from secret JSON" % field)
 
     # Parse and return the secret JSON string
     return secret_dict
-
-
-def get_alt_username(current_username):
-    """Gets the alternate username for the current_username passed in
-
-    This helper function gets the username for the alternate user based on the passed in current username.
-
-    Args:
-        current_username (client): The current username
-
-    Returns:
-        AlternateUsername: Alternate username
-
-    Raises:
-        ValueError: If the new username length would exceed the maximum allowed
-
-    """
-    clone_suffix = "_clone"
-    if current_username.endswith(clone_suffix):
-        return current_username[:(len(clone_suffix) * -1)]
-    else:
-        new_username = current_username + clone_suffix
-        if len(new_username) > 63:
-            raise ValueError("Unable to clone user, username length with _clone appended would exceed 63 characters")
-        return new_username
 ```

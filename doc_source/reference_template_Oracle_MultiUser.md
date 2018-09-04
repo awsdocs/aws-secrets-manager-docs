@@ -1,6 +1,6 @@
-# Secrets Manager Lambda Rotation Template: RDS PostgreSQL Multiple User<a name="reference_template_PostgreSql_MultiUser"></a>
+# Secrets Manager Lambda Rotation Template: RDS Oracle Multiple User<a name="reference_template_Oracle_MultiUser"></a>
 
-The following is the source code that's initially placed into the Lambda rotation function when you choose the **SecretsManagerRDSPostgreSQLRotationMultiUser** template option from the AWS Serverless Application Repository\. This template is automatically used to create the function when you enable rotation by using the Secrets Manager console\. \(In the console, you specify that the secret is for an Amazon RDS PostgreSQL database, and that you want to rotate the secret using the credentials that are stored in a separate 'master user' secret\.\) 
+The following is the source code that's initially placed into the Lambda rotation function when you choose the **SecretsManagerRDSOracleRotationMultiUser** template option from the AWS Serverless Application Repository\. This template is automatically used to create the function when you enable rotation by using the Secrets Manager console\. \(In the console, you specify that the secret is for an Amazon RDS Oracle database, and that you want to rotate the secret using the credentials that are stored in a separate 'master user' secret\.\) 
 
 To create this function manually, follow the instructions at [Rotating AWS Secrets Manager Secrets for Other Databases or Services](rotating-secrets-create-generic-template.md) and specify this template\.
 
@@ -16,30 +16,29 @@ import boto3
 import json
 import logging
 import os
-import pg
-import pgdb
+import cx_Oracle
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
 
 def lambda_handler(event, context):
-    """Secrets Manager RDS PostgreSQL Handler
+    """Secrets Manager RDS Oracle Handler
 
-    This handler uses the master-user rotation scheme to rotate an RDS PostgreSQL user credential. During the first rotation, this
-    scheme logs into the database as the master user, creates a new user (appending _clone to the username), and grants the
+    This handler uses the master-user rotation scheme to rotate an RDS Oracle user credential. During the first rotation, this
+    scheme logs into the database as the master user, creates a new user (appending _CLONE to the username), and grants the
     new user all of the permissions from the user being rotated. Once the secret is in the state, every subsequent rotation
     simply creates a new secret with the AWSPREVIOUS user credentials, adds any missing permissions that are in the current
     secret, changes that user's password, and then marks the latest secret as AWSCURRENT.
 
     The Secret SecretString is expected to be a JSON string with the following format:
     {
-        'engine': <required: must be set to 'postgres'>,
+        'engine': <required: must be set to 'oracle'>,
         'host': <required: instance host name>,
         'username': <required: username>,
         'password': <required: password>,
-        'dbname': <optional: database name, default to 'postgres'>,
-        'port': <optional: if not specified, default port 5432 will be used>,
+        'dbname': <required: database name>,
+        'port': <optional: if not specified, default port 1521 will be used>,
         'masterarn': <required: the arn of the master secret which will be used to create users/change passwords>
     }
 
@@ -104,7 +103,7 @@ def create_secret(service_client, arn, token):
     """Generate a new secret
 
     This method first checks for the existence of a secret for the passed in token. If one does not exist, it will generate a
-    new secret and put it with the passed in token.
+    new secret and save it using the passed in token.
 
     Args:
         service_client (client): The secrets manager service client
@@ -127,11 +126,11 @@ def create_secret(service_client, arn, token):
         get_secret_dict(service_client, arn, "AWSPENDING", token)
         logger.info("createSecret: Successfully retrieved secret for %s." % arn)
     except service_client.exceptions.ResourceNotFoundException:
-        # Get the alternate username swapping between the original user and the user with _clone appended to it
+        # Get the alternate username swapping between the original user and the user with _CLONE appended to it
         current_dict['username'] = get_alt_username(current_dict['username'])
 
         # Generate a random password
-        passwd = service_client.get_random_password(ExcludeCharacters='/@"\'\\')
+        passwd = service_client.get_random_password(ExcludeCharacters='/@"\'\\', PasswordLength=30)
         current_dict['password'] = passwd['RandomPassword']
 
         # Put the secret
@@ -167,7 +166,7 @@ def set_secret(service_client, arn, token):
     conn = get_connection(pending_dict)
     if conn:
         conn.close()
-        logger.info("setSecret: AWSPENDING secret is already set as password in PostgreSQL DB for secret arn %s." % arn)
+        logger.info("setSecret: AWSPENDING secret is already set as password in Oracle DB for secret arn %s." % arn)
         return
 
     # Before we do anything with the secret, make sure the AWSCURRENT secret is valid by logging in to the db
@@ -191,23 +190,29 @@ def set_secret(service_client, arn, token):
         raise ValueError("Unable to log into database using credentials in master secret %s" % master_arn)
 
     # Now set the password to the pending password
-    try:
-        with conn.cursor() as cur:
-            # Check if the user exists, if not create it and grant it all permissions from the current role
-            # If the user exists, just update the password
-            cur.execute("SELECT 1 FROM pg_roles where rolname = %s", (pending_dict['username'],))
-            if len(cur.fetchall()) == 0:
-                create_role = "CREATE ROLE %s" % pending_dict['username']
-                cur.execute(create_role + " WITH LOGIN PASSWORD %s", (pending_dict['password'],))
-                cur.execute("GRANT %s TO %s" % (current_dict['username'], pending_dict['username']))
-            else:
-                alter_role = "ALTER USER %s" % pending_dict['username']
-                cur.execute(alter_role + " WITH PASSWORD %s", (pending_dict['password'],))
+    cur = conn.cursor()
 
-            conn.commit()
-            logger.info("setSecret: Successfully created user %s in PostgreSQL DB for secret arn %s." % (pending_dict['username'], arn))
-    finally:
-        conn.close()
+    # Check to see if the user already exists
+    cur.execute("SELECT USERNAME FROM DBA_USERS WHERE USERNAME='%s'" %  pending_dict['username'])
+    results = cur.fetchall()
+    if len(results) > 0:
+        # If user exists, just change their password
+        cur.execute("ALTER USER %s IDENTIFIED BY \"%s\"" % (pending_dict['username'], pending_dict['password']))
+    else:
+        # If user does not exist, create the user with appropriate grants
+        cur.execute("CREATE USER %s IDENTIFIED BY \"%s\"" % (pending_dict['username'], pending_dict['password']))
+        for grant_type in ['ROLE_GRANT', 'SYSTEM_GRANT', 'OBJECT_GRANT']:
+            try:
+                cur.execute("SELECT DBMS_METADATA.GET_GRANTED_DDL('%s', '%s') FROM DUAL" % (grant_type, current_dict['username'].upper()))
+                results = cur.fetchall()
+                for row in results:
+                    sql = row[0].read().strip(' \n\t').replace("\"%s\"" % current_dict['username'].upper(), "\"%s\"" % pending_dict['username'])
+                    cur.execute(sql)
+            except cx_Oracle.DatabaseError:
+                # If we were unable to find any grants skip this type
+                pass
+    conn.commit()
+    logger.info("setSecret: Successfully set password for %s in Oracle DB for secret arn %s." % (pending_dict['username'], arn))
 
 
 def test_secret(service_client, arn, token):
@@ -234,16 +239,13 @@ def test_secret(service_client, arn, token):
     # Try to login with the pending secret, if it succeeds, return
     conn = get_connection(get_secret_dict(service_client, arn, "AWSPENDING", token))
     if conn:
-        # This is where the lambda will validate the user's permissions. Uncomment/modify the below lines to
+        # This is where the lambda will validate the user's permissions. Modify the below lines to
         # tailor these validations to your needs
-        try:
-            with conn.cursor() as cur:
-                cur.execute("SELECT NOW()")
-                conn.commit()
-        finally:
-            conn.close()
+        cur = conn.cursor()
+        cur.execute("SELECT SYSDATE FROM DUAL")
+        conn.commit()
 
-        logger.info("testSecret: Successfully signed into PostgreSQL DB with AWSPENDING secret in %s." % arn)
+        logger.info("testSecret: Successfully signed into Oracle DB with AWSPENDING secret in %s." % arn)
         return
     else:
         logger.error("testSecret: Unable to log into database with pending secret of secret ARN %s" % arn)
@@ -263,7 +265,7 @@ def finish_secret(service_client, arn, token):
         token (string): The ClientRequestToken associated with the secret version
 
     Raises:
-        ResourceNotFoundException: If the secret with the specified arn does not exist
+        ResourceNotFoundException: If the secret with the specified arn and stage does not exist
 
     """
     # First describe the secret to get the current version
@@ -284,7 +286,7 @@ def finish_secret(service_client, arn, token):
 
 
 def get_connection(secret_dict):
-    """Gets a connection to PostgreSQL DB from a secret dictionary
+    """Gets a connection to Oracle DB from a secret dictionary
 
     This helper function tries to connect to the database grabbing connection info
     from the secret dictionary. If successful, it returns the connection, else None
@@ -293,21 +295,20 @@ def get_connection(secret_dict):
         secret_dict (dict): The Secret Dictionary
 
     Returns:
-        Connection: The pgdb.Connection object if successful. None otherwise
+        Connection: The cx_Oracle object if successful. None otherwise
 
     Raises:
         KeyError: If the secret json does not contain the expected keys
 
     """
     # Parse and validate the secret JSON string
-    port = int(secret_dict['port']) if 'port' in secret_dict else 5432
-    dbname = secret_dict['dbname'] if 'dbname' in secret_dict else "postgres"
+    port = str(secret_dict['port']) if 'port' in secret_dict else '1521'
 
     # Try to obtain a connection to the db
     try:
-        conn = pgdb.connect(host=secret_dict['host'], user=secret_dict['username'], password=secret_dict['password'], database=dbname, port=port, connect_timeout=5)
+        conn = cx_Oracle.connect(secret_dict['username'] + '/' + secret_dict['password'] + '@' + secret_dict['host'] + ':' + port + '/' + secret_dict['dbname'])
         return conn
-    except pg.InternalError:
+    except (cx_Oracle.DatabaseError, cx_Oracle.OperationalError) :
         return None
 
 
@@ -333,10 +334,8 @@ def get_secret_dict(service_client, arn, stage, token=None):
 
         ValueError: If the secret is not valid JSON
 
-        KeyError: If the secret json does not contain the expected keys
-
     """
-    required_fields = ['host', 'username', 'password']
+    required_fields = ['host', 'username', 'password', 'dbname']
 
     # Only do VersionId validation against the stage if a token is passed in
     if token:
@@ -347,8 +346,8 @@ def get_secret_dict(service_client, arn, stage, token=None):
     secret_dict = json.loads(plaintext)
 
     # Run validations against the secret
-    if 'engine' not in secret_dict or secret_dict['engine'] != 'postgres':
-        raise KeyError("Database engine must be set to 'postgres' in order to use this rotation lambda")
+    if 'engine' not in secret_dict or secret_dict['engine'] != 'oracle':
+        raise KeyError("Database engine must be set to 'oracle' in order to use this rotation lambda")
     for field in required_fields:
         if field not in secret_dict:
             raise KeyError("%s key is missing from secret JSON" % field)
@@ -372,12 +371,12 @@ def get_alt_username(current_username):
         ValueError: If the new username length would exceed the maximum allowed
 
     """
-    clone_suffix = "_clone"
+    clone_suffix = "_CLONE"
     if current_username.endswith(clone_suffix):
-        return current_username[:(len(clone_suffix) * -1)]
+        return current_username[:(len(clone_suffix) * -1)].upper()
     else:
         new_username = current_username + clone_suffix
-        if len(new_username) > 63:
-            raise ValueError("Unable to clone user, username length with _clone appended would exceed 63 characters")
-        return new_username
+        if len(new_username) > 30:
+            raise ValueError("Unable to clone user, username length with _CLONE appended would exceed 30 characters")
+        return new_username.upper()
 ```

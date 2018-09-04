@@ -163,7 +163,7 @@ The following policy, when it's attached to a user, group, or role, allows the u
             {
                 "Effect": "Allow",
                 "Action": "secretsmanager:GetSecret",
-                "Resource": "arn:aws:secretsmanager:::secret:Prod*",
+                "Resource": "arn:aws:secretsmanager:*:*:secret:Prod*",
                 "Condition": { "ForAnyValue:StringEquals": { "secretsmanager:VersionStage": "AWSCURRENT" } }
             }
         ]
