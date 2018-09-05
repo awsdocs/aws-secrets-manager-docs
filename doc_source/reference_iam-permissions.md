@@ -6,7 +6,7 @@ The following table shows the permissions that you can specify in an IAM policy 
 
 You can restrict use of some actions to only those secrets with Amazon Resource Names \(ARNs\) that match the `Resource` element in the policy\. See the section [Resources That You Can Reference in an IAM Policy or Secret Policy](#iam-resources) later in this topic\.
 
-In addition to the AWS Secrets Manager\-specific context keys shown in the last column, you also use the [AWS Global Condition Context Keys](http://docs.aws.amazon.com/IAM/latest/UserGuide/auth-and-access.xmlreference_policies_condition-keys.html)\.
+In addition to the AWS Secrets Manager\-specific context keys shown in the last column, you also use the [AWS Global Condition Context Keys](http://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html)\.
 
 If you see an expand arrow \(**↗**\) in the upper\-right corner of the table, you can open the table in a new window\. To close the window, choose the close button \(**X**\) in the lower\-right corner\.
 
@@ -61,7 +61,7 @@ For example, you could choose to allow someone to retrieve *only* the `AWSCURREN
     "Condition": {"ForAnyValue:StringEquals" : {"secretsmanager:VersionStage" : "AWSCURRENT"}}
 ```
 
-The following table shows the Secrets Manager\-specific context keys that you can specify in the `Condition` element of an IAM permissions policy to more granularly control access to an action\. In addition to the keys below, you can also use the [AWS Global Condition Context Keys](http://docs.aws.amazon.com/IAM/latest/UserGuide/auth-and-access.xmlreference_policies_condition-keys.html)\.
+The following table shows the Secrets Manager\-specific context keys that you can specify in the `Condition` element of an IAM permissions policy to more granularly control access to an action\. In addition to the keys below, you can also use the [AWS Global Condition Context Keys](http://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html)\.
 
 
 ****  

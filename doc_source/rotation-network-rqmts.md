@@ -7,7 +7,7 @@ To successfully rotate your secrets, the Lambda rotation function must be able t
 
   If you configure your rotation function manually and want to put it in a VPC, then on the function's **Details** page scroll down to the **Networking** section and choose the appropriate **VPC** from the list\.
 + **Configure your VPC to enable communications between the Lambda rotation function running in a VPC and the Secrets Manager service endpoint\.** By default, the Secrets Manager endpoints are on the public Internet\. If your Lambda rotation function and protected database or service are both running in a VPC, then you must perform one of the following steps:
-  + You can enable your Lambda function to access the public Secrets Manager endpoint by adding a [NAT gateway](http://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat.html) or an [internet gateway](http://docs.aws.amazon.com/vpc/latest/userguide/auth-and-access.xmlVPC_Internet_Gateway.html) to your VPC\. This enables traffic that originates in your VPC to reach the public Secrets Manager endpoint\. *This does expose your VPC to a level of risk* because there's an IP address \(for the gateway\) that can be attacked from the public internet\.
+  + You can enable your Lambda function to access the public Secrets Manager endpoint by adding a [NAT gateway](http://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat.html) or an [internet gateway](http://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html) to your VPC\. This enables traffic that originates in your VPC to reach the public Secrets Manager endpoint\. *This does expose your VPC to a level of risk* because there's an IP address \(for the gateway\) that can be attacked from the public internet\.
   + You can configure Secrets Manager service endpoints directly within your VPC\. This configures your VPC to intercept any request that's addressed to the public regional endpoint, and redirect it to the private service endpoint that's running within your VPC\. For more details, see [Connecting to Secrets Manager Through a VPC Endpoint](#vpc-endpoint)\.
 
 **Topics**
@@ -26,7 +26,7 @@ Secrets Manager supports Amazon VPC [interface endpoints](http://docs.aws.amazon
 The VPC interface endpoint connects your VPC directly to Secrets Manager without an internet gateway, NAT device, VPN connection, or AWS Direct Connect connection\. The instances in your VPC don't need public IP addresses to communicate with Secrets Manager\.
 
 For your Lambda rotation function to find the private endpoint, perform one of the following steps:
-+ You can manually specify the VPC endpoint in [Secrets Manager API operations](http://docs.aws.amazon.com/secretsmanager/latest/apireference/auth-and-access.xml) and [AWS CLI commands](http://docs.aws.amazon.com/cli/latest/reference/secretsmanager/index.html)\. For example, the following command uses the **endpoint\-url** parameter to specify a VPC endpoint in an AWS CLI command to Secrets Manager\.
++ You can manually specify the VPC endpoint in [Secrets Manager API operations](http://docs.aws.amazon.com/secretsmanager/latest/apireference/) and [AWS CLI commands](http://docs.aws.amazon.com/cli/latest/reference/secretsmanager/index.html)\. For example, the following command uses the **endpoint\-url** parameter to specify a VPC endpoint in an AWS CLI command to Secrets Manager\.
 
   ```
   $ aws secretsmanager list-secrets --endpoint-url https://vpce-1234a5678b9012c-12345678.secretsmanager.us-west-2.vpce.amazonaws.com
@@ -74,11 +74,11 @@ Follow the steps under one of the following tabs:
 
 1. For **Security group**, select or create a security group\.
 
-   You can use [security groups](http://docs.aws.amazon.com/vpc/latest/userguide/auth-and-access.xmlVPC_SecurityGroups.html) to control access to your endpoint, much like you would use a firewall\.
+   You can use [security groups](http://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html) to control access to your endpoint, much like you would use a firewall\.
 
 1. Choose **Create endpoint**\.
 
-The results show the VPC endpoint, including the VPC endpoint ID and the DNS names that you use to [connect to your VPC endpoint](http://docs.aws.amazon.com/kms/latest/developerguide/auth-and-access.xmlkms-vpc-endpoint.html#connecting-vpc-endpoint)\.
+The results show the VPC endpoint, including the VPC endpoint ID and the DNS names that you use to [connect to your VPC endpoint](http://docs.aws.amazon.com/kms/latest/developerguide/kms-vpc-endpoint.html#connecting-vpc-endpoint)\.
 
 You can also use the Amazon VPC tools to view and manage your endpoint\. This includes creating a notification for an endpoint, changing properties of the endpoint, and deleting the endpoint\. For instructions, see [Interface VPC Endpoints](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpce-interface.html)\.
 

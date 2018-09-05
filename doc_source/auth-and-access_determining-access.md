@@ -90,7 +90,7 @@ In the preceding policy statement, `arn:aws:iam::111122223333:user/anaya` refers
 
 In the preceding policy statement, `arn:aws:iam::123456789012:role/EncryptionApp` refers to the IAM role named EncryptionApp in AWS account 123456789012\. Principals that can assume this role are allowed to perform the one action that's listed in the policy statement\. This action is to get the details for the current version of the secret\.
 
-To learn all the different ways that you can specify a principal in a secret policy document, see [Specifying a Principal](http://docs.aws.amazon.com/IAM/latest/UserGuide/auth-and-access.xmlreference_policies_elements.html#Principal_specifying) in the *IAM User Guide*\.
+To learn all the different ways that you can specify a principal in a secret policy document, see [Specifying a Principal](http://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements.html#Principal_specifying) in the *IAM User Guide*\.
 
 To learn more about Secrets Manager secret policies, see [Resource\-based Policies](auth-and-access_overview.md#auth-and-access_resource-policies)\.
 

@@ -56,7 +56,7 @@ The following policy, when it's attached directly to a secret \(as part of the m
 
 ## Grant Read\-Only Access to a Role<a name="example_1"></a>
 
-A common Secrets Manager scenario is where an application that's running on an Amazon EC2 instance needs access to a database to perform its required tasks\. The application must retrieve the database credentials from Secrets Manager\. To make a request to Secrets Manager, like any other AWS service, you must have AWS credentials with permissions to perform the request\. The recommended way to achieve this is to create an IAM role that's attached to the EC2 instance profile\. For more information, see [IAM Roles for Amazon EC2]() in the *Amazon EC2 User Guide for Linux Instances*—and specifically the section [Retrieving Security Credentials from Instance Metadata](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/auth-and-access.xmliam-roles-for-amazon-ec2.html#instance-metadata-security-credentials)\.
+A common Secrets Manager scenario is where an application that's running on an Amazon EC2 instance needs access to a database to perform its required tasks\. The application must retrieve the database credentials from Secrets Manager\. To make a request to Secrets Manager, like any other AWS service, you must have AWS credentials with permissions to perform the request\. The recommended way to achieve this is to create an IAM role that's attached to the EC2 instance profile\. For more information, see [IAM Roles for Amazon EC2]() in the *Amazon EC2 User Guide for Linux Instances*—and specifically the section [Retrieving Security Credentials from Instance Metadata](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html#instance-metadata-security-credentials)\.
 
 If you then attach the following example resource\-based policy to the secret, any requests to retrieve the secret work only if the requester is using credentials that are associated with that role, and if the request asks only for the current version of the secret:
 
@@ -79,4 +79,4 @@ If you then attach the following example resource\-based policy to the secret, a
 }
 ```
 
-[Suggest improvements to this example on GitHub\.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/iam_policies/secretsmanager/asm-resource-policy-grant-gsv-on-only-awscurrent-to-role.json.json)
+[Suggest improvements to this example on GitHub\.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/iam_policies/secretsmanager/asm-resource-policy-grant-gsv-on-only-awscurrent-to-role.json)
