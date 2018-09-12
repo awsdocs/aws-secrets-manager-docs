@@ -94,7 +94,7 @@ The following diagram shows the general syntax of the command\.
 ```
 aws ec2 create-vpc-endpoint  --vpc-id <vpc id> \
                              --vpc-endpoint-type Interface \
-                             --service-name com.amazonaws.<region>.kms \
+                             --service-name com.amazonaws.<region>.secretsmanager \
                              --subnet-ids <subnet id> \
                              --security-group-id <security group id>
 ```
