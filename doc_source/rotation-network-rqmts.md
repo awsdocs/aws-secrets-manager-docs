@@ -33,8 +33,6 @@ For your Lambda rotation function to find the private endpoint, perform one of t
   ```
 + If you enable [private DNS hostnames](http://docs.aws.amazon.com/vpc/latest/userguide/vpce-interface.html#vpce-private-dns) for your VPC private endpoint, you don't even need to specify the endpoint URL\. The standard Secrets Manager DNS hostname that the Secrets Manager CLI and SDKs use by default \(`https://secretsmanager.<region>.amazonaws.com`\) automatically resolves to your VPC endpoint\.
 
-If you enable [private DNS hostnames](http://docs.aws.amazon.com/vpc/latest/userguide/vpce-interface.html#vpce-private-dns) for your VPC endpoint, you don't even need to specify the endpoint URL\. The standard Secrets Manager DNS hostname that the Secrets Manager CLI and SDKs use by default \(`https://secretsmanager.<region>.amazonaws.com`\) automatically resolves to your VPC endpoint\.
-
 You can also use AWS CloudTrail logs to audit your use of secrets through the VPC endpoint\. And you can use the conditions in IAM and secret \(resource\-based\) policies to deny access to any request that doesn't come from a specified VPC or VPC endpoint\.
 
 **Note**  
