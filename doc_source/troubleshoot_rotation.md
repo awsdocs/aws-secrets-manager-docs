@@ -64,7 +64,7 @@ This enables the rotation function to retrieve the credentials from the master s
 This can occur if there are network configuration issues that prevent the Lambda function from communicating with either your secured database/service or the Secrets Manager service endpoint \(which is on the public internet\)\. If your database/service is running in a VPC, then you can configure things one of two ways:
 + Make the database in the VPC publicly accessible with an Amazon EC2 Elastic IP address\.
 + Configure the Lambda rotation function to operate in the same VPC as the database/service\.
-+ If your VPC doesn't have access to the public internet \(for example, if you don't [configure the VPC with a NAT gateway](http://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html) for access\), then you must [configure the VPC with a private service endpoint for Secrets Manager](rotation-network-rqmts.md) that's accessible from within the VPC\.
++ If your VPC doesn't have access to the public internet \(for example, if you don't [configure the VPC with a NAT gateway](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html) for access\), then you must [configure the VPC with a private service endpoint for Secrets Manager](rotation-network-rqmts.md) that's accessible from within the VPC\.
 
 To determine if this type of configuration issue is the cause of the rotation failure, perform the following steps\.
 
@@ -74,7 +74,7 @@ To determine if this type of configuration issue is the cause of the rotation fa
 
 1. Examine the log files to look for indications that there are timeouts occurring between either the Lambda function and the AWS Secrets Manager service, or between the Lambda function and the secured database or service\.
 
-1. For information about how to configure services and Lambda functions to interoperate within the VPC environment, see the [Amazon Virtual Private Cloud documentation](https://aws.amazon.com/documentation/vpc/) and the [AWS Lambda Developer Guide](http://docs.aws.amazon.com/lambda/latest/dg/) \.
+1. For information about how to configure services and Lambda functions to interoperate within the VPC environment, see the [Amazon Virtual Private Cloud documentation](https://aws.amazon.com/documentation/vpc/) and the [AWS Lambda Developer Guide](https://docs.aws.amazon.com/lambda/latest/dg/) \.
 
 ## CloudTrail shows access\-denied errors during rotation<a name="tshoot-lambda-accessdeniedduringrotation"></a>
 

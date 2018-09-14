@@ -56,10 +56,10 @@ Follow the steps under one of the following tabs:
 
 1. Choose the name of the Lambda function that you identified to see the function details\.
 
-1.  In the **Function code** section, you can edit the source code of the function\. For more information about coding a Lambda function specifically for Secrets Manager, see [Overview of the Lambda Rotation Function](rotating-secrets-lambda-function-overview.md)\. For the [http://docs.aws.amazon.com/lambda/latest/dg/](http://docs.aws.amazon.com/lambda/latest/dg/)\. All of the provided Lambda functions are written for the Python 2\.7 environment\.
+1.  In the **Function code** section, you can edit the source code of the function\. For more information about coding a Lambda function specifically for Secrets Manager, see [Overview of the Lambda Rotation Function](rotating-secrets-lambda-function-overview.md)\. For the [https://docs.aws.amazon.com/lambda/latest/dg/](https://docs.aws.amazon.com/lambda/latest/dg/)\. All of the provided Lambda functions are written for the Python 2\.7 environment\.
 
 ------
 
-For more information about Lambda function options and coding techniques, see the [AWS Lambda Developer Guide](http://docs.aws.amazon.com/lambda/latest/dg/)\. 
+For more information about Lambda function options and coding techniques, see the [AWS Lambda Developer Guide](https://docs.aws.amazon.com/lambda/latest/dg/)\. 
 
 For more information about coding your own Secrets Manager rotation function, see [Understanding and Customizing Your Lambda Rotation Function](rotating-secrets-lambda-function-customizing.md)\.

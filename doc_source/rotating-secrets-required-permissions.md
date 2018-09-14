@@ -5,7 +5,7 @@ When you use the AWS Secrets Manager console to configure rotation for a secret 
 ## Permissions of Users Who Configure Rotation vs\. Users Who Trigger Rotation<a name="rotating-secrets-required-permissions-user-vs-function"></a>
 
 There are two separate sets of permissions required for ***user*** operations that involve secret rotation:
-+ **Permissions that are required to configure rotation** – These permissions are assigned to a trusted user who you want to be able to configure secret rotation\. For more information, see [Granting Full Secrets Manager Administrator Permissions to a User](http://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access_identity-based-policies.html#permissions_grant-admin-actions)\.
++ **Permissions that are required to configure rotation** – These permissions are assigned to a trusted user who you want to be able to configure secret rotation\. For more information, see [Granting Full Secrets Manager Administrator Permissions to a User](https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access_identity-based-policies.html#permissions_grant-admin-actions)\.
 + **Permissions that are required to rotate the secret** – The only permission an IAM user needs to trigger rotation after it's configured is the `secretsmanager:RotateSecret` permission\. After rotation starts, the Lambda rotation function takes over and uses its attached IAM role and its permissions to authorize the operations that are performed during rotation, including any required AWS KMS operations\.
 
 The rest of this topic discusses the permissions that the Lambda rotation function must have to successfully rotate a secret\.
@@ -81,7 +81,7 @@ The Lambda function is invoked by the Secrets Manager service itself\. The servi
 
     The second statement allows one additional Secrets Manager operation that doesn't require the condition\.
 
-    The third statement enables Lambda to set up the required configuration when you specify that your database or service is running in a VPC\. For more information, see [Configuring a Lambda Function to Access Resources in an Amazon VPC](http://docs.aws.amazon.com/lambda/latest/dg/vpc.html) in the *AWS Lambda Developer Guide*\.
+    The third statement enables Lambda to set up the required configuration when you specify that your database or service is running in a VPC\. For more information, see [Configuring a Lambda Function to Access Resources in an Amazon VPC](https://docs.aws.amazon.com/lambda/latest/dg/vpc.html) in the *AWS Lambda Developer Guide*\.
   + **Master user rotation**: The following example is suitable for a function that rotates a secret by signing in using a separate "master" secret that contains credentials with elevated permissions\. This is typically required when you use one of the rotation strategies that alternate between two users\.
 
     ```

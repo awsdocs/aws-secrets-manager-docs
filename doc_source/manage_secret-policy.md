@@ -20,8 +20,8 @@ Use the following steps to attach a policy to a secret\.
 #### [ Using the AWS CLI or AWS SDK operations ]<a name="proc-attach-policy-api"></a>
 
 You can use the following command to attach or modify the policy document that grants or denies access to the specified secret\. The policy document must be formatted as JSON structured text\. For more information, see [Using Resource\-based Policies for Secrets Manager](auth-and-access_resource-based-policies.md)\. We recommend that you store your policy document as a text file, and then reference the file in the parameter of the command\.
-+ **API/SDK:** [http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_PutResourcePolicy.html](http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_PutResourcePolicy.html)
-+ **CLI:** [http://docs.aws.amazon.com/cli/latest/reference/secretsmanager/put-resource-policy.html](http://docs.aws.amazon.com/cli/latest/reference/secretsmanager/put-resource-policy.html)
++ **API/SDK:** [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_PutResourcePolicy.html](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_PutResourcePolicy.html)
++ **CLI:** [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/put-resource-policy.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/put-resource-policy.html)
 
 **Example**  
 The following example CLI command attaches or replaces the resource\-based permission policy that's currently attached to the secret\. The policy document is retrieved from the file `secretpolicy.json`\.  
@@ -45,8 +45,8 @@ Use the following steps to get the text of a resource\-based policy that's attac
 #### [ Using the AWS CLI or AWS SDK operations ]<a name="proc-retrieve-policy-api"></a>
 
 You can use the following command to retrieve the policy document that's currently attached to the specified secret\.
-+ **API/SDK:** [http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetResourcePolicy.html](http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetResourcePolicy.html)
-+ **CLI:** [http://docs.aws.amazon.com/cli/latest/reference/secretsmanager/get-resource-policy.html](http://docs.aws.amazon.com/cli/latest/reference/secretsmanager/get-resource-policy.html)
++ **API/SDK:** [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetResourcePolicy.html](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetResourcePolicy.html)
++ **CLI:** [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/get-resource-policy.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/get-resource-policy.html)
 
 **Example**  
 The following example CLI command gets the text for the resource\-based permission policy that's currently attached to the secret\.  
@@ -71,8 +71,8 @@ Use the following steps to delete the resource\-based policy that's currently at
 #### [ Using the AWS CLI or AWS SDK operations ]<a name="proc-delete-policy-api"></a>
 
 You can use the following command to delete a resource\-based policy that's currently attached to the specified secret\.
-+ **API/SDK:** [http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_DeleteResourcePolicy.html](http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_DeleteResourcePolicy.html)
-+ **CLI:** [http://docs.aws.amazon.com/cli/latest/reference/secretsmanager/delete-resource-policy.html](http://docs.aws.amazon.com/cli/latest/reference/secretsmanager/delete-resource-policy.html)
++ **API/SDK:** [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_DeleteResourcePolicy.html](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_DeleteResourcePolicy.html)
++ **CLI:** [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/delete-resource-policy.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/delete-resource-policy.html)
 
 **Example**  
 The following example CLI command deletes the resource\-based permission policy that's currently attached to the secret\.  

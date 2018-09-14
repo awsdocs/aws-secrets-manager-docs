@@ -9,7 +9,7 @@ To determine the full extent of who or what currently has access to a secret in 
 
 ## Understanding Policy Evaluation<a name="determine-acccess_understanding-policy-evaluation"></a>
 
-When authorizing access to a secret, Secrets Manager evaluates the secret policy that's attached to the secret, and all IAM policies that are attached to the IAM user or role making the request\. To do this, Secrets Manager uses a process that's similar to the one described in [Determining Whether a Request is Allowed or Denied](http://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html#policy-eval-denyallow) in the *IAM User Guide*\.
+When authorizing access to a secret, Secrets Manager evaluates the secret policy that's attached to the secret, and all IAM policies that are attached to the IAM user or role making the request\. To do this, Secrets Manager uses a process that's similar to the one described in [Determining Whether a Request is Allowed or Denied](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html#policy-eval-denyallow) in the *IAM User Guide*\.
 
 For example, assume that you have two secrets and three users, all in the same AWS account\. The secrets and users have the following policies:
 + Secret 1 doesn't have a secret policy\.
@@ -27,7 +27,7 @@ In summary, all policy statements from either the secret or the identity that "a
 
 ## Examining the Secret Policy<a name="determine-acccess_examine-secret-policy"></a>
 
-You can view the secret policy document that's attached to a secret by using the `[GetSecretPolicy](http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretPolicy.html)` operation, and examining the `ResourcePolicy` response element\.
+You can view the secret policy document that's attached to a secret by using the `[GetSecretPolicy](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretPolicy.html)` operation, and examining the `ResourcePolicy` response element\.
 
 Examine the secret policy document and take note of all principals that are specified in each policy statement's `Principal` element\. IAM users, IAM roles, and AWS accounts in the `Principal`elements all have access to this secret\.
 
@@ -90,7 +90,7 @@ In the preceding policy statement, `arn:aws:iam::111122223333:user/anaya` refers
 
 In the preceding policy statement, `arn:aws:iam::123456789012:role/EncryptionApp` refers to the IAM role named EncryptionApp in AWS account 123456789012\. Principals that can assume this role are allowed to perform the one action that's listed in the policy statement\. This action is to get the details for the current version of the secret\.
 
-To learn all the different ways that you can specify a principal in a secret policy document, see [Specifying a Principal](http://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements.html#Principal_specifying) in the *IAM User Guide*\.
+To learn all the different ways that you can specify a principal in a secret policy document, see [Specifying a Principal](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements.html#Principal_specifying) in the *IAM User Guide*\.
 
 To learn more about Secrets Manager secret policies, see [Resource\-based Policies](auth-and-access_overview.md#auth-and-access_resource-policies)\.
 
@@ -135,7 +135,7 @@ You can use the IAM API to examine IAM policies programmatically\. The following
 
 1. For each IAM user and role in the list, use the [SimulatePrincipalPolicy](http://docs.aws.amazon.com/IAM/latest/APIReference/API_SimulatePrincipalPolicy.html) operation in the IAM API, and pass the following parameters:
    + For `PolicySourceArn`, specify the ARN of a user or role from your list\. You can specify only one `PolicySourceArn` for each `SimulatePrincipalPolicy` API request\. So you must call this API multiple times, once for each IAM user and role in your list\.
-   + For the `ActionNames` list, specify every Secrets Manager API action to simulate\. To simulate all Secrets Manager API actions, use `secretsmanager:*`\. To test individual Secrets Manager API actions, precede each API action with "`secretsmanager:`"—for example, "`secretsmanager:ListSecrets`"\. For a complete list of all Secrets Manager API actions, see [Actions](http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_Operations.html) in the *AWS Key Management Service API Reference*\.
+   + For the `ActionNames` list, specify every Secrets Manager API action to simulate\. To simulate all Secrets Manager API actions, use `secretsmanager:*`\. To test individual Secrets Manager API actions, precede each API action with "`secretsmanager:`"—for example, "`secretsmanager:ListSecrets`"\. For a complete list of all Secrets Manager API actions, see [Actions](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_Operations.html) in the *AWS Key Management Service API Reference*\.
    + \(Optional\) To determine whether the IAM users or roles have access to specific secrets, use the `ResourceArns` parameter to specify a list of the ARNs of the secrets\. To determine whether the IAM users or roles have access to any secret, don't use the `ResourceArns` parameter\.
 
 IAM responds to each `SimulatePrincipalPolicy` API request with an evaluation decision: `allowed`, `explicitDeny`, or `implicitDeny`\. For each response that contains an evaluation decision of `allowed`, the response also contains the name of the specific Secrets Manager API action that's allowed and, if applicable, the ARN of the secret that was used in the evaluation\.

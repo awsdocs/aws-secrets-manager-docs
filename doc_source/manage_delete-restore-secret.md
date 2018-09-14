@@ -50,8 +50,8 @@ To delete a secret in the console, you must have these permissions:
 #### [ Using the AWS CLI or AWS SDK operations ]<a name="proc-delete-secret-api"></a>
 
 You can use the following commands to retrieve a secret that's stored in AWS Secrets Manager:
-+ **API/SDK:** [http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_DeleteSecret.html](http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_DeleteSecret.html)
-+ **AWS CLI:** [http://docs.aws.amazon.com/cli/latest/reference/secretsmanager/delete-secret.html](http://docs.aws.amazon.com/cli/latest/reference/secretsmanager/delete-secret.html)
++ **API/SDK:** [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_DeleteSecret.html](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_DeleteSecret.html)
++ **AWS CLI:** [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/delete-secret.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/delete-secret.html)
 
 You have to identify the secret that you want to delete by its friendly name or Amazon Resource Name \(ARN\) in the `SecretId` field\.
 
@@ -133,8 +133,8 @@ To restore a secret and its metadata in the console, you must have these permiss
 #### [ Using the AWS CLI or AWS SDK operations ]<a name="proc-restore-secret-api"></a>
 
 You can use the following commands to retrieve a secret that's stored in AWS Secrets Manager:
-+ **API/SDK:** [http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_RestoreSecret.html](http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_RestoreSecret.html)
-+ **AWS CLI:** [http://docs.aws.amazon.com/cli/latest/reference/secretsmanager/restore-secret.html](http://docs.aws.amazon.com/cli/latest/reference/secretsmanager/restore-secret.html)
++ **API/SDK:** [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_RestoreSecret.html](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_RestoreSecret.html)
++ **AWS CLI:** [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/restore-secret.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/restore-secret.html)
 
 You must identify the secret that you want to restore by its friendly name or ARN in the `SecretId` field\.
 
@@ -162,8 +162,8 @@ You can't delete one version of a secret using the Secrets Manager console\. You
 You can't directly delete a version of a secret\. Instead, you remove all its staging labels, which effectively marks it as deprecated\. Secrets Manager can then delete it in the background\.
 
 You can use the following commands to deprecate a version of a secret that's stored in AWS Secrets Manager:
-+ **API/SDK:** [http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html](http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html)
-+ **AWS CLI:** [http://docs.aws.amazon.com/cli/latest/reference/secretsmanager/get-secret-value.html](http://docs.aws.amazon.com/cli/latest/reference/secretsmanager/get-secret-value.html)
++ **API/SDK:** [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html)
++ **AWS CLI:** [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/get-secret-value.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/get-secret-value.html)
 
 You must identify the secret by its friendly name or ARN\. You also specify the staging labels that you want to add, move, or remove\.
 

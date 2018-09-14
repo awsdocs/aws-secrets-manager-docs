@@ -42,7 +42,7 @@ In Secrets Manager, a secret contains not only the encrypted secret text, but al
   + Basic information that includes the name of the secret, a description, and the Amazon Resource Name \(ARN\) that serves as a unique identifier\. 
   + The ARN of the AWS Key Management Service \(AWS KMS\) key that Secrets Manager uses to encrypt and decrypt the protected text in the secret\. If this isn't present, Secrets Manager uses the default AWS KMS key for the account\. 
   + Information about how frequently the key is automatically [rotated](#term_rotation) and what Lambda function to use to perform the rotation\.
-  + A user\-provided set of [tags](http://docs.aws.amazon.com/awsconsolehelpdocs/latest/gsg/tag-editor.html)\. Tags are key\-value pairs that you can attach to AWS resources for organizing, logical grouping, and [cost allocation](http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what)\.
+  + A user\-provided set of [tags](https://docs.aws.amazon.com/awsconsolehelpdocs/latest/gsg/tag-editor.html)\. Tags are key\-value pairs that you can attach to AWS resources for organizing, logical grouping, and [cost allocation](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what)\.
 + **Versions – A collection of one or more [versions](#term_version) of the encrypted secret text**
   + Although you typically only have one version of the secret active at a time, multiple versions can exist while you rotate a secret on the database or service\. A new version is created whenever you need to change the secret, such as when you change the password\.
   + Each version holds its own copy of the encrypted secret value\.
@@ -68,7 +68,7 @@ You can trigger the Lambda rotation function manually when you choose **Rotate s
 
 If you choose to create a secret for a custom service, then you must create the Lambda function yourself\. In the code of the function, you determine how to compose the JSON structure and parse it in your function\.
 
-No matter what service or database your secret is for, the Lambda rotation function for the secret must be able to access both your database/service and a Secrets Manager service endpoint\. If the Lambda rotation function and database/service reside in a VPC provided by Amazon VPC, then you must configure the VPC with either a [VPC service endpoint for Secrets Manager](rotation-network-rqmts.md), or [direct Internet connectivity by using a NAT gateway](http://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html), to allow access to the public Secrets Manager service endpoint\.
+No matter what service or database your secret is for, the Lambda rotation function for the secret must be able to access both your database/service and a Secrets Manager service endpoint\. If the Lambda rotation function and database/service reside in a VPC provided by Amazon VPC, then you must configure the VPC with either a [VPC service endpoint for Secrets Manager](rotation-network-rqmts.md), or [direct Internet connectivity by using a NAT gateway](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html), to allow access to the public Secrets Manager service endpoint\.
 
 For more information about rotation, see [Rotating Your AWS Secrets Manager Secrets](rotating-secrets.md)\.
 

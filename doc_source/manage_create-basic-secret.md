@@ -72,8 +72,8 @@ The permissions granted by the **IAMFullAccess** AWS managed policy – required
 #### [ Using the AWS CLI or AWS SDK operations ]<a name="proc-create-api"></a>
 
 You can use the following commands to create a basic secret in Secrets Manager:
-+ **API/SDK:** [http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_CreateSecret.html](http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_CreateSecret.html)
-+ **AWS CLI:** [http://docs.aws.amazon.com/cli/latest/reference/secretsmanager/create-secret.html](http://docs.aws.amazon.com/cli/latest/reference/secretsmanager/create-secret.html)
++ **API/SDK:** [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_CreateSecret.html](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_CreateSecret.html)
++ **AWS CLI:** [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/create-secret.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/create-secret.html)
 
 **Example**  
 Here's an example AWS CLI command that performs the equivalent of the console\-based secret creation on the other tab\. This command assumes that you've placed your secret, such as this example JSON text structure `{"username":"anika","password":"aDM4N3*!8TT"}`, in a file named `mycreds.json`\.  

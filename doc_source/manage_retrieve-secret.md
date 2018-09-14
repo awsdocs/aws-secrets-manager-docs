@@ -33,8 +33,8 @@ To retrieve a secret in the console, you must have these permissions:
 For more information about retrieving a secret from your application's code, see [Retrieving the Secret Value](#manage_retrieve-secret)\.
 
 You can use the following commands to retrieve a secret stored in AWS Secrets Manager:
-+ **API/SDK:** [http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html](http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html)
-+ **AWS CLI:** [http://docs.aws.amazon.com/cli/latest/reference/secretsmanager/get-secret-value.html](http://docs.aws.amazon.com/cli/latest/reference/secretsmanager/get-secret-value.html)
++ **API/SDK:** [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html)
++ **AWS CLI:** [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/get-secret-value.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/get-secret-value.html)
 
 You must identify the secret by its friendly name or Amazon Resource Name \(ARN\), and specify the version of the secret to return\. \(It defaults to the version that has the staging label `AWSCURRENT` if you don't otherwise specify a version\)\. The contents of the secret text are returned in the response parameters `PlaintextString` and, if you stored any binary data in the secret, `Plaintext`, which returns a byte array\.
 

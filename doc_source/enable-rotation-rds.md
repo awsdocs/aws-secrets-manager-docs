@@ -7,8 +7,8 @@ Enabling rotation causes the secret to rotate once immediately when you save the
 
 **Prerequisites: Network Requirements to Enable Rotation**  
 To successfully enable rotation, you must have your network environment configured correctly\.
-+ **The Lambda function must be able to communicate with the database\.** If your RDS database instance is running in a [VPC](http://docs.aws.amazon.com/vpc/latest/userguide/VPC_Introduction.html), we recommend that you configure your Lambda function to run in the same VPC\. This enables direct connectivity between the rotation function and your service\. To configure this, on the Lambda function's details page, scroll down to the **Network** section and choose the **VPC** from the drop\-down list to match the one your instance is running in\. You must also make sure that the EC2 security groups attached to your instance enable communication between the instance and Lambda\.
-+ **The Lambda function must be able to communicate with the Secrets Manager service endpoint\.** If your Lambda rotation function can access the internet, either because the function isn't configured to run in a VPC, or because the VPC has an [attached NAT gateway](http://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html), then you can use [any of the available public endpoints for Secrets Manager](http://docs.aws.amazon.com/general/latest/gr/rande.html#asm_region)\. Alternatively, if your Lambda function is configured to run in a VPC that doesn't have internet access at all, then you can [configure the VPC with a private Secrets Manager service endpoint](rotation-network-rqmts.md)\.
++ **The Lambda function must be able to communicate with the database\.** If your RDS database instance is running in a [VPC](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Introduction.html), we recommend that you configure your Lambda function to run in the same VPC\. This enables direct connectivity between the rotation function and your service\. To configure this, on the Lambda function's details page, scroll down to the **Network** section and choose the **VPC** from the drop\-down list to match the one your instance is running in\. You must also make sure that the EC2 security groups attached to your instance enable communication between the instance and Lambda\.
++ **The Lambda function must be able to communicate with the Secrets Manager service endpoint\.** If your Lambda rotation function can access the internet, either because the function isn't configured to run in a VPC, or because the VPC has an [attached NAT gateway](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html), then you can use [any of the available public endpoints for Secrets Manager](https://docs.aws.amazon.com/general/latest/gr/rande.html#asm_region)\. Alternatively, if your Lambda function is configured to run in a VPC that doesn't have internet access at all, then you can [configure the VPC with a private Secrets Manager service endpoint](rotation-network-rqmts.md)\.
 
 **To enable and configure rotation for a supported Amazon RDS database secret**  
 Follow the steps under one of the following tabs:
@@ -89,8 +89,8 @@ To enable and configure rotation in the console, you must have the permissions t
 `IAMFullAccess` – Provides the IAM permissions that are required to create a role and attach a permission policy to it\.
 
 You can use the following Secrets Manager commands to configure rotation for an existing secret for a supported Amazon RDS database:
-+ **API/SDK:** [RotateSecret](http://docs.aws.amazon.com/secretsmanager/latest/apireference/API_RotateSecret.html)
-+ **AWS CLI:** [RotateSecret](http://docs.aws.amazon.com/cli/latest/reference/secretsmanager/rotate-secret.html)
++ **API/SDK:** [RotateSecret](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_RotateSecret.html)
++ **AWS CLI:** [RotateSecret](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/rotate-secret.html)
 
 You also need to use commands from AWS CloudFormation and AWS Lambda\. For more information about the commands that follow, see the documentation for those services\.
 

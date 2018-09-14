@@ -173,7 +173,7 @@ The following policy, when it's attached to a user, group, or role, allows the u
 
 [Suggest improvements to this example on GitHub\.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/iam_policies/secretsmanager/asm-user-policy-grants-access-to-only-specified-version-of-secret.json)
 
-Because a version of a secret can have multiple staging labels attached, you need to use the [IAM policy language's set operators](http://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_multi-value-conditions.html) to compare them\. In the previous example, `ForAnyValue:StringLike` says that if any one of the staging labels attached to the version being evaluated matches the string `AWSCURRENT`, then the statement matches, and the `Effect` is applied\.
+Because a version of a secret can have multiple staging labels attached, you need to use the [IAM policy language's set operators](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_multi-value-conditions.html) to compare them\. In the previous example, `ForAnyValue:StringLike` says that if any one of the staging labels attached to the version being evaluated matches the string `AWSCURRENT`, then the statement matches, and the `Effect` is applied\.
 
 ## Granting a Rotation Function Permission to Access a Separate Master Secret<a name="permissions-grant-rotation-role-access-to-master-secret"></a>
 

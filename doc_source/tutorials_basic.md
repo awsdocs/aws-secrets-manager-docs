@@ -70,7 +70,7 @@ In this step, you retrieve the secret by using both the Secrets Manager console 
 
 **To retrieve your secret by using the AWS Secrets Manager CLI**
 
-1. Open a command prompt where you can run the AWS CLI\. If you haven't installed the AWS CLI yet, see [Installing the AWS Command Line Interface](http://docs.aws.amazon.com/cli/latest/userguide/installing.html)\. 
+1. Open a command prompt where you can run the AWS CLI\. If you haven't installed the AWS CLI yet, see [Installing the AWS Command Line Interface](https://docs.aws.amazon.com/cli/latest/userguide/installing.html)\. 
 
 1. Using credentials that have permissions to access your secret, type each of the following commands\.
 
