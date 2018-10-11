@@ -48,7 +48,7 @@ If the database or service that your credentials are for resides in a VPC provid
    $ aws cloudformation execute-change-set --change-set-name arn:aws:cloudformation:region:123456789012:changeSet/EXAMPLE1-90ab-cdef-fedc-ba987EXAMPLE/EXAMPLE2-90ab-cdef-fedc-ba987EXAMPLE
    ```
 
-1. Next, you must find the name of the Lambda function that the previous command just created for you\. The function name begins with `aws-serverless-repository-` followed by the first 24 characters of the template's name followed by a dash and a random string of characters\.
+1. Next, you must find the name of the Lambda function that the previous command just created for you\. 
 
    ```
    $ aws lambda list-functions
