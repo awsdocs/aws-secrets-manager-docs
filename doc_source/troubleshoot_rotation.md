@@ -11,6 +11,7 @@ Rotating secrets in AWS Secrets Manager requires you to use a Lambda function th
 + [My first rotation fails after I enable rotation](#tshoot-lambda-initialconfig-mastersecret)
 + [Rotation fails because the secret value is not formatted as expected by the rotation function\.](#tshoot-lambda-mismatched-secretvalue)
 + [Secrets Manager says I successfully configured rotation, but the password isn't rotating](#tshoot-lambda-connection-with-internet)
++ [Rotation fails with an "Internal failure" error message](#tshoot-lambda-missingexcludedchars)
 + [CloudTrail shows access\-denied errors during rotation](#tshoot-lambda-accessdeniedduringrotation)
 
 ## I want to find the diagnostic logs for my Lambda rotation function<a name="tshoot-rotation-find-logs"></a>
@@ -93,6 +94,10 @@ To determine if this type of configuration issue is the cause of the rotation fa
 1. Examine the log files to look for indications that there are timeouts occurring between either the Lambda function and the AWS Secrets Manager service, or between the Lambda function and the secured database or service\.
 
 1. For information about how to configure services and Lambda functions to interoperate within the VPC environment, see the [Amazon Virtual Private Cloud documentation](https://aws.amazon.com/documentation/vpc/) and the [AWS Lambda Developer Guide](https://docs.aws.amazon.com/lambda/latest/dg/) \.
+
+## Rotation fails with an "Internal failure" error message<a name="tshoot-lambda-missingexcludedchars"></a>
+
+When your rotation function generates a new password and attempts to store it in the database as a new set of credentials, you must ensure that the password includes only characters that are valid for the specified database\. The attempt to set the password for a user fails if the password includes characters that the database engine doesn't accept\. This error appears as an "internal failure"\. Refer to the database documentation a list of the characters that you can use\. Then, exclude all others by using the [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetRandomPassword.html#SecretsManager-GetRandomPassword-request-ExcludeCharacters](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetRandomPassword.html#SecretsManager-GetRandomPassword-request-ExcludeCharacters) parameter in the `GetRandomPassword` API call\.
 
 ## CloudTrail shows access\-denied errors during rotation<a name="tshoot-lambda-accessdeniedduringrotation"></a>
 
