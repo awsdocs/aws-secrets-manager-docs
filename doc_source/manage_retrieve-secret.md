@@ -53,6 +53,26 @@ $ aws secretsmanager get-secret-value --secret-id development/MyTestDatabase
     ],
     "CreatedDate": 1510089380.309
 }
-```
+```<a name="use-client-side-caching-components"></a>
+
+**Use the AWS\-developed open source client\-side caching components to improve performance and reduce your costs**  
+To efficiently use your secret, you must not simply retrieve the secret value every time you need to use it\. You should also include code that performs the following operations:
++ Your app should cache a secret after retrieving it\. Then, instead of going across the network to retrieve the secret from Secrets Manager every time you need it, use the cached value\. You should retrieve and update the secret value from Secrets Manager only when the cached value no longer works and you get an "Access Denied" error message because Secrets Manager rotated the credentials\.
++ Whenever your code receives a network or AWS service error, retry your requests using an algorithm that implements an exponential backoff and retry with jitter, as described at [Exponential Backoff And Jitter](http://aws.amazon.com/blogs/architecture/exponential-backoff-and-jitter/) in the *AWS Architecture Blog*\.
+
+By writing your code to perform those tasks, you get the following benefits:
++ **Reduced costs **– For secrets that you use often, retrieving them from the cache reduces the number of API calls your apps make to Secrets Manager\. Because Secrets Manager charges a fee per API call, this can significantly reduce your costs\.
++ **Improved performance** – Retrieving the secret from memory instead of having to send a request over the Internet to Secrets Manager can dramatically improve the performance of your apps\.
++ **Improved availability** – Transient network errors can be much less of a problem when you retrieve your secret information from the cache\. 
+
+Secrets Manager has created a client\-side component that implements these best practices to simplify your creation of code that accesses secrets stored in AWS Secrets Manager\. All you need to do is to install the client and then call it, providing the identifier of the secret that you want the code to use\. The only other requirement is to ensure that the AWS credentials you use to call Secrets Manager have the `secretsmanager:DescribeSecret` and `secretsmanager:GetSecretValue` permissions on that secret\. Those credentials would typically be associated with an IAM role\. That role might be assigned to you at sign\-on time if you use [SAML federation](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_saml.html) or [web identity \(OIDC\) federation](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_oidc.html)\. If your app is running on an Amazon EC2 instance, then your administrator can assign an IAM role by creating an [instance profile](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html)\. 
+
+The component comes in two forms:
++ A client\-side library that you interact with instead of directly calling the `GetSecretValue` operation\.
++ A database driver component that is compliant with Java Database Connectivity \(JDBC\)\. This component is a wrapper around the true JDBC driver that adds the functionality described above\.
+
+For instructions to download and use one of the following links:
++ [Java\-based caching client component](https://github.com/aws/aws-secretsmanager-caching-java )\.
++ [JDBC\-compatible database connector component](https://github.com/aws/aws-secretsmanager-jdbc )
 
 ------

@@ -3,10 +3,15 @@
 AWS Secrets Manager works with other AWS services to provide additional solutions for your business challenges\. This topic identifies services that either use Secrets Manager to add functionality, or services that Secrets Manager uses to perform its tasks\.
 
 **Topics**
++ [Automating Creation of Your Secrets with AWS CloudFormation](#integrating_cloudformation-overview)
 + [Securing Your Secrets with AWS Identity and Access Management \(IAM\)](#integrating_iam)
 + [Monitoring Your Secrets with AWS CloudTrail and Amazon CloudWatch](#integrating_ct_cw)
 + [Encrypting Your Secrets with AWS KMS](#integrating_kms)
 + [Retrieving Your Secrets with the Parameter Store APIs](#integrating_parameterstore)
+
+## Automating Creation of Your Secrets with AWS CloudFormation<a name="integrating_cloudformation-overview"></a>
+
+Secrets Manager supports AWS CloudFormation and enables you to define and reference secrets from within your stack template\. Secrets Manager defines several AWS CloudFormation resource types that allow you to create a secret and associate it with the service or database whose credentials are stored in it\. You can refer to elements in the secret from other parts of the template, such as retrieving the user name and password from the secret when you define the master user and password in a new database\. You can create and attach resource\-based policies to a secret\. You can also configure rotation by defining a Lambda function in your template and associating the function with your new secret as its rotation Lambda function\. For more information and a comprehensive example, see [Automating Secret Creation in AWS CloudFormation](integrating_cloudformation.md) 
 
 ## Securing Your Secrets with AWS Identity and Access Management \(IAM\)<a name="integrating_iam"></a>
 

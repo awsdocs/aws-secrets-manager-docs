@@ -19,9 +19,10 @@ The following are the default maximums for entities in AWS Secrets Manager:
 | --- |--- |
 | Max number of secrets in an AWS account | 40,000 | 
 | Max number of versions in a secret | \~100  | 
-| Max number of labels you can attach to a version | 20 | 
+| Max number of labels you can attach across all versions of a secret | 20 | 
 | Max number of versions a label can be attached to at the same time | 1 | 
 | Maximum length of a secret | 4096 characters | 
+| Maximum length of a resource\-based policy \- JSON text | 4096 characters | 
 
 ## Maximum Rate Limits<a name="reference_limits_rates"></a>
 

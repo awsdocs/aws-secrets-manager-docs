@@ -8,7 +8,7 @@ Enabling rotation causes the secret to rotate once immediately when you save the
 **Prerequisites: Network Requirements to Enable Rotation**  
 To successfully enable rotation, you must have your network environment configured correctly\.
 + **The Lambda function must be able to communicate with the database\.** If your RDS database instance is running in a [VPC](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Introduction.html), we recommend that you configure your Lambda function to run in the same VPC\. This enables direct connectivity between the rotation function and your service\. To configure this, on the Lambda function's details page, scroll down to the **Network** section and choose the **VPC** from the drop\-down list to match the one your instance is running in\. You must also make sure that the EC2 security groups attached to your instance enable communication between the instance and Lambda\.
-+ **The Lambda function must be able to communicate with the Secrets Manager service endpoint\.** If your Lambda rotation function can access the internet, either because the function isn't configured to run in a VPC, or because the VPC has an [attached NAT gateway](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html), then you can use [any of the available public endpoints for Secrets Manager](https://docs.aws.amazon.com/general/latest/gr/rande.html#asm_region)\. Alternatively, if your Lambda function is configured to run in a VPC that doesn't have internet access at all, then you can [configure the VPC with a private Secrets Manager service endpoint](rotation-network-rqmts.md)\.
++ **The Lambda function must be able to communicate with the Secrets Manager service endpoint\.** If your Lambda rotation function can access the internet, either because the function isn't configured to run in a VPC, or because the VPC has an [attached NAT gateway](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html), then you can use [any of the available public endpoints for Secrets Manager](https://docs.aws.amazon.com/general/latest/gr/rande.html#asm_region)\. Alternatively, if your Lambda function is configured to run in a VPC that doesn't have any internet access, then you can [configure the VPC with a private Secrets Manager service endpoint](rotation-network-rqmts.md)\.
 
 **To enable and configure rotation for a supported Amazon RDS database secret**  
 Follow the steps under one of the following tabs:
@@ -29,30 +29,48 @@ To enable and configure rotation in the console, you must have the permissions t
 
 1. For **Select rotation interval**, choose one of the predefined values—or choose **Custom**, and then type the number of days you want between rotations\. If you're rotating your secret to meet compliance requirements, then we recommend that you set this value to at least 1 day less than the compliance\-mandated interval\. 
 
-   Secrets Manager schedules the next rotation when the previous one is complete\. Secrets Manager schedules the date by adding the rotation interval \(number of days\) to the actual date of the last rotation\. The service chooses the hour within that 24\-hour date window randomly\. The minute is also chosen somewhat randomly, but weighted towards the top of the hour and influenced by a variety of factors that help distribute load\.
+   Secrets Manager schedules the next rotation when the previous one is complete\. Secrets Manager schedules the date by adding the rotation interval \(number of days\) to the actual date of the last rotation\. The service chooses the hour within that 24\-hour date window randomly\. The minute is also chosen somewhat randomly, but is weighted towards the top of the hour and influenced by a variety of factors that help distribute load\.
 **Note**  
 If you use the Lambda function that's provided by Secrets Manager to alternate between two users \(the console uses this template if you choose the second "master secret" option in the next step\), then you should set your rotation period to one\-half of your compliance\-specified minimum interval\. This is because the old credentials are still available \(if not actively used\) for one additional rotation cycle\. The old credentials are fully invalidated only after the user is updated with a new password after the second rotation\.   
 If you modify the rotation function to immediately invalidate the old credentials after the new secret becomes active, then you can extend the rotation interval to your full compliance\-mandated minimum\. Leaving the old credentials active for one additional cycle with the `AWSPREVIOUS` staging label provides a "last known good" set of credentials that you can use for fast recovery\. If something happens that breaks the current credentials, you can simply move the `AWSCURRENT` staging label to the version that has the `AWSPREVIOUS` label\. Then your customers should be able to access the resource again\. For more information, see [Rotating AWS Secrets Manager Secrets by Alternating Between Two Existing Users](rotating-secrets-two-users.md)\.
 
-1. Specify the secret with credentials that the rotation function can use to update the credentials on the protected database\.<a name="considerations-for-rotation"></a>
-   + **Use this secret**: Choose this option if the credentials in this secret have permission in the database to change their own password\. Choosing this option causes Secrets Manager to implement a Lambda function that rotates secrets with a single user that gets its password changed with each rotation\.
+1. Choose one of the following options:
+   + **You want to create a new Lambda rotation function**
+
+     1. Choose **Create a new Lambda function to perform rotation**\.
+
+     1. For **Lambda function name**, enter the name that you want to assign to the Lambda function that Secrets Manager creates for you\.
+
+     1. Specify the secret with credentials that the rotation function can use\. They must have permissions to update the user name and password on the protected database\.<a name="considerations-for-rotation"></a>
+        + **Use this secret**: Choose this option if the credentials in this secret have permission in the database to change their own password\. Choosing this option causes Secrets Manager to create a Lambda function that rotates secrets with a single user that gets only its password changed with each rotation\.
 **Note**  
 This option is the "lower availability" option\. This is because sign\-in failures can occur between the moment when the old password is removed by the rotation and the moment when the updated password is made accessible as a new version of the secret\. This time window should be very short, on the order of a few seconds or less, but it can happen\.   
-If you choose the **Use this secret** option, ensure that your client apps that sign in with the secret use an appropriate ["backoff and retry with jitter" strategy](http://aws.amazon.com/blogs/architecture/exponential-backoff-and-jitter/) in code\. A real failure should be reported only if signing in fails several times over a longer period of time\.
-   + **Use a secret that I have previously stored in AWS Secrets Manager**: Choose this option if the credentials in the current secret don't have permissions to update the credentials, or you require high availability for the secret\. To choose this option, you must create a separate "master" secret with credentials that have permissions to update the current secret's credentials\. Then choose the master secret from the list\. Choosing this option causes Secrets Manager to implement a Lambda function that rotates secrets by creating a new user and password with each rotation, and deprecating the old one\.
+If you choose the **Use this secret** option, ensure that your client applications that sign in with the secret use an appropriate ["backoff and retry with jitter" strategy](http://aws.amazon.com/blogs/architecture/exponential-backoff-and-jitter/) in code\. A real failure should be reported only if signing in fails several times over a longer period of time\.
+        + **Use a secret that I have previously stored in AWS Secrets Manager**: Choose this option if the credentials in the current secret don't have permissions to update itself, or if you require high availability for the secret\. To choose this option, you must create a separate "master" secret with credentials that have permissions to update this secret's credentials\. Then choose the master secret from the list\. Choosing this option causes Secrets Manager to create a Lambda function that rotates secrets by creating a new user and password with each rotation, and deprecating the old user\.
 **Note**  
-This is the "high availability" option because the old version of the secret continues to operate and handle service requests while the new version is prepared and tested\. The old version is not deleted until after the clients switch to the new version\. There's no downtime while changing between versions\.  
+This is the "high availability" option because the old version of the secret continues to operate and handle service requests while the new version is prepared and tested\. The old version isn't deleted until after the clients switch to the new version\. There's no downtime while changing between versions\.  
 This option requires the Lambda function to clone the permissions of the original user and apply them to the new user in each rotation\.
+   + **You want to use a Lambda function you already created for another secret**
+
+     1. Choose **Use an existing Lambda function to perform rotation**\.
+
+     1. Choose the Lambda function from the drop\-down list\.
+
+     1. Specify what type of rotation function you chose:
+        + **Single\-user rotation**: A rotation function for a secret that stores credentials for a user that has permissions to change their own password\. This is the type of function that's created when you choose the option **Use this secret** when you create a function\.
+        + **Multi\-user rotation**: A rotation function for a secret that stores credentials for a user that can't change their own password\. The function requires a separate master secret that stores credentials for a user with permission to change the credentials for this secret's user\. This is the type of function that's created when you choose the option **Use a secret that I have previously stored in AWS Secrets Manager** when you create a function\.
+
+     1. If you specified the second "master secret" option, then you must also choose the secret that can provide the master user's credentials\. The credentials in the master secret must have permission to update the credentials stored in this secret\.
 
 1. Choose **Save** to store your changes and to trigger the initial rotation of the secret\.
 
 1. If you chose to rotate your secret with a separate master secret, then you must manually grant your Lambda rotation function permission to access the master secret\. Follow these instructions:
 
-   1. When rotation configuration completes, the following message appears at the top of the page:
+   1. When rotation configuration completes, the following message might appear at the top of the page:
 
       *Your secret *<secret name>* has been successfully stored and secret rotation is enabled\. To finish configuring rotation, you need to provide the *role* permissions to access the value of the secret *<Amazon Resource Name \(ARN\) of your master secret>**\.
 
-      You must manually modify the policy for the role to grant the rotation function GetSecretValue access to the master secret\. Secrets Manager can't do this for you for security reasons\. Rotation of the secret fails until you complete the following steps because it can't access the master secret\.
+      If this appears, then you must manually modify the policy for the role to grant the rotation function `secretsmanager:GetSecretValue` permission to access the master secret\. Secrets Manager can't do this for you for security reasons\. Rotation of the secret fails until you complete the following steps if it can't access the master secret\.
 
    1. Copy the Amazon Resource Name \(ARN\) from the message to your clipboard\.
 
@@ -93,6 +111,9 @@ You can use the following Secrets Manager commands to configure rotation for an 
 + **AWS CLI:** [RotateSecret](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/rotate-secret.html)
 
 You also need to use commands from AWS CloudFormation and AWS Lambda\. For more information about the commands that follow, see the documentation for those services\.
+
+**Important**  
+The exact format of the secret value that you must use in your secret is determined by the rotation function you want to use with this secret\. For the details of what each rotation function requires for the secret value, see the **Expected SecretString Value** entry under the relevant rotation function at [AWS Templates You Can Use to Create Lambda Rotation Functions ](reference_available-rotation-templates.md)\.
 
 **To create a Lambda rotation function by using an AWS Serverless Application Repository template**  
 The following is an example AWS CLI session that performs the equivalent of the console\-based rotation configuration that's described in the **Using the AWS Management Console** tab\. You create the function by using an AWS CloudFormation change set\. Then you configure the resulting function with the required permissions\. Finally, you configure the secret with the ARN of the completed function, and rotate once to test it\.

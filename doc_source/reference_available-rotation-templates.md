@@ -43,7 +43,7 @@ arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRDSMari
     "port": "<optional: TCP port number. If not specified, defaults to 3306>"
   }
   ```
-+ **Source code:** [Secrets Manager Lambda Rotation Template: RDS MariaDB Single User](reference_template_MariaDB_SingleUser.md)
++ [https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerRDSMariaDBRotationSingleUser/lambda_function.py](https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerRDSMariaDBRotationSingleUser/lambda_function.py)
 
 ### RDS MariaDB Master User<a name="sar-template-mariadb-multiuser"></a>
 
@@ -66,7 +66,7 @@ arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRDSMari
     "masterarn": "<required: the ARN of the master secret used to create 2nd user and change passwords>"
   }
   ```
-+ **Source code:** [Secrets Manager Lambda Rotation Template: RDS MariaDB Multiple User](reference_template_MariaDB_MultiUser.md)
++ [https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerRDSMariaDBRotationMultiUser/lambda_function.py](https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerRDSMariaDBRotationMultiUser/lambda_function.py)
 
 ### RDS MySQL Single User<a name="sar-template-mysql-singleuser"></a>
 
@@ -88,7 +88,7 @@ arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRDSMySQ
     "port": "<optional: TCP port number. If not specified, defaults to 3306>"
   }
   ```
-+ **Source code:** [Secrets Manager Lambda Rotation Template: RDS MySQL Single User](reference_template_MySql_SingleUser.md)
++ [https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerRDSMySQLRotationSingleUser/lambda_function.py](https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerRDSMySQLRotationSingleUser/lambda_function.py)
 
 ### RDS MySQL Master User<a name="sar-template-mysql-multiuser"></a>
 
@@ -111,7 +111,7 @@ arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRDSMySQ
     "masterarn": "<required: the ARN of the master secret used to create 2nd user and change passwords>"
   }
   ```
-+ **Source code:** [Secrets Manager Lambda Rotation Template: RDS MySQL Multiple User](reference_template_MySql_MultiUser.md)
++ [https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerRDSMySQLRotationMultiUser/lambda_function.py](https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerRDSMySQLRotationMultiUser/lambda_function.py)
 
 ### RDS Oracle Single User<a name="sar-template-oracle-singleuser"></a>
 
@@ -133,7 +133,7 @@ arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRDSOrac
     "port": "<optional: TCP port number. If not specified, defaults to 1521>"
   }
   ```
-+ **Source code:** [Secrets Manager Lambda Rotation Template: RDS Oracle Single User](reference_template_Oracle_SingleUser.md)
++ [https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerRDSOracleRotationSIngleUser/lambda_function.py](https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerRDSOracleRotationSIngleUser/lambda_function.py)
 
 ### RDS Oracle Master User<a name="sar-template-oracle-multiuser"></a>
 
@@ -156,7 +156,7 @@ arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRDSOrac
     "masterarn": "<required: the ARN of the master secret used to create 2nd user and change passwords>"
   }
   ```
-+ **Source code:** [Secrets Manager Lambda Rotation Template: RDS Oracle Multiple User](reference_template_Oracle_MultiUser.md)
++ [https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerRDSOracleRotationMultiUser/lambda_function.py](https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerRDSOracleRotationMultiUser/lambda_function.py)
 
 ### RDS PostgreSQL Single User<a name="sar-template-postgre-singleuser"></a>
 
@@ -178,7 +178,7 @@ arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRDSPost
     "port": "<optional: TCP port number. If not specified, defaults to 5432>"
   }
   ```
-+ **Source code:** [Secrets Manager Lambda Rotation Template: RDS PostgreSQL Single User](reference_template_PostgreSql_SingleUser.md)
++ [https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerRDSPostgreSQLRotationSingleUser/lambda_function.py](https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerRDSPostgreSQLRotationSingleUser/lambda_function.py)
 
 ### RDS PostgreSQL Master User<a name="sar-template-postgre-multiuser"></a>
 
@@ -201,7 +201,7 @@ arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRDSPost
     "masterarn": "<required: the ARN of the master secret used to create 2nd user and change passwords>"
   }
   ```
-+ **Source code:** [Secrets Manager Lambda Rotation Template: RDS PostgreSQL Multiple User](reference_template_PostgreSql_MultiUser.md)
++ [https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerRDSPostgreSQLRotationMultiUser/lambda_function.py](https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerRDSPostgreSQLRotationMultiUser/lambda_function.py)
 
 ### RDS Microsoft SQLServer Single User<a name="sar-template-sqlserver-singleuser"></a>
 
@@ -223,7 +223,7 @@ arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRDSSQLS
     "port": "<optional: TCP port number. If not specified, defaults to 1433>"
   }
   ```
-+ **Source code:** [Secrets Manager Lambda Rotation Template: RDS SQLServer Single User](reference_template_SQLServer_SingleUser.md)
++ [https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerRDSSQLServerRotationSingleUser/lambda_function.py](https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerRDSSQLServerRotationSingleUser/lambda_function.py)
 
 ### RDS Microsoft SQLServer Master User<a name="sar-template-sqlserver-multiuser"></a>
 
@@ -246,7 +246,7 @@ arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRDSSQLS
     "masterarn": "<required: the ARN of the master secret used to create 2nd user and change passwords>"
   }
   ```
-+ **Source code:** [Secrets Manager Lambda Rotation Template: RDS SQLServer Multiple User](reference_template_SQLServer_MultiUser.md)
++ [https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerRDSSQLServerRotationMultiUser/lambda_function.py](https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerRDSSQLServerRotationMultiUser/lambda_function.py)
 
 ## Templates for Other Services<a name="OTHER_rotation_templates"></a>
 
@@ -259,4 +259,4 @@ arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRotatio
 + **Supported database/service:** None\. You supply the code to interact with whatever service you want\.
 + **Rotation strategy:** None\. You supply the code to implement whatever rotation strategy you want\. For more information about customizing your own function, see [Understanding and Customizing Your Lambda Rotation Function](rotating-secrets-lambda-function-customizing.md)\.
 + **Expected `SecretString` structure:** You define this as part of the code that you write\.
-+ **Source code:** [Secrets Manager Lambda Rotation Template: Generic Template That You Must Customize and Complete](reference_template_Generic.md)
++ **Source code:** [https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerRotationTemplate/lambda_function.py](https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerRotationTemplate/lambda_function.py)

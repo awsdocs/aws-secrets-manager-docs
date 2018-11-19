@@ -65,8 +65,6 @@ When you write an application to use Secrets Manager to retrieve and use a secre
 }
 ```
 
-[Suggest improvements to this example on GitHub\.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/iam_policies/secretsmanager/asm-user-policy-grants-gsv-to-one-secret.json)
-
 For a list of all the permissions that are available to assign in an IAM policy, see [Actions, Resources, and Context Keys You Can Use in an IAM Policy or Secret Policy for AWS Secrets Manager](reference_iam-permissions.md)\.
 
 ## Limiting Access to Specific Actions<a name="permissions_grant-limited-actions"></a>
@@ -75,20 +73,18 @@ If you want to grant limited permissions instead of full permissions, you can cr
 
 ```
 {
-     "Version": "2012-10-17",
-     "Statement": {
-         "Effect": "Allow",
-         "Action": [
-             "secretsmanager:Describe*",
-             "secretsmanager:Get*",
-             "secretsmanager:List*" 
-         ],
-         "Resource": "*"
-     }
- }
+    "Version": "2012-10-17",
+    "Statement": {
+        "Effect": "Allow",
+        "Action": [
+            "secretsmanager:Describe*",
+            "secretsmanager:Get*",
+            "secretsmanager:List*" 
+        ],
+        "Resource": "*"
+    }
+}
 ```
-
-[Suggest improvements to this example on GitHub\.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/iam_policies/secretsmanager/asm-user-policy-grants-some-actions-to-all-resources.json)
 
 For a list of all the permissions that are available to assign in an IAM policy, see [Actions, Resources, and Context Keys You Can Use in an IAM Policy or Secret Policy for AWS Secrets Manager](reference_iam-permissions.md)\.
 
@@ -122,7 +118,6 @@ The first statement of the following policy grants the user read access to the m
     ]
 }
 ```
-[Suggest improvements to this example on GitHub\.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/iam_policies/secretsmanager/asm-user-policy-grants-access-to-secret-by-name-with-wildcard.json)  
 Using '??????' as a wildcard to match the 6 random characters that are assigned by Secrets Manager avoids a problem that occurs if you use the '\*' wildcard instead\. If you use the syntax "`another_secret_name-*`", it matches not just the intended secret with the 6 random characters, but it also matches "`another_secret_name-<anything-here>a1b2c3`"\. Using the '??????' syntax enables you to securely grant permissions to a secret that doesn't yet exist\. This is because you can predict all of the parts of the ARN except those 6 random characters\. Be aware, however, that if you delete the secret and recreate it with the same name, the user automatically receives permission to the new secret, even though the 6 characters will be different\.  
 You get the ARN for the secret from the Secrets Manager console \(on the **Details** page for a secret\), or by calling the `List*` APIs\. The user or group that you apply this policy to can perform any action \(`"secretsmanager:*"`\) on only the two secrets identified by the ARN in the example\.   
 If you don't care about the region or account that owns a secret, you must specify a wildcard character \* \(not an empty field\) for the region and account ID number fields of the ARN\.
@@ -150,8 +145,6 @@ The following policy, when it's attached to a user, group, or role, allows the u
 }
 ```
 
-[Suggest improvements to this example on GitHub\.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/iam_policies/secretsmanager/asm-user-policy-grants-access-to-secret-with-specific-tag.json)
-
 **Example: Granting permission to the version of the secret that has a certain staging label**  
 The following policy, when it's attached to a user, group, or role, allows the user to run `GetSecret` on any secret with a name that begins with `Prod`—and only for the version that has the staging label `AWSCURRENT` attached\.
 
@@ -170,8 +163,6 @@ The following policy, when it's attached to a user, group, or role, allows the u
     }
 }
 ```
-
-[Suggest improvements to this example on GitHub\.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/iam_policies/secretsmanager/asm-user-policy-grants-access-to-only-specified-version-of-secret.json)
 
 Because a version of a secret can have multiple staging labels attached, you need to use the [IAM policy language's set operators](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_multi-value-conditions.html) to compare them\. In the previous example, `ForAnyValue:StringLike` says that if any one of the staging labels attached to the version being evaluated matches the string `AWSCURRENT`, then the statement matches, and the `Effect` is applied\.
 

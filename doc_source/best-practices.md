@@ -4,10 +4,12 @@ The following recommendations help you to more securely use AWS Secrets Manager:
 
 **Topics**
 + [Protect Additional Sensitive Information](#best-practice_what-not-to-put-in-secret-text)
++ [Improve Performance by Using the AWS provided Client\-side Caching Components](#best-practice_client-caching-components)
 + [Mitigate the Risks of Logging and Debugging Your Lambda Function](#best-practice_lamda-debug-statements)
 + [Mitigate the Risks of Using the AWS CLI to Store Your Secrets](#best-practice_cli-exposure-risks)
 + [Cross\-Account Access – Should I Specify a User/Role or the Account?](#best-practice_cross-account-role-vs-account)
 + [Run Everything in a VPC](#best-practice_using-a-vpc)
++ [Tag Your Secrets](#best-practice_tagging)
 
 ## Protect Additional Sensitive Information<a name="best-practice_what-not-to-put-in-secret-text"></a>
 
@@ -26,6 +28,10 @@ Instead, store all such sensitive information as part of the encrypted secret va
   "database": "myDatabase"
 }
 ```
+
+## Improve Performance by Using the AWS provided Client\-side Caching Components<a name="best-practice_client-caching-components"></a>
+
+To use your secrets most efficiently, you should not simply retrieve the secret value from Secrets Manager every time you need to use its credentials\. Instead, use a Secrets Manager client component that knows how to cache your secrets and update them only when required because of rotation\. AWS has created such client components for you and made them available as open\-source\. For more information, see [Use the AWS\-developed open source client\-side caching components to improve performance and reduce your costs](manage_retrieve-secret.md#use-client-side-caching-components)
 
 ## Mitigate the Risks of Logging and Debugging Your Lambda Function<a name="best-practice_lamda-debug-statements"></a>
 
@@ -119,3 +125,19 @@ To enable secret rotation within a VPC environment, perform these steps:
 1. Configure your Lambda rotation function to run within the same VPC as the database server or service whose secret is rotated\. For more information, see [Configuring a Lambda Function to Access Resources in an Amazon VPC](https://docs.aws.amazon.com/lambda/latest/dg/vpc.html) in the *AWS Lambda Developer Guide*\.
 
 1. The Lambda rotation function, which is now running from within your VPC, must be able to access a Secrets Manager service endpoint\. If the VPC has no direct internet connectivity, then you can configure your VPC with a private Secrets Manager endpoint that can be accessed by all of the resources in your VPC\. For details, see [Configuring Your Network to Support Rotating Secrets](rotation-network-rqmts.md)\.
+
+## Tag Your Secrets<a name="best-practice_tagging"></a>
+
+Several AWS services enable you to add *tags* to your resources\. Secrets Manager lets you tag your secrets\. A tag is a simple label that consists of a customer\-defined key and an optional value\. You can use these to make it easier to manage, search for, and filter the resources in your AWS account\. When you tag your secrets, be sure to follow these guidelines:
++ Use a standardized naming scheme across all of your resources\. Remember that tags are case sensitive\.
++ Create tag sets that enable you to perform the following:
+  + **Security/access control** – You can grant or deny access to a secret by checking the tags that are attached to the secret\. 
+  + **Cost allocation and tracking** – You can group and categorize your AWS bills by tags\. For more information, see [Using Cost Allocation Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html) in the *AWS Billing and Cost Management User Guide*\.
+  + **Automation** – You can use tags to filter resources for automation activities\. For example, some customers run automated start/stop scripts that turn off development environments during non\-business hours to reduce costs\. You can create and then check for a tag that indicates whether a specific Amazon EC2 instance should be included in the shutdown\.
+  + **AWS Management Console** – Some AWS service consoles enable you to organize the displayed resources according to their tags, and to sort and filter by tags\. AWS also provides the Resource Groups tool to create a custom console that consolidated and organizes your resources based on their tags\. For more information, see [Working with Resource Groups](https://docs.aws.amazon.com/) in the *AWS Management Console Getting Started Guide*\.
+
+What you can use tags for is limited only by your imagination\. However, remember that you must never store sensitive information for a secret in a tag\.
+
+You can tag your secrets [when you create them](manage_create-basic-secret.md) or [when you edit them](manage_update-secret.md)\.
+
+For more information, see [AWS Tagging Strategies](https://aws.amazon.com/answers/account-management/aws-tagging-strategies/) on the *AWS Answers* website\.

@@ -9,6 +9,7 @@ Rotating secrets in AWS Secrets Manager requires you to use a Lambda function th
 + [I can't predict when rotation will start](#tshoot-scheduling-rotation)
 + [I get "access denied" when trying to configure rotation for my secret](#tshoot-lambda-initialconfig-perms)
 + [My first rotation fails after I enable rotation](#tshoot-lambda-initialconfig-mastersecret)
++ [Rotation fails because the secret value is not formatted as expected by the rotation function\.](#tshoot-lambda-mismatched-secretvalue)
 + [Secrets Manager says I successfully configured rotation, but the password isn't rotating](#tshoot-lambda-connection-with-internet)
 + [CloudTrail shows access\-denied errors during rotation](#tshoot-lambda-accessdeniedduringrotation)
 
@@ -32,7 +33,7 @@ When the rotation function isn't operating the way that you expect, the first th
 
 You can predict only the date of the next rotation, not the time\.
 
-Secrets Manager schedules the next rotation when the previous one is complete\. Secrets Manager schedules the date by adding the rotation interval \(number of days\) to the actual date of the last rotation\. The service chooses the hour within that 24\-hour date window randomly\. The minute is also chosen somewhat randomly, but weighted towards the top of the hour and influenced by a variety of factors that help distribute load\.
+Secrets Manager schedules the next rotation when the previous one is complete\. Secrets Manager schedules the date by adding the rotation interval \(number of days\) to the actual date of the last rotation\. The service chooses the hour within that 24\-hour date window randomly\. The minute is also chosen somewhat randomly, but is weighted towards the top of the hour and influenced by a variety of factors that help distribute load\.
 
 ## I get "access denied" when trying to configure rotation for my secret<a name="tshoot-lambda-initialconfig-perms"></a>
 
@@ -58,6 +59,23 @@ When you enable rotation for a secret that uses a "master" secret to change the 
 ```
 
 This enables the rotation function to retrieve the credentials from the master secret—which it can then use to change the credentials for the secret being rotated\. 
+
+## Rotation fails because the secret value is not formatted as expected by the rotation function\.<a name="tshoot-lambda-mismatched-secretvalue"></a>
+
+Rotation might also fail if the secret value is not a JSON structure formatted as expected by the rotation function\. The format that you must use is determined by the rotation function you want to use with this secret\. For the details of what each rotation function requires for the secret value, see the **Expected SecretString Value** entry under the relevant rotation function at [AWS Templates You Can Use to Create Lambda Rotation Functions ](reference_available-rotation-templates.md)\.
+
+For example, if you use the MySQL Single User rotation function, the `SecretString` text structure must look like this:
+
+```
+{
+  "engine": "mysql",
+  "host": "<required: instance host name/resolvable DNS name>",
+  "username": "<required: username>",
+  "password": "<required: password>",
+  "dbname": "<optional: database name. If not specified, defaults to None>",
+  "port": "<optional: TCP port number. If not specified, defaults to 3306>"
+}
+```
 
 ## Secrets Manager says I successfully configured rotation, but the password isn't rotating<a name="tshoot-lambda-connection-with-internet"></a>
 
@@ -99,8 +117,6 @@ When you configure rotation, if you let Secrets Manager create the rotation func
 }
 ```
 
-[Suggest improvements to this example on GitHub\.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/iam_policies/secretsmanager/asm-official-role-policy-for-rotation-function-single-secret.json)
-
 Also, if your rotation uses separate master secret credentials to rotate this secret, then you must also grant permission to retrieve the secret value from the master secret\. For more information, see [My first rotation fails after I enable rotation](#tshoot-lambda-initialconfig-mastersecret)\. The combined policy might look like this:
 
 ```
@@ -128,5 +144,3 @@ Also, if your rotation uses separate master secret credentials to rotate this se
     ]
 }
 ```
-
-[Suggest improvements to this example on GitHub\.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/iam_policies/secretsmanager/asm-official-role-policy-for-rotation-function-master-secret.json)

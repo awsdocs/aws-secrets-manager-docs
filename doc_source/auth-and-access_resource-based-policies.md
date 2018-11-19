@@ -33,8 +33,6 @@ The following policy, when it's attached directly to a secret \(as part of the m
 }
 ```
 
-[Suggest improvements to this example on GitHub\.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/iam_policies/secretsmanager/asm-resource-policy-grant-all-perms-to-anaya.json)
-
 **Example: Granting permission to authorized users in a different account**  
 The following policy, when it's attached directly to a secret \(as part of the metadata\), grants the IAM user Mateo in the account 123456789012 access to read any version of a specific secret:
 
@@ -51,8 +49,6 @@ The following policy, when it's attached directly to a secret \(as part of the m
     ]
 }
 ```
-
-[Suggest improvements to this example on GitHub\.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/iam_policies/secretsmanager/asm-resource-policy-grant-only-gsv-to-mateo.json)
 
 ## Grant Read\-Only Access to a Role<a name="example_1"></a>
 
@@ -78,5 +74,3 @@ If you then attach the following example resource\-based policy to the secret, a
   ]
 }
 ```
-
-[Suggest improvements to this example on GitHub\.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/iam_policies/secretsmanager/asm-resource-policy-grant-gsv-on-only-awscurrent-to-role.json)

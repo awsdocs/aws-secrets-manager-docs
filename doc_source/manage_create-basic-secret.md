@@ -62,11 +62,17 @@ The permissions granted by the **IAMFullAccess** AWS managed policy – required
 
    The secret name must be ASCII letters, digits, or any of the following characters: /\_\+=\.@\-
 
-1. \(Optional\) At this point, you can configure rotation for your secret\. Because we're working on a "basic" secret without rotation, leave it at **Disable automatic rotation**, and then choose **Next**\.
+1. \(Optional\) In the **Tags** section, you can add one or more tags to your secret\. A tag consists of a key and a value that you define\. Tags assist with managing your AWS resources\. You can create tags that associate resources with your organization's structure, such as Key="Department" and Value="Accounting"\. This can help with cost allocation and tracking\. You can assign tags to group resources together by the application that uses them \(Key="AppName" and Value="HRDatabase"\)\. You can create tags for almost any purpose\. Each resource, like a secret, can have several tags attached\. For more information, see [AWS Tagging Strategies](https://aws.amazon.com/answers/account-management/aws-tagging-strategies/) on the *AWS Answers* website\.
+**Important**  
+Don't store sensitive information about a secret in its tags\. Store sensitive information only in the secret value \(the `SecretString` or `SecretBinary` fields\) of the secret where the information is protected with encryption\.
+
+1. After you complete the **Name**, **Description**, and any **Tags**, choose **Next**\.
+
+1. \(Optional\) At this point, you can configure rotation for your secret\. Because we're working on a "basic" secret without rotation, keep it as **Disable automatic rotation**, and then choose **Next**\.
 
    For information about how to configure rotation on new or existing secrets, see [Rotating Your AWS Secrets Manager Secrets](rotating-secrets.md)\.
 
-1. Review your settings, and then choose **Store secret** to save everything you entered as a new secret in Secrets Manager\.
+1. Review your settings, and then choose **Store secret** to save everything that you entered as a new secret in Secrets Manager\.
 
 ------
 #### [ Using the AWS CLI or AWS SDK operations ]<a name="proc-create-api"></a>
@@ -86,6 +92,9 @@ $ aws secretsmanager create-secret --name production/MyAwesomeAppSecret --secret
     "SecretVersionId": "EXAMPLE1-90ab-cdef-fedc-ba987EXAMPLE"
 }
 ```
+
+**Important**  
+You can create a basic secret using whatever format for `SecretString` that you want\. For example, you could use a simple JSON key\-value pair\. For example, `{"username":"someuser", "password":"securepassword"}` However, if you later want to enable rotation for this secret then you must use the specific structure expected by the rotation function that you use with this secret\. For the details of what each rotation function requires to work with the secret value, see the **Expected SecretString Value** entry under the relevant rotation function at [AWS Templates You Can Use to Create Lambda Rotation Functions ](reference_available-rotation-templates.md)\.
 
 The `ClientRequestToken` parameter isn't required because we're using the AWS CLI, which automatically generates and supplies one for us\. We also don't need the `KmsKeyId` parameter because we're using the default Secrets Manager CMK for the account\. If you're using `SecretString`, you can't use `SecretBinary`\. `SecretType` is reserved for use by the Secrets Manager console\.
 

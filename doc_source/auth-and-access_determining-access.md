@@ -47,8 +47,6 @@ Examine the secret policy document and take note of all principals that are spec
 }
 ```
 
-[Suggest improvements to this example on GitHub\.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/iam_policies/secretsmanager/asm-resource-policy-grants-xacct-read.json)
-
 In the preceding policy statement, `arn:aws:iam::111122223333:root` refers to the AWS account 111122223333 and allows the administrator of that account to grant access to any users or roles in that account\. 
 
 You must also [examine all IAM policies](http://docs.aws.amazon.com/kms/latest/developerguide/determining-access.html#determining-access-iam-policies) in all AWS accounts that are listed as principals to determine whether they allow access to this secret\.
@@ -69,8 +67,6 @@ You must also [examine all IAM policies](http://docs.aws.amazon.com/kms/latest/d
 }
 ```
 
-[Suggest improvements to this example on GitHub\.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/iam_policies/secretsmanager/asm-resource-policy-grant-all-perms-to-anaya.json)
-
 In the preceding policy statement, `arn:aws:iam::111122223333:user/anaya` refers to the IAM user named Anaya in AWS account 111122223333\. This user is allowed to perform all Secrets Manager actions\.
 
 **Example Policy Statement 3**
@@ -80,13 +76,11 @@ In the preceding policy statement, `arn:aws:iam::111122223333:user/anaya` refers
     "Sid": "Allow an app associated with an &IAM; role to only read the current version of a secret",
     "Effect": "Allow",
     "Principal":  {"AWS": "arn:aws:iam::123456789012:role/EncryptionApp" },
-    "Action": ["secretsmanager:GetSecret"],
+    "Action": ["secretsmanager:GetSecretValue"],
     "Condition": { "ForAnyValue:StringEquals": {"secretsmanager:VersionStage": "AWSCURRENT" } },
     "Resource": "*"
 }
 ```
-
-[Suggest improvements to this example on GitHub\.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/iam_policies/secretsmanager/asm-resource-policy-grant-role-for-app-access-to-awscurrent.json)
 
 In the preceding policy statement, `arn:aws:iam::123456789012:role/EncryptionApp` refers to the IAM role named EncryptionApp in AWS account 123456789012\. Principals that can assume this role are allowed to perform the one action that's listed in the policy statement\. This action is to get the details for the current version of the secret\.
 

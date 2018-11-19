@@ -199,8 +199,6 @@ The following example policy can be attached to a user, group, or role\. It allo
 }
 ```
 
-[Suggest improvements to this example on GitHub\.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/iam_policies/secretsmanager/asm-user-policy-grants-access-to-path-and-restricts-gsv-to-awscurrent-version.json)
-
 Because a secret version can have multiple staging labels attached, you need to use the [IAM policy language's "set operators"](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_multi-value-conditions.html) to compare them in a policy\. In the previous example, `ForAnyValue:StringLike` says that if any one of the staging labels that are attached to the secret version being evaluated matches the string "`AWSCURRENT`", then the statement matches, and the `Effect` is applied\.
 
 For more example identity\-based policies, see [Using Identity\-based Policies \(IAM Policies\) for Secrets Manager](auth-and-access_identity-based-policies.md)\. For more information about users, groups, roles, and permissions, see [Identities \(Users, Groups, and Roles\)](https://docs.aws.amazon.com/IAM/latest/UserGuide/id.html) in the *IAM User Guide*\.
@@ -229,8 +227,6 @@ The following is an example Secrets Manager secret policy that has one statement
     ]
 }
 ```
-
-[Suggest improvements to this example on GitHub\.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/iam_policies/secretsmanager/asm-resource-policy-xacct-access-gsv-restrict-to-awscurrent.json)
 
 **Important**  
 When an IAM principal from one account accesses a secret that's in a different account, that secret must be encrypted by using a custom AWS KMS CMK\. A secret that's encrypted with the default Secrets Manager CMK for the account can be decrypted only by principals in that account\. A principal from a different account must be granted permission to both the secret and to the custom AWS KMS CMK\.   
