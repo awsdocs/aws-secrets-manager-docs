@@ -63,7 +63,7 @@ This enables the rotation function to retrieve the credentials from the master s
 
 ## Rotation fails because the secret value is not formatted as expected by the rotation function\.<a name="tshoot-lambda-mismatched-secretvalue"></a>
 
-Rotation might also fail if the secret value is not a JSON structure formatted as expected by the rotation function\. The format that you must use is determined by the rotation function you want to use with this secret\. For the details of what each rotation function requires for the secret value, see the **Expected SecretString Value** entry under the relevant rotation function at [AWS Templates You Can Use to Create Lambda Rotation Functions ](reference_available-rotation-templates.md)\.
+Rotation might also fail if the secret value is not a JSON structure formatted as expected by the rotation function\. The format that you must use is determined by the rotation function you want to use with this secret\. For the details of what each rotation function requires for the secret value, see the **Expected SecretString Value** entry under the relevant rotation function at [AWS Templates You Can Use to Create Lambda Rotation Functions](reference_available-rotation-templates.md)\.
 
 For example, if you use the MySQL Single User rotation function, the `SecretString` text structure must look like this:
 
