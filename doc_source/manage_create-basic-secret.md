@@ -13,7 +13,9 @@ To create a secret in the console, you must have these permissions:
 The permissions granted by the **SecretsManagerReadWrite** AWS managed policy\.
 The permissions granted by the **IAMFullAccess** AWS managed policy – required only if you need to enable rotation for the secret\.
 `kms:CreateKey` – required only if you need to ask Secrets Manager to create a custom AWS KMS customer master key \(CMK\)\. 
-`kms:Encrypt` – required only if you use a custom AWS KMS key to encrypt your secret instead of the default Secrets Manager CMK for your account\.
+`kms:Encrypt` – required only if you use a custom AWS KMS key to encrypt your secret instead of the default Secrets Manager CMK for your account\. You don't need this permission to use the account's default AWS managed CMK for Secrets Manager\.
+`kms:Decrypt` – required only if you use a custom AWS KMS key to encrypt your secret instead of the default Secrets Manager CMK for your account\. You don't need this permission to use the account's default AWS managed CMK for Secrets Manager\.
+`kms:GenerateDataKey` – required only if you use a custom AWS KMS key to encrypt your secret instead of the default Secrets Manager CMK for your account\. You don't need this permission to use the account's default AWS managed CMK for Secrets Manager\.
 
 1. Sign in to the AWS Secrets Manager console at [https://console\.aws\.amazon\.com/secretsmanager/](https://console.aws.amazon.com/secretsmanager/)\.
 
@@ -22,7 +24,7 @@ The permissions granted by the **IAMFullAccess** AWS managed policy – required
 1. In the **Select secret type** section, specify the kind of secret that you want to create by choosing one of the following options\. Then supply the required information\.
 
 ------
-#### [ Credentials for Amazon RDS database ]<a name="rds-creds"></a>
+#### [ Amazon RDS ]<a name="rds-creds"></a>
 
    This secret is for one of the [supported database services](intro.md#full-rotation-support) for which Secrets Manager provides full rotation support with a preconfigured Lambda rotation function\. You need specify only the authentication credentials because Secrets Manager learns everything else it needs by querying the database instance\.
 
@@ -33,7 +35,33 @@ The permissions granted by the **IAMFullAccess** AWS managed policy – required
    1. Choose the database instance from the list\. Secrets Manager retrieves the connection details about the database by querying the chosen instance\.
 
 ------
-#### [ Credentials for other database ]<a name="nonrds-creds"></a>
+#### [ Amazon Redshift ]<a name="redshift-creds"></a>
+
+   This secret is for an Amazon Redshift cluster\. You need specify only the authentication credentials because Secrets Manager learns everything else it needs by querying the database instance\.
+
+   1. Type the user name and password that allow access to the database\. 
+
+   1. Choose the AWS KMS encryption key that you want to use to encrypt the protected text in the secret\. If you don't choose one, Secrets Manager checks to see if there's a default key for the account, and uses it if it exists\. If a default key doesn't exist, Secrets Manager creates one for you automatically\. You can also choose **Add new key** to create a custom CMK specifically for this secret\. To create your own AWS KMS CMK, you must have permissions to create CMKs in your account\. 
+
+   1. Choose the correct database engine\. 
+
+   1. Specify the connection details by typing the database server's IP address, database name, and TCP port number\. 
+
+------
+#### [ DocumentDB database ]<a name="documentdb-creds"></a>
+
+   This secret is for a DocumentDB database\. You need specify only the authentication credentials because Secrets Manager learns everything else it needs by querying the database instance\.
+
+   1. Type the user name and password that allow access to the database\. 
+
+   1. Choose the AWS KMS encryption key that you want to use to encrypt the protected text in the secret\. If you don't choose one, Secrets Manager checks to see if there's a default key for the account, and uses it if it exists\. If a default key doesn't exist, Secrets Manager creates one for you automatically\. You can also choose **Add new key** to create a custom CMK specifically for this secret\. To create your own AWS KMS CMK, you must have permissions to create CMKs in your account\. 
+
+   1. Choose the correct database engine\. 
+
+   1. Specify the connection details by typing the database server's IP address, database name, and TCP port number\.
+
+------
+#### [ Other databases ]<a name="nonrds-creds"></a>
 
    This secret is for a database service that Secrets Manager knows about and supports\. However, Secrets Manager needs you to provide additional information about the database\. To rotate this secret, you must write a custom Lambda rotation function that can parse the secret and interact with the service to rotate the secret on your behalf\. 
 
@@ -58,7 +86,7 @@ The permissions granted by the **IAMFullAccess** AWS managed policy – required
 
 ------
 
-1. For **Secret name**, type an optional path and name, such as **production/MyAwesomeAppSecret** or **development/TestSecret**\. Notice that the use of the slash character enables you to structure your secrets into a heirarchy, such as grouping by the deployment environment, which is useful for organizing and managing your secrets at scale. You can optionally add a description to help you remember the purpose of this secret later on\.
+1. For **Secret name**, type an optional path and name, such as **production/MyAwesomeAppSecret** or **development/TestSecret**\. You can optionally add a description to help you remember the purpose of this secret later on\.
 
    The secret name must be ASCII letters, digits, or any of the following characters: /\_\+=\.@\-
 

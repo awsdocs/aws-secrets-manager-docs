@@ -129,7 +129,7 @@ For more information about the ARNs for various resources, see [Resources That Y
 In any of the previous examples, you called out actions, resources, and principals explicitly by name or ARN only\. You can also refine access to include only those secrets that have metadata with a certain tag key and value, or a secret that has a specific label\.
 
 **Example: Granting permission to a secret with metadata that has a certain tag key and value**  
-The following policy, when it's attached to a user, group, or role, allows the user to run `DescribeSecret` on any secret in the current account whose metadata contains a tag with the key "ServerName" and the value "ServerABC"\.
+The following policy, when it's attached to a user, group, or role, allows the user to run `GetSecret` on any secret in the current account whose metadata contains a tag with the key "ServerName" and the value "ServerABC"\.
 
 ```
 {
@@ -146,7 +146,7 @@ The following policy, when it's attached to a user, group, or role, allows the u
 ```
 
 **Example: Granting permission to the version of the secret that has a certain staging label**  
-The following policy, when it's attached to a user, group, or role, allows the user to run `GetSecretValue` on any secret with a name that begins with `Prod`—and only for the version that has the staging label `AWSCURRENT` attached\.
+The following policy, when it's attached to a user, group, or role, allows the user to run `GetSecret` on any secret with a name that begins with `Prod`—and only for the version that has the staging label `AWSCURRENT` attached\.
 
 ```
 {
@@ -155,7 +155,7 @@ The following policy, when it's attached to a user, group, or role, allows the u
         "Statement": [
             {
                 "Effect": "Allow",
-                "Action": "secretsmanager:GetSecretValue",
+                "Action": "secretsmanager:GetSecret",
                 "Resource": "arn:aws:secretsmanager:*:*:secret:Prod*",
                 "Condition": { "ForAnyValue:StringEquals": { "secretsmanager:VersionStage": "AWSCURRENT" } }
             }

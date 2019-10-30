@@ -55,7 +55,7 @@ Context keys in AWS Secrets Manager generally correspond to the request paramete
 
 Each context key can be compared using a condition operator to a value that you specify\. The context keys that can be used depend on the action selected\. See the "Context keys" column in the [Actions](#iam-actions) section at the beginning of this topic\.
 
-For example, you could choose to allow someone to retrieve *only* the `AWSCURRENT` version of a secret value by using a `Condition` element similar to the following:
+For example, you could choose to allow someone to retrieve *only* the `AWSCURRENT` version a secret value by using a `Condition` element similar to the following:
 
 ```
     "Condition": {"ForAnyValue:StringEquals" : {"secretsmanager:VersionStage" : "AWSCURRENT"}}
@@ -100,7 +100,7 @@ Also, the `aws:sourceIP` condition key isn't effective when the request comes fr
 
 #### Using VPC Endpoint Conditions in Policies with Secrets Manager Permissions<a name="iam-contextkeys-vpcendpoint"></a>
 
-[Secrets Manager supports Amazon VPC endpoints](rotation-network-rqmts.md#vpc-endpoint) that are provided by [AWS PrivateLink](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Introduction.html#what-is-privatelink)\. You can use the following [global condition keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#AvailableKeys) in IAM policies or [resource\-based policies](auth-and-access_resource-based-policies.md) to allow or deny access to requests from a particular VPC or VPC endpoint\.
+[Secrets Manager supports Amazon VPC endpoints](vpc-endpoint-overview.md#vpc-endpoint) that are provided by [AWS PrivateLink](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Introduction.html#what-is-privatelink)\. You can use the following [global condition keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#AvailableKeys) in IAM policies or [resource\-based policies](auth-and-access_resource-based-policies.md) to allow or deny access to requests from a particular VPC or VPC endpoint\.
 + `aws:SourceVpc` limits access to requests from the specified VPC\.
 + `aws:SourceVpce` limits access to requests from the specified VPC endpoint\.
 

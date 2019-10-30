@@ -64,7 +64,7 @@ In this step, you retrieve the secret by using both the Secrets Manager console 
 
    The details page for your secret appears\.
 
-1. In the **Credential data** section, choose **Retrieve secret value**\.
+1. In the **Secret value** section, choose **Retrieve secret value**\.
 
 1. You can view your secret as either key\-value pairs, or as a JSON text structure\.
 

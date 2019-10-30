@@ -267,8 +267,7 @@ Follow the steps under one of the following tabs:
 #### [ Using the console ]<a name="proc-kmskey-console"></a>
 
 **Important**  
-If you change the encryption key that's used by a secret, old versions of the secret are no longer accessible\. This is because the new key can't decrypt secret values for the older versions\.
-If you change the encryption key that's used by a secret, you must update the secret value \(with UpdateSecret or PutSecretValue\) at least once before you disable or delete the first CMK\. Updating the secret value decrypts it using the old CMK and reencrypts it with the new CMK\. If you disable or delete the first CMK before this update, the key cannot be decrypted and you lose the contents of the secret unless you can re\-enable the CMK\.
+If you change the encryption key that's used by a secret, you must update the secret value \(with UpdateSecret or PutSecretValue\) at least once before you disable or delete the first CMK\. Updating the secret value decrypts it using the old CMK and re\-encrypts it with the new CMK\. If you disable or delete the first CMK before this update, the key cannot be decrypted and you lose the contents of the secret unless you can re\-enable the CMK\.
 
 1. Open the Secrets Manager console at [https://console\.aws\.amazon\.com/secretsmanager/](https://console.aws.amazon.com/secretsmanager/)\.
 
@@ -282,7 +281,6 @@ If you change the encryption key that's used by a secret, you must update the se
 #### [ Using the AWS CLI or AWS SDK operations ]<a name="proc-kmskey-api"></a>
 
 **Important**  
-If you change the encryption key that's used by a secret, old versions of the secret are no longer accessible\. This is because the new key can't decrypt secret values for the older versions\.
 If you change the encryption key that's used by a secret, you must update the secret value \(with UpdateSecret or PutSecretValue\) at least once before you disable or delete the first CMK\. Updating the secret value decrypts it using the old CMK and reencrypts it with the new CMK\. If you disable or delete the first CMK before this update, the key cannot be decrypted and you lose the contents of the secret unless you can re\-enable the CMK\.
 
 You can use the following commands to modify the AWS KMS encryption key that's used by the secret\. You must specify the CMK by its Amazon Resource Name \(ARN\)\.

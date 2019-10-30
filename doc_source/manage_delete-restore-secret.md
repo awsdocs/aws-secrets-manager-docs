@@ -162,8 +162,8 @@ You can't delete one version of a secret using the Secrets Manager console\. You
 You can't directly delete a version of a secret\. Instead, you remove all its staging labels, which effectively marks it as deprecated\. Secrets Manager can then delete it in the background\.
 
 You can use the following commands to deprecate a version of a secret that's stored in AWS Secrets Manager:
-+ **API/SDK:** [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html)
-+ **AWS CLI:** [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/get-secret-value.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/get-secret-value.html)
++ **API/SDK:** [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UpdateSecretVersionStage.html](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UpdateSecretVersionStage.html)
++ **AWS CLI:** [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/update-secret-version-stage.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/update-secret-version-stage.html)
 
 You must identify the secret by its friendly name or ARN\. You also specify the staging labels that you want to add, move, or remove\.
 
@@ -178,8 +178,8 @@ The following example of the AWS CLI command removes the `AWSPREVIOUS` staging l
 ```
 $ aws secretsmanager update-secret-version-stage \
         --secret-id development/MyTestDatabase \
-        --from-secret-version-id EXAMPLE1-90ab-cdef-fedc-ba987EXAMPLE 
-        --secret-version-stage AWSPREVIOUS
+        --remove-from-version-id EXAMPLE1-90ab-cdef-fedc-ba987EXAMPLE 
+        --version-stage AWSPREVIOUS
 {
     "ARN": "arn:aws:secretsmanager:region:accountid:secret:development/MyTestDatabase-AbCdEf",
     "Name": "development/MyTestDatabase"

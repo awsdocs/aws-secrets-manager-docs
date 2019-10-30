@@ -1,7 +1,7 @@
 # AWS Secrets Manager User Guide
 
 -----
-*****Copyright &copy; 2018 Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
+*****Copyright &copy; 2019 Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
 
 -----
 Amazon's trademarks and trade dress may not be used in 
@@ -35,6 +35,10 @@ Amazon's trademarks and trade dress may not be used in
    + [Rotating Secrets for Supported Amazon RDS Databases](rotating-secrets-rds.md)
       + [Enabling Rotation for an Amazon RDS Database Secret](enable-rotation-rds.md)
       + [Customizing the Lambda Rotation Function Provided by Secrets Manager](rotating-secrets-customize-rds-lambda.md)
+   + [Rotating Secrets for Amazon Redshift](rotating-secrets-redshift.md)
+      + [Enabling Rotation for an Amazon Redshift Secret](enable-rotation-redshift.md)
+   + [Rotating Secrets for Amazon DocumentDB](rotating-secrets-documentdb.md)
+      + [Enabling Rotation for an Amazon DocumentDB Secret](enable-rotation-documentdb.md)
    + [Rotating AWS Secrets Manager Secrets for Other Databases or Services](rotating-secrets-other.md)
       + [Rotating AWS Secrets Manager Secrets for Other Databases or Services](rotating-secrets-create-generic-template.md)
       + [Enabling Rotation for a Secret for Another Database or Service](enable-rotation-other.md)
@@ -49,11 +53,12 @@ Amazon's trademarks and trade dress may not be used in
    + [Using Identity-based Policies (IAM Policies) for Secrets Manager](auth-and-access_identity-based-policies.md)
    + [Using Resource-based Policies for Secrets Manager](auth-and-access_resource-based-policies.md)
    + [Determining Access to a Secret](auth-and-access_determining-access.md)
++ [Using Secrets Manager with VPC Endpoints](vpc-endpoint-overview.md)
 + [Monitor the Use of Your AWS Secrets Manager Secrets](monitoring.md)
 + [AWS Services That Work with AWS Secrets Manager](integrating.md)
    + [Automating Secret Creation in AWS CloudFormation](integrating_cloudformation.md)
 + [AWS Secrets Manager Reference](reference.md)
-   + [Limits of AWS Secrets Manager](reference_limits.md)
+   + [Limits for AWS Secrets Manager](reference_limits.md)
    + [AWS Templates You Can Use to Create Lambda Rotation Functions](reference_available-rotation-templates.md)
    + [AWS Managed Policies Available for Use with AWS Secrets Manager](reference_available-policies.md)
    + [Actions, Resources, and Context Keys You Can Use in an IAM Policy or Secret Policy for AWS Secrets Manager](reference_iam-permissions.md)

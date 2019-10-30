@@ -17,15 +17,16 @@ A secret often includes several pieces of information beyond the user name and p
 
 Make sure that any information that might be used to gain access to the credentials in the secret is protected as securely as the credentials themselves\. Don't store such information in the `Description` or any other non\-encrypted part of the secret\.
 
-Instead, store all such sensitive information as part of the encrypted secret value \(in either the `SecretString` or `SecretBinary` field\)\. You can store up to 4096 characters in the secret\. In the `SecretString` field, the text usually takes the form of JSON key\-value string pairs, as shown in the following example:
+Instead, store all such sensitive information as part of the encrypted secret value \(in either the `SecretString` or `SecretBinary` field\)\. You can store up to  10240 bytes in the secret\. In the `SecretString` field, the text usually takes the form of JSON key\-value string pairs, as shown in the following example:
 
 ```
 {
-  "username": "saanvisarkar",
+  "engine": "mysql",
+  "username": "user1",
   "password": "i29wwX!%9wFV",
-  "host": "http://myserver.example.com",
-  "port": "1234",
-  "database": "myDatabase"
+  "host": "my-database-endpoint.us-east-1.rds.amazonaws.com",
+  "dbname": "myDatabase",
+  "port": "3306"
 }
 ```
 

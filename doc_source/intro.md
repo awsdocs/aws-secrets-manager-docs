@@ -2,9 +2,9 @@
 
 AWS Secrets Manager is an AWS service that makes it easier for you to manage secrets\. *Secrets* can be database credentials, passwords, third\-party API keys, and even arbitrary text\. You can store and control access to these secrets centrally by using the Secrets Manager console, the Secrets Manager command line interface \(CLI\), or the Secrets Manager API and SDKs\.
 
-In the past, when you created a custom application that retrieves information from a database, you typically had to embed the credentials \(the secret\) for accessing the database directly in the application\. When it came time to rotate the credentials, you had to do much more than just create new credentials\. You had to invest time to update the application to use the new credentials\. Then you had to distribute the updated application\. If you had multiple applications that shared credentials and you missed updating one of them, the application would break\. Because of this risk, many customers have chosen not to regularly rotate their credentials, which effectively substitutes one risk for another\.
+In the past, when you created a custom application that retrieves information from a database, you typically had to embed the credentials \(the secret\) for accessing the database directly in the application\. When the time came to rotate the credentials, you had to do much more than just create new credentials\. You had to invest time to update the application to use the new credentials\. Then you had to distribute the updated application\. If you had multiple applications with shared credentials and you missed updating one of them, the application would break\. Because of this risk, many customers have chosen not to regularly rotate their credentials, which effectively substitutes one risk for another\.
 
-Secrets Manager enables you to replace hardcoded credentials in your code \(including passwords\), with an API call to Secrets Manager to retrieve the secret programmatically\. This helps ensure that the secret can't be compromised by someone examining your code, because the secret simply isn't there\. Also, you can configure Secrets Manager to automatically rotate the secret for you according to a schedule that you specify\. This enables you to replace long\-term secrets with short\-term ones, which helps to significantly reduce the risk of compromise\.
+Secrets Manager enables you to replace hardcoded credentials in your code \(including passwords\), with an API call to Secrets Manager to retrieve the secret programmatically\. This helps ensure that the secret can't be compromised by someone examining your code, because the secret simply isn't there\. Also, you can configure Secrets Manager to automatically rotate the secret for you according to a specified schedule\. This enables you to replace long\-term secrets with short\-term ones, which significantly reduces the risk of compromise\.
 
 ## Getting Started with Secrets Manager<a name="intro-getting-started"></a>
 
@@ -12,7 +12,7 @@ For a list of terms and concepts that you need to understand to make full use of
 
 Typical users of Secrets Manager fall into one or more of the following roles:
 + Secrets Manager administrator – Administers the Secrets Manager service\. Grants permissions to individuals who can then perform the other roles listed here\.
-+ Database or service administrator – Administers the database or service whose secrets are stored in Secrets Manager\. Determines and configures the rotation and expiration settings for the secrets they own\. 
++ Database or service administrator – Administers the database or service with secrets stored in Secrets Manager\. Determines and configures the rotation and expiration settings for the secrets they own\. 
 + Application developer – Creates the application, and configures it to request the appropriate credentials from Secrets Manager\.
 
 ## Basic Secrets Manager Scenario<a name="intro-basic-scenario"></a>
@@ -21,7 +21,7 @@ The following diagram illustrates the most basic scenario\. It shows how you can
 
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/secretsmanager/latest/userguide/images/ASM-Basic-Scenario.png)
 
-1. The database administrator creates a set of credentials on the Personnel database for use by an app called MyCustomApp\. The administrator also configures those credentials with the permissions that are required for the app to access the Personnel database\.
+1. The database administrator creates a set of credentials on the Personnel database for use by an app called MyCustomApp\. The administrator also configures those credentials with the permissions required for the app to access the Personnel database\.
 
 1. The database administrator stores those credentials as a secret in Secrets Manager named *MyCustomAppCreds*\. The credentials are encrypted and stored within the secret as the *protected secret text*\.
 
@@ -38,23 +38,27 @@ Secrets Manager knows how to work with many types of secrets\. However, Secrets 
 
 ### Programmatically Retrieve Encrypted Secret Values at Runtime Instead of Storing Them<a name="features_retrieve-by-label"></a>
 
-One of the most important reasons to use Secrets Manager is to help you improve your security posture by removing hard\-coded credentials from your app's source code, and by not storing credentials in or with the app itself, in any way\. Storing the credentials in or with the app subjects them to possible compromise by anyone who can inspect your app or its components\. It also makes rotating your credentials difficult at best\. This is because you have to update your app and deploy the changes to every client before you can deprecate the old credentials\. 
+One of the most important reasons to use Secrets Manager is to help you improve your security posture by removing hard\-coded credentials from your app's source code, and by not storing credentials in or with the app itself, in any way\. Storing the credentials in or with the app subjects them to possible compromise by anyone who can inspect your app or the components\. Since you have to update your app and deploy the changes to every client before you can deprecate the old credentials, it makes rotating your credentials difficult at best\. 
 
 Secrets Manager enables you to replace stored credentials with a runtime call to the Secrets Manager web service, so you can retrieve the credentials dynamically when you need them\. 
 
 Most of the time, your client simply wants to access the most recent version of the encrypted secret value\. When you query for the encrypted secret value, you can choose to provide only the secret's name or Amazon Resource Name \(ARN\), without specifying any version information at all\. If you do this, Secrets Manager automatically returns the most recent version of the secret value\.
 
-However, other versions can exist at the same time\. Most systems support secrets that are more complicated than a simple password—such as full sets of credentials that include the connection details, the user ID, and the password\. Secrets Manager allows you to have multiple sets of these credentials that exist at the same time\. Each set is stored in a different version of the secret\. During the secret rotation process, Secrets Manager tracks the older credentials that you're replacing, as well as the new credentials that you want to start using, until the rotation is complete\. It tracks these different versions by using *[staging labels](terms-concepts.md#term_staging-label)*\.
+However, other versions can exist at the same time\. Most systems support secrets more complicated than a simple password—such as full sets of credentials that include the connection details, the user ID, and the password\. Secrets Manager allows you to have multiple sets of these credentials that exist at the same time\. Each set is stored in a different version of the secret\. During the secret rotation process, Secrets Manager tracks the older credentials you're replacing, as well as the new credentials you want to start using, until the rotation is complete\. It tracks these different versions by using *[staging labels](terms-concepts.md#term_staging-label)*\.
 
 ### Store Just About Any Kind of Secret<a name="features_storing-secrets"></a>
 
-Secrets Manager enables you to store text up to 4096 bytes in length in the encrypted secret data portion of a secret\. This typically includes the connection details of the database or service\. These details can include the server name, IP address, and port number, as well as the user name and password that are used to sign in to the service\. The protected text doesn't include the secret name and description, the rotation or expiration settings, the ARN of the AWS KMS customer master key \(CMK\) that's associated with the secret, or any AWS tags that you might attach\.
+Secrets Manager enables you to store text in the encrypted secret data portion of a secret\. This typically includes the connection details of the database or service\. These details can include the server name, IP address, and port number, as well as the user name and password that are used to sign in to the service\. For details on secrets, see the [maximum and minimum values](reference_limits.html#reference_limits_max-min)\. The protected text doesn't include:
++  Secret name and description
++  Rotation or expiration settings
++  ARN of the AWS KMS customer master key \(CMK\) associated with the secret
++ Any attached AWS tags 
 
 ### Encrypt Your Secret Data<a name="features_kms-encryption"></a>
 
-Secrets Manager encrypts the protected text of a secret by using [AWS Key Management Service \(AWS KMS\)](https://docs.aws.amazon.com/kms/latest/developerguide/)\. AWS KMS is a key storage and encryption service that's used by many AWS services\. This helps ensure that your secret is securely encrypted when it's at rest\. Secrets Manager associates every secret with an AWS KMS CMK\. It can be either the default CMK for Secrets Manager for the account, or a customer\-created CMK\. 
+Secrets Manager encrypts the protected text of a secret by using [AWS Key Management Service \(AWS KMS\)](https://docs.aws.amazon.com/kms/latest/developerguide/)\. AWS KMS is a key storage and encryption service used by many AWS services\. This helps ensure that your secret is securely encrypted when it's at rest\. Secrets Manager associates every secret with an AWS KMS CMK\. It can be either the default CMK for Secrets Manager for the account, or a customer\-created CMK\. 
 
-Whenever Secrets Manager needs to encrypt a new version of the protected secret data, it asks AWS KMS to generate a new data key from the specified CMK\. Secrets Manager uses this data key for [envelope encryption](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#enveloping)\. Secrets Manager stores the encrypted data key with the protected secret data\. Whenever the secret needs to be decrypted, Secrets Manager asks AWS KMS to decrypt the data key, which Secrets Manager then uses to decrypt the protected secret data\. The data key is never stored in unencrypted form, and is always disposed of immediately after use\.
+Whenever Secrets Manager needs to encrypt a new version of the protected secret data, Secrets Manager asks AWS KMS to generate a new data key from the specified CMK\. Secrets Manager uses this data key for [envelope encryption](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#enveloping)\. Secrets Manager stores the encrypted data key with the protected secret data\. Whenever the secret needs to be decrypted, Secrets Manager asks AWS KMS to decrypt the data key, which Secrets Manager then uses to decrypt the protected secret data\. The data key is never stored in unencrypted form, and is always disposed of immediately after use\.
 
 In addition, Secrets Manager, by default, only accepts requests from hosts that use the open standard [Transport Layer Security \(TLS\)](https://en.wikipedia.org/wiki/Transport_Layer_Security) and [Perfect Forward Secrecy](https://en.wikipedia.org/wiki/Forward_secrecy)\. This helps ensure that your secret is also encrypted while it's in transit between AWS and the computers that you use to retrieve the secret\.
 
@@ -76,13 +80,19 @@ When you choose to enable rotation, the following Amazon Relational Database Ser
 + MariaDB on Amazon RDS
 + Microsoft SQL Server on Amazon RDS
 
+#### Other Services with Fully Configured and Ready\-to\-Use Rotation Support<a name="other-with-full-rotation-support"></a>
+
+You can also choose to enable rotation on the following services, which are fully supported with AWS written and tested Lambda rotation function templates, and full configuration of the rotation process:<a name="other-supported-list"></a>
++ Amazon DocumentDB 
++ Amazon Redshift 
+
 You can also store secrets for almost any other kind of database or service\. However, to automatically rotate them you'll need to create and configure a custom Lambda rotation function yourself\. For more information about writing a custom Lambda function for a database or service, see [Overview of the Lambda Rotation Function](rotating-secrets-lambda-function-overview.md)\. 
 
-### Control Who Can Access Secrets<a name="features_control-access"></a>
+### Control Access to Secrets<a name="features_control-access"></a>
 
-You can attach AWS Identity and Access Management \(IAM\) permission policies to your users, groups, and roles that grant or deny access to specific secrets, and restrict what they can do with those secrets\. For example, you might attach one policy to a group whose members need the ability to fully manage and configure your secrets\. Another policy attached to a role that's used by an application might grant only read permission on the one secret that the application needs to run\.
+You can attach AWS Identity and Access Management \(IAM\) permission policies to your users, groups, and roles that grant or deny access to specific secrets, and restrict what they can do with those secrets\. For example, you might attach one policy to a group whose members need the ability to fully manage and configure your secrets\. Another policy attached to a role used by an application might grant only read permission on the one secret that the application needs to run\.
 
-Alternatively, you can attach a resource\-based policy directly to the secret to grant permissions that specify who is allowed to read or modify the secret and its versions\. Unlike an identity\-based policy \(which automatically applies to the user, group, or role that it's attached to\), a resource\-based policy attached to a secret uses the `Principal` element to identify who the policy applies to\. The `Principal` element can include users and roles from the same account as the secret or principals from other accounts\.
+Alternatively, you can attach a resource\-based policy directly to the secret to grant permissions specifying who is allowed to read or modify the secret and its versions\. Unlike an identity\-based policy which automatically applies to the user, group, or role, a resource\-based policy attached to a secret uses the `Principal` element to identify who the policy applies to\. The `Principal` element can include users and roles from the same account as the secret or principals from other accounts\.
 
 ## Compliance with Standards<a name="asm_compliance"></a>
 
@@ -92,6 +102,9 @@ AWS Secrets Manager has undergone auditing for the following standards and can b
 |  |  | 
 | --- |--- |
 | ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/secretsmanager/latest/userguide/images/HIPAA.jpg) |  AWS has expanded its Health Insurance Portability and Accountability Act \(HIPAA\) compliance program to include AWS Secrets Manager as a [HIPAA\-eligible service](https://aws.amazon.com/compliance/hipaa-eligible-services-reference/)\. If you have an executed Business Associate Agreement \(BAA\) with AWS, you can use Secrets Manager to help build your HIPAA\-compliant applications\. AWS offers a [HIPAA\-focused whitepaper](https://d0.awsstatic.com/whitepapers/compliance/AWS_HIPAA_Compliance_Whitepaper.pdf) for customers who are interested in learning more about how they can leverage AWS for the processing and storage of health information\. For more information, see [HIPAA Compliance](https://aws.amazon.com/compliance/hipaa-compliance/)\.  | 
+| ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/secretsmanager/latest/userguide/images/pci_aws.png) |  AWS Secrets Manager has an Attestation of Compliance for Payment Card Industry \(PCI\) Data Security Standard \(DSS\) version 3\.2 at Service Provider Level 1\. Customers who use AWS products and services to store, process, or transmit cardholder data can use AWS Secrets Manager as they manage their own PCI DSS compliance certification\. For more information about PCI DSS, including how to request a copy of the AWS PCI Compliance Package, see [PCI DSS Level 1](https://aws.amazon.com/compliance/pci-dss-level-1-faqs/)\.  | 
+| ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/secretsmanager/latest/userguide/images/iso_aws.png) |  AWS Secrets Manager has successfully completed compliance certification for ISO/IEC 27001, ISO/IEC 27017, ISO/IEC 27018, and ISO 9001\. For more information, see [ISO 27001](https://aws.amazon.com/compliance/iso-27001-faqs/), [ISO 27017](https://aws.amazon.com/compliance/iso-27017-faqs/), [ISO 27018](https://aws.amazon.com/compliance/iso-27018-faqs/), [ISO 9001](https://aws.amazon.com/compliance/iso-9001-faqs/)\.  | 
+| ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/secretsmanager/latest/userguide/images/soc_aws.png) |  System and Organization Control \(SOC\) reports are independent third\-party examination reports that demonstrate how Secrets Manager achieves key compliance controls and objectives\. The purpose of these reports is to help you and your auditors understand the AWS controls that are established to support operations and compliance\. For more information, see [SOC Compliance](https://aws.amazon.com/compliance/soc-faqs/)\.   | 
 
 ## Accessing Secrets Manager<a name="asm_access"></a>
 
@@ -99,11 +112,11 @@ You can work with Secrets Manager in any of the following ways:
 
 **AWS Management Console**  
 [The Secrets Manager console](https://console.aws.amazon.com/secretsmanager/) is a browser\-based interface that you can use to manage your secrets\. You can perform almost any task that's related to your secrets by using the console\.  
-Currently, you can't do the following in the console:  
+Currently, you can't perform the following in the console:  
 + *Store binary data in a secret\.* The console currently stores data only in the `SecretString` field of the secret, and doesn't use the `SecureBinary` field\. To store binary data, you must currently use the AWS CLI or one of the AWS SDKs\. 
 
 **AWS Command Line Tools**  
-The AWS command line tools let you issue commands at your system's command line to perform Secrets Manager and other AWS tasks\. This can be faster and more convenient than using the console\. The command line tools also are useful if you want to build scripts that perform AWS tasks\.  
+The AWS command line tools allows you to issue commands at your system command line to perform Secrets Manager and other AWS tasks\. This can be faster and more convenient than using the console\. The command line tools can be useful if you want to build scripts to perform AWS tasks\.  
 AWS provides two sets of command line tools: the [AWS Command Line Interface](https://aws.amazon.com/cli/) \(AWS CLI\) and the [AWS Tools for Windows PowerShell](https://aws.amazon.com/powershell/)\. For information about installing and using the AWS CLI, see the [AWS Command Line Interface User Guide](https://docs.aws.amazon.com/cli/latest/userguide/)\. For information about installing and using the Tools for Windows PowerShell, see the [AWS Tools for Windows PowerShell User Guide](https://docs.aws.amazon.com/powershell/latest/userguide/)\.
 
 **AWS SDKs**  
@@ -111,7 +124,7 @@ The AWS SDKs consist of libraries and sample code for various programming langua
 
 **Secrets Manager HTTPS Query API**  
 The Secrets Manager HTTPS Query API gives you programmatic access to Secrets Manager and AWS\. The HTTPS Query API lets you issue HTTPS requests directly to the service\. When you use the HTTPS API, you must include code to digitally sign requests by using your credentials\. For more information, see [Calling the API by Making HTTP Query Requests](https://docs.aws.amazon.com/secretsmanager/latest/userguide/query-requests.html) and the [AWS Secrets Manager API Reference](https://docs.aws.amazon.com/secretsmanager/latest/apireference/)\.  
-We recommend that you use the SDK that's specific to the programming language you prefer instead of using the HTTPS Query API\. The SDK performs many useful tasks that you otherwise must do manually\. One example is that the SDKs automatically sign your requests and convert the response into a structure that's syntactically appropriate to your language\. Use the HTTPS Query API only when an SDK isn't available\.
+We recommend that you use the SDK specific to the programming language you prefer instead of using the HTTPS Query API\. The SDK performs many useful tasks that you would perform manually\. One example is that the SDKs automatically sign your requests and convert the response into a structure syntactically appropriate to your language\. Use the HTTPS Query API only when an SDK isn't available\.
 
 ## Pricing for Secrets Manager<a name="asm_pricing"></a>
 

@@ -23,9 +23,9 @@ To retrieve a secret in the console, you must have these permissions:
 
    The **Secret details** page appears\. It displays all of the chosen secret's configuration details except for the encrypted secret text\.
 
-1. In the **Credential data** section, choose **Retrieve credentials**\.
+1. In the **Secret value** section, choose **Retrieve secret value**\.
 
-1. Choose **secret key : secret value** to see the credentials parsed out as individual keys and values\. Choose **Plaintext** to see the original JSON text string that's encrypted and stored\.
+1. Choose **Secret key/value** to see the credentials parsed out as individual keys and values\. Choose **Plaintext** to see the original JSON text string that's encrypted and stored\.
 
 ------
 #### [ Using the AWS CLI or AWS SDK operations ]<a name="proc-secret-value-api"></a>
@@ -67,12 +67,15 @@ By writing your code to perform those tasks, you get the following benefits:
 
 Secrets Manager has created a client\-side component that implements these best practices to simplify your creation of code that accesses secrets stored in AWS Secrets Manager\. All you need to do is to install the client and then call it, providing the identifier of the secret that you want the code to use\. The only other requirement is to ensure that the AWS credentials you use to call Secrets Manager have the `secretsmanager:DescribeSecret` and `secretsmanager:GetSecretValue` permissions on that secret\. Those credentials would typically be associated with an IAM role\. That role might be assigned to you at sign\-on time if you use [SAML federation](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_saml.html) or [web identity \(OIDC\) federation](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_oidc.html)\. If your app is running on an Amazon EC2 instance, then your administrator can assign an IAM role by creating an [instance profile](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html)\. 
 
-The component comes in two forms:
-+ A client\-side library that you interact with instead of directly calling the `GetSecretValue` operation\.
+The component comes in the following forms:
++ Client\-side libraries in Java, Python, Go, and \.NET that you interact with instead of directly calling the `GetSecretValue` operation\.
 + A database driver component that is compliant with Java Database Connectivity \(JDBC\)\. This component is a wrapper around the true JDBC driver that adds the functionality described above\.
 
 For instructions to download and use one of the following links:
-+ [Java\-based caching client component](https://github.com/aws/aws-secretsmanager-caching-java )\.
++ [Java\-based caching client component](https://github.com/aws/aws-secretsmanager-caching-java )
 + [JDBC\-compatible database connector component](https://github.com/aws/aws-secretsmanager-jdbc )
++ [Python caching client](https://github.com/aws/aws-secretsmanager-caching-python )
++ [Caching client for \.NET](https://github.com/aws/aws-secretsmanager-caching-net )
++ [Go caching client](https://github.com/aws/aws-secretsmanager-caching-go )
 
 ------

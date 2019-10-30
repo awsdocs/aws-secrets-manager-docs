@@ -48,7 +48,7 @@ If the database or service that your credentials are for resides in a VPC provid
    $ aws cloudformation execute-change-set --change-set-name arn:aws:cloudformation:region:123456789012:changeSet/EXAMPLE1-90ab-cdef-fedc-ba987EXAMPLE/EXAMPLE2-90ab-cdef-fedc-ba987EXAMPLE
    ```
 
-1. Next, you must find the name of the Lambda function that the previous command just created for you\. 
+1. Next you must find the name of the Lambda function that the previous command just created for you\. 
 
    ```
    $ aws lambda list-functions
@@ -84,11 +84,11 @@ If the database or service that your credentials are for resides in a VPC provid
 1. If the VPC with your database instance and Lambda rotation function doesn't have internet access, then you must configure the VPC with a private service endpoint for Secrets Manager\. This enables the rotation function to access Secrets Manager at an endpoint within the VPC\.
 
    ```
-   $ aws ec2 create-vpc-endpoint --vpc-id <VPC ID> /
-                                 --vpc-endpoint-type Interface /
-                                 --service-name com.amazonaws.<region>.secretsmanager /
-                                 --subnet-ids <COMMA SEPARATED LIST OF VPC SUBNET IDS> /
-                                 --security-group-ids <COMMA SEPARATED LIST OF SECURITY GROUP IDs> /
+   $ aws ec2 create-vpc-endpoint --vpc-id <VPC ID> \
+                                 --vpc-endpoint-type Interface \
+                                 --service-name com.amazonaws.<region>.secretsmanager \
+                                 --subnet-ids <COMMA SEPARATED LIST OF VPC SUBNET IDS> \
+                                 --security-group-ids <COMMA SEPARATED LIST OF SECURITY GROUP IDs> \
                                  --private-dns-enabled
    ```
 
