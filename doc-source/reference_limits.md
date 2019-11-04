@@ -21,8 +21,8 @@ The following are the default maximum limits for entities in AWS Secrets Manager
 | Maximum number of versions in a secret | \~100  | 
 | Maximum number of labels attached across all versions of a secret | 20 | 
 | Maximum number of versions you can attach to a label at the same time | 1 | 
-| Maximum length of a secret |  10240 bytes | 
-| Maximum length of a resource\-based policy \- JSON text |  20480 characters  | 
+| Maximum length of a secret |  10,240 bytes | 
+| Maximum length of a resource\-based policy \- JSON text |  20,480 characters  | 
 
 ## Maximum Rate Limits<a name="reference_limits_rates"></a>
 
@@ -34,7 +34,7 @@ These parameters have the following rate limits for AWS Secrets Manager:
 |  |  | 
 | --- |--- |
 | Request type | Number of operations permitted per second | 
-| Overall API limit for the account | 1500 | 
-|  DescribeSecret GetSecretValue  | 1500 | 
+| Overall API limit for the account | 1,500 | 
+|  DescribeSecret GetSecretValue  | 1,500 | 
 |  PutResourcePolicy GetResourcePolicy DeleteResourcePolicy CreateSecret UpdateSecret UpdateSecretVersionStage PutSecretValue DeleteSecret RestoreSecret RotateSecret CancelRotateSecret AssociateSecretLabels DisassociateSecretLabels GetRandomPassword  | 40 | 
 |  TagResource UntagResource ListSecrets ListSecretVersionIds  | 20 | 

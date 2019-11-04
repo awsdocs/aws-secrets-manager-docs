@@ -86,7 +86,7 @@ The permissions granted by the **IAMFullAccess** AWS managed policy – required
 
 ------
 
-1. For **Secret name**, type an optional path and name, such as **production/MyAwesomeAppSecret** or **development/TestSecret**\. You can optionally add a description to help you remember the purpose of this secret later on\.
+1. For **Secret name**, type an optional path and name, such as **production/MyAwesomeAppSecret** or **development/TestSecret**\. Notice that the use of the slash character enables you to structure your secrets into a hierarchy, such as grouping by the deployment environment, which is useful for organizing and managing your secrets at scale. You can optionally add a description to help you remember the purpose of this secret later on\.
 
    The secret name must be ASCII letters, digits, or any of the following characters: /\_\+=\.@\-
 

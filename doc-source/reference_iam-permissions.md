@@ -55,7 +55,7 @@ Context keys in AWS Secrets Manager generally correspond to the request paramete
 
 Each context key can be compared using a condition operator to a value that you specify\. The context keys that can be used depend on the action selected\. See the "Context keys" column in the [Actions](#iam-actions) section at the beginning of this topic\.
 
-For example, you could choose to allow someone to retrieve *only* the `AWSCURRENT` version a secret value by using a `Condition` element similar to the following:
+For example, you could choose to allow someone to retrieve *only* the `AWSCURRENT` version of a secret value by using a `Condition` element similar to the following:
 
 ```
     "Condition": {"ForAnyValue:StringEquals" : {"secretsmanager:VersionStage" : "AWSCURRENT"}}

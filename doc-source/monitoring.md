@@ -179,7 +179,7 @@ Before you begin these procedures, you must have already turned on CloudTrail in
 **Topics**
 + [Part 1: Configure CloudTrail Log File Delivery to CloudWatch Logs](#monitoring_cloudwatch_deleted-secrets_part1)
 + [Part 2: Create the CloudWatch Alarm](#monitoring_cloudwatch_deleted-secrets_part2)
-+ [](#monitoring_cloudwatch_deleted-secrets_part3)
++ [Part 3: Monitoring CloudWatch for Deleted Secrets](#monitoring_cloudwatch_deleted-secrets_part3)
 
 #### Part 1: Configure CloudTrail Log File Delivery to CloudWatch Logs<a name="monitoring_cloudwatch_deleted-secrets_part1"></a>
 
@@ -249,6 +249,6 @@ To receive a notification when a Secrets Manager `GetSecretValue` API operation 
 
    1. Choose **Create Alarm**\.
 
-#### <a name="monitoring_cloudwatch_deleted-secrets_part3"></a>
+#### Part 3: Monitoring CloudWatch for Deleted Secrets<a name="monitoring_cloudwatch_deleted-secrets_part3"></a>
 
 Your alarm is now in place\. To test it, create a version of a secret and then schedule it for deletion\. Then, try to retrieve the secret value\. You'll shortly receive an email at the address that's configured in the alarm\. It will alert you to the use of a secret version that's scheduled for deletion\.
