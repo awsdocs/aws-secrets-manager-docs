@@ -1,10 +1,10 @@
 # AWS Templates You Can Use to Create Lambda Rotation Functions<a name="reference_available-rotation-templates"></a>
 
-This section identifies the AWS managed templates that you can use to create a Lambda rotation function for your AWS Secrets Manager secret\. These templates are associated with the AWS Serverless Application Repository, which uses AWS CloudFormation to create 'stacks' of preconfigured resources\. In this case, they create a stack that consists of the Lambda function and an IAM role that Secrets Manager can assume to invoke the function when rotation occurs\.
+This section identifies the AWS managed templates  you can use to create a Lambda rotation function for your AWS Secrets Manager secret\. These templates  associate with the AWS Serverless Application Repository, which uses AWS CloudFormation to create 'stacks' of preconfigured resources\. In this case, the templates create a stack that consists of the Lambda function and an IAM role that Secrets Manager can assume to invoke the function when rotation occurs\.
 
 **To create a Lambda rotation function with any of the following templates, you can copy and paste the ARN of the specified template into the CLI commands described in the topic [Rotating AWS Secrets Manager Secrets for Other Databases or Services](rotating-secrets-create-generic-template.md)\.**
 
-Each of the following templates creates a Lambda rotation function for a different combination of database and rotation strategy\. The first bullet under each shows the database or service that the function supports\. The second bullet describes the rotation strategy that's implemented by the function\. The third bullet specifies the JSON structure that the rotation function expects to find in the `SecretString` value of the secret being rotated\.
+Each of the following templates creates a Lambda rotation function for a different combination of database and rotation strategy\. The first bullet under each shows the database or service supported by the function\. The second bullet describes the rotation strategy implemented by the function\. The third bullet specifies the JSON structure the rotation function expects to find in the `SecretString` value of the rotated secret\.
 
 **RDS databases**
 + [RDS MariaDB Single User](#sar-template-mariadb-singleuser)
@@ -19,9 +19,13 @@ Each of the following templates creates a Lambda rotation function for a differe
 + [RDS Microsoft SQLServer Master User](#sar-template-sqlserver-multiuser)
 
 **Other databases and services**
++ [MongoDB Single User](#sar-template-mongodb-singleuser)
++ [MongoDB Master User](#sar-template-mongodb-multiuser)
++ [Amazon Redshift Single User](#sar-template-redshift-singleuser)
++ [Amazon Redshift Master User](#sar-template-redshift-multiuser)
 + [Generic Rotation Function Template](#sar-template-generic)
 
-## Templates for Databases Running on Amazon RDS<a name="RDS_rotation_templates"></a>
+## Templates for Amazon RDS Databases<a name="RDS_rotation_templates"></a>
 
 ### RDS MariaDB Single User<a name="sar-template-mariadb-singleuser"></a>
 
@@ -29,8 +33,8 @@ Each of the following templates creates a Lambda rotation function for a differe
 arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRDSMariaDBRotationSingleUser
 ```
 + **Name:** SecretsManagerRDSMariaDBRotationSingleUser
-+ **Supported database/service:** MariaDB database that's hosted on an Amazon Relational Database Service \(Amazon RDS\) database instance\.
-+ **Rotation strategy:** This changes the password for a user whose credentials are stored in the secret that's rotated\. For more information about this strategy, see [Rotating AWS Secrets Manager Secrets for One User with a Single Password](rotating-secrets-one-user-one-password.md)\.
++ **Supported database/service:** MariaDB database hosted on an Amazon Relational Database Service \(Amazon RDS\) database instance\.
++ **Rotation strategy:** This changes the password for a user with credentials stored in the rotated secret\. For more information about this strategy, see [Rotating AWS Secrets Manager Secrets for One User with a Single Password](rotating-secrets-one-user-one-password.md)\.
 + **Expected `SecretString` structure:** 
 
   ```
@@ -51,8 +55,8 @@ arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRDSMari
 arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRDSMariaDBRotationMultiUser
 ```
 + **Name:** SecretsManagerRDSMariaDBRotationMultiUser
-+ **Supported database/service:** MariaDB database that's hosted on an Amazon RDS database instance\.
-+ **Rotation strategy:** Two users are alternated during rotation by using the credentials of a separate master user, which is stored in a separate secret\. The user that's not currently active has its password changed before it's made the active user\. For more information about this strategy, see [Rotating AWS Secrets Manager Secrets by Alternating Between Two Existing Users](rotating-secrets-two-users.md)\.
++ **Supported database/service:** MariaDB database hosted on an Amazon RDS database instance\.
++ **Rotation strategy:** Two users alternate during rotation by using the credentials of a separate master user, stored in a separate secret\. Secrets Manager changes the password of the inactive user before the user becomes the active user\. For more information about this strategy, see [Rotating AWS Secrets Manager Secrets by Alternating Between Two Existing Users](rotating-secrets-two-users.md)\.
 + **Expected `SecretString` structure:** 
 
   ```
@@ -74,8 +78,8 @@ arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRDSMari
 arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRDSMySQLRotationSingleUser
 ```
 + **Name:** SecretsManagerRDSMySQLRotationSingleUser
-+ **Supported database/service:** MySQL database that's hosted on an Amazon Relational Database Service \(Amazon RDS\) database instance\.
-+ **Rotation strategy:** This changes the password for a user whose credentials are stored in the secret that's rotated\. For more information about this strategy, see [Rotating AWS Secrets Manager Secrets for One User with a Single Password](rotating-secrets-one-user-one-password.md)\.
++ **Supported database/service:** MySQL database hosted on an Amazon Relational Database Service \(Amazon RDS\) database instance\.
++ **Rotation strategy:** This changes the password for a user with credentials stored in the rotated secret\. For more information about this strategy, see [Rotating AWS Secrets Manager Secrets for One User with a Single Password](rotating-secrets-one-user-one-password.md)\.
 + **Expected `SecretString` structure:** 
 
   ```
@@ -96,8 +100,8 @@ arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRDSMySQ
 arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRDSMySQLRotationMultiUser
 ```
 + **Name:** SecretsManagerRDSMySQLRotationMultiUser
-+ **Supported database/service:** MySQL database that's hosted on an Amazon RDS database instance\.
-+ **Rotation strategy:** Two users are alternated during rotation by using the credentials of a separate master user, which is stored in a separate secret\. The user that's not currently active has its password changed before it's made the active user\. For more information about this strategy, see [Rotating AWS Secrets Manager Secrets by Alternating Between Two Existing Users](rotating-secrets-two-users.md)\.
++ **Supported database/service:** MySQL database hosted on an Amazon RDS database instance\.
++ **Rotation strategy:** Two users alternate during rotation by using the credentials of a separate master user, stored in a separate secret\. Secrets Manager changes the password of the inactive user before the user becomes the active user\. For more information about this strategy, see [Rotating AWS Secrets Manager Secrets by Alternating Between Two Existing Users](rotating-secrets-two-users.md)\.
 + **Expected `SecretString` structure:** 
 
   ```
@@ -119,8 +123,8 @@ arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRDSMySQ
 arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRDSOracleRotationSingleUser
 ```
 + **Name:** SecretsManagerRDSOracleRotationSingleUser
-+ **Supported database/service:** Oracle database that's hosted on an Amazon Relational Database Service \(Amazon RDS\) database instance\.
-+ **Rotation strategy:** This changes the password for a user whose credentials are stored in the secret that's rotated\. For more information about this strategy, see [Rotating AWS Secrets Manager Secrets for One User with a Single Password](rotating-secrets-one-user-one-password.md)\.
++ **Supported database/service:** Oracle database hosted on an Amazon Relational Database Service \(Amazon RDS\) database instance\.
++ **Rotation strategy:** This changes the password for a user with credentials stored in the rotated secret\. For more information about this strategy, see [Rotating AWS Secrets Manager Secrets for One User with a Single Password](rotating-secrets-one-user-one-password.md)\.
 + **Expected `SecretString` structure:** 
 
   ```
@@ -141,8 +145,8 @@ arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRDSOrac
 arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRDSOracleRotationMultiUser
 ```
 + **Name:** SecretsManagerRDSOracleRotationMultiUser
-+ **Supported database/service:** Oracle database that's hosted on an Amazon RDS database instance\.
-+ **Rotation strategy:** Two users are alternated during rotation by using the credentials of a separate master user, which is stored in a separate secret\. The user that's not currently active has its password changed before it's made the active user\. For more information about this strategy, see [Rotating AWS Secrets Manager Secrets by Alternating Between Two Existing Users](rotating-secrets-two-users.md)\.
++ **Supported database/service:** Oracle database hosted on an Amazon RDS database instance\.
++ **Rotation strategy:** Two users alternate during rotation by using the credentials of a separate master user, stored in a separate secret\. Secrets Manager changes the password of the inactive user before the user becomes the active user\. For more information about this strategy, see [Rotating AWS Secrets Manager Secrets by Alternating Between Two Existing Users](rotating-secrets-two-users.md)\.
 + **Expected `SecretString` structure:** 
 
   ```
@@ -164,8 +168,8 @@ arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRDSOrac
 arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRDSPostgreSQLRotationSingleUser
 ```
 + **Name:** SecretsManagerRDSPostgreSQLRotationSingleUser
-+ **Supported database/service:** PostgreSQL database that's hosted on an Amazon RDS database instance\.
-+ **Rotation strategy:** This changes the password for a user whose credentials are stored in the secret that's rotated\. For more information about this strategy, see [Rotating AWS Secrets Manager Secrets for One User with a Single Password](rotating-secrets-one-user-one-password.md)\.
++ **Supported database/service:** PostgreSQL database hosted on an Amazon RDS database instance\.
++ **Rotation strategy:** This changes the password for a user with credentials stored in the rotated secret\. For more information about this strategy, see [Rotating AWS Secrets Manager Secrets for One User with a Single Password](rotating-secrets-one-user-one-password.md)\.
 + **Expected `SecretString` structure:** 
 
   ```
@@ -186,8 +190,8 @@ arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRDSPost
 arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRDSPostgreSQLRotationMultiUser
 ```
 + **Name:** SecretsManagerRDSPostgreSQLRotationMultiUser
-+ **Supported database/service:** PostgreSQL database that's hosted on an Amazon RDS database instance\.
-+ **Rotation strategy:** Two users are alternated during rotation by using the credentials of a separate master user, which is stored in a separate secret\. The user that's not currently active has its password changed before it's made the active user\. For more information about this strategy, see [Rotating AWS Secrets Manager Secrets by Alternating Between Two Existing Users](rotating-secrets-two-users.md)\.
++ **Supported database/service:** PostgreSQL database hosted on an Amazon RDS database instance\.
++ **Rotation strategy:** Two users alternate during rotation by using the credentials of a separate master user, stored in a separate secret\. Secrets Manager changes the password of the inactive user before the user becomes the active user\. For more information about this strategy, see [Rotating AWS Secrets Manager Secrets by Alternating Between Two Existing Users](rotating-secrets-two-users.md)\.
 + **Expected `SecretString` structure:** 
 
   ```
@@ -209,8 +213,8 @@ arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRDSPost
 arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRDSSQLServerRotationSingleUser
 ```
 + **Name:** SecretsManagerRDSSQLServerRotationSingleUser
-+ **Supported database/service:** Microsoft SQLServer database that's hosted on an Amazon Relational Database Service \(Amazon RDS\) database instance\.
-+ **Rotation strategy:** This changes the password for a user whose credentials are stored in the secret that's rotated\. For more information about this strategy, see [Rotating AWS Secrets Manager Secrets for One User with a Single Password](rotating-secrets-one-user-one-password.md)\.
++ **Supported database/service:** Microsoft SQLServer database hosted on an Amazon RDS database instance\.
++ **Rotation strategy:** This changes the password for a user with credentials stored in the rotated secret\. For more information about this strategy, see [Rotating AWS Secrets Manager Secrets for One User with a Single Password](rotating-secrets-one-user-one-password.md)\.
 + **Expected `SecretString` structure:** 
 
   ```
@@ -231,8 +235,8 @@ arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRDSSQLS
 arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRDSSQLServerRotationMultiUser
 ```
 + **Name:** SecretsManagerRDSSQLServerRotationMultiUser
-+ **Supported database/service:** Microsoft SQLServer database that's hosted on an Amazon RDS database instance\.
-+ **Rotation strategy:** Two users are alternated during rotation by using the credentials of a separate master user, which is stored in a separate secret\. The user that's not currently active has its password changed before it's made the active user\. For more information about this strategy, see [Rotating AWS Secrets Manager Secrets by Alternating Between Two Existing Users](rotating-secrets-two-users.md)\.
++ **Supported database/service:** Microsoft SQLServer database hosted on an Amazon RDS database instance\.
++ **Rotation strategy:** Two users alternate during rotation by using the credentials of a separate master user, stored in a separate secret\. Secrets Manager changes the password of the inactive user before the user becomes the active user\. For more information about this strategy, see [Rotating AWS Secrets Manager Secrets by Alternating Between Two Existing Users](rotating-secrets-two-users.md)\.
 + **Expected `SecretString` structure:** 
 
   ```
@@ -247,6 +251,98 @@ arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRDSSQLS
   }
   ```
 + [https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerRDSSQLServerRotationMultiUser/lambda_function.py](https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerRDSSQLServerRotationMultiUser/lambda_function.py)
+
+## Templates for Other Databases<a name="NON-RDS_rotation_templates"></a>
+
+### MongoDB Single User<a name="sar-template-mongodb-singleuser"></a>
+
+```
+arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerMongoDBRotationSingleUser
+```
++ **Name:** SecretsManagerMongoDBRotationSingleUser
++ **Supported database/service:** MongoDB database version 3\.2 or 3\.4\.
++ **Rotation strategy:** This changes the password for a user with credentials stored in the rotated secret\. For more information about this strategy, see [Rotating AWS Secrets Manager Secrets for One User with a Single Password](rotating-secrets-one-user-one-password.md)\.
++ **Expected `SecretString` structure:** 
+
+  ```
+  {
+    "engine": "mongo",
+    "host": "<required: instance host name/resolvable DNS name>",
+    "username": "<required: username>",
+    "password": "<required: password>",
+    "dbname": "<optional: database name. If not specified, defaults to None>",
+    "port": "<optional: TCP port number. If not specified, defaults to 27017>"
+  }
+  ```
++ **Source code:** [https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master//SecretsManagerMongoDBRotationSingleUser/lambda_function.py](https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master//SecretsManagerMongoDBRotationSingleUser/lambda_function.py)
+
+### MongoDB Master User<a name="sar-template-mongodb-multiuser"></a>
+
+```
+arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerMongoDBRotationMultiUser
+```
++ **Name:** SecretsManagerMongoDBRotationMultiUser
++ **Supported database or service:** MongoDB database version 3\.2 or 3\.4\.
++ **Rotation strategy:** Two users alternate during rotation by using the credentials of a separate master user, and stored in a separate secret\.Secrets Manager changes the password of the inactive user before the user becomes the active user\. For more information about this strategy, see [Rotating AWS Secrets Manager Secrets by Alternating Between Two Existing Users](rotating-secrets-two-users.md)\.
++ **Expected `SecretString` structure:** 
+
+  ```
+  {
+    "engine": "mongo",
+    "host": "<required: instance host name/resolvable DNS name>",
+    "username": "<required: username>",
+    "password": "<required: password>",
+    "dbname": "<optional: database name. If not specified, defaults to None>",
+    "port": "<optional: TCP port number. If not specified, defaults to 27017>",
+    "masterarn": "<required: the ARN of the master secret used to create 2nd user and change passwords>"
+  }
+  ```
++  [https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerMongoDBRotationMultiUser/lambda_function.py](https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerMongoDBRotationMultiUser/lambda_function.py)
+
+### Amazon Redshift Single User<a name="sar-template-redshift-singleuser"></a>
+
+```
+arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRedShiftRotationSingleUser
+```
++ **Name:** SecretsManagerRedShiftRotationSingleUser
++ **Supported database/service:** Amazon Redshift
++ **Rotation strategy:** This changes the password for a user with credentials stored in the rotated secret\. For more information about this strategy, see [Rotating AWS Secrets Manager Secrets for One User with a Single Password](rotating-secrets-one-user-one-password.md)\.
++ **Expected `SecretString` structure:** 
+
+  ```
+  {
+    "engine": "redshift",
+    "host": "<required: instance host name/resolvable DNS name>",
+    "username": "<required: username>",
+    "password": "<required: password>",
+    "dbname": "<optional: database name. If not specified, defaults to None>",
+    "port": "<optional: TCP port number. If not specified, defaults to 5439>"
+  }
+  ```
++  [https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerRedshiftRotationSingleUser/lambda_function.py](https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerRedshiftRotationSingleUser/lambda_function.py)
+
+### Amazon Redshift Master User<a name="sar-template-redshift-multiuser"></a>
+
+```
+arn:aws:serverlessrepo:us-east-1:297356227824:applications/SecretsManagerRedShiftRotationMultiUser
+```
++ **Name:** SecretsManagerRedShiftRotationMultiUser
++ **Supported database/service:** Amazon Redshift
++ **Rotation strategy:** Two users alternate during rotation by using the credentials of a separate master user, stored in a separate secret\. Secrets Manager changes the password of the inactive user before  becomeing the active user\. For more information about this strategy, see [Rotating AWS Secrets Manager Secrets by Alternating Between Two Existing Users](rotating-secrets-two-users.md)\.
++ **Expected `SecretString` structure:** 
+
+  ```
+  {
+    "engine": "redshift",
+    "host": "<required: instance host name/resolvable DNS name>",
+    "username": "<required: username>",
+    "password": "<required: password>",
+    "dbname": "<optional: database name. If not specified, defaults to None>",
+    "port": "<optional: TCP port number. If not specified, defaults to ?????>",
+    "masterarn": "<required: the ARN of the master secret used to create 2nd user and change passwords>"
+  }
+  ```
++  [https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerRedshiftRotationMultiUser/lambda_function.py](https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerRedshiftRotationMultiUser/lambda_function.py)
 
 ## Templates for Other Services<a name="OTHER_rotation_templates"></a>
 

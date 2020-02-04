@@ -2,19 +2,19 @@
 
 By using an AWS CloudFormation template, you can automate creating secrets for database or service resources in your AWS cloud infrastructure\. 
 
-You can use AWS CloudFormation to automate the creation of your cloud infrastructure\. You create a template in either JSON or YAML that defines the resources that you need for your project\. AWS CloudFormation then processes the template and builds the resources that you defined there\. This enables you to easily recreate a new copy of your infrastructure whenever you need it\. For example, you can duplicate your test infrastructure to create the public version\. You can also easily share it as a simple text file, which enables others to replicate the resources without having to do so manually\.
+You can use AWS CloudFormation to automate the creation of your cloud infrastructure\. You create a template in either JSON or YAML to define the resources you need for your project\. AWS CloudFormation then processes the template and builds the defined resources\. This enables you to easily recreate a new copy of your infrastructure whenever you need it\. For example, you can duplicate your test infrastructure to create the public version\. You can also easily share the infrastructure as a simple text file, which enables others to replicate the resources without manual intervention\.
 
 You can use [CloudFormer](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-using-cloudformer.html) to capture all of the details of an existing set of resources into an AWS CloudFormation template\.
 
-Secrets Manager provides the following resource types to enable you to create secrets as part of an AWS CloudFormation template\. For details about how to configure each in your AWS CloudFormation template, choose the resource type name for a link to the *AWS CloudFormation User Guide*\.
-+ **[ AWS::SecretsManager::Secret ](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-secretsmanager-secret.html)** – Creates a secret and stores it in Secrets Manager\. You can specify your own password or let Secrets Manager generate one for you\.
-+ **[ AWS::SecretsManager::ResourcePolicy ](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-secretsmanager-resourcepolicy.html)** – Creates a resource\-based policy and attaches it to the specified secret\. A resource\-based policy is a way to control who can perform which actions on the secret\.
+Secrets Manager provides the following resource types to enable you to create secrets as part of an AWS CloudFormation template\. For details about configuring each in your AWS CloudFormation template, choose the resource type name for a link to the *AWS CloudFormation User Guide*\.
++ **[ AWS::SecretsManager::Secret ](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-secretsmanager-secret.html)** – Creates a secret and stores it in Secrets Manager\. You can specify a password or let Secrets Manager generate one for you\. You may also create an empty secret and update it later using the parameter `SecretString.` 
++ **[ AWS::SecretsManager::ResourcePolicy ](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-secretsmanager-resourcepolicy.html)** – Creates a resource\-based policy and attaches it to the specified secret\. A resource\-based policy controls who can perform actions on the secret\.
 + **[ AWS::SecretsManager::RotationSchedule ](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-secretsmanager-rotationschedule.html)** – Configures a secret to perform automatic periodic rotation using the specified Lambda rotation function\.
-+ **[ AWS::SecretsManager::SecretTargetAttachment ](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-secretsmanager-secrettargetattachment.html)** – After you create a secret and then reference it to access its credentials when you create a service or database, this resource type goes back and finishes the configuration of the secret\. It configures the secret with the details about the service or database that's required for rotation to work\. For example, for an Amazon RDS DB instance, it adds the connection details and database engine type as entries in the `SecureString` property of the secret\.
++ **[ AWS::SecretsManager::SecretTargetAttachment ](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-secretsmanager-secrettargetattachment.html)** – After you create a secret and then reference it to access the credentials when you create a service or database, this resource type goes back and finishes the configuration of the secret\. Secrets Manager configures the secret with the details about the service or database required for rotation to work\. For example, for an Amazon RDS DB instance, Secrets Manager adds the connection details and database engine type as entries in the `SecureString` property of the secret\.
 
 ## Examples<a name="integrating_cloudformation_examples"></a>
 
-The following example templates create a secret and an Amazon RDS MySQL DB instance that uses the credentials in the secret as the master user and password\. The secret has a resource\-based policy attached that specifies who can access the secret\. The template also creates a Lambda rotation function and configures the secret to automatically rotate every 30 days\.
+The following example templates create a secret and an Amazon RDS MySQL DB instance using the credentials in the secret as the master user and password\. The secret has a resource\-based policy attached that specifies access to the secret\. The template also creates a Lambda rotation function and configures the secret to automatically rotate every 30 days\.
 
 **Note**  
 The [JSON specification](https://json.org/) doesn't support comments\. See the [YAML](http://yaml.org/spec/1.2/spec.html) version later on this page for comments\.
@@ -250,17 +250,14 @@ Resources:
     Type: AWS::SecretsManager::ResourcePolicy
     Properties:
       SecretId: !Ref MyRDSInstanceRotationSecret
-      ResourcePolicy: !Sub '{
-                         "Version" : "2012-10-17",
-                         "Statement" : [
-                           {
-                             "Effect": "Deny",
-                             "Principal": {"AWS":"arn:aws:iam::${AWS::AccountId}:root"},
-                             "Action": "secretsmanager:DeleteSecret",
-                             "Resource": "*"
-                           }
-                         ]
-                       }'
+      ResourcePolicy: 
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Deny
+            Principal: 
+              AWS: !Sub 'arn:aws:iam::${AWS::AccountId}:root'
+            Action: secretsmanager:DeleteSecret
+            Resource: "*"
 
   #This is a lambda Function resource. We will use this lambda to rotate secrets
   #For details about rotation lambdas, see https://docs.aws.amazon.com/secretsmanager/latest/userguide/rotating-secrets.html

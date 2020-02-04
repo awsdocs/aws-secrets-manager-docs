@@ -1,6 +1,11 @@
 # Using Secrets Manager with VPC Endpoints<a name="vpc-endpoint-overview"></a>
 
-This article is a reference for how to use Secrets Manager with VPC endpoints\. The following sections explain how to connect Secrets Manager and a VPC endpoint, create a Secrets Manager VPC endpoint, create an endpoint policy for your Secrets Manager endpoint, and more\. For information about VPC endpoints, see the article in the VPC service documentation, [VPC Endpoints](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-endpoints.html)\.
+ The following sections explain these tasks:
++ Connecting Secrets Manager and a VPC endpoint\.
++ Creating a Secrets Manager VPC endpoint\.
++ Creating an endpoint policy for your Secrets Manager endpoint,
+
+For information about VPC endpoints, see the article in the VPC service documentation, [VPC Endpoints](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-endpoints.html)\.
 
 **Topics**
 + [Connecting to Secrets Manager Through a VPC Endpoint](#vpc-endpoint)
@@ -12,11 +17,11 @@ This article is a reference for how to use Secrets Manager with VPC endpoints\. 
 
 ## Connecting to Secrets Manager Through a VPC Endpoint<a name="vpc-endpoint"></a>
 
-Instead of connecting your VPC to the internet, you can connect directly to Secrets Manager through a private endpoint that you configure within your VPC\. When you use a VPC service endpoint, communication between your VPC and Secrets Manager occurs entirely within the AWS network, and requires no public internet access\.
+Instead of connecting your VPC to an internet, you can connect directly to Secrets Manager through a private endpoint you configure within your VPC\. When you use a VPC service endpoint, communication between your VPC and Secrets Manager occurs entirely within the AWS network, and requires no public Internet access\.
 
-Secrets Manager supports Amazon VPC [interface endpoints](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpce-interface.html) that are provided by [AWS PrivateLink](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Introduction.html#what-is-privatelink)\. Each VPC endpoint is represented by one or more [elastic network interfaces](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-eni.html) with private IP addresses in your VPC subnets\.
+Secrets Manager supports Amazon VPC [interface endpoints](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpce-interface.html) provided by [AWS PrivateLink](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Introduction.html#what-is-privatelink)\. One or more Each VPC endpoint is represented by one or more [elastic network interfaces](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-eni.html) with private IP addresses in your VPC subnets\.
 
-The VPC interface endpoint connects your VPC directly to Secrets Manager without a NAT device, VPN connection, or AWS Direct Connect connection\. The instances in your VPC don't need public IP addresses to communicate with Secrets Manager\.
+The VPC interface endpoint connects your VPC directly to Secrets Manager without a NAT device, VPN connection, or AWS Direct Connect connection\. The instances in your VPC don't require public IP addresses to communicate with Secrets Manager\.
 
 For your Lambda rotation function to find the private endpoint, perform one of the following steps:
 + You can manually specify the VPC endpoint in [Secrets Manager API operations](https://docs.aws.amazon.com/secretsmanager/latest/apireference/) and [AWS CLI commands](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/index.html)\. For example, the following command uses the **endpoint\-url** parameter to specify a VPC endpoint in an AWS CLI command to Secrets Manager\.
@@ -24,12 +29,12 @@ For your Lambda rotation function to find the private endpoint, perform one of t
   ```
   $ aws secretsmanager list-secrets --endpoint-url https://vpce-1234a5678b9012c-12345678.secretsmanager.us-west-2.vpce.amazonaws.com
   ```
-+ If you enable [private DNS hostnames](https://docs.aws.amazon.com/vpc/latest/userguide/vpce-interface.html#vpce-private-dns) for your VPC private endpoint, you don't even need to specify the endpoint URL\. The standard Secrets Manager DNS hostname that the Secrets Manager CLI and SDKs use by default \(`https://secretsmanager.<region>.amazonaws.com`\) automatically resolves to your VPC endpoint\.
++ If you enable [private DNS hostnames](https://docs.aws.amazon.com/vpc/latest/userguide/vpce-interface.html#vpce-private-dns) for your VPC private endpoint, you don't need to specify the endpoint URL\. The standard Secrets Manager DNS hostname the Secrets Manager CLI and SDKs use by default \(`https://secretsmanager.<region>.amazonaws.com`\) automatically resolves to your VPC endpoint\.
 
-You can also use AWS CloudTrail logs to audit your use of secrets through the VPC endpoint\. And you can use the conditions in IAM and secret \(resource\-based\) policies to deny access to any request that doesn't come from a specified VPC or VPC endpoint\.
+You can also use AWS CloudTrail logs to audit your use of secrets through the VPC endpoint\. And you can use the conditions in IAM and secret resource\-based policies to deny access to any request that doesn't originate from a specified VPC or VPC endpoint\.
 
 **Note**  
-Use caution when creating IAM and key policies that are based on your VPC endpoint\. If a policy statement requires that requests come from a particular VPC or VPC endpoint, then requests from other AWS services that interact with the secret on your behalf might fail\. For help, see [Using VPC Endpoint Conditions in Policies with Secrets Manager Permissions](reference_iam-permissions.md#iam-contextkeys-vpcendpoint)\.
+Use caution when creating IAM and key policies based on your VPC endpoint\. If a policy statement requires the requests originate from a particular VPC or VPC endpoint, then requests from other AWS services interacting with the secret on your behalf might fail\. For help, see [Using VPC Endpoint Conditions in Policies with Secrets Manager Permissions](reference_iam-permissions.md#iam-contextkeys-vpcendpoint)\.
 
 **Regions**
 
@@ -55,13 +60,13 @@ Follow the steps under one of the following tabs:
 
 1. For **VPC**, choose your VPC\.
 
-1. For **Subnets**, choose a subnet from each Availability Zone that you want to include\.
+1. For **Subnets**, choose a subnet from each Availability Zone to include\.
 
-   The VPC endpoint can span multiple Availability Zones\. An elastic network interface for the VPC endpoint is created in each subnet that you choose\. Each network interface has a DNS hostname and a private IP address\.
+   The VPC endpoint can span multiple Availability Zones\. AWS creates an elastic network interface for the VPC endpoint in each subnet that you choose\. Each network interface has a DNS hostname and a private IP address\.
 
-1. If you enable the **Enable Private DNS Name** option \(it's enabled by default\), the standard Secrets Manager DNS hostname \(`https://secretsmanager.<region>.amazonaws.com`\) automatically resolves to your VPC endpoint\. This option makes it easier to use the VPC endpoint\. The Secrets Manager CLI and SDKs use the standard DNS hostname by default, so you don't need to specify the VPC endpoint URL in applications and commands\.
+1. By default, AWS enables the **Enable Private DNS Name** option, the standard Secrets Manager DNS hostname \(`https://secretsmanager.<region>.amazonaws.com`\) automatically resolves to your VPC endpoint\. This option makes it easier to use the VPC endpoint\. The Secrets Manager CLI and SDKs use the standard DNS hostname by default, so you don't need to specify the VPC endpoint URL in applications and commands\.
 
-   This feature works only when the `enableDnsHostnames` and `enableDnsSupport` attributes of your VPC are set to `true` \(those are default values\)\. To set these attributes, [update DNS support for your VPC](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-dns.html#vpc-dns-updating)\.
+   This feature works only when you set the `enableDnsHostnames` and `enableDnsSupport` attributes of your VPC to `true` , the default values\. To set these attributes, [update DNS support for your VPC](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-dns.html#vpc-dns-updating)\.
 
 1. For **Security group**, select or create a security group\.
 
@@ -69,7 +74,7 @@ Follow the steps under one of the following tabs:
 
 1. Choose **Create endpoint**\.
 
-The results show the VPC endpoint, including the VPC endpoint ID and the DNS names that you use to [connect to your VPC endpoint](https://docs.aws.amazon.com/kms/latest/developerguide/kms-vpc-endpoint.html#connecting-vpc-endpoint)\.
+The results display the VPC endpoint, including the VPC endpoint ID and the DNS names you use to [connect to your VPC endpoint](https://docs.aws.amazon.com/kms/latest/developerguide/kms-vpc-endpoint.html#connecting-vpc-endpoint)\.
 
 You can also use the Amazon VPC tools to view and manage your endpoint\. This includes creating a notification for an endpoint, changing properties of the endpoint, and deleting the endpoint\. For instructions, see [Interface VPC Endpoints](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpce-interface.html)\.
 
@@ -78,9 +83,9 @@ You can also use the Amazon VPC tools to view and manage your endpoint\. This in
 
 You can use the [create\-vpc\-endpoint](https://docs.aws.amazon.com/cli/latest/reference/ec2/create-vpc-endpoint.html) command in the AWS CLI to create a VPC endpoint that connects to Secrets Manager\.
 
-Be sure to use `interface` as the VPC endpoint type\. Also, use a service name value that includes `secretsmanager` and the region where your VPC is located\.
+Be sure to use `interface` as the VPC endpoint type\. Also, use a service name value that includes `secretsmanager` and the region where you located your VPC\.
 
-The command doesn't include the `PrivateDnsNames` parameter because it defaults to the value `true`\. To disable the option, you can include the parameter with a value of `false`\. Private DNS names are available only when the `enableDnsHostnames` and `enableDnsSupport` attributes of your VPC are set to `true`\. To set these attributes, use the [ModifyVpcAttribute](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_ModifyVpcAttribute.html) API\.
+The command doesn't include the `PrivateDnsNames` parameter because the VPC defaults to the value `true`\. To disable the option, you can include the parameter with a value of `false`\. Private DNS names are available only when the `enableDnsHostnames` and `enableDnsSupport` attributes of your VPC are set to `true`\. To set these attributes, use the [ModifyVpcAttribute](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_ModifyVpcAttribute.html) API\.
 
 The following diagram shows the general syntax of the command\.
 
@@ -92,9 +97,9 @@ aws ec2 create-vpc-endpoint  --vpc-id <vpc id> \
                              --security-group-id <security group id>
 ```
 
-For example, the following command creates a VPC endpoint in the VPC with VPC ID `vpc-1a2b3c4d`, which is in the `us-west-2` Region\. It specifies just one subnet ID to represent the Availability Zones, but you can specify many\. The security group ID is also required\.
+For example, the following command creates a VPC endpoint in the VPC with VPC ID `vpc-1a2b3c4d`, which is in the `us-west-2` Region\. It specifies just one subnet ID to represent the Availability Zones, but you can specify many\. VPC endpoints require the security group ID\.
 
-The output includes the VPC endpoint ID and DNS names that you can use to connect to your new VPC endpoint\.
+The output includes the VPC endpoint ID and DNS names you can use to connect to your new VPC endpoint\.
 
 ```
 $ aws ec2 create-vpc-endpoint  --vpc-id vpc-1a2b3c4d \
@@ -147,7 +152,7 @@ $ aws ec2 create-vpc-endpoint  --vpc-id vpc-1a2b3c4d \
 
 ## Connecting to a Secrets Manager VPC Private Endpoint<a name="vpc-endpoint-connect"></a>
 
-Because, by default, VPC automatically enables private DNS names when you create a VPC private endpoint, you typically don't need to do anything other than use the standard endpoint DNS name for your region\. It automatically resolves to the correct endpoint within your VPC:
+Because, by default, VPC automatically enables private DNS names when you create a VPC private endpoint, you don't need to do anything other than use the standard endpoint DNS name for your region\. The endpoint DNS name automatically resolves to the correct endpoint within your VPC:
 
 ```
 https://secretsmanager.<region>.amazonaws.com
@@ -155,7 +160,7 @@ https://secretsmanager.<region>.amazonaws.com
 
 The AWS CLI and SDKs use this hostname by default, so you can begin using the VPC endpoint without changing anything in your scripts and application\.
 
-If you don't enable private DNS names, you can still connect to the endpoint by using its full DNS name\.
+If you don't enable private DNS names, you can still connect to the endpoint by using the full DNS name\.
 
 For example, this [list\-secrets](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/list-secrets.html) command uses the `endpoint-url` parameter to specify the VPC private endpoint\. To use a command like this, replace the example VPC private endpoint ID with one in your account\.
 
@@ -170,12 +175,12 @@ You can use IAM policies and Secrets Manager secret policies to control access t
 + Use the `aws:sourceVpc` condition key to grant or restrict access to a secret based on the VPC that hosts the private endpoint\.
 
 **Note**  
-Use caution when you create IAM and secret policies based on your VPC endpoint\. If a policy statement requires that requests come from a particular VPC or VPC endpoint, then requests from other AWS services that access the secret on your behalf might fail\. For more information, see [Using VPC Endpoint Conditions in Policies with Secrets Manager Permissions](reference_iam-permissions.md#iam-contextkeys-vpcendpoint)\.  
+Use caution when you create IAM and secret policies based on your VPC endpoint\. If a policy statement requires the requests to originate from a particular VPC or VPC endpoint, then requests from other AWS services accessing the secret on your behalf might fail\. For more information, see [Using VPC Endpoint Conditions in Policies with Secrets Manager Permissions](reference_iam-permissions.md#iam-contextkeys-vpcendpoint)\.  
 Also, the `aws:sourceIP` condition key isn't effective when the request comes from an Amazon VPC endpoint\. To restrict requests to a VPC endpoint, use the `aws:sourceVpce` or `aws:sourceVpc` condition keys\. For more information, see [VPC Endpoints \- Controlling the Use of Endpoints](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-endpoints.html#vpc-endpoints-iam-access) in the *Amazon VPC User Guide*\.
 
 For example, the following sample secret policy allows a user to perform Secrets Manager operations only when the request comes through the specified VPC endpoint\.
 
-When a user makes a request to Secrets Manager, the VPC endpoint ID in the request is compared to the `aws:sourceVpce` condition key value in the policy\. If they don't match, then the request is denied\.
+When a user sends a request to Secrets Manager, Secrets Manager compares the VPC endpoint ID in the request to the `aws:sourceVpce` condition key value in the policy\. If they don't match, Secrets Manager denies the request\.
 
 To use a policy like this one, replace the placeholder AWS account ID and VPC endpoint IDs with valid values for your account\.
 
@@ -208,9 +213,9 @@ To use a policy like this one, replace the placeholder AWS account ID and VPC en
 }
 ```
 
-You can also use the `aws:sourceVpc` condition key to restrict access to your secrets based on the VPC in which the VPC endpoint resides\.
+You can also use the `aws:sourceVpc` condition key to restrict access to your secrets based on the VPC where the VPC endpoint resides\.
 
-The following sample secret policy allows commands that create and manage secrets only when they come from `vpc-12345678`\. In addition, the policy allows operations that use access the secret's encrypted value only when the requests come from `vpc-2b2b2b2b`\. You might use a policy like this one if an application is running in one VPC, but you use a second, isolated VPC for management functions\.
+The following sample secret policy allows commands to create and manage secrets only when they come from `vpc-12345678`\. In addition, the policy allows operations that use access the secret encrypted value only when the requests come from `vpc-2b2b2b2b`\. You might use a policy like this one if you run an application in one VPC, but you use a second, isolated VPC for management functions\.
 
 To use a policy like this one, replace the placeholder AWS account ID and VPC endpoint IDs with valid values for your account\.
 
@@ -265,10 +270,10 @@ To use a policy like this one, replace the placeholder AWS account ID and VPC en
 
 ## Create an Endpoint Policy for Your Secrets Manager VPC Endpoint<a name="vpc-endpoint-policy"></a>
 
-Once you've created a Secrets Manager VPC endpoint, you can attach an endpoint policy to control secrets\-related activity on the endpoint\. For example, you can attach an endpoint policy to define the Secrets Manager actions that can be performed, the secrets on which these actions can be performed, the IAM users or roles that perform these actions, and the accounts that can be accessed via the VPC endpoint\. For additional information about endpoint policies, including a list of the AWS services that support endpoint policies, see [Using VPC Endpoint policies](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-endpoints-access.html#vpc-endpoints-policies)\. 
+Once you create a Secrets Manager VPC endpoint, you can attach an endpoint policy to control secrets\-related activity on the endpoint\. For example, you can attach an endpoint policy to define the performed Secrets Manager actions, actions performed on the secrets, the IAM users or roles performing these actions, and the accounts accessed through the VPC endpoint\. For additional information about endpoint policies, including a list of the AWS services supporting endpoint policies, see [Using VPC Endpoint policies](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-endpoints-access.html#vpc-endpoints-policies)\. 
 
 **Note**  
-VPC endpoints are not shared across AWS services\. If you use VPC endpoints for multiple AWS services, such as Secrets Manager and S3, you must attach a distinct policy to each endpoint\.
+AWS does not share VPC endpoints across AWS services\. If you use VPC endpoints for multiple AWS services, such as Secrets Manager and S3, you must attach a distinct policy to each endpoint\.
 
  **Example: Enable access to the Secrets Manager endpoint for a specific account** 
 
@@ -310,8 +315,6 @@ The following example restricts access to only the specified secret\.
 ## Audit the Use of Your Secrets Manager VPC Endpoint<a name="vpc-endpoint-audit"></a>
 
 When a request to Secrets Manager uses a VPC endpoint, the VPC endpoint ID appears in the [AWS CloudTrail log](monitoring.md) entry that records the request\. You can use the endpoint ID to audit the use of your Secrets Manager VPC endpoint\.
-
-For example, this sample log entry records a `GenerateDataKey` request that used the VPC endpoint\. In this example, the `vpcEndpointId` field appears at the end of the log entry\. For brevity, many irrelevant parts of the example have been omitted\.
 
 For example, this sample log entry records a `GenerateDataKey` request that used the VPC endpoint\. In this example, the `vpcEndpointId` field appears at the end of the log entry\. For brevity, many irrelevant parts of the example have been omitted\.
 

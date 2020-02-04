@@ -5,6 +5,7 @@ The following table describes major documentation updates for AWS Secrets Manage
 
 | Change | Description | Date | 
 | --- |--- |--- |
+| [Replaced CloudFormation templates with shorter and easier to use templates\. ](#document-history) | Templates now use only 60 lines of code to create CloudFormation configurations\. | November 20, 2019 | 
 | [Added documentation for endpoint policies ](https://docs.aws.amazon.com/secretsmanager/latest/userguide/vpc-endpoint-overview.html#vpc-endpoint-policy) | You can now use an endpoint policy to control secrets\-related activity on your Secrets Manager VPC endpoint\. Added section for creating an endpoint policy for Secrets Manager VPC endpoint\. Also created a distinct reference article for all VPC endpoint content\. | July 25, 2019 | 
 | [Added Python, Go, and \.NET caching clients ](https://docs.aws.amazon.com/secretsmanager/latest/userguide/manage_retrieve-secret.html#use-client-side-caching-components) | Added links to GitHub where you acquire the caching clients for Python, Go, and \.NET\. | May 9, 2019 | 
 | [Added secret types for Redshift and DocumentDB](https://docs.aws.amazon.com/secretsmanager/latest/userguide/manage_create-basic-secret.html) | Added Redshift and DocumentDB databases to the secret types\. | March 7, 2019 | 

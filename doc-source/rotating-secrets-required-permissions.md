@@ -1,21 +1,21 @@
 # Permissions Required to Automatically Rotate Secrets<a name="rotating-secrets-required-permissions"></a>
 
-When you use the AWS Secrets Manager console to configure rotation for a secret for one of the [fully supported databases](intro.md#rds-supported-database-list), the console configures just about everything for you\. So you shouldn't have to manually configure the permissions described in this section\. But if you create your own rotation function or choose to do anything manually for other reasons, you might have to also manually configure the permissions for that part of the rotation\.
+When you use the AWS Secrets Manager console to configure rotation for a secret for one of the [fully supported databases](intro.md#rds-supported-database-list), the console configures almost all parameters for you\. But if you create a function or opt to do anything manually for other reasons, you also might have to manually configure the permissions for that part of the rotation\.
 
-## Permissions of Users Who Configure Rotation vs\. Users Who Trigger Rotation<a name="rotating-secrets-required-permissions-user-vs-function"></a>
+## Permissions for Users Configuring Rotation vs\. Users Triggering Rotation<a name="rotating-secrets-required-permissions-user-vs-function"></a>
 
-There are two separate sets of permissions required for ***user*** operations that involve secret rotation:
-+ **Permissions that are required to configure rotation** – These permissions are assigned to a trusted user who you want to be able to configure secret rotation\. For more information, see [Granting Full Secrets Manager Administrator Permissions to a User](https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access_identity-based-policies.html#permissions_grant-admin-actions)\.
-+ **Permissions that are required to rotate the secret** – The only permission an IAM user needs to trigger rotation after it's configured is the `secretsmanager:RotateSecret` permission\. After rotation starts, the Lambda rotation function takes over and uses its attached IAM role and its permissions to authorize the operations that are performed during rotation, including any required AWS KMS operations\.
+Secrets Manager requires two separate sets of permissions for ***user*** operations using secret rotation:
++ **Permissions required to configure rotation** – Secrets Manager assigns permissions to a trusted user to configure secret rotation\. For more information, see [Granting Full Secrets Manager Administrator Permissions to a User](https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access_identity-based-policies.html#permissions_grant-admin-actions)\.
++ **Permissions required to rotate the secret** – An IAM user only needs the permission, `secretsmanager:RotateSecret`, to trigger rotation after configuration\. After rotation starts, the Lambda rotation function takes over and uses the attached IAM role and the permissions to authorize the operations performed during rotation, including any required AWS KMS operations\.
 
-The rest of this topic discusses the permissions that the Lambda rotation function must have to successfully rotate a secret\.
+The rest of this topic discusses the permissions for the Lambda rotation function to successfully rotate a secret\.
 
 ## Permissions Associated with the Lambda Rotation Function<a name="rotating-secrets-required-permissions-function"></a>
 
-AWS Secrets Manager uses a Lambda function to implement the code that actually rotates the credentials in a secret\.
+AWS Secrets Manager uses a Lambda function to implement the code to rotate the credentials in a secret\.
 
-The Lambda function is invoked by the Secrets Manager service itself\. The service does this by invoking an IAM role that's attached to the Lambda function\. There are two pieces to this: 
-+ **The *trust policy* that specifies who can assume the role**\. You must configure this policy to allow Secrets Manager to assume the role, as identified by its service principal: `secretsmanager.amazonaws.com`\. This policy is viewable in the Lambda console on the function details page by clicking the key icon in the **Designer** section\. It then appears in the **Function policy** section\. This policy should look similar to the following example:
+Secrets Manager service invokes the the Lambda function\. The service does this by invoking an IAM role attached to the Lambda function\. Secrets Manager has two actions for this: 
++ **The *trust policy* specifying who can assume the role**\. You must configure this policy to allow Secrets Manager to assume the role, as identified by the service principal: `secretsmanager.amazonaws.com`\. You can view this policy in the Lambda console on the function details page by clicking the key icon in the **Designer** section\. The details appear in the **Function policy** section\. This policy should look similar to the following example:
 
   ```
   {
@@ -35,9 +35,9 @@ The Lambda function is invoked by the Secrets Manager service itself\. The servi
   }
   ```
 
-  For security reasons, the trust policy created by Secrets Manager includes a `Resource` element that includes the Amazon Resource Name \(ARN\) of the Lambda function\. That results in anyone who assumes the role being able to invoke *only* the Lambda function that's associated with the role\.
-+ **The *permissions policy* for the role that specifies what the assumer of the role can do\.** You must configure this policy to specify the permissions that Secrets Manager can use when it assumes the role by invoking the function\. There are two different policies, depending on the rotation strategy you want to implement\.
-  + **Single user rotation**: The following example is suitable for a function that rotates a secret by signing in with the credentials that are stored in that secret, and changing its own password\.
+  For security reasons, the trust policy created by Secrets Manager includes a `Resource` element and includes the Amazon Resource Name \(ARN\) of the Lambda function\. Anyone who assumes the role can invoke *only* the Lambda function associated with the role\.
++ **The *permissions policy* for the role specifying the role of the assumer ** You must configure this policy to specify the permissions Secrets Manager can use when assuming the role by invoking the function\. Secrets Manager has two different policies available, depending on the rotation strategy to implement\.
+  + **Single user rotation**: The following example describes a function that rotates a secret by signing in with the credentials stored in the secret, and changing the password\.
 
     ```
     {
@@ -77,12 +77,12 @@ The Lambda function is invoked by the Secrets Manager service itself\. The servi
     }
     ```
 
-    The first statement in the single\-user example grants permission to the function to run Secrets Manager operations\. However, the `Condition` element restricts this to only secrets that are configured with this Lambda function's ARN as the secret's rotation Lambda function\.
+    The first statement in the single\-user example grants permission for the function to run Secrets Manager operations\. However, the `Condition` element restricts this to only secrets configured with this Lambda function ARN as the secret rotation Lambda function\.
 
     The second statement allows one additional Secrets Manager operation that doesn't require the condition\.
 
-    The third statement enables Lambda to set up the required configuration when you specify that your database or service is running in a VPC\. For more information, see [Configuring a Lambda Function to Access Resources in an Amazon VPC](https://docs.aws.amazon.com/lambda/latest/dg/vpc.html) in the *AWS Lambda Developer Guide*\.
-  + **Master user rotation**: The following example is suitable for a function that rotates a secret by signing in using a separate "master" secret that contains credentials with elevated permissions\. This is typically required when you use one of the rotation strategies that alternate between two users\.
+    The third statement enables Lambda to set up the required configuration when you specify running your database or service in a VPC\. For more information, see [Configuring a Lambda Function to Access Resources in an Amazon VPC](https://docs.aws.amazon.com/lambda/latest/dg/vpc.html) in the *AWS Lambda Developer Guide*\.
+  + **Master user rotation**: The following example describes a function that rotates a secret by signing in using a separate ** master secret** with credentials containing elevated permissions\. If you use one of the rotation strategies alternate between two users, Secrets Manager requires this function\.
 
     ```
     {
@@ -129,4 +129,4 @@ The Lambda function is invoked by the Secrets Manager service itself\. The servi
     }
     ```
 
-    In addition to the same three statements as the previous single\-user policy, this policy adds a fourth statement\. The fourth statement enables the function to retrieve the credentials in the master secret\. The credentials in the master secret are used to sign in to the secured database to update the credentials in the secret that's being rotated\.
+    In addition to the same three statements as the previous single\-user policy, this policy adds a fourth statement\. The fourth statement enables the function to retrieve the credentials in the master secret\. Secrets Manager uses the credentials in the master secret to sign in to the secured database and update the credentials in the rotated secret\.

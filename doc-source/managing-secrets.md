@@ -1,6 +1,6 @@
 # Creating and Managing Secrets with AWS Secrets Manager<a name="managing-secrets"></a>
 
-In this section, we describe how to create, update, and retrieve secrets by using AWS Secrets Manager\.
+This section describes how to create, update, and retrieve secrets by using AWS Secrets Manager\.
 
 **Topics**
 + [Creating a Basic Secret](manage_create-basic-secret.md)
