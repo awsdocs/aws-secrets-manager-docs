@@ -6,6 +6,8 @@ A resource\-based policy has an advantage over identity\-based policies because 
 
 For an overview of the basic elements for policies, see [Managing Access to Resources with Policies](auth-and-access_overview.md#auth-and-access_resource-access)\.
 
+For information about how to create a resource based policy, see [Managing a Resource-based Policy for a Secret](manage_secret-policy.md#using-the-aws-cli-or-aws-sdk-operations-)\.
+
 For information about alternative, identity\-based permission policies, see [Using Identity\-based Policies \(IAM Policies\) for Secrets Manager](auth-and-access_identity-based-policies.md)\.
 
 **Topics**
