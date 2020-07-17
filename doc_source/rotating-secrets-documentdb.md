@@ -1,0 +1,28 @@
+# Rotating Secrets for Amazon DocumentDB<a name="rotating-secrets-documentdb"></a>
+
+You can configure AWS Secrets Manager to automatically rotate the secret for Amazon DocumentDB\. Secrets Manager uses a Lambda function that Secrets Manager provides\.
+
+**Amazon DocumentDB as a supported service**  
+Secrets Manager supports Amazon DocumentDB and provides a complete, ready\-to\-run Lambda rotation function designed for Amazon DocumentDB\.
+
+When you enable rotation for a secret with **Credentials for DocumentDB** as the secret type, Secrets Manager can automatically create and configure a Lambda rotation function for you\. Then Secrets Manager equips your secret with the Amazon Resource Name \(ARN\) of the function\. Secrets Manager creates the IAM role associated with the function and configures the role with all of the required permissions\. Alternatively, if you already have another secret that uses the same rotation strategy you want to use with your new secret, you can specify the ARN of the existing function and use it for both secrets\.
+
+If you run your Amazon DocumentDB instance in a VPC provided by Amazon VPC and the VPC doesn't have public Internet access, then Secrets Manager also configures the Lambda function to run within that VPC\. The Lambda rotation function must be able to access a Secrets Manager service endpoint to call the required API operations\. If one or more of your resources in the VPC must communicate with the Internet, then you can configure the VPC with a NAT gateway to enable the Lambda rotation function to query the public Secrets Manager service endpoint\. If you have no other need to communicate with the Internet, you can [configure the VPC with a private Secrets Manager service endpoint](rotation-network-rqmts.md) accessible from within the VPC\. 
+
+Otherwise, you typically only need to provide a few details to determine which template you use to construct the Lambda function:
++ **Specify the secret with credentials and permissions to rotate the secret**:Only the * super user* can change their password\. Other users have restricted permissions and cannot change their password\. You must use the credentials for a different administrator or *super user* to change the user credentials\. 
+
+  You must specify which secret the rotation function can use to rotate the credentials on the secured database:
+  + **Use this secret**: Choose this option if the current secret has *super user* credentials\. Choosing this option causes Secrets Manager to implement a Lambda function with a rotation strategy changing the password for a single user with each rotation\. For more information about this rotation strategy, see [Rotating AWS Secrets Manager Secrets for One User with a Single Password](rotating-secrets-one-user-one-password.md)\.
+**Considerations**  
+Secrets Manager provides this option as a "lower availability" option\. Sign\-in failures can occur between the moment when rotation removes the old password and the moment when the updated password becomes accessible as the new version of the secret\. This window of time may be very short—on the order of a second or less\.  
+If you choose this option, make sure your client applications implement an appropriate ["backoff and retry with jitter" strategy](http://aws.amazon.com/blogs/architecture/exponential-backoff-and-jitter/) in their code\. The applications should generate an error only if sign\-in fails several times over a longer period of time\.
+  + **Use a secret that I have previously stored in AWS Secrets Manager**: Choose this if you require high availability for the secret\. To choose this option, create a separate "master" secret with credentials containing permission to create and update credentials on the secured service\. Then choose the master secret from the list\. Choosing this option causes Secrets Manager to implement a Lambda function\. This Lambda function has a rotation strategy that clones the initial user found in the secret\. Then Secrets Manager alternates between the two users with each rotation, and updates the password for the user becoming active\. For more information about this rotation strategy, see [Rotating AWS Secrets Manager Secrets by Alternating Between Two Existing Users](rotating-secrets-two-users.md)\.
+**Note**  
+Secrets Manager provides this option as the "high availability" option because the old version of the secret continues to operate and handle service requests while preparing and testing the new version\. Secrets Manager doesn't deprecate the old version until the next rotation\. No downtime occurs while changing between versions\.  
+This option requires the Lambda function to clone the permissions of the original user and apply them to the new user\. The function then alternates between the two users with each rotation\.  
+If you need to change the permissions granted to the users, ensure you change permissions for both users\.
++ **You can customize the function**: You can tailor the Lambda rotation function provided by Secrets Manager to meet your organizational security requirements\. For example, you could extend the [**testSecret** phase of the function](rotating-secrets-lambda-function-overview.md#phase-verifysecret) to test the new version with application\-specific checks to ensure the new secret works as expected\. For instructions, see [Customizing the Lambda Rotation Function Provided by Secrets Manager](rotating-secrets-customize-rds-lambda.md)\.
+
+**Topics**
++ [Enabling Rotation for an Amazon DocumentDB Secret](enable-rotation-documentdb.md)

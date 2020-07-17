@@ -1,0 +1,7 @@
+# AWS Config Supported Rules for Secrets Manager<a name="aws-config-rules"></a>
+
+When you use AWS Config to evaluate your resource configurations, you can assess how well your resource configurations comply with internal practices, industry guidelines, and regulations\. AWS Config supports the following rules for Secrets Manager:
++ `[ secretsmanager\-rotation\-enabled\-check](https://docs.aws.amazon.com/config/latest/developerguide/secretsmanager-rotation-enabled-check.html)` — Checks if you configured rotation for secrets stored in Secrets Manager\. AWS Config verifies you configured the secrets for rotation\. This rule also supports the `maximumAllowedRotationFrequency`, which if specified, compares the frequency configuration of the secret to the value set in the parameter\.
++ `[secretsmanager\-scheduled\-rotation\-success\-check](https://docs.aws.amazon.com/config/latest/developerguide/secretsmanager-scheduled-rotation-success-check.html)`— Checks if Secrets Manager successfully rotates secrets\. AWS Config verifies the rule and checks if the last rotated date falls within the configured rotation frequency\. 
+
+  For more information about AWS Config and rules, see the AWS Config product[ documentation\.](https://docs.aws.amazon.com/config/latest/developerguide/WhatIsConfig.html)
