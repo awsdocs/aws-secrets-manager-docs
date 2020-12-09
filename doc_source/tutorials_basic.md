@@ -2,7 +2,7 @@
 
 In this tutorial, you create a secret and store it in AWS Secrets Manager\. You then retrieve the secret using the AWS Management Console or the AWS CLI\. 
 
-Users new to Secrets Manager can benefit from enrolling in the the 30 day free trial and not receive billing for the activity performed in this tutorial\.
+Users new to Secrets Manager can benefit from enrolling in the 30 day free trial and not receive billing for the activity performed in this tutorial\.
 
 **[Step 1: Create and Store Your Secret in AWS Secrets Manager](#tutorial-basic-step1)**  
 In this step, you create a secret and provide the basic information required by AWS Secrets Manager\.
