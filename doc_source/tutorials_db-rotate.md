@@ -53,7 +53,7 @@ The `iam:CreateRole` and `iam:AttachRolePolicy` permit a user to grant themselve
       Use the following information when creating your database:
       + DB instance identifier: **MyTestDatabaseInstance**\.
       + Master username: **adminuser**\.
-      + Master password: Type a secure initial password, and retype the password in the **Confirm password**box\. *Be sure to remember this password\.* You need it when you create your secret in Step 2\.
+      + Master password: Type a secure initial password, and retype the password in the **Confirm password** box\. *Be sure to remember this password\.* You need it when you create your secret in Step 2\.
 **Note**  
 Database creation may take up to 20 minutes before the DB instance becomes available\. 
 
