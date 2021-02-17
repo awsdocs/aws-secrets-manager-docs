@@ -104,7 +104,7 @@ You can work with Secrets Manager in any of the following ways:
 **AWS Management Console**  
 You can manage your secrets using the browser\-based [The Secrets Manager console](https://console.aws.amazon.com/secretsmanager/) and perform almost any task related to your secrets by using the console\.  
 Currently, you can't perform the following task in the console:  
-+ *Store binary data in a secret\.* The console currently stores data only in the `SecretString` field of the secret, and does not use the `SecureBinary` field\. To store binary data, you must currently use the AWS CLI or one of the AWS SDKs\. 
++ *Store binary data in a secret\.* The console currently stores data only in the `SecretString` field of the secret, and does not use the `SecretBinary` field\. To store binary data, you must currently use the AWS CLI or one of the AWS SDKs\. 
 
 **AWS Command Line Tools**  
 The AWS command line tools allows you to issue commands at your system command line to perform Secrets Manager and other AWS tasks\. This can be faster and more convenient than using the console\. The command line tools can be useful if you want to build scripts to perform AWS tasks\.  
