@@ -19,7 +19,7 @@ For information about VPC endpoints, see the article in the VPC service document
 
 Instead of connecting your VPC to an internet, you can connect directly to Secrets Manager through a private endpoint you configure within your VPC\. When you use a VPC service endpoint, communication between your VPC and Secrets Manager occurs entirely within the AWS network, and requires no public Internet access\.
 
-Secrets Manager supports Amazon VPC [interface endpoints](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpce-interface.html) provided by [AWS PrivateLink](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Introduction.html#what-is-privatelink)\. One or more Each VPC endpoint is represented by one or more [elastic network interfaces](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-eni.html) with private IP addresses in your VPC subnets\.
+Secrets Manager supports Amazon VPC [interface endpoints](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpce-interface.html) provided by [AWS PrivateLink](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Introduction.html#what-is-privatelink)\. Each VPC endpoint is represented by one or more [elastic network interfaces](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-eni.html) with private IP addresses in your VPC subnets\.
 
 The VPC interface endpoint connects your VPC directly to Secrets Manager without a NAT device, VPN connection, or AWS Direct Connect connection\. The instances in your VPC don't require public IP addresses to communicate with Secrets Manager\.
 
