@@ -1,54 +1,57 @@
-# AWS Services Integrated with AWS Secrets Manager<a name="integrating"></a>
+# AWS services integrated with AWS Secrets Manager<a name="integrating"></a>
 
 AWS Secrets Manager works with other AWS services to provide additional solutions for your business challenges\. This topic identifies services that either use Secrets Manager to add functionality, or services that Secrets Manager uses to perform tasks\.
 
 **Topics**
-+ [Automating Creation of Your Secrets with AWS CloudFormation](integrating_cloudformation.md)
-+ [Monitoring Secrets Manager Secrets Using AWS Config](integrating_awsconfig.md)
-+ [Securing Your Secrets with AWS Identity and Access Management \(IAM\)](#integrating_iam)
-+ [Monitoring Your Secrets with AWS CloudTrail and Amazon CloudWatch](#integrating_ct_cw)
-+ [Encrypting Your Secrets with AWS KMS](#integrating_kms)
-+ [Retrieving Your Secrets with the Parameter Store APIs](#integrating_parameterstore)
++ [Automating creation of your secrets with AWS CloudFormation](integrating_cloudformation.md)
++ [Monitoring Secrets Manager secrets using AWS Config](integrating_awsconfig.md)
++ [Securing your secrets with AWS Identity and Access Management \(IAM\)](#integrating_iam)
++ [Monitoring your secrets with AWS CloudTrail and Amazon CloudWatch](#integrating_ct_cw)
++ [Encrypting your secrets with AWS KMS](#integrating_kms)
++ [Retrieving your secrets with the Parameter Store APIs](#integrating_parameterstore)
 + [Integrating Secrets Manager with Amazon Elastic Container Service](#integrating-ecs)
 + [Integrating Secrets Manager with AWS Fargate](#integrating-fargate)
 + [Integrating Secrets Manager with AWS IoT Greengrass](#integrating-greengrass)
-+ [Managing Amazon SageMaker Repository Credentials with Secrets Manager ](#integrating-sagemaker)
-+ [Storing AWS CodeBuild Registry Credentials with Secrets Manager](#integrating-codebuild)
-+ [Storing Amazon EMR Registry Credentials with Secrets Manager](#integrating-emr)
++ [Managing SageMaker repository credentials with Secrets Manager ](#integrating-sagemaker)
++ [Using Security Hub for security best practices in Secrets Manager](#integrating-securityhub)
++ [Storing AWS CodeBuild registry credentials with Secrets Manager](#integrating-codebuild)
++ [Storing Amazon EMR registry credentials with Secrets Manager](#integrating-emr)
++ [Integrating Zelkova with Secrets Manager resource policies](#integrating-zelkova)
++ [Integrating Secrets Manager secrets with Kubernetes Secrets Store CSI Driver](integrating_csi_driver.md)
 
-## Automating Creation of Your Secrets with AWS CloudFormation<a name="integrating_cloudformation-overview"></a>
+## Automating creation of your secrets with AWS CloudFormation<a name="integrating_cloudformation-overview"></a>
 
-Secrets Manager supports AWS CloudFormation and enables you to define and reference secrets from within your stack template\. Secrets Manager defines several AWS CloudFormation resource types that allow you to create a secret and associate it with the service or database with credentials stored in it\. You can refer to elements in the secret from other parts of the template, such as retrieving the user name and password from the secret when you define the master user and password in a new database\. You can create and attach resource\-based policies to a secret\. You can also configure rotation by defining a Lambda function in your template and associating the function with your new secret as its rotation Lambda function\. For more information and a comprehensive example, see [Automating Secret Creation in AWS CloudFormation](integrating_cloudformation.md)\. 
+Secrets Manager supports AWS CloudFormation and enables you to define and reference secrets from within your stack template\. Secrets Manager defines several AWS CloudFormation resource types that allow you to create a secret and associate it with the service or database with credentials stored in it\. You can refer to elements in the secret from other parts of the template, such as retrieving the user name and password from the secret when you define the master user and password in a new database\. You can create and attach resource\-based policies to a secret\. You can also configure rotation by defining a Lambda function in your template and associating the function with your new secret as its rotation Lambda function\. For more information and a comprehensive example, see [Automating secret creation in AWS CloudFormation](integrating_cloudformation.md)\. 
 
-## Monitoring Your Secrets with AWS Config<a name="integrating_awsconfig-overview"></a>
+## Monitoring your secrets with AWS Config<a name="integrating_awsconfig-overview"></a>
 
-AWS Secrets Manager integrates with AWS Config and provides easier tracking of secret changes in Secrets Manager\. You can use two additional managed AWS Config [rules ](https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config.html)for defining your organizational internal guidelines on secrets management best practices\. Also, you can quickly identify secrets that don't conform to your security rules as well as receive notifications from Amazon SNS about your secrets configuration changes\. For example, you can receive SNS notifications about a list of secrets unconfigured for rotation which enables you to drive security best practices for rotating secrets\.
+AWS Secrets Manager integrates with AWS Config and provides easier tracking of secret changes in Secrets Manager\. You can use two additional managed AWS Config [rules ](https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config.html)for defining your organizational internal guidelines on secrets management best practices\. Also, you can quickly identify secrets that don't conform to your security rules as well as receive notifications from Amazon SNS about your secrets configuration changes\. For example, you can receive Amazon SNS notifications about a list of secrets unconfigured for rotation which enables you to drive security best practices for rotating secrets\.
 
 When you leverage the AWS Config Aggregator feature, you can view a list of secrets and verify conformity across all accounts and regions in your entire organization, and by doing so, create secrets management best practices across your organization from a single location\.
 
-To learn more about this feature see [Monitoring Secrets Manager Secrets Using AWS Config](integrating_awsconfig.md)\.
+To learn more about this feature see [Monitoring Secrets Manager secrets using AWS Config](integrating_awsconfig.md)\.
 
-## Securing Your Secrets with AWS Identity and Access Management \(IAM\)<a name="integrating_iam"></a>
+## Securing your secrets with AWS Identity and Access Management \(IAM\)<a name="integrating_iam"></a>
 
 Secrets Manager uses IAM to secure access to the secrets\. IAM provides the following:
 + **Authentication** – Verifies the identity of individuals requests\. Secrets Manager uses a sign\-in process with passwords, access keys, and multi\-factor authentication \(MFA\) tokens to prove the identify of the users\.
 + **Authorization** – Ensures only approved individuals can perform operations on AWS resources, such as secrets\. This enables you to grant write access to specific secrets to one user while granting read\-only permissions on different secrets to another user\.
 
-For more information about protecting access to your secrets by using IAM, see [Authentication and Access Control for AWS Secrets Manager](auth-and-access.md) in this guide\. For complete information about IAM, see the [IAM User Guide](https://docs.aws.amazon.com/IAM/latest/UserGuide/)\.
+For more information about protecting access to your secrets by using IAM, see [Authentication and access control for AWS Secrets Manager](auth-and-access.md) in this guide\. For complete information about IAM, see the [IAM User Guide](https://docs.aws.amazon.com/IAM/latest/UserGuide/)\.
 
-## Monitoring Your Secrets with AWS CloudTrail and Amazon CloudWatch<a name="integrating_ct_cw"></a>
+## Monitoring your secrets with AWS CloudTrail and Amazon CloudWatch<a name="integrating_ct_cw"></a>
 
 You can use CloudTrail and CloudWatch to montor activity related to your secrets\. CloudTrail captures API activity for your AWS resources by any AWS service and writes the activity to log files in your Amazon S3 buckets\. CloudWatch enables you to create rules to monitor those log files and trigger actions when activities of interest occur\. For example, a text message can alert you whenever someone creates a new secret, or when a secret rotates successfully\. You could also create an alert for when a client attempts to use a deprecated version of a secret instead of the current version\. This can help with troubleshooting\.
 
-For more information, see [Monitoring the Use of Your AWS Secrets Manager Secrets](monitoring.md) in this guide\. For complete information about CloudWatch, see the [Amazon CloudWatch User Guide](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/)\. For complete information about CloudWatch Events, see the [Amazon CloudWatch Events User Guide](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/)\.
+For more information, see [Monitoring the use of your AWS Secrets Manager secrets](monitoring.md) in this guide\. For complete information about CloudWatch, see the [Amazon CloudWatch User Guide](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/)\. For complete information about CloudWatch Events, see the [Amazon CloudWatch Events User Guide](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/)\.
 
-## Encrypting Your Secrets with AWS KMS<a name="integrating_kms"></a>
+## Encrypting your secrets with AWS KMS<a name="integrating_kms"></a>
 
 Secrets Manager uses the trusted, industry\-standard [Advanced Encryption Standard \(AES\) encryption algorithm \(FIPS 197\)](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.197.pdf) to encrypt your secrets\. Secrets Manager also uses encryption keys provided by AWS Key Management Service \(AWS KMS\) to perform [envelope encryption](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#enveloping) of the secret value\. When you create a new version of a secret, Secrets Manager uses the specified AWS KMS customer master key \(CMK\) to generate a new [data key](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#data-keys)\. The data key consists of a 256\-bit symmetric AES key\. Secrets Manager receives both a plaintext and encrypted copy of the data key\. Secrets Manager uses the plaintext data key to encrypt the secret value, and then stores the encrypted data key in the metadata of the secret version\. When you later send a request to Secrets Manager to retrieve the secret value, Secrets Manager first retrieves the encrypted data key from the metadata, and then requests AWS KMS to decrypt the data key using the associated CMK\. AWS KMS uses the decrypted data key to decrypt the secret value, and never stores keys in an unencrypted state, and removes the keys from memory immediately when no longer required\.
 
 For more information, see [How AWS Secrets Manager Uses AWS KMS](https://docs.aws.amazon.com/kms/latest/developerguide/services-secrets-manager.html) in the *AWS Key Management Service Developer Guide*\.
 
-## Retrieving Your Secrets with the Parameter Store APIs<a name="integrating_parameterstore"></a>
+## Retrieving your secrets with the Parameter Store APIs<a name="integrating_parameterstore"></a>
 
 AWS Systems Manager Parameter Store provides secure, hierarchical storage for configuration data management and secrets management\. You can store data such as passwords, database strings, and license codes as parameter values\. However, Parameter Store doesn't provide automatic rotation services for stored secrets\. Instead, Parameter Store enables you to store your secret in Secrets Manager, and then reference the secret as a Parameter Store parameter\.
 
@@ -82,22 +85,38 @@ To integrate a secret into a Greengrass group, you create a group resource that 
 
 To deploy secrets to the AWS IoT Greengrass Core, see [Deploy secrets to the AWS IoT Greengrass core\.](https://docs.aws.amazon.com/greengrass/latest/developerguide/secrets.html)
 
-## Managing Amazon SageMaker Repository Credentials with Secrets Manager<a name="integrating-sagemaker"></a>
+## Managing SageMaker repository credentials with Secrets Manager<a name="integrating-sagemaker"></a>
 
-Amazon SageMaker is a fully managed machine learning service\. With Amazon SageMaker, data scientists and developers can quickly and easily build and train machine learning models, and then directly deploy them into a production\-ready hosted environment\. It provides an integrated Jupyter authoring notebook instance for easy access to your data sources for exploration and analysis, so you don't have to manage servers\. It also provides common machine learning algorithms that are optimized to run efficiently against extremely large data in a distributed environment\. With native support for bring\-your\-own\-algorithms and frameworks, Amazon SageMaker offers flexible distributed training options that adjust to your specific workflows\. Deploy a model into a secure and scalable environment by launching it with a single click from the Amazon SageMaker console\.
+SageMaker is a fully managed machine learning service\. With SageMaker, data scientists and developers can quickly and easily build and train machine learning models, and then directly deploy them into a production\-ready hosted environment\. It provides an integrated Jupyter authoring notebook instance for easy access to your data sources for exploration and analysis, so you don't have to manage servers\. It also provides common machine learning algorithms that are optimized to run efficiently against extremely large data in a distributed environment\. With native support for bring\-your\-own\-algorithms and frameworks, SageMaker offers flexible distributed training options that adjust to your specific workflows\. Deploy a model into a secure and scalable environment by launching it with a single click from the SageMaker console\.
 
-You can manage your private repositories credentials using Secrets Manager\.You can manage your private repositories credentials using Secrets Manager\.
+You can manage your private repositories credentials using Secrets Manager\.
 
 For more information, see [Associate Git Repositories with Amazon SageMaker Notebook Instances](https://docs.aws.amazon.com/sagemaker/latest/dg/nbi-git-repo.html)\.
 
-## Storing AWS CodeBuild Registry Credentials with Secrets Manager<a name="integrating-codebuild"></a>
+## Using Security Hub for security best practices in Secrets Manager<a name="integrating-securityhub"></a>
+
+AWS Security Hub provides you with a comprehensive view of your security state in AWS and helps you check your environment against security industry standards and best practices\.
+
+Security Hub collects security data from across AWS accounts, services, and supported third\-party partner products and helps you analyze your security trends and identify the highest priority security issues\. 
+
+The AWS Foundational Security Best Practices standard is a set of controls that detects when your deployed accounts and resources deviate from security best practices\. Security Hub provides a set of controls for Secrets Manager that allows you to continuously evaluate and identify areas of deviation from best practices\.
+
+See [AWS Foundational Security Best Practices controls](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-fsbp-controls.html#fsbp-secretsmanager-1)\.
+
+## Storing AWS CodeBuild registry credentials with Secrets Manager<a name="integrating-codebuild"></a>
 
 AWS CodeBuild is a fully managed build service in the cloud\. CodeBuild compiles your source code, runs unit tests, and produces artifacts ready to deploy\. CodeBuild eliminates the need to provision, manage, and scale your own build servers\. It provides prepackaged build environments for popular programming languages and build tools such as Apache Maven, Gradle, and more\. You can also customize build environments in CodeBuild to use your own build tools\. CodeBuild scales automatically to meet peak build requests\.
 
 You can store your private registry credentials using Secrets Manager\. See [Private registry with AWS Secrets Manager sample for CodeBuild](https://docs.aws.amazon.com/codebuild/latest/userguide/sample-private-registry.html)\.
 
-## Storing Amazon EMR Registry Credentials with Secrets Manager<a name="integrating-emr"></a>
+## Storing Amazon EMR registry credentials with Secrets Manager<a name="integrating-emr"></a>
 
 Amazon EMR is a managed cluster platform that simplifies running big data frameworks, such as Apache Hadoop and Apache Spark, on AWS to process and analyze vast amounts of data\. By using these frameworks and related open\-source projects, such as Apache Hive and Apache Pig, you can process data for analytics purposes and business intelligence workloads\. Additionally, you can use Amazon EMR to transform and move large amounts of data into and out of other AWS data stores and databases, such as Amazon Simple Storage Service \(Amazon S3\) and Amazon DynamoDB\. 
 
 You can store your private Git\-based registry credentials using Secrets Manager\. See [Add a Git\-based Repository to Amazon EMR](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-git-repo-add.html)\.
+
+## Integrating Zelkova with Secrets Manager resource policies<a name="integrating-zelkova"></a>
+
+Zelkova uses automated reasoning to analyze policies and the future consequences of policies\. This includes [AWS Identity and Access Management \(IAM\) policies](https://aws.amazon.com/iam/), [Amazon Simple Storage Service \(Amazon S3\)](https://aws.amazon.com/s3/) policies, Secrets Manager resource policies, and other resource policies\. These policies dictate who can \(or can’t\) perform actions on which resources\. Because Zelkova uses automated reasoning, you no longer have to think about what questions you need to ask about your policies\. Using fancy math, as mentioned above, Zelkova automatically derives the questions and answers you should ask about your policies, and improves your confidence in your security configuration\(s\)\.
+
+For more information about Zelkova, see [ How AWS uses automated reasoning to help you achieve security at scale](https://aws.amazon.com/blogs/security/protect-sensitive-data-in-the-cloud-with-automated-reasoning-zelkova/) on the AWS Security Blog\.

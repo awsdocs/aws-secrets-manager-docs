@@ -1,4 +1,4 @@
-# Compliance Validation for AWS Secrets Manager<a name="secretsmanager-compliance"></a>
+# Compliance validation for AWS Secrets Manager<a name="secretsmanager-compliance"></a>
 
 Third\-party auditors assess the security and compliance of AWS Secrets Manager as part of multiple AWS compliance programs\. These include SOC, PCI, HIPAA, and others\.
 

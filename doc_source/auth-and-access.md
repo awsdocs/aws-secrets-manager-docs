@@ -1,4 +1,4 @@
-# Authentication and Access Control for AWS Secrets Manager<a name="auth-and-access"></a>
+# Authentication and access control for AWS Secrets Manager<a name="auth-and-access"></a>
 
 Access to AWS Secrets Manager requires AWS credentials\. Those credentials must contain permission to access the AWS resources you want to access, such as your Secrets Manager secrets\. The following sections provide details on how you can use AWS Identity and Access Management \(IAM\) policies to help secure access to your secrets and control who can access and administer them\.
 
@@ -10,11 +10,11 @@ You can attach permission policies to your users, groups, and roles, and specify
 
 For general information about IAM permissions policies, see [Overview of IAM Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html) in the *IAM User Guide*\.
 
-For the permissions available specifically for use with AWS Secrets Manager, see [Actions, Resources, and Context Keys You Can Use in an IAM Policy or Secret Policy for AWS Secrets Manager](reference_iam-permissions.md)\.
+For the permissions available specifically for use with AWS Secrets Manager, see [Actions, resources, and context keys you can use in an IAM policy or secret policy for AWS Secrets Manager](reference_iam-permissions.md)\.
 
 ## <a name="permissions_authorization"></a>
 
 The following sections describe how to manage permissions for AWS Secrets Manager\. We recommend you read the overview first\.
-+ [Overview of Managing Access Permissions to Your Secrets Manager Secrets](auth-and-access_overview.md)
-+ [Using Identity\-based Policies \(IAM Policies\) for Secrets Manager](auth-and-access_identity-based-policies.md)
-+ [Using Resource\-based Policies for Secrets Manager](auth-and-access_resource-based-policies.md)
++ [Overview of managing access permissions to your Secrets Manager secrets](auth-and-access_overview.md)
++ [Using identity\-based policies \(IAM policies\) and ABAC for Secrets Manager](auth-and-access_identity-based-policies.md)
++ [Using resource\-based policies for Secrets Manager](auth-and-access_resource-based-policies.md)

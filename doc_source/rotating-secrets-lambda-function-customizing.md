@@ -1,8 +1,8 @@
-# Understanding and Customizing Your Lambda Rotation Function<a name="rotating-secrets-lambda-function-customizing"></a>
+# Understanding and customizing your Lambda rotation function<a name="rotating-secrets-lambda-function-customizing"></a>
 
-For details about Lambda rotation functions , see [Overview of the Lambda Rotation Function](rotating-secrets-lambda-function-overview.md)\.
+For details about Lambda rotation functions , see [Overview of the Lambda rotation function](rotating-secrets-lambda-function-overview.md)\.
 
-If you choose one of the [supported databases](intro.md#full-rotation-support) for your secret type, AWS Secrets Manager creates and configures the Lambda rotation function for you\. You can enable rotation for those databases by following the steps in [Enabling Rotation for an Amazon RDS Database Secret](enable-rotation-rds.md)\. However, if you want to create a custom Lambda rotation function for another service, then you must follow the steps in [Enabling Rotation for a Secret for Another Database or Service](enable-rotation-other.md)\.
+If you choose one of the [supported databases](intro.md#full-rotation-support) for your secret type, AWS Secrets Manager creates and configures the Lambda rotation function for you\. You can enable rotation for those databases by following the steps in [Enabling rotation for an Amazon RDS database secret](enable-rotation-rds.md)\. However, if you want to create a custom Lambda rotation function for another service, then you must follow the steps in [Enabling rotation for a secret for another database or service](enable-rotation-other.md)\.
 
 This section describes in detail how the Lambda function operates and how you configure the function to successfully rotate your secrets\.
 
@@ -25,7 +25,7 @@ Consider the following scenarios to consider when creating your own Lambda funct
 + **You can create new credentials for a single user\.** Some systems enable you to create a single user with multiple sets of access credentials\. Each access credential provides a complete set of credentials and operates independently of the other\. You can delete and recreate the first access credential while Secrets Manager uses the second access credential\. Then you can switch all of your clients over to the new first access credential\. The next time you rotate, you delete and recreate the second access credential while customers to continue to use the second\. 
 
 For additional details and instructions on how to configure each scenario, see the following topics:
-+ [Overview of the Lambda Rotation Function](rotating-secrets-lambda-function-overview.md)
-+ [Rotating AWS Secrets Manager Secrets for One User with a Single Password](rotating-secrets-one-user-one-password.md)
-+ [Rotating AWS Secrets Manager Secrets by Alternating Between Two Existing Users](rotating-secrets-two-users.md)
-+ [Rotating AWS Secrets Manager Secrets For One User Supporting Multiple Credentials](rotating-secrets-one-user-multiple-passwords.md)
++ [Overview of the Lambda rotation function](rotating-secrets-lambda-function-overview.md)
++ [Rotating AWS Secrets Manager secrets for one user with a single password](rotating-secrets-one-user-one-password.md)
++ [Rotating AWS Secrets Manager secrets by alternating between two existing users](rotating-secrets-two-users.md)
++ [Rotating AWS Secrets Manager secrets for one user supporting multiple credentials](rotating-secrets-one-user-multiple-passwords.md)

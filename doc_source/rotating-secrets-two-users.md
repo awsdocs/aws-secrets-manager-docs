@@ -1,4 +1,4 @@
-# Rotating AWS Secrets Manager Secrets by Alternating Between Two Existing Users<a name="rotating-secrets-two-users"></a>
+# Rotating AWS Secrets Manager secrets by alternating between two existing users<a name="rotating-secrets-two-users"></a>
 
 You can configure AWS Secrets Manager to automatically rotate the secret for a secured resource\. 
 
@@ -12,7 +12,7 @@ Secrets Manager only removes the credentials after the second rotation cycle whe
 
 For example, if you have a compliance\-mandated maximum credential lifetime of 90 days, then we recommend you set your rotation interval to 44 days \(90/2 \- 1 = 44\)\. At day 0, Secrets Manager creates the new credentials in a rotation and labels them as `AWSCURRENT`\. On day 44, the next rotation demotes the secret with those credentials to `AWSPREVIOUS`, and clients stop actively using them\. On day 88, the next rotation removes all staging labels from the version\. Secrets Manager fully deprecates the version is fully deprecated at this point and recycles the user on the database with a new password, which starts the cycle over again\.
 
-## How Rotation Uses Labels to Alternate Between Two Users<a name="about-labels-rotating-switch-users"></a>
+## How rotation uses labels to alternate between two users<a name="about-labels-rotating-switch-users"></a>
 
 Using staging labels allows Secrets Manager to switch back and forth between two users\. One, labeled `AWSCURRENT`, actively used by the clients\. When the Lambda function rotation triggers, the rotation process assigns a new password to the inactive second user\. Secrets Manager stores those credentials in a new version of the secret\. After verifying access with the credentials in the new secret version works, the rotation process moves the `AWSCURRENT` label to the new version, which makes it the active version\. The next time triggers, the roles of Secrets Manager reverses the two user accounts\.
 
@@ -32,9 +32,9 @@ The following explains this scenario in more detail:
 1. The next request from the custom application now receives the B version of the secret because B now has the `AWSCURRENT` label\. The custom application uses the second user with the new password to access the database\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/secretsmanager/latest/userguide/images/secret-rotate-1d.png)
 
-## Configuring Rotation Between Two Users<a name="configure-rotating-two-users-only"></a>
+## Configuring rotation between two users<a name="configure-rotating-two-users-only"></a>
 
-If you use your secret for one of the [supported Amazon RDS databases](intro.md#full-rotation-support), follow the procedures in [Enabling Rotation for an Amazon RDS Database Secret](enable-rotation-rds.md)\.
+If you use your secret for one of the [supported Amazon RDS databases](intro.md#full-rotation-support), follow the procedures in [Enabling rotation for an Amazon RDS database secret](enable-rotation-rds.md)\.
 
 If instead you want to configure rotation for another service or database, create your Lambda rotation function and customize it using these instructions:
 
@@ -42,7 +42,7 @@ If instead you want to configure rotation for another service or database, creat
 
 1. Create a secret with the credentials of the first user\.
 
-Follow the steps at [Rotating AWS Secrets Manager Secrets for Other Databases or Services](rotating-secrets-create-generic-template.md) to create a generic Lambda rotation function template that you can customize\. When you get to step 7, customize your function by using the following information\.
+Follow the steps at [Rotating AWS Secrets Manager secrets for other databases or services](rotating-secrets-create-generic-template.md) to create a generic Lambda rotation function template that you can customize\. When you get to step 7, customize your function by using the following information\.
 
 Use the following logic as the basis for writing your rotation function:
 + **createSecret phase**:

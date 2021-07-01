@@ -1,4 +1,4 @@
-# Key Terms and Concepts for AWS Secrets Manager<a name="terms-concepts"></a>
+# Key terms and concepts for AWS Secrets Manager<a name="terms-concepts"></a>
 
 The following terms and concepts are important for understanding AWS Secrets Manager and how it works\.
 
@@ -6,7 +6,7 @@ The following terms and concepts are important for understanding AWS Secrets Man
 
 In Secrets Manager, a secret consists of a set of credentials, user name and password, and the connection details used to access a [secured service](#term_secured-service)\. You want to store these securely, and ensure only authorized users can access them\. Secrets Manager always stores the secret text in an encrypted form and encrypts the secret in transit\. 
 
-Secrets Manager uses IAM permission policies to ensure only authorized users can access or modify the secret\. You can attach these policies to users or roles, and specify which secrets the users can access\. For more details about controlling access to your secrets, see [Authentication and Access Control for AWS Secrets Manager](auth-and-access.md)\.
+Secrets Manager uses IAM permission policies to ensure only authorized users can access or modify the secret\. You can attach these policies to users or roles, and specify which secrets the users can access\. For more details about controlling access to your secrets, see [Authentication and access control for AWS Secrets Manager](auth-and-access.md)\.
 
 When storing credentials, different secured services might require different pieces of information\. Secrets Manager provides this flexibility by storing the secret as key\-value pairs of text strings\. If you choose a database supported by Secrets Manager , Secrets Manager defines the key\-value pairs according to the requirements of the rotation function for the chosen database\. Secrets Manager formats the pairs as [JSON](http://json.org) text\. If you choose some other service or database Secrets Manager doesn't provide the Lambda function for, then you can specify your secret as a user\-defined JSON key\-value pairs\.
 
@@ -27,13 +27,18 @@ If you use the command\-line tools or the API, you can also store binary data in
 
 Secrets Manager can automatically rotate your secret for you on a specified schedule\. You can rotate credentials without interrupting the service if you choose to store a complete set of credentials for a user or account, instead of only the password\. If you change or rotate only the password, then the old password immediately becomes obsolete, and clients must immediately start using the new password or fail\. If you can instead create a new user with a new password, or at least alternate between two users, then the old user and password can continue to operate side by side with the new one, until you choose to deprecate the old one\. This gives you a window of time when all of your clients can continue to work while you test and validate the new credentials\. After your new credentials pass testing, you commit all of your clients to using the new credentials and remove the old credentials\.
 
-**Supported Databases**  
+**Supported databases**  
 If you use the Secrets Manager console and specify a secret for [one of the databases that Secrets Manager natively supports](intro.md#full-rotation-support), then Secrets Manager manages all of the structure and parsing for you\. The console prompts you for the details for the specific type of database \. Secrets Manager then constructs the necessary structure, stores the information, and then parses the information back into easy\-to\-understand text information when you retrieve it\. 
 
-**Other Databases or Services**  
-If you instead specify the secret for a "custom" database or service, then you control what you do with the secret text after you retrieve it and how you interpret it \. The Secrets Manager console accepts your secret as key\-value strings, and automatically converts them into a JSON structure for storage\. If you retrieve the secret in the console, Secrets Manager automatically parses the secret back into key\-value text strings for you to view\. If you retrieve the secret programmatically, then you can use an appropriate JSON parsing library, available for almost every programming language, to parse the secret in any way useful to you\. If a secret requires more than per\-secret limit of  65,536 bytes you could split your key\-value pairs between two secrets and concatenate them back together when you retrieve them\.
+**Other databases or services**  
+If you instead specify the secret for a "custom" database or service, then you control what you do with the secret text after you retrieve it and how you interpret it \. The Secrets Manager console accepts your secret as key\-value strings, and automatically converts them into a JSON structure for storage\. If you retrieve the secret in the console, Secrets Manager automatically parses the secret back into key\-value text strings for you to view\. If you retrieve the secret programmatically, then you can use an appropriate JSON parsing library, available for almost every programming language, to parse the secret in any way useful to you\. If a secret requires more than per\-secret limit of 65,536 bytes you could split your key\-value pairs between two secrets and concatenate them back together when you retrieve them\.
+<a name="multi-region"></a>
+**Multi\-Region secrets**  
+Secrets Manager and multi\-Region secrets use two different types of secrets: 
++ **Primary Secret** \- Secrets Manager uses the primary secret to replicate it and the associated metadata to other regions where applications can use it\. 
++ **Replica Secret** \- You replicate a primary secret to create identical secrets in other regions\. Replica secrets share a common name with the primary secret to allow you to easily search for it\. Secrets Manager uses AWS Key Management Service and KMS Managed Keys, as well as regional Customer Managed Keys \(CMKs\)\.
 
-### Basic Structure of a Secrets Manager Secret<a name="basic-structure"></a>
+### Basic structure of a Secrets Manager secret<a name="basic-structure"></a>
 
 In Secrets Manager, a secret contains not only the encrypted secret text, but also several metadata elements that describe the secret and define how Secrets Manager should handle the secret:
 
@@ -48,7 +53,7 @@ In Secrets Manager, a secret contains not only the encrypted secret text, but al
   + Each version holds a copy of the encrypted secret value\.
   + Each version can have one or more [staging labels](#term_staging-label) attached identifying the stage of the secret rotation cycle\.
 
-## Secured Service<a name="term_secured-service"></a>
+## Secured service<a name="term_secured-service"></a>
 
 Secrets Manager defines a secured service as a database or other service running on a network server, with access controlled by the credentials stored in the secret\. The secured service can refer to a single server or a large group of servers sharing the same access method\. You need the secret to successfully access the secured service\. The secret contains all of the information a client needs to access the secured service\. This guide uses the term "secured service" as a generic term to represent all of the different types of databases and services with secrets that can be protected by AWS Secrets Manager\. 
 
@@ -70,13 +75,13 @@ If you choose to create a secret for a custom service, then you must create the 
 
 For any service or database your secret uses, the Lambda rotation function for the secret must be able to access both your database or service and a Secrets Manager service endpoint\. If the Lambda rotation function and database or service reside in a VPC provided by Amazon VPC, then you must configure the VPC with either a [VPC service endpoint for Secrets Manager](rotation-network-rqmts.md), or [direct Internet connectivity by using a NAT gateway](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html), to allow access to the public Secrets Manager service endpoint\.
 
-For more information about rotation, see [Rotating Your AWS Secrets Manager Secrets](rotating-secrets.md)\.
+For more information about rotation, see [Rotating your AWS Secrets Manager secrets](rotating-secrets.md)\.
 
-## Staging Labels<a name="term_staging-label"></a>
+## Staging labels<a name="term_staging-label"></a>
 
 Secrets Manager uses staging labels, a simple text string, to enable you to identify different [versions](#term_version) of a secret during [rotation](#term_rotation)\. Whenever you query for the encrypted secret value, you can specify the version of the secret to retrieve\. If you don't specify a version either by version ID or staging label, Secrets Manager defaults to the version with the staging label `AWSCURRENT` attached\. Secrets Manager always attaches the staging label `AWSCURRENT` to one version of the secret\. See the brief introduction to [rotation](#term_rotation) for an example of how this works\.
 
-A version of a secret can have from 0 to 20 staging labels attached\.
+A version of a secret can have from 0 to 20 staging labels attached\. For instance, if `SecretAVersion1` has 20 staging labels and you want to add a staging label to `SecretBVersion1`, you must remove a staging label from `SecretAVersion1` and then add a staging label to `SecretBVersion1`\.
 
 A staging label can be attached to only one version of a secret at a time\. Two versions of the secret can't have the same staging label\. When you attach a staging label to a version and a different version exists with the same label, you must also specify the version to remove the label, or Secrets Manager returns an error\.
 
@@ -84,13 +89,13 @@ One version of the secret must **always** have the staging label `AWSCURRENT`, a
 
 ## Versioning<a name="term_version"></a>
 
-Multiple versions of a secret exist to support [rotation of a secret](#term_rotation)\. Secrets Manager distinguishes between different versions by the [staging labels](#term_staging-label)\. For most scenarios, you don't worry about versions of the secret\. Secrets Manager and the provided Lambda rotation function manage these details for you\. However, if you create a Lambda rotation function, your code must manage multiple versions of a secret and move the staging labels between versions appropriately\. Versions also have a unique identifier \(typically a [UUID](https://wikipedia.org/wiki/UUID) value\) that always stays with the same version, unlike staging labels you can move between versions\. 
+Multiple versions of a secret exist to support [rotation of a secret](#term_rotation)\. Secrets Manager distinguishes between different versions by the [staging labels](#term_staging-label)\. For most scenarios, you don't worry about versions of the secret\. Secrets Manager and the provided Lambda rotation function manage these details for you\. However, if you create a Lambda rotation function, your code must manage multiple versions of a secret and move the staging labels between versions appropriately\. Versions also have a unique identifier \(typically a [UUID](https://wikipedia.org/wiki/UUID) value\) that always stays with the same version, unlike staging labels you can move between versions\. The *UUID* corresponds to the `ClientRequestToken` passed in the `PutSecretValue`, `CreateSecret`, and `UpdateSecret` APIs\.
 
 Configure your clients to always request for the default version of the secret with the `AWSCURRENT` label attached\. Other versions can exist, but you only access other version by requesting a specific version ID or staging label\. If you request the secret value and you don't specify either a version ID or a staging label, then by default you see the version with the staging label `AWSCURRENT`\.
 
-During rotation, Secrets Manager creates a new version of the secret and attaches the staging label `AWSPENDING`\. The rotation function uses the `AWSPENDING` version to identify the version until after the version passes testing\. After the rotation function verifies the new credentials work, Secrets Manager moves the label `AWSPREVIOUS` to the older version with `AWSCURRENT`, moves the label `AWSCURRENT` to the newer `AWSPENDING` version, and finally removes `AWSPENDING`\.
+During rotation, Secrets Manager creates a new version of the secret and attaches the staging label `AWSPENDING`\. The rotation function uses the `AWSPENDING` version to identify the version until after the version passes testing\. After the rotation function verifies the new credentials work, Secrets Manager moves the label `AWSPREVIOUS` to the older version with `AWSCURRENT`, and moves the label `AWSCURRENT` to the newer `AWSPENDING` version\.
 
-For more information about how staging labels work to support rotation, see [Rotating Your AWS Secrets Manager Secrets](rotating-secrets.md)\.
+For more information about how staging labels work to support rotation, see [Rotating your AWS Secrets Manager secrets](rotating-secrets.md)\.
 
 Each version maintained for a secret contains the following elements:
 + A unique ID for the version\.

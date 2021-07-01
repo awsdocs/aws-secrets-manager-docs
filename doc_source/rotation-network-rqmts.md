@@ -1,4 +1,4 @@
-# Configuring Your Network to Support Rotating Secrets<a name="rotation-network-rqmts"></a>
+# Configuring your network to support rotating secrets<a name="rotation-network-rqmts"></a>
 
 To successfully rotate your secrets, the Lambda rotation function must be able to communicate with both the protected database or service, and the AWS Secrets Manager service\. The rotation function sends requests to your database or other service to update a user password with a new value\. The function also calls Secrets Manager API operations to retrieve and update the secrets involved in the rotation process\. If your Amazon RDS instance or other secret\-protected service runs in a virtual private cloud \(VPC\) provided by Amazon VPC, you must take the following high\-level steps to enable the required connectivity\.
 + **Configure your Lambda rotation function to enable communications between the function and the database instance\.** If you use one of the [database services](intro.md#full-rotation-support) fully supported by Secrets Manager, then the AWS CloudFormation template creating your function determines the public accessibility of your database instance\.

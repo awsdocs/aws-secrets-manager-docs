@@ -1,14 +1,14 @@
-# Enabling Rotation for an Amazon RDS Database Secret<a name="enable-rotation-rds"></a>
+# Enabling rotation for an Amazon RDS database secret<a name="enable-rotation-rds"></a>
 
 You can enable rotation for a secret with credentials for a [supported Amazon RDS database](intro.md#rds-supported-database-list) by using the [AWS Secrets Manager console](#proc-enable-rotation-rds-console), the AWS CLI, or one of the AWS SDKs\.
 
 **Warning**  
 Enabling rotation causes the secret to rotate once immediately when you save the secret\. Before you enable rotation, be sure you update all of your applications using this secret credentials to retrieve the secret from Secrets Manager\. The original credentials might not be usable after the initial rotation\. Any applications you fail to update break as soon as the old credentials become invalid\.
 
-**Prerequisites: Network Requirements to Enable Rotation**  
+**Prerequisites: Network requirements to enable rotation**  
 To successfully enable rotation, you must correctly configure your network environment\.
 + **The Lambda function must be able to communicate with the database\.** If you run your RDS database instance in a [VPC](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Introduction.html), we recommend you configure your Lambda function to run in the same VPC\. This enables direct connectivity between the rotation function and your service\. To configure this, on the Lambda function details page, scroll down to the **Network** section and choose the **VPC** from the drop\-down list to match the one your instance\. You must also make sure the EC2 security groups attached to your instance enable communication between the instance and Lambda\.
-+ **The Lambda function must be able to communicate with the Secrets Manager service endpoint\.** If your Lambda rotation function can access the internet, either because you have configured the function to run outside of a VPC, or because the VPC has an [attached NAT gateway](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html), then you can use [any of the available public endpoints for Secrets Manager](https://docs.aws.amazon.com/general/latest/gr/rande.html#asm_region)\. Alternatively, if you configure your Lambda function to run in a VPC without an internet access, then you can [configure the VPC with a private Secrets Manager service endpoint](rotation-network-rqmts.md)\.
++ **The Lambda function must be able to communicate with the Secrets Manager service endpoint\.** If your Lambda rotation function can access the internet, either because you haven't configured the function to run in a VPC, or because the VPC has an [attached NAT gateway](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html), then you can use [any of the available public endpoints for Secrets Manager](https://docs.aws.amazon.com/general/latest/gr/rande.html#asm_region)\. Alternatively, if you configure your Lambda function to run in a VPC without internet access, then you can [configure the VPC with a private Secrets Manager service endpoint](rotation-network-rqmts.md)\.
 
 **Enabling and configuring rotation for a supported Amazon RDS database secret**  
 Follow the steps under one of the following tabs:
@@ -32,7 +32,7 @@ To enable and configure rotation in the console, you must have permissions provi
    Secrets Manager schedules the next rotation when the previous one is complete\. Secrets Manager schedules the date by adding the rotation interval \(number of days\) to the actual date of the last rotation\. The service chooses the hour within that 24\-hour date window randomly\. The minute is also chosen somewhat randomly, but is weighted towards the top of the hour and influenced by a variety of factors that help distribute load\.
 **Note**  
 If you use the Lambda function provided by Secrets Manager to alternate between two users, the console uses this template if you choose the second "master secret" option in the next step, then you should set your rotation period to one\-half of your compliance\-specified minimum interval\. Secrets Manager keeps the old credentials available, if not actively used, for one additional rotation cycle\. Secrets Manager invalidates the old credentials only after updating the user with a new password after the second rotation\.   
-If you modify the rotation function to immediately invalidate the old credentials after the new secret becomes active, then you can extend the rotation interval to your full compliance\-mandated minimum\. Leaving the old credentials active for one additional cycle with the `AWSPREVIOUS` staging label provides a *last known* good set of credentials you can use for fast recovery\. If something happens to break the current credentials, you can simply move the `AWSCURRENT` staging label to the version with the `AWSPREVIOUS` label\. Then your customers should be able to access the resource again\. For more information, see [Rotating AWS Secrets Manager Secrets by Alternating Between Two Existing Users](rotating-secrets-two-users.md)\.
+If you modify the rotation function to immediately invalidate the old credentials after the new secret becomes active, then you can extend the rotation interval to your full compliance\-mandated minimum\. Leaving the old credentials active for one additional cycle with the `AWSPREVIOUS` staging label provides a *last known* good set of credentials you can use for fast recovery\. If something happens to break the current credentials, you can simply move the `AWSCURRENT` staging label to the version with the `AWSPREVIOUS` label\. Then your customers should be able to access the resource again\. For more information, see [Rotating AWS Secrets Manager secrets by alternating between two existing users](rotating-secrets-two-users.md)\.
 
 1. Choose one of the following options:
    + **You want to create a new Lambda rotation function**
@@ -83,7 +83,7 @@ You can use the following Secrets Manager commands to configure rotation for an 
 You also need to use commands from AWS CloudFormation and AWS Lambda\. For more information about the following commands, see the documentation for those services\.
 
 **Important**  
-The rotation function determines the exact format of the secret value used in your secret by the rotation function using this secret\. For the details of what each rotation function requires for the secret value, see the **Expected SecretString Value** entry under the relevant rotation function at [AWS Templates You Can Use to Create Lambda Rotation Functions ](reference_available-rotation-templates.md)\.
+The rotation function determines the exact format of the secret value used in your secret by the rotation function using this secret\. For the details of what each rotation function requires for the secret value, see the **Expected SecretString Value** entry under the relevant rotation function at [AWS templates you can use to create Lambda rotation functions ](reference_available-rotation-templates.md)\.
 
 **Creating a Lambda rotation function using an AWS Serverless Application Repository template**  
 The following example of a AWS CLI session performing the equivalent of the console\-based rotation configuration described in the **Using the AWS Management Console** tab\. You create the function by using an AWS CloudFormation change set\. Then you configure the resulting function with the required permissions\. Finally, you configure the secret with the ARN of the completed function, and rotate once to test it\.
@@ -96,7 +96,7 @@ If your database or service resides in a VPC provided by Amazon VPC, then you mu
 
 Also, if your VPC doesn't have access to the public Internet, then you must configure your VPC with a private service endpoint for Secrets Manager\. The fifth of the following commands does that\.
 
-You use the `--application-id` parameter to specify which template to use\. The value is the ARN of the template\. For the list of templates provided by AWS and their ARNs, see [AWS Templates You Can Use to Create Lambda Rotation Functions ](reference_available-rotation-templates.md)\.
+You use the `--application-id` parameter to specify which template to use\. The value is the ARN of the template\. For the list of templates provided by AWS and their ARNs, see [AWS templates you can use to create Lambda rotation functions ](reference_available-rotation-templates.md)\.
 
 The templates also require additional parameters provided with `--parameter-overrides`, as shown in the example that follows\. The rotation template requires the parameter to send two pieces of information as Name and Value pairs to the template affecting the creation of the rotation function:
 + **endpoint** – The URL of the service endpoint you want the rotation function to query\. Typically, this is `https://secretsmanager.region.amazonaws.com`\.
@@ -152,7 +152,7 @@ $ aws ec2 create-vpc-endpoint --vpc-id <VPC ID> /
                               --private-dns-enabled
 ```
 
-If you created a function using a template that requires a master secret, then you must also add the following statement to the function role policy\. This grants permission to the rotation function to retrieve the secret value for the master secret\. For complete instructions, see [Granting a Rotation Function Permission to Access a Separate Master Secret](auth-and-access_identity-based-policies.md#permissions-grant-rotation-role-access-to-master-secret)\.
+If you created a function using a template that requires a master secret, then you must also add the following statement to the function role policy\. This grants permission to the rotation function to retrieve the secret value for the master secret\. For complete instructions, see [Granting a rotation function permission to access a separate master secret](permissions-grant-rotation-role-access-to-master-secret.md)\.
 
 ```
         {

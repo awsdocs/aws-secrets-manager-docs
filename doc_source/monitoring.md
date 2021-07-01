@@ -1,28 +1,31 @@
-# Monitoring the Use of Your AWS Secrets Manager Secrets<a name="monitoring"></a>
+# Monitoring the use of your AWS Secrets Manager secrets<a name="monitoring"></a>
 
 As a best practice, you should monitor your secrets to ensure usage of your secrets and log any changes to them\. This helps you to ensure that any unexpected usage or change can be investigated, and unwanted changes can be rolled back\. AWS Secrets Manager currently supports two AWS services that enable you to monitor your organization and activity\.
 
 **Topics**
-+ [Logging AWS Secrets Manager API Calls with AWS CloudTrail](#monitoring_cloudtrail)
++ [Logging AWS Secrets Manager API calls with AWS CloudTrail](#monitoring_cloudtrail)
 + [Amazon CloudWatch Events](#monitoring_cloudwatch)
 
-## Logging AWS Secrets Manager API Calls with AWS CloudTrail<a name="monitoring_cloudtrail"></a>
+## Logging AWS Secrets Manager API calls with AWS CloudTrail<a name="monitoring_cloudtrail"></a>
 
 AWS Secrets Manager integrates with AWS CloudTrail, a service that provides a record of actions taken by a user, role or an AWS service in Secrets Manager\. CloudTrail captures all API calls for Secrets Manager as events, including calls from the Secrets Manager console and from code calls to the Secrets Manager APIs\. If you create a trail, you can enable continuous delivery of CloudTrail events to an Amazon S3 bucket, including events for Secrets Manager\. If you don't configure a trail, you can still view the most recent events in the CloudTrail console in **Event history**\. Using the information collected by CloudTrail, you can determine the request sent to Secrets Manager, the IP address of the request, who sent the request, when the time of the request, and additional details\.
 
 To learn more about CloudTrail see the [AWS CloudTrail User Guide](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/)\.
 
-### Logging AWS Secrets Manager non\-API Events<a name="logging-non-API-events"></a>
+### Logging AWS Secrets Manager non\-API events<a name="logging-non-API-events"></a>
 
 In addition to logging AWS API calls, CloudTrail captures other related events that might have a security or compliance impact on your AWS account or might help you troubleshoot operational problems\. CloudTrail records these events as non\-API service events\.
 
 Secrets Manager has three non\-API service events:
-+ `RotationAbandoned` event \- a mechanism to inform you that the Secrets Manager service removed the AWSPENDING label from an existing version of a secret\.  When you manually create a new version of a secret, you send a message signalling the abandonment of the current ongoing rotation in favor of the new secret version\.  As a result, Secrets Manager removes the AWSPENDING label to allow future rotations to succeed and publish a CloudTrail event to provide awareness of the change\. 
++ `RotationAbandoned` event \- a mechanism to inform you that the Secrets Manager service removed the AWSPENDING label from an existing version of a secret\. When you manually create a new version of a secret, you send a message signalling the abandonment of the current ongoing rotation in favor of the new secret version\. As a result, Secrets Manager removes the AWSPENDING label to allow future rotations to succeed and publish a CloudTrail event to provide awareness of the change\. 
 + `RotationStarted` event \- a mechanism that notifies you of a secret starting rotation\. 
 + `RotationSucceeded` event \- a mechanism that notifies you of a successful rotation event\.
 + `RotationFailed` event \- a mechanism to inform you that secret rotation failed for an application\. 
++ `StartSecretVersionDelete` event \- a mechanism that notifies you of the start deletion for a secret version\.
++ `CancelSecretVersionDelete` event \- a mechanism that notifies you of a delete cancellation for a secret version\. 
++ `EndSecretVersionDelete` event \- a mechanism that notifies you of an ending secret version deletion\.
 
-### Secrets Manager Information in CloudTrail<a name="service-name-info-in-cloudtrail"></a>
+### Secrets Manager information in CloudTrail<a name="service-name-info-in-cloudtrail"></a>
 
 When you create your AWS account, AWS enables CloudTrail\. When activity occurs in Secrets Manager, CloudTrail records the activity in a CloudTrail event along with other AWS service events in **Event history**\. You can view, search, and download recent events in your AWS account\. For more information, see [Viewing Events with CloudTrail Event History](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/view-cloudtrail-events.html)\.
 
@@ -45,7 +48,7 @@ You also can aggregate AWS Secrets Manager log files from multiple AWS Regions a
 
 For more information, see [Receiving CloudTrail Log Files from Multiple Regions](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-receive-logs-from-multiple-accounts.html) and [Receiving CloudTrail Log Files from Multiple Accounts](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-receive-logs-from-multiple-accounts.html)\.
 
-### Retrieving Secrets Manager Log File Entries<a name="retrieve-ct-entries"></a>
+### Retrieving Secrets Manager log file entries<a name="retrieve-ct-entries"></a>
 
 You can retrieve individual events from CloudTrail by using any of the following techniques:
 
@@ -98,7 +101,7 @@ The CloudTrail console enables you to view events that occurred within the past 
 
 ------
 
-### Understanding Secrets Manager Log File Entries<a name="understanding-service-name-entries"></a>
+### Understanding Secrets Manager log file entries<a name="understanding-service-name-entries"></a>
 
 A trail enables delivery of events as log files to a specified Amazon S3 bucket\. CloudTrail log files contain one or more log entries\. An event represents a single request from any source and includes information about the requested action, the date and time of the action, request parameters, and so on\. CloudTrail log files does not collect an ordered stack trace of the public API calls, so they do not appear in any specific order\. 
 
@@ -178,20 +181,20 @@ Secrets Manager can work with CloudWatch Events to trigger alerts when administr
 
 To learn more about CloudWatch Events, including how to configure and enable it, see the [Amazon CloudWatch Events User Guide](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/)\.
 
-### Monitoring Secret Versions Scheduled for Deletion<a name="monitoring_cloudwatch_deleted-secrets"></a>
+### Monitoring secret versions scheduled for deletion<a name="monitoring_cloudwatch_deleted-secrets"></a>
 
 You can use a combination of AWS CloudTrail, Amazon CloudWatch Logs, and Amazon Simple Notification Service \(Amazon SNS\) to create an alarm that notifies you of any attempts to access a version of a secret pending deletion\. If you receive a notification from an alarm, you might want to cancel deletion of the secret to give yourself more time to determine if you really want to delete it\. Your investigation might result in the secret being restored because you still need the secret\. Alternatively, you might need to update the user with details of the new secret to use\.
 
 The following procedures explain how to receive a notification when a request for the `GetSecretValue` operation that results in a specific error message written to your CloudTrail log files\. Other API operations can be performed on the version of the secret without triggering the alarm\. This CloudWatch alarm detects usage that might indicate a person or application using outdated credentials\.
 
-Before you begin these procedures, you must turn on CloudTrail in the AWS Region and account where you intend to monitor AWS Secrets ManagerAPI requests\. For instructions, go to [Creating a Trail for the First Time](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-create-a-trail-using-the-console-first-time.html) in the *AWS CloudTrail User Guide*\.
+Before you begin these procedures, you must turn on CloudTrail in the AWS Region and account where you intend to monitor AWS Secrets ManagerAPI requests\. For instructions, go to [Creating a trail for the first time](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-create-a-trail-using-the-console-first-time.html) in the *AWS CloudTrail User Guide*\.
 
 **Topics**
-+ [Part 1: Configuring CloudTrail Log File Delivery to CloudWatch Logs](#monitoring_cloudwatch_deleted-secrets_part1)
-+ [Part 2: Create the CloudWatch Alarm](#monitoring_cloudwatch_deleted-secrets_part2)
-+ [Part 3: Monitoring CloudWatch for Deleted Secrets](#monitoring_cloudwatch_deleted-secrets_part3)
++ [Part 1: Configuring CloudTrail log file delivery to CloudWatch logs](#monitoring_cloudwatch_deleted-secrets_part1)
++ [Part 2: Create the CloudWatch alarm](#monitoring_cloudwatch_deleted-secrets_part2)
++ [Part 3: Monitoring CloudWatch for deleted secrets](#monitoring_cloudwatch_deleted-secrets_part3)
 
-#### Part 1: Configuring CloudTrail Log File Delivery to CloudWatch Logs<a name="monitoring_cloudwatch_deleted-secrets_part1"></a>
+#### Part 1: Configuring CloudTrail log file delivery to CloudWatch logs<a name="monitoring_cloudwatch_deleted-secrets_part1"></a>
 
 You must configure delivery of your CloudTrail log files to CloudWatch Logs\. You do this so CloudWatch Logs can monitor them for Secrets Manager API requests to retrieve a version of a secret pending deletion\.
 
@@ -213,7 +216,7 @@ You must configure delivery of your CloudTrail log files to CloudWatch Logs\. Yo
 
 1. On the **AWS CloudTrail will deliver CloudTrail events associated with API activity in your account to your CloudWatch Logs log group** page, choose **Allow**\.
 
-#### Part 2: Create the CloudWatch Alarm<a name="monitoring_cloudwatch_deleted-secrets_part2"></a>
+#### Part 2: Create the CloudWatch alarm<a name="monitoring_cloudwatch_deleted-secrets_part2"></a>
 
 To receive a notification when a Secrets Manager `GetSecretValue` API operation requests to access a version of a secret pending deletion, you must create a CloudWatch alarm and configure notification\.
 
@@ -259,6 +262,6 @@ To receive a notification when a Secrets Manager `GetSecretValue` API operation 
 
    1. Choose **Create Alarm**\.
 
-#### Part 3: Monitoring CloudWatch for Deleted Secrets<a name="monitoring_cloudwatch_deleted-secrets_part3"></a>
+#### Part 3: Monitoring CloudWatch for deleted secrets<a name="monitoring_cloudwatch_deleted-secrets_part3"></a>
 
 You have created your alarm\. To test it, create a version of a secret and then schedule it for deletion\. Then, try to retrieve the secret value\. You shortly receive an email at the address configured in the alarm\. It alerts you to the use of a secret version scheduled for deletion\.

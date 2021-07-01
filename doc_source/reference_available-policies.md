@@ -1,4 +1,4 @@
-# AWS Managed Policies Available for Use with AWS Secrets Manager<a name="reference_available-policies"></a>
+# AWS managed policies available for use with AWS Secrets Manager<a name="reference_available-policies"></a>
 
 This section identifies the AWS managed policies you can use to help manage access to your secrets\. You can't modify or delete an AWS managed policy, but you can attach or detach them to entities in your account as needed\.
 

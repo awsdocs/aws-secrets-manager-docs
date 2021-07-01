@@ -1,8 +1,8 @@
-# Modifying a Secret<a name="manage_update-secret"></a>
+# Modifying a secret<a name="manage_update-secret"></a>
 
 You can modify some elements of a secret after you create it\. In the console, you can edit the description, edit or attach a new resource\-based policy to modify permissions to the secret, change the AWS KMS customer master key \(CMK\) used to encrypt and decrypt the protected secret information, and edit or add or remove tags\.
 
-You can also change the value of the encrypted secret information\. However, we recommend you use rotation to update secret values that contain credentials\. Rotation doesn't just update the secret\. Rotation also modifies the credentials on the protected database or service to match those in the secret\. This keep the secrets automatically synchronized so when clients request a secret value, they always retrieve a working set of credentials\.
+You can also change the value of the encrypted secret information\. However, we recommend you use rotation to update secret values that contain credentials\. Rotation doesn't just update the secret\. Rotation also modifies the credentials on the protected database or service to match those in the secret\. This keeps the secrets automatically synchronized so when clients request a secret value, they always retrieve a working set of credentials\.
 
 This section includes procedures and commands describing how to modify the following elements of a secret:
 + [Encrypted secret value](#proc-encrypted-secret-value)
@@ -15,8 +15,8 @@ This section includes procedures and commands describing how to modify the follo
 Follow the steps under one of the following tabs:
 
 **Important**  
-Updating the secret in this manner doesn't change the credentials on the protected server\. If you want the credentials on the server to stay in sync with the credentials stored in the secret value, we recommend you enable rotation\. An AWS Lambda function changes both the credentials on the server and those in the secret to match, and tests that the updated credentials work\. For more information, see [Rotating Your AWS Secrets Manager Secrets](rotating-secrets.md)\.
-You can create a basic secret using a desired format for the `SecretString`\. For example, you could use a simple JSON key\-value pair\. For example, `{"username":"someuser", "password":"securepassword"}` However, if you later want to enable rotation for this secret, you must use a specific structure for the secret\. Secrets Manager determines the exact format by the rotation function you want to use with this secret\. For the details of what each rotation function requires to work with the secret value, see the **Expected SecretString Value** entry under the relevant rotation function at [ Rotating AWS Secrets Manager Secrets for Other Databases or Services\.](secretsmanager/latest/userguide/reference_available-rotation-templates.html) 
+Updating the secret in this manner doesn't change the credentials on the protected server\. If you want the credentials on the server to stay in sync with the credentials stored in the secret value, we recommend you enable rotation\. An AWS Lambda function changes both the credentials on the server and those in the secret to match, and tests that the updated credentials work\. For more information, see [Rotating your AWS Secrets Manager secrets](rotating-secrets.md)\.
+You can create a basic secret using a desired format for the `SecretString`\. For example, you could use a simple JSON key\-value pair\. For example, `{"username":"someuser", "password":"securepassword"}` However, if you later want to enable rotation for this secret, you must use a specific structure for the secret\. Secrets Manager determines the exact format by the rotation function you want to use with this secret\. For the details of what each rotation function requires to work with the secret value, see the **Expected SecretString Value** entry under the relevant rotation function at [ Rotating AWS Secrets Manager Secrets for Other Databases or Services\.](https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_available-rotation-templates.html) 
 
 ------
 #### [ Using the Secrets Manager console ]<a name="proc-encrypted-secret-value-console"></a>
@@ -44,13 +44,19 @@ Any time the staging label `AWSCURRENT` moves from one version to another, Secre
 You can use the following commands to update the encrypted secret value stored in the secret\. When you update the encrypted secret value in a secret, you create a new version of the secret\.
 
 **Important**  
-You can update a basic secret using a desired format for `SecretString`\. For example, you could use a simple JSON key\-value pair\. For example, `{"username":"someuser", "password":"securepassword"}` However, if you later want to enable rotation for this secret then you must use the specific structure expected by the rotation function you use with this secret\. For the details of what each rotation function requires to work with the secret value, see the **Expected SecretString Value** entry under the relevant rotation function at [Rotating AWS Secrets Manager Secrets for Other Databases or Services\.](secretsmanager/latest/userguide/reference_available-rotation-templates.html)\.
+You can update a secret using a desired format for `SecretString`\. For example, you could use a simple JSON key\-value pair\. For example, `{"username":"someuser", "password":"securepassword"}` However, if you later want to enable rotation for this secret then you must use the specific structure expected by the rotation function you use with this secret\. For the details of what each rotation function requires to work with the secret value, see the **Expected SecretString Value** entry under the relevant rotation function at [Rotating AWS Secrets Manager Secrets for Other Databases or Services\.](https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_available-rotation-templates.html)\.
 
 **Note**  
 `UpdateSecret` automatically moves the staging label `AWSCURRENT` to the new version of the secret\.   
 `PutSecretValue` *does not* automatically move staging labels\. However, the command does add `AWSCURRENT` if this command creates the first version of the secret\. Otherwise, the command only attaches or moves those labels you explicitly request with the `VersionStages` parameter\.  
 Any time the staging label `AWSCURRENT` moves from one version to another, Secrets Manager automatically moves the staging label `AWSPREVIOUS` to the version `AWSCURRENT` and removes the staging label `AWSPREVIOUS`\.
 + **API/SDK:** [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UpdateSecret.html](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UpdateSecret.html), [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_PutSecretValue.html](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_PutSecretValue.html)
+  + [C\+\+](http://sdk.amazonaws.com/cpp/api/LATEST/namespace_aws_1_1_secrets_manager.html)
+  + [Java](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/secretsmanager/package-summary.html)
+  + [PHP](https://docs.aws.amazon.com/aws-sdk-php/v3/api/namespace-Aws.SecretsManager.html)
+  + [Python](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html)
+  + [Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SecretsManager.html)
+  + [Node\.js](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SecretsManager.html)
 + **AWS CLI:** [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/update-secret.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/update-secret.html), [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/put-secret-value.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/put-secret-value.html)
 
 **Example**  
@@ -87,6 +93,12 @@ Follow the steps under one of the following tabs:
 
 You can use the following commands to modify the description of a secret in AWS Secrets Manager:
 + **API/SDK:** [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UpdateSecret.html](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UpdateSecret.html)
+  + [C\+\+](http://sdk.amazonaws.com/cpp/api/LATEST/namespace_aws_1_1_secrets_manager.html)
+  + [Java](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/secretsmanager/package-summary.html)
+  + [PHP](https://docs.aws.amazon.com//aws-sdk-php/v3/api/namespace-Aws.SecretsManager.html)
+  + [Python](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html)
+  + [Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SecretsManager.html)
+  + [Node\.js](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SecretsManager.html)
 + **AWS CLI:** [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/update-secret.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/update-secret.html)
 
 **Example**  
@@ -105,7 +117,7 @@ $ aws secretsmanager update-secret --secret-id production/MyAwesomeAppSecret --d
 To view the changes to the secret, use the command `describe-secret`:  
 
 ```
-aws secretsmanager describe-secret --secret-id production/MyAwesomAppSecret
+aws secretsmanager describe-secret --secret-id production/MyAwesomeAppSecret
         {
           "ARN": "arn:aws:secretsmanager:region:accountid:secret:production/MyAwesomeAppSecret-AbCdEf",
           "Name": "production/MyAwesomeAppSecret",
@@ -141,6 +153,12 @@ If you change the encryption key used by a secret, you must update the secret va
 
 You can use the following commands to modify the AWS KMS encryption key used by the secret\. You must specify the CMK by the Amazon Resource Name \(ARN\)\.
 + **API/SDK:** [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UpdateSecret.html](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UpdateSecret.html)
+  + [C\+\+](http://sdk.amazonaws.com/cpp/api/LATEST/namespace_aws_1_1_secrets_manager.html)
+  + [Java](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/secretsmanager/package-summary.html)
+  + [PHP](https://docs.aws.amazon.com//aws-sdk-php/v3/api/namespace-Aws.SecretsManager.html)
+  + [Python](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html)
+  + [Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SecretsManager.html)
+  + [Node\.js](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SecretsManager.html)
 + **AWS CLI:** [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/update-secret.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/update-secret.html)
 
 **Example**  
@@ -179,6 +197,12 @@ Tag key names and values are case sensitive\. Only one tag on a secret can have 
 
 You can use the following commands to add or remove the tags attached to a secret in Secrets Manager\. Key names and values are case sensitive\. Only one tag on a secret can have a given key name\. To edit an existing tag, add a tag with the same key name but with a different value\. That doesn't add a new key\-value pair\. Instead, Secrets Manager updates the value in the existing pair\. To change a key name, you must remove the first key and add a second with the new name\.
 + **API/SDK:** [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_TagResource.html](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_TagResource.html), [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UntagResource.html](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UntagResource.html)
+  + [C\+\+](http://sdk.amazonaws.com/cpp/api/LATEST/namespace_aws_1_1_secrets_manager.html)
+  + [Java](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/secretsmanager/package-summary.html)
+  + [PHP](https://docs.aws.amazon.com//aws-sdk-php/v3/api/namespace-Aws.SecretsManager.html)
+  + [Python](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html)
+  + [Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SecretsManager.html)
+  + [Node\.js](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SecretsManager.html)
 + **AWS CLI:** [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/tag-resource.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/tag-resource.html), [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/untag-resource.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/untag-resource.html)
 
 **Example**  

@@ -1,4 +1,4 @@
-# Benefits of Tracking Secrets with AWS Config<a name="benefits-aws-config"></a>
+# Benefits of tracking secrets with AWS Config<a name="benefits-aws-config"></a>
 
 AWS Config allows you to assess, audit, and evaluate configurations across your AWS resources by continually monitoring and recording your AWS resource configurations, and also allows you to automate the evaluation of recorded configurations against desired configurations\. Using AWS Config, you can perform the following tasks: 
 + Review changes in configurations and relationships between AWS resources\.

@@ -1,8 +1,8 @@
-# Permissions Required to Automatically Rotate Secrets<a name="rotating-secrets-required-permissions"></a>
+# Permissions required to automatically rotate secrets<a name="rotating-secrets-required-permissions"></a>
 
 When you use the AWS Secrets Manager console to configure rotation for a secret for one of the [fully supported databases](intro.md#rds-supported-database-list), the console configures almost all parameters for you\. But if you create a function or opt to do anything manually for other reasons, you also might have to manually configure the permissions for that part of the rotation\.
 
-## Permissions for Users Configuring Rotation vs\. Users Triggering Rotation<a name="rotating-secrets-required-permissions-user-vs-function"></a>
+## Permissions for users configuring rotation compared to users triggering rotation<a name="rotating-secrets-required-permissions-user-vs-function"></a>
 
 Secrets Manager requires two separate sets of permissions for ***user*** operations using secret rotation:
 + **Permissions required to configure rotation** – Secrets Manager assigns permissions to a trusted user to configure secret rotation\. For more information, see [Granting Full Secrets Manager Administrator Permissions to a User](https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access_identity-based-policies.html#permissions_grant-admin-actions)\.
@@ -10,12 +10,12 @@ Secrets Manager requires two separate sets of permissions for ***user*** operati
 
 The rest of this topic discusses the permissions for the Lambda rotation function to successfully rotate a secret\.
 
-## Permissions Associated with the Lambda Rotation Function<a name="rotating-secrets-required-permissions-function"></a>
+## Permissions associated with the Lambda rotation function<a name="rotating-secrets-required-permissions-function"></a>
 
 AWS Secrets Manager uses a Lambda function to implement the code to rotate the credentials in a secret\.
 
-Secrets Manager service invokes the the Lambda function\. The service does this by invoking an IAM role attached to the Lambda function\. Secrets Manager has two actions for this: 
-+ **The *trust policy* specifying who can assume the role**\. You must configure this policy to allow Secrets Manager to assume the role, as identified by the service principal: `secretsmanager.amazonaws.com`\. You can view this policy in the Lambda console on the function details page by clicking the key icon in the **Designer** section\. The details appear in the **Function policy** section\. This policy should look similar to the following example:
+Secrets Manager service invokes the Lambda function\. The service does this by invoking an IAM role attached to the Lambda function\. Secrets Manager has two actions for this: 
++ **The *trust policy* specifying who can assume the role**\. You must configure this policy to allow Secrets Manager to assume the role, as identified by the service principal: `secretsmanager.amazonaws.com`\. You can view this policy in the Lambda console by selecting a secret Lambda function from the list and then choosing the **Permissions**tab\. In the **Resource\-based policy** section, you should see code similar to the following example:
 
   ```
   {
@@ -41,6 +41,7 @@ Secrets Manager service invokes the the Lambda function\. The service does this 
 
     ```
     {
+        "Version": "2012-10-17",
         "Statement": [
             {
                 "Effect": "Allow",
@@ -86,6 +87,7 @@ Secrets Manager service invokes the the Lambda function\. The service does this 
 
     ```
     {
+        "Version": "2012-10-17",
         "Statement": [
             {
                 "Effect": "Allow",

@@ -1,32 +1,32 @@
-# Tutorial: Rotating a User Secret with a Master Secret<a name="tutorials_db-rotate-master"></a>
+# Tutorial: Rotating a user secret with a master secret<a name="tutorials_db-rotate-master"></a>
 
-This tutorial builds on the tasks you completed in the first tutorial: [Tutorial: Rotating a Secret for an AWS Database](tutorials_db-rotate.md)\. Complete the previous tutorials before beginning this one\. 
+This tutorial builds on the tasks you completed in the first tutorial: [Tutorial: Rotating a secret for an AWS database](tutorials_db-rotate.md)\. Complete the previous tutorials before beginning this one\. 
 
 In this tutorial, you use the secret you already created as the master user for the database\. You create a new limited user, and create a secret for the user\. You then configure rotation for the user secret by using the credentials in the master secret\. The Lambda rotation function for a master secret clones the first user, and then alternates between the users, changing the password for each in turn\. 
 
-**[Step 1: Creating a New User for Your Database and a User Secret](#tut-db-rotate-master-step1)**  
+**[Step 1: Creating a new user for your database and a user secret](#tut-db-rotate-master-step1)**  
 First, create a new limited\-permissions user on your Amazon RDS MySQL database and store those credentials in a new secret\.
 
-**[Step 2: Validate Your Initial Secret](#tut-db-rotate-master-step2)**  
+**[Step 2: Validate your initial secret](#tut-db-rotate-master-step2)**  
 In step 2, confirm that you can access the database as your new user by using the credentials stored in the secret\.
 
-**[Step 3: Configure Rotation for Your Secret](#tut-db-rotate-master-step3)**  
+**[Step 3: Configure rotation for your secret](#tut-db-rotate-master-step3)**  
 In step 3, configure rotation for your user secret\. You specify the master secret to use for granting access to the rotation function\.
 
-**[Step 4: Verify Successful Rotation](#tut-db-rotate-master-step4)**  
+**[Step 4: Verify successful rotation](#tut-db-rotate-master-step4)**  
 In this step, rotate the secret twice to show the secret retrieves working credentials from two alternating users with access the database\.
 
-**[Step 5: Clean Up](#tut-db-rotate-master-step5)**  
+**[Step 5: Clean up](#tut-db-rotate-master-step5)**  
 In the final step, remove the Amazon RDS database instance and the secrets you created to avoid incurring any unnecessary costs\.
 
 ## Prerequisites<a name="tut_db-rotate-prereqs"></a>
 + This tutorial assumes you have access to an AWS account, and you can sign in to AWS as a user with full permissions to configure AWS Secrets Manager and Amazon RDS, in either the console or by using the equivalent commands in the AWS CLI\.
-+ You must complete the steps in the tutorial [Tutorial: Rotating a Secret for an AWS Database](tutorials_db-rotate.md), without deleting the database and user as described in the final section and provides you with the following items:
++ You must complete the steps in the tutorial [Tutorial: Rotating a secret for an AWS database](tutorials_db-rotate.md), without deleting the database and user as described in the final section and provides you with the following items:
   + An Amazon RDS MySQL database called **MyTestDatabase** running in an instance called **MyTestDatabaseInstance**\.
   + A master user named **adminuser** with administrative permissions\.
   + A secret named **adminuser** with the credentials stored in Secrets Manager\.
 
-## Step 1: Creating a New User for Your Database and a User Secret<a name="tut-db-rotate-master-step1"></a>
+## Step 1: Creating a new user for your database and a user secret<a name="tut-db-rotate-master-step1"></a>
 
 From the original tutorial, you have an Amazon RDS MySQL database with a single admin *master* user\. You also have a secret you can use to retrieve the latest credentials for the master user\. In this step, you create a new, limited user and store the credentials in a secret\. This secret could be used by, for example, a mobile app querying for information from the database\. The user doesn't require any other permissions\.
 
@@ -44,7 +44,7 @@ From the original tutorial, you have an Amazon RDS MySQL database with a single 
 
 1. Review **Action Output** to see a successful completion of the query\.
 
-### Creating a New Secret Using the Console<a name="create-secret-console"></a>
+### Creating a new secret using the console<a name="create-secret-console"></a>
 
 1. Open the Secrets Manager console at [https://console\.aws\.amazon\.com/secretsmanager/](https://console.aws.amazon.com/secretsmanager/)\.
 
@@ -70,7 +70,7 @@ From the original tutorial, you have an Amazon RDS MySQL database with a single 
 
    You return to the list of secrets, which now includes your new secret\.
 
-## Step 2: Validate Your Initial Secret<a name="tut-db-rotate-master-step2"></a>
+## Step 2: Validate your initial secret<a name="tut-db-rotate-master-step2"></a>
 
 Before you configure your secret to rotate automatically, you should verify you have the correct information in your secret and can connect to the database\. In the previous tutorial, you installed the MySQLWorkbench client component\. Continue to use the MySQLWorkbench client in this tutorial\.
 
@@ -86,7 +86,7 @@ You can retrieve the secret by using either the AWS CLI or the Secrets Manager c
 
 1. MySQLWorkbench returns a message indicating you successfully connected to the database\.
 
-## Step 3: Configure Rotation for Your Secret<a name="tut-db-rotate-master-step3"></a>
+## Step 3: Configure rotation for your secret<a name="tut-db-rotate-master-step3"></a>
 
 After you validate the initial credentials in your secret, you can configure and start your first rotation\.
 
@@ -106,7 +106,7 @@ After you validate the initial credentials in your secret, you can configure and
 
 1. Choose **Save**\.
 
-## Step 4: Verify Successful Rotation<a name="tut-db-rotate-master-step4"></a>
+## Step 4: Verify successful rotation<a name="tut-db-rotate-master-step4"></a>
 
 Now you have rotated the secret, you can confirm that the new credentials in the secret work to connect with your database\.
 
@@ -120,7 +120,7 @@ Now you have rotated the secret, you can confirm that the new credentials in the
 
 1. MySQL Workbench returns a message indicating you successfully logged into the database with the new secret\.
 
-## Step 5: Clean Up<a name="tut-db-rotate-master-step5"></a>
+## Step 5: Clean up<a name="tut-db-rotate-master-step5"></a>
 
 Because databases and secrets can incur charges on your AWS bill, you should remove the database instance and the secret you created in this tutorial\.
 

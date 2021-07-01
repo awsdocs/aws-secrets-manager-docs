@@ -1,4 +1,4 @@
-# Configuring AWS Config Secrets Manager Rules<a name="configuring-awsconfig-rules"></a>
+# Configuring AWS Config Secrets Manager rules<a name="configuring-awsconfig-rules"></a>
 **Important**  
 If using the AWS Config console for the first time, see [Setting Up AWS Config \(Console\)](https://docs.aws.amazon.com/config/latest/developerguide/gs-console.html)\.
 
@@ -26,7 +26,7 @@ The Rules page provides initial AWS managed rules you can add to your account\. 
 
 1. Choose **Save** to store the rule in AWS Config
 
-Once you save the rule, AWS Config evaluates your secrets every time the metadata of a secret changes\. If changes occur, you receive an SNS notification about noncompliant secrets\. You can also view the results from the **Rules** or **Dashboard** of AWS Config\.
+Once you save the rule, AWS Config evaluates your secrets every time the metadata of a secret changes\. If changes occur, you receive an Amazon SNS notification about noncompliant secrets\. You can also view the results from the **Rules** or **Dashboard** of AWS Config\.
 
 If you choose the **secretsmanager\-rotation\-check\-mySecretsRotationRule** from the list of rules, then AWS Config displays a list of secrets in your account not configured for rotation\. Because you identified the secrets, you can begin implementation of your best practices for secret rotation\.
 + See [AWS Config documentation](https://docs.aws.amazon.com/config/latest/developerguide/secretsmanager-rotation-enabled-check.html) on the `secretsmanager-rotation-enabled-check`\.

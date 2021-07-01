@@ -1,4 +1,4 @@
-# Deleting and Restoring a Secret<a name="manage_delete-restore-secret"></a>
+# Deleting and restoring a secret<a name="manage_delete-restore-secret"></a>
 
 Because of the critical nature of secrets, AWS Secrets Manager intentionally makes deleting a secret difficult\. Secrets Manager does not immediately delete secrets\. Instead, Secrets Manager immediately makes the secrets inaccessible and scheduled for deletion after a recovery window of a *minimum* of seven days\. Until the recovery window ends, you can recover a secret you previously deleted\. By using the [CLI](#proc-deleted-secret-cli), you can delete a secret without a recovery window\.
 
@@ -51,6 +51,12 @@ To delete a secret in the console, you must have these permissions:
 
 You can use the following commands to retrieve a secret stored in AWS Secrets Manager:
 + **API/SDK:** [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_DeleteSecret.html](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_DeleteSecret.html)
+  + [AC\+\+](http://sdk.amazonaws.com/cpp/api/LATEST/namespace_aws_1_1_secrets_manager.html)
+  + [Java](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/secretsmanager/package-summary.html)
+  + [PHP](https://docs.aws.amazon.com//aws-sdk-php/v3/api/namespace-Aws.SecretsManager.html)
+  + [Python](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html)
+  + [Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SecretsManager.html)
+  + [Node\.js](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SecretsManager.html)
 + **AWS CLI:** [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/delete-secret.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/delete-secret.html)
 
 You have to identify the secret to delete by the friendly name or Amazon Resource Name \(ARN\) in the `SecretId` field\.
@@ -86,7 +92,7 @@ $ aws secretsmanager delete-secret --secret-id development/MyTestDatabase --forc
 ```
 
 **Handy tip**  
-If you don't know an application still uses a secret, you can create an Amazon CloudWatch alarm to alert you to any attempts to access a secret during the recovery window\. For more information, see [Monitoring Secret Versions Scheduled for Deletion](monitoring.md#monitoring_cloudwatch_deleted-secrets)\.
+If you don't know an application still uses a secret, you can create an Amazon CloudWatch alarm to alert you to any attempts to access a secret during the recovery window\. For more information, see [Monitoring secret versions scheduled for deletion](monitoring.md#monitoring_cloudwatch_deleted-secrets)\.
 
 ------<a name="proc-restore-secret"></a>
 
@@ -134,6 +140,12 @@ To restore a secret and the metadata in the console, you must have these permiss
 
 You can use the following commands to retrieve a secret stored in AWS Secrets Manager:
 + **API/SDK:** [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_RestoreSecret.html](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_RestoreSecret.html)
+  + [ C\+\+](http://sdk.amazonaws.com/cpp/api/LATEST/namespace_aws_1_1_secrets_manager.html)
+  + [Java](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/secretsmanager/package-summary.html)
+  + [PHP](https://docs.aws.amazon.com//aws-sdk-php/v3/api/namespace-Aws.SecretsManager.html)
+  + [Python](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html)
+  + [Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SecretsManager.html)
+  + [Node\.js](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SecretsManager.html)
 + **AWS CLI:** [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/restore-secret.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/restore-secret.html)
 
 You must identify the secret you want to restore by the friendly name or ARN in the `SecretId` field\.
@@ -173,7 +185,7 @@ You can specify `FromSecretVersionId` and `MoveToSecretId` in the following comb
 + `MoveToVersionId` and `RemoveFromVersionId`: These explicitly move a label\. The staging label must be present on the `RemoveFromVersionId` version of the secret, or an error occurs\.
 
 **Example**  
-The following example of the AWS CLI command removes the `AWSPREVIOUS` staging label from a version of the secret named "MyTestDatabase"\. You can retrieve the version ID of the version you want to delete by using the [ListSecretVersionIds](AWS Secrets Manager API ReferenceAPI_ListSecretVersionIds.html) command\.  
+The following example of the AWS CLI command removes the `AWSPREVIOUS` staging label from a version of the secret named "MyTestDatabase"\. You can retrieve the version ID of the version you want to delete by using the [ListSecretVersionIds](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_ListSecretVersionIds.html) command\.  
 
 ```
 $ aws secretsmanager update-secret-version-stage \

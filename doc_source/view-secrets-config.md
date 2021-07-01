@@ -1,6 +1,6 @@
-# Viewing Secrets Manager Rules in AWS Config<a name="view-secrets-config"></a>
+# Viewing Secrets Manager rules in AWS Config<a name="view-secrets-config"></a>
 
-To view your Secrets Manager rules in AWS Config Developer Guideg;, log into the AWS Config console and choose **Rules**\. Choose the desired rule and perfom any of the following options: 
+To view your Secrets Manager rules in AWS Config Developer Guide, log into the AWS Config console and choose **Rules**\. Choose the desired rule and perfom any of the following options: 
 + **View details**
 + **Edit Rule**
 + **Actions**

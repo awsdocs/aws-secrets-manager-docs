@@ -1,4 +1,4 @@
-# Troubleshooting General Issues<a name="troubleshoot_general"></a>
+# Troubleshooting general issues<a name="troubleshoot_general"></a>
 
 Use the information here to help you diagnose and fix access\-denied or other common issues that you might encounter when you're working with AWS Secrets Manager\.
 
@@ -24,10 +24,11 @@ As a service accessed through computers in data centers around the world, AWS Se
 Design your global applications to account for these potential delays\. Also, ensure that they work as expected, even when a change made in one location isn't instantly visible at another\.
 
 For more information about how some other AWS services are affected by this, consult the following resources:
-+ [Managing Data Consistency](https://docs.aws.amazon.com/redshift/latest/dg/managing-data-consistency.html) in the *Amazon Redshift Database Developer Guide*
++ [Managing data consistency](https://docs.aws.amazon.com/redshift/latest/dg/managing-data-consistency.html) in the *Amazon Redshift Database Developer Guide*
 + [Amazon S3 Data Consistency Model](https://docs.aws.amazon.com/AmazonS3/latest/dev/Introduction.html#ConsistencyModel) in the *Amazon Simple Storage Service Developer Guide*
-+ [Ensuring Consistency When Using Amazon S3 and Amazon Elastic MapReduce for ETL Workflows](http://aws.amazon.com/blogs/big-data/ensuring-consistency-when-using-amazon-s3-and-amazon-elastic-mapreduce-for-etl-workflows/) in the AWS Big Data Blog
-+ [EC2 Eventual Consistency](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/query-api-troubleshooting.html#eventual-consistency) in the *Amazon EC2 API Reference*
++ [Ensuring Consistency When Using Amazon S3 and Amazon EMR for ETL Workflows](http://aws.amazon.com/blogs/big-data/ensuring-consistency-when-using-amazon-s3-and-amazon-elastic-mapreduce-for-etl-workflows/) in the AWS Big Data Blog
++ [Amazon EC2 Eventual Consistency](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/query-api-troubleshooting.html#eventual-consistency) in the *Amazon EC2 API Reference*
++ 
 
 ## I receive a “cannot generate a data key with an asymmetric CMK” message when creating a secret\.<a name="asymmetrical-key"></a>
 

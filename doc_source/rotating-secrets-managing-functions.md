@@ -1,4 +1,4 @@
-# Deleting Unused Lambda Rotation Functions<a name="rotating-secrets-managing-functions"></a>
+# Deleting unused Lambda rotation functions<a name="rotating-secrets-managing-functions"></a>
 
 After you create a rotation function for a secret, at some point, you might decide you no longer need the secret rotation\. \. [Deleting the secret](manage_delete-restore-secret.md) might be an obvious step\. However, you might also want to consider removing the Lambda rotation function that rotates the secret\. If you share the rotation function among several secrets, then you don't want to delete the function until you delete the last secret rotated by the function\.
 

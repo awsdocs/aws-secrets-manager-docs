@@ -1,4 +1,4 @@
-# Rotating AWS Secrets Manager Secrets for Other Databases or Services<a name="rotating-secrets-create-generic-template"></a>
+# Rotating AWS Secrets Manager secrets for other databases or services<a name="rotating-secrets-create-generic-template"></a>
 
 If you create a secret for another application besides one of the supported Amazon RDS databases, then AWS Secrets Manager doesn't create the Lambda rotation function for you\. You must create and configure it, and then provide the Amazon Resource Name \(ARN\) of the completed function to the secret\. You do this by using the Secrets Manager console, the AWS CLI, or one of the AWS SDKs\.
 
@@ -16,7 +16,7 @@ To run the commands that enable and configure rotation, you must have the follow
 `secretsmanager:RotateSecret` – Configure and trigger the initial rotation\.
 You can grant all of these permissions to an IAM user or role by attaching the [SecretsManagerReadWrite](https://console.aws.amazon.com/iam/home#/policies/arn:aws:iam::aws:policy/SecretsManagerReadWrite) AWS managed policy\. 
 
-The following commands apply the generic `SecretsManagerRotationTemplate` to your Lambda function\. This template comes from the AWS Serverless Application Repository, and used by AWS CloudFormation to automate most of the steps for you\. For the complete set of templates and the ARN that you must specify, see [AWS Templates You Can Use to Create Lambda Rotation Functions ](reference_available-rotation-templates.md)\. 
+The following commands apply the generic `SecretsManagerRotationTemplate` to your Lambda function\. This template comes from the AWS Serverless Application Repository, and used by AWS CloudFormation to automate most of the steps for you\. For the complete set of templates and the ARN that you must specify, see [AWS templates you can use to create Lambda rotation functions ](reference_available-rotation-templates.md)\. 
 
 Use the ARN of the generic template and enter it exactly as shown:
 
@@ -96,7 +96,7 @@ If the database or service using your credentials resides in a VPC provided by A
 
    Open the AWS Lambda console at [https://console\.aws\.amazon\.com/lambda/](https://console.aws.amazon.com/lambda/)\.
 
-1. Customize the code to implement your chosen rotation scenario\. For details, see [Understanding and Customizing Your Lambda Rotation Function](rotating-secrets-lambda-function-customizing.md)\.
+1. Customize the code to implement your chosen rotation scenario\. For details, see [Understanding and customizing your Lambda rotation function](rotating-secrets-lambda-function-customizing.md)\.
 
 1. Finally, you can apply the rotation configuration to your secret and perform the initial rotation\. Specify the number of days between successive rotations with the `--rotation-rules` parameter, and set `AutomaticallyAfterDays` to the desired number of days\.
 

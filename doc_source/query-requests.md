@@ -1,4 +1,4 @@
-# Calling the API by Sending HTTP Query Requests<a name="query-requests"></a>
+# Calling the API by sending HTTPS query requests<a name="query-requests"></a>
 
 This section contains general information about using the Query API for AWS Secrets Manager\. For details about the API operations and errors, see the [AWS Secrets Manager API Reference](https://docs.aws.amazon.com/secretsmanager/latest/apireference/)\.
 
@@ -11,8 +11,8 @@ The API returns the response in an XML document\. For details about the response
 
 **Topics**
 + [Endpoints](#ASMEndpoints)
-+ [HTTPS Required](#IAMHTTPSRequired)
-+ [Signing API Requests for Secrets Manager](#SigVersion)
++ [HTTPS required](#IAMHTTPSRequired)
++ [Signing API requests for Secrets Manager](#SigVersion)
 
 ## Endpoints<a name="ASMEndpoints"></a>
 
@@ -20,13 +20,13 @@ AWS Secrets Manager has endpoints in most AWS Regions\. For the complete list, s
 
 For more information about AWS Regions and endpoints for all services, see [Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/index.html?rande.html), also in the *AWS General Reference*\. 
 
-## HTTPS Required<a name="IAMHTTPSRequired"></a>
+## HTTPS required<a name="IAMHTTPSRequired"></a>
 
 Because the Query API returns sensitive information such as security credentials, you must use HTTPS to encrypt all API requests\. 
 
 See the [ *AWS General Reference*\.](https://docs.aws.amazon.com/general/latest/gr/sigv4_signing.html)
 
-## Signing API Requests for Secrets Manager<a name="SigVersion"></a>
+## Signing API requests for Secrets Manager<a name="SigVersion"></a>
 
 You must sign API requests by using an access key ID and a secret access key\. We strongly recommend you don't use your AWS account root user credentials for everyday work with Secrets Manager\. Instead, you can use the credentials for an IAM user, or temporary credentials like those you use with an IAM role\.
 

@@ -1,4 +1,4 @@
-# Managing a Resource\-based Policy for a Secret<a name="manage_secret-policy"></a>
+# Managing a resource\-based policy for a secret<a name="manage_secret-policy"></a>
 
 This section describes how to attach, retrieve, and remove resource\-based policies from secrets\.
 
@@ -25,14 +25,14 @@ AWS uses Zelkova in the following products and Secrets Manager to provide a simi
 + Amazon Macie
 + Amazon GuardDuty
 
-If your policy does not create a broadly accessible secret, the Secrets Manager Console uses the `PutResourcePolicy` API to attach the policy\. If you do create a resource\-based policy that allows a wide range of IAM principals to access to the secret, the Secrets Manager Console displays an error message and prevents you from attaching the policy\. 
+If your policy does not create a broadly accessible secret, the Secrets Manager console uses the `PutResourcePolicy` API to attach the policy\. If you do create a resource\-based policy that allows a wide range of IAM principals to access to the secret, the Secrets Manager Console displays an error message and prevents you from attaching the policy\. 
 
 You can still add, modify, retrieve, and delete resource\-based policies using the CLI and API commands\.
 
-## Attaching a Resource\-based Policy to a Secret<a name="manage_secret-policy_attach"></a>
+## Attaching a resource\-based policy to a secret<a name="manage_secret-policy_attach"></a>
 
 **Attaching a resource\-based policy to a secret**  
-For details about constructing a resource\-based policy, see [Overview of Managing Access Permissions to Your Secrets Manager Secrets](auth-and-access_overview.md) and [Using Resource\-based Policies for Secrets Manager](auth-and-access_resource-based-policies.md)\.
+For details about constructing a resource\-based policy, see [Overview of managing access permissions to your Secrets Manager secrets](auth-and-access_overview.md) and [Using resource\-based policies for Secrets Manager](auth-and-access_resource-based-policies.md)\.
 
 Use the following steps to attach a resource\-based policy to a secret\.
 
@@ -174,8 +174,14 @@ Secrets Manager displays multiple errors in a single output\.
 ------
 #### [ Using the AWS CLI or AWS SDK operations ]<a name="proc-attach-policy-api"></a>
 
-You can use the following command to attach or modify the policy document to grant or deny access to the specified secret\. The policy document must be formatted as JSON structured text\. For more information, see [Using Resource\-based Policies for Secrets Manager](auth-and-access_resource-based-policies.md)\. We recommend you store your policy document as a text file, and then reference the file in the parameter of the command\.
+You can use the following command to attach or modify the policy document to grant or deny access to the specified secret\. The policy document must be formatted as JSON structured text\. For more information, see [Using resource\-based policies for Secrets Manager](auth-and-access_resource-based-policies.md)\. We recommend you store your policy document as a text file, and then reference the file in the parameter of the command\.
 + **API/SDK:** [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_PutResourcePolicy.html](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_PutResourcePolicy.html)
+  + [C\+\+](http://sdk.amazonaws.com/cpp/api/LATEST/namespace_aws_1_1_secrets_manager.html)
+  + [Java](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/secretsmanager/package-summary.html)
+  + [PHP](https://docs.aws.amazon.com//aws-sdk-php/v3/api/namespace-Aws.SecretsManager.html)
+  + [Python](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html)
+  + [Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SecretsManager.html)
+  + [Node\.js](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SecretsManager.html)
 + **CLI:** [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/put-resource-policy.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/put-resource-policy.html)
 
 **Example**  
@@ -188,11 +194,11 @@ $ aws secretsmanager put-resource-policy --secret-id production/MyAwesomeAppSecr
   "Name": "MyAwesomeAppSecret"
   }
 ```
- Using the optional parameter, `--block-public-policy`, returns an error as Secrets Manager does not allow this type of policy\. Secrets Manager returns the following respone: “An error occurred \(BlockPublicPolicyException\) when calling the PutResourcePolicy operation: You can't attach a resource\-based policy that allows broad access to the secret\.” 
+ Using the optional parameter, `--block-public-policy`, returns an error as Secrets Manager does not allow this type of policy\. Secrets Manager returns the following response: “An error occurred \(BlockPublicPolicyException\) when calling the PutResourcePolicy operation: You can't attach a resource\-based policy that allows broad access to the secret\.” 
 
 ------
 
-## Retrieving a Resource\-based Policy from a Secret<a name="manage_secret-policy_retrieve"></a>
+## Retrieving a resource\-based policy from a secret<a name="manage_secret-policy_retrieve"></a>
 
 **Retrieving a permission policy attached to a secret**  
 Use the following steps to retrieve the text of a resource\-based policy attached to a secret\.
@@ -215,6 +221,12 @@ To retrieve the resource\-based policy for a secret, use the following steps:
 
 You can use the following command to retrieve the policy document currently attached to the specified secret\.
 + **API/SDK:** [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetResourcePolicy.html](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetResourcePolicy.html)
+  + [C\+\+](http://sdk.amazonaws.com/cpp/api/LATEST/namespace_aws_1_1_secrets_manager.html)
+  + [Java](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/secretsmanager/package-summary.html)
+  + [PHP](https://docs.aws.amazon.com//aws-sdk-php/v3/api/namespace-Aws.SecretsManager.html)
+  + [Python](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html)
+  + [Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SecretsManager.html)
+  + [Node\.js](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SecretsManager.html)
 + **CLI:** [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/get-resource-policy.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/get-resource-policy.html)
 
 **Example**  
@@ -231,7 +243,7 @@ $ aws secretsmanager get-resource-policy --secret-id production/MyAwesomeAppSecr
 
 ------
 
-## Deleting a Resource\-based Policy from a Secret<a name="manage_secret-policy_delete"></a>
+## Deleting a resource\-based policy from a secret<a name="manage_secret-policy_delete"></a>
 
 **Deleting the resource\-based policy attached to a secret**  
 Use the following steps to delete the resource\-based policy currently attached to the specified secret\.
@@ -254,6 +266,12 @@ Use the following steps to delete the resource\-based policy currently attached 
 
 You can use the following command to delete a resource\-based policy currently attached to the specified secret\.
 + **API/SDK:** [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_DeleteResourcePolicy.html](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_DeleteResourcePolicy.html)
+  + [C\+\+](http://sdk.amazonaws.com/cpp/api/LATEST/namespace_aws_1_1_secrets_manager.html)
+  + [Java](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/secretsmanager/package-summary.html)
+  + [PHP](https://docs.aws.amazon.com//aws-sdk-php/v3/api/namespace-Aws.SecretsManager.html)
+  + [Python](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html)
+  + [Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SecretsManager.html)
+  + [Node\.js](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SecretsManager.html)
 + **CLI:** [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/delete-resource-policy.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/delete-resource-policy.html)
 
 **Example**  

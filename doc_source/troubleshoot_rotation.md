@@ -1,4 +1,4 @@
-# Troubleshooting AWS Secrets Manager Rotation of Secrets<a name="troubleshoot_rotation"></a>
+# Troubleshooting AWS Secrets Manager rotation of secrets<a name="troubleshoot_rotation"></a>
 
 Use the information here to help you diagnose and fix common errors that you might encounter when you're rotating Secrets Manager secrets\.
 
@@ -24,9 +24,7 @@ When the rotation function doesn't operate the way you expect, you should first 
 
 1. From the list of functions, choose the name of the Lambda function associated with your secret\.
 
-1. Choose the **Monitoring** tab\.
-
-1. In the **Invocation errors** section, choose **Jump to Logs**\.
+1. On the **Monitor** tab, choose **Logs**, and then choose **View logs in CloudWatch**\.
 
    The CloudWatch console opens and displays the logs for your function\.
 
@@ -63,7 +61,7 @@ This enables the rotation function to retrieve the credentials from the master s
 
 ## Rotation fails because the secret value is not formatted as expected by the rotation function\.<a name="tshoot-lambda-mismatched-secretvalue"></a>
 
-Rotation might also fail if you don't format the secret value as a JSON structure as expected by the rotation function\. The rotation function you use determines the format used\. For the details of what each rotation function requires for the secret value, see the **Expected SecretString Value** entry under the relevant rotation function at [AWS Templates You Can Use to Create Lambda Rotation Functions ](reference_available-rotation-templates.md)\.
+Rotation might also fail if you don't format the secret value as a JSON structure as expected by the rotation function\. The rotation function you use determines the format used\. For the details of what each rotation function requires for the secret value, see the **Expected SecretString Value** entry under the relevant rotation function at [AWS templates you can use to create Lambda rotation functions ](reference_available-rotation-templates.md)\.
 
 For example, if you use the MySQL Single User rotation function, the `SecretString` text structure must look like this:
 

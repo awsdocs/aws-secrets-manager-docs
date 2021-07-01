@@ -1,4 +1,4 @@
-# Rotating AWS Secrets Manager Secrets for One User with a Single Password<a name="rotating-secrets-one-user-one-password"></a>
+# Rotating AWS Secrets Manager secrets for one user with a single password<a name="rotating-secrets-one-user-one-password"></a>
 
 You can configure AWS Secrets Manager to automatically rotate the secret for a secured resource\. In this topic, we describe configuring rotation for a system that allows you to create a single user with a single password\. You can change the password for the user when needed\. This scenario provides simplicity, but doesn't provide the most highly available solution\. Clients can continue to access the secured resource while the password changes\. This can possibly result in some "access denied" situations\. 
 
@@ -6,7 +6,7 @@ The time lag that can occur between the change of the actual password and the ch
 
 A common scenario for services owned by someone other than the user accessing the service\. The owner of the service allows the customer create ***one*** user account—often with information such as the user email address as the user name, or at least as a uniqueness key\. The service typically allows the user to change the password as often as required\. But, the service doesn't allow the user to create additional users or to change the user name\.
 
-## How Rotation Uses Labels to Manage a Single User with Changing Passwords<a name="about-labels-rotating-one-user-one-password"></a>
+## How rotation uses labels to manage a single user with changing passwords<a name="about-labels-rotating-one-user-one-password"></a>
 
 The following explains this scenario in more detail:
 
@@ -22,7 +22,7 @@ The following explains this scenario in more detail:
 1. The next request from the custom application now receives the B version of the secret because B now has the `AWSCURRENT` label\. At this point, the customer application depends on the new version of the secret\.  
 ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/secretsmanager/latest/userguide/images/secret-rotate-1d.png)
 
-## Configuring Rotation to Change Passwords Only<a name="configure-rotating-one-user-one-password"></a>
+## Configuring rotation to change passwords only<a name="configure-rotating-one-user-one-password"></a>
 
 To configure a rotation mechanism for an authentication system that allows you to have only one user, follow the steps in this procedure:
 

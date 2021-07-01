@@ -1,4 +1,4 @@
-# Support and Feedback for AWS Secrets Manager<a name="support-and-feedback"></a>
+# Support and feedback for AWS Secrets Manager<a name="support-and-feedback"></a>
 
 We welcome your feedback\. You can send comments to [awssecretsmanager\-feedback@amazon\.com](mailto:awssecretsmanager-feedback@amazon.com)\. You also can post your feedback and questions in our [AWS Secrets Manager support forum](https://forums.aws.amazon.com/forum.jspa?forumID=296)\. For more information about the AWS Support forums, see [Forums Help](https://forums.aws.amazon.com/help.jspa)\.
 

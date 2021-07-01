@@ -1,23 +1,23 @@
-# Tutorial: Rotating a Secret for an AWS Database<a name="tutorials_db-rotate"></a>
+# Tutorial: Rotating a secret for an AWS database<a name="tutorials_db-rotate"></a>
 
 In this tutorial, you create a secret for an AWS database and configure the secret to rotate on a schedule\. You trigger one rotation manually, and then confirm that the new version of the secret continues to provide access\.
 
-**[Configuring a Test MySQL Database](#tut-db-rotate-step1)**  
+**[Configuring a test MySQL database](#tut-db-rotate-step1)**  
 In this step, create a test database in Amazon Relational Database Service \(Amazon RDS\)\. For this tutorial, the test database runs MySQL\.
 
-**[Step 2: Create Your Secret](#tut-db-rotate-step2)**  
+**[Step 2: Create your secret](#tut-db-rotate-step2)**  
 Next, use the Secrets Manager console to create your secret and populate the secret with the initial user name and password for your MySQL database\. Test the secret by using the returned credentials to sign in to the database\.
 
-**[Step 3: Validate Your Initial Secret](#tut-db-rotate-step3)**  
+**[Step 3: Validate your initial secret](#tut-db-rotate-step3)**  
 In Step 3, use your new secret to test the credentials and ensure you can use them to connect to your database\.
 
-**[Step 4: Configure Rotation for Your Secret](#tut-db-rotate-step4)**  
+**[Step 4: Configure rotation for your secret](#tut-db-rotate-step4)**  
 In Step 4, enable rotation for the secret and perform the initial rotation\.
 
-**[Step 5: Verify Successful Rotation](#tut-db-rotate-step5)**  
+**[Step 5: Verify successful rotation](#tut-db-rotate-step5)**  
 In this step, after the initial rotation completes, repeat the validation steps to show that the new credentials generated during rotation continue to allow you to access the database\.
 
-**[Step 6: Clean Up](#tut-db-rotate-step6)**  
+**[Step 6: Clean up](#tut-db-rotate-step6)**  
 In the final step, remove the Amazon RDS database instance and the secret to avoid incurring any unnecessary costs\.
 
 ## Prerequisites<a name="tut_db-rotate-prereqs"></a>
@@ -31,16 +31,16 @@ The database configured in this tutorial allows access to the public internet on
 **Important**  
 For rotation to work, your network environment must permit the Lambda rotation function to communicate with your database and the Secrets Manager service\. Because this tutorial configures your database with public internet access, Lambda automatically configures your rotation function to access the database through the public IP address\. If you block public internet access to your database instance, then you must configure the Lambda function to run in the same VPC as the database instance\. Then you must either [configure your VPC with a private Secrets Manager endpoint](rotation-network-rqmts.md), or [configure the VPC with public internet access by using a NAT gateway](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html), so that the Lambda rotation function can access the public Secrets Manager endpoint\.
 
-## Required Permissions<a name="tut_db-rotate-perms"></a>
+## Required permissions<a name="tut_db-rotate-perms"></a>
 
 To successfully run this tutorial, you must have all of the permissions associated with the [SecretsManagerReadWrite AWS managed policy](https://console.aws.amazon.com/iam/home?#/policies/arn:aws:iam::aws:policy/SecretsManagerReadWrite)\. You must also have permission to create an IAM role and attach a permission policy to the role\. You can grant either the [IAMFullAccess AWS managed policy](https://console.aws.amazon.com/iam/home?#/policies/arn:aws:iam::aws:policy/IAMFullAccess), or explicitly assign `iam:CreateRole` and `iam:AttachRolePolicy`\. 
 
 **Warning**  
 The `iam:CreateRole` and `iam:AttachRolePolicy` permit a user to grant themselves any permissions, so grant these policies only to trusted users in an account\.
 
-## Configuring a Test MySQL Database<a name="tut-db-rotate-step1"></a>
+## Configuring a test MySQL database<a name="tut-db-rotate-step1"></a>
 
-1. for this part of the tutorial, sign in to your account and configure a MySQL database in Amazon RDS\.
+1. For this part of the tutorial, sign in to your account and configure a MySQL database in Amazon RDS\.
 
 1. Perform the following steps:
 
@@ -48,12 +48,12 @@ The `iam:CreateRole` and `iam:AttachRolePolicy` permit a user to grant themselve
 
    1. From the **Dashboard**, scroll down to the **Create database** section, and choose **Create database**\.
 
-   1. Refer to the Amazon RDS tutorial, [Creating a MySQL DB Instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_GettingStarted.CreatingConnecting.MySQL.html), for the latest information on setting up an RDS database\.
+   1. Refer to the Amazon RDS tutorial, [Creating a MySQL DB instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_GettingStarted.CreatingConnecting.MySQL.html), for the latest information on setting up an RDS database\.
 
       Use the following information when creating your database:
       + DB instance identifier: **MyTestDatabaseInstance**\.
       + Master username: **adminuser**\.
-      + Master password: Type a secure initial password, and retype the password in the **Confirm password** box\. *Be sure to remember this password\.* You need it when you create your secret in Step 2\.
+      + Master password: Type a secure initial password, and retype the password in the **Confirm password**box\. *Be sure to remember this password\.* You need it when you create your secret in Step 2\.
 **Note**  
 Database creation may take up to 20 minutes before the DB instance becomes available\. 
 
@@ -80,7 +80,7 @@ Database creation may take up to 20 minutes before the DB instance becomes avail
 **Note**  
 To configure the tutorial correctly, use these settings at a minimum\. If you require a private VPC, then the Lambda function must be configured to run in that VPC\. Next, you must either configure your VPC with a [private Secrets Manager endpoint](rotation-network-rqmts.md) or configure the VPC with public internet access by using a [NAT gateway](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html)\. These configurations allow the Lambda rotation function to access the public Secrets Manager endpoint\.
 
-## Step 2: Create Your Secret<a name="tut-db-rotate-step2"></a>
+## Step 2: Create your secret<a name="tut-db-rotate-step2"></a>
 
 In this step, you create a secret in Secrets Manager, and populate the secret with your test details, which include database and the credentials of your master user\. 
 
@@ -110,7 +110,7 @@ In this step, you create a secret in Secrets Manager, and populate the secret wi
 
    Secrets Manager returns to the list of secrets, which now includes your new secret\.
 
-## Step 3: Validate Your Initial Secret<a name="tut-db-rotate-step3"></a>
+## Step 3: Validate your initial secret<a name="tut-db-rotate-step3"></a>
 
 Before you configure your secret to rotate automatically, you should verify you have the correct information in your secret and can connect to the database\. This tutorial describes how to install a GUI\-based application, **MySQL Workbench** to test the connection\. [Download](https://dev.mysql.com/downloads/workbench/) the client appropriate to your operating system\.
 
@@ -148,7 +148,7 @@ To test your database your database connection
 **Troubleshooting tip**  
 If the MySQLWorkbench client fails to connect to the database, you should check the security group attached to the VPC with the database\. The default rules in a security group enable all outbound traffic, but the rules block all inbound traffic except for the traffic you explicitly allow by defining a rule\. If you run your computer on the public internet then your security group must enable inbound traffic from the Internet to the TCP port you configured your database communication, typically port 3306\. If you configure MySQL to use a different TCP port, ensure you update the security rule to match\. 
 
-## Step 4: Configure Rotation for Your Secret<a name="tut-db-rotate-step4"></a>
+## Step 4: Configure rotation for your secret<a name="tut-db-rotate-step4"></a>
 
 After you validate the initial credentials in your secret, you can configure and start your first rotation\.
 
@@ -168,7 +168,7 @@ To configure secret rotation
 
 1. Stay on the console page with the **Rotation is being configured** message, until the message changes to **Your secret MyTestDatabaseMasterSecret has been successfully stored and secret rotation is enabled\.**
 
-## Step 5: Verify Successful Rotation<a name="tut-db-rotate-step5"></a>
+## Step 5: Verify successful rotation<a name="tut-db-rotate-step5"></a>
 
 After you rotate the secret, you can confirm the new credentials in the secret work to connect with your database\.
 
@@ -188,10 +188,10 @@ After you rotate the secret, you can confirm the new credentials in the secret w
 
    You can successfully access the database with the new password and validate that rotating secrets works\.
 
-## Step 6: Clean Up<a name="tut-db-rotate-step6"></a>
+## Step 6: Clean up<a name="tut-db-rotate-step6"></a>
 
 **Important**  
-If you intend to also perform the tutorial [Tutorial: Rotating a User Secret with a Master Secret](tutorials_db-rotate-master.md), don't perform these steps until you complete the tutorial\.
+If you intend to also perform the tutorial [Tutorial: Rotating a user secret with a master secret](tutorials_db-rotate-master.md), don't perform these steps until you complete the tutorial\.
 
 Because databases and secrets can incur charges on your AWS bill, you should remove the database instance and the secret you created in this tutorial after you finish experimenting with the tutorial\.
 

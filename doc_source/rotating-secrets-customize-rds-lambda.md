@@ -1,4 +1,4 @@
-# Customizing the Lambda Rotation Function Provided by Secrets Manager<a name="rotating-secrets-customize-rds-lambda"></a>
+# Customizing the Lambda rotation function provided by Secrets Manager<a name="rotating-secrets-customize-rds-lambda"></a>
 
 You can customize the Lambda rotation function to meet your organizational unique security requirements\. Such requirements might include:
 + Add additional tests on the new version of the secret\. You want to ensure the permissions associate correctly with the new credentials\.
@@ -56,10 +56,10 @@ Follow the steps on one of the following tabs:
 
 1. Choose the name of the Lambda function you identified to see the function details\.
 
-1.  In the **Function code** section, you can edit the source code of the function\. For more information about coding a Lambda function specifically for Secrets Manager, see [Overview of the Lambda Rotation Function](rotating-secrets-lambda-function-overview.md)\. For the [https://docs.aws.amazon.com/lambda/latest/dg/](https://docs.aws.amazon.com/lambda/latest/dg/)\. The provided Lambda functions support the Python 2\.7 environment\.
+1.  In the **Function code** section, you can edit the source code of the function\. For more information about coding a Lambda function specifically for Secrets Manager, see [Overview of the Lambda rotation function](rotating-secrets-lambda-function-overview.md)\. For the [https://docs.aws.amazon.com/lambda/latest/dg/](https://docs.aws.amazon.com/lambda/latest/dg/)\. The provided Lambda functions support the Python 2\.7 environment\.
 
 ------
 
 For more information about Lambda function options and coding techniques, see the [AWS Lambda Developer Guide](https://docs.aws.amazon.com/lambda/latest/dg/)\. 
 
-For more information about coding your own Secrets Manager rotation function, see [Understanding and Customizing Your Lambda Rotation Function](rotating-secrets-lambda-function-customizing.md)\.
+For more information about coding your own Secrets Manager rotation function, see [Understanding and customizing your Lambda rotation function](rotating-secrets-lambda-function-customizing.md)\.

@@ -7,7 +7,7 @@ You and AWS share the responsibility for security\. The [shared responsibility m
 + **Security in the cloud** – Your AWS service determines your responsibility\. You are also responsible for other factors including the sensitivity of your data, your company’s requirements, and applicable laws and regulations\. 
 
 **Topics**
-+ [Data Protection in AWS Secrets Manager](data-protection.md)
-+ [Infrastructure Security in AWS Secrets Manager](infrastructure-security.md)
++ [Data protection in AWS Secrets Manager](data-protection.md)
++ [Infrastructure security in AWS Secrets Manager](infrastructure-security.md)
 + [Resiliency in AWS Secrets Manager](disaster-recovery-resiliency.md)
-+ [Compliance Validation for AWS Secrets Manager](secretsmanager-compliance.md)
++ [Compliance validation for AWS Secrets Manager](secretsmanager-compliance.md)

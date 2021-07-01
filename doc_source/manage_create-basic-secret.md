@@ -1,8 +1,8 @@
-# Creating a Basic Secret<a name="manage_create-basic-secret"></a>
+# Creating a secret<a name="manage_create-basic-secret"></a>
 
-AWS Secrets Manager enables you to store basic secrets with a minimum of effort\. A basic secret consists of a minimum of metadata and a single encrypted secret value\. Secrets Manager stores the secret and automatically labels it with `AWSCURRENT`\.<a name="proc-create"></a>
+AWS Secrets Manager enables you to store secrets with a minimum of effort\. A secret consists of a minimum of metadata and a single encrypted secret value\. Secrets Manager stores the secret and automatically labels it with `AWSCURRENT`\.<a name="proc-create"></a>
 
-**Creating a basic secret**  
+**Creating a secret**  
 Follow the steps under one of the following tabs:
 
 ------
@@ -31,13 +31,13 @@ If you add a secret to the Systems Manager Parameter Store, you must add a forwa
 
 1. \(Optional\) In the **Tags** section, you can add one or more tags to your secret\. A tag consists of a key and a value you define\. Tags assist with managing your AWS resources\. You can create tags to associate resources with your organization's structure, such as Key="Department" and Value="Accounting"\. This can help with cost allocation and tracking\. You assign tags to group resources together by the application using them \(Key="AppName" and Value="HRDatabase"\)\. You create tags for almost any purpose\. Each resource, like a secret, can have several tags attached\. For more information, see [AWS Tagging Strategies](https://aws.amazon.com/answers/account-management/aws-tagging-strategies/) on the *AWS Answers* website\.
 **Important**  
-Do not store sensitive information about a secret in the tags\. Store sensitive information only in the secret value \(the `SecretString` or `SecretBinary` fields\) of the secret where encryption protects the information\.\.
+Do not store sensitive information about a secret in the tags\. Store sensitive information only in the secret value \(the `SecretString` or `SecretBinary` fields\) of the secret where encryption protects the information\.
 
 1. After you complete the **Name**, **Description**, and any **Tags**, choose **Next**\.
 
 1. \(Optional\) At this point, you can configure rotation for your secret\. Because you created a "basic" secret without rotation, leave the option as **Disable automatic rotation**, and then choose **Next**\.
 
-   For information about configuring rotation on new or existing secrets, see [Rotating Your AWS Secrets Manager Secrets](rotating-secrets.md)\.
+   For information about configuring rotation on new or existing secrets, see [Rotating your AWS Secrets Manager secrets](rotating-secrets.md)\.
 
 1. Review your settings, and then choose **Store secret** to save everything you entered as a new secret in Secrets Manager\.
 
@@ -66,9 +66,9 @@ Use this type of secret for an Amazon Redshift cluster\. You only specify the au
 1. Specify the connection details by typing the database server IP address, database name, and TCP port number\. 
 
 ------
-#### [ DocumentDB database ]<a name="DocDB"></a>
+#### [ Amazon DocumentDB database ]<a name="DocDB"></a>
 
-Use this type of secret for a DocumentDB database\. You only specify the authentication credentials because Secrets Manager determines other parameters by querying the database instance\.
+Use this type of secret for a Amazon DocumentDB database\. You only specify the authentication credentials because Secrets Manager determines other parameters by querying the database instance\.
 
 1. Type the user name and password to allow access to the database\. 
 
@@ -105,8 +105,14 @@ Secrets Manager can be configured for other databases or services and uses this 
 ------
 #### [ Using the AWS CLI or AWS SDK operations ]<a name="proc-create-api"></a>
 
-You use the following commands to create a basic secret in Secrets Manager:
-+ **API/SDK:** [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_CreateSecret.html](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_CreateSecret.html)
+You use the following commands to create a secret in Secrets Manager:
++ **API/SDK:** [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_CreateSecret.html](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_CreateSecret.html) 
+  + [C\+\+](http://sdk.amazonaws.com/cpp/api/LATEST/namespace_aws_1_1_secrets_manager.html)
+  + [Java](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/secretsmanager/package-summary.html)
+  + [PHP](https://docs.aws.amazon.com/aws-sdk-php/v3/api/namespace-Aws.SecretsManager.html)
+  + [Python](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html)
+  + [Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SecretsManager.html)
+  + [Node\.js](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SecretsManager.html)
 + **AWS CLI:** [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/create-secret.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/create-secret.html)
 
 **Example**  
@@ -122,7 +128,7 @@ $ aws secretsmanager create-secret --name production/MyAwesomeAppSecret --secret
 ```
 
 **Important**  
-You can create a basic secret using any desired format for `SecretString`\. For example, you could use a simple JSON key\-value pair, or , `{"username":"someuser", "password":"securepassword"}` However, if you want to enable rotation for this secret later, then you must use the specific structure expected by the rotation function used with this secret\. For the details of each required rotation function to work with the secret value, see the **Expected SecretString Value** entry under the relevant rotation function at [AWS Templates You Can Use to Create Lambda Rotation Functions ](reference_available-rotation-templates.md)\.
+You can create a secret using any desired format for `SecretString`\. For example, you could use a simple JSON key\-value pair, or , `{"username":"someuser", "password":"securepassword"}` However, if you want to enable rotation for this secret later, then you must use the specific structure expected by the rotation function used with this secret\. For the details of each required rotation function to work with the secret value, see the **Expected SecretString Value** entry under the relevant rotation function at [AWS templates you can use to create Lambda rotation functions ](reference_available-rotation-templates.md)\.
 
 Secrets Manager does not require The `ClientRequestToken` parameter because you use the AWS CLI, which automatically generates and supplies one for you\. When you use the default Secrets Manager CMK for the account, you don't need the `KmsKeyId` parameter \. When you use the Secrets Manager console and the `SecretString` , you can't use `SecretBinary`\. Secrets Manager reserves the `SecretType` for use by the console\.
 
