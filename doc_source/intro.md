@@ -8,7 +8,7 @@ Secrets Manager enables you to replace hardcoded credentials in your code, inclu
 
 For a list of terms and concepts you need to understand to make full use of Secrets Manager, see [Key Terms and Concepts for AWS Secrets Manager](terms-concepts.md)\.
 
-Typical users of Secrets Manager can have one or more of the following roles:
+Typical users of Secrets Manager will have one or more of the following roles:
 + Secrets Manager administrator – Administers the Secrets Manager service\. Grants permissions to individuals who can then perform the other roles listed here\.
 + Database or service administrator – Administers the database or service with secrets stored in Secrets Manager\. Determines and configures the rotation and expiration settings for their secrets\. 
 + Application developer – Creates the application, and then configures the application to request the appropriate credentials from Secrets Manager\.
