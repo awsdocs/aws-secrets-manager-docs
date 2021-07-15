@@ -11,7 +11,7 @@ For example, assume you have two secrets and three users, all in the same AWS ac
 
 Secrets Manager determines the following access:
 + Ana can access only Secret 2\. She doesn't have a policy attached to her user, but Secret 2 explicitly grants her access\.
-+ Bob can access both Secret 1 and Secret 2 because Bob has an IAM policy that allows access to all secrets in the account, and no explicit "deny" override access\.\.
++ Bob can access both Secret 1 and Secret 2 because Bob has an IAM policy that allows access to all secrets in the account, and no explicit "deny" override access\.
 + Carlos can't access Secret 1 or Secret 2 because Secrets Manager denies all actions in his IAM policy\. The explicit deny in Carlos' IAM policy overrides the explicit "allow" in the secret policy attached to Secret 2\.
 
 Secrets Manager adds all policy statements from either the secret or the identity that "allow" access\. Any explicit deny overrides any allow to the overlapping action and resource\.
