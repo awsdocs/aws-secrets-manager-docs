@@ -12,6 +12,9 @@ With ASCP, you can securely store and manage your secrets in Secrets Manager, as
 
 ## Prerequisites<a name="csi_prerequisites"></a>
 
+**Note**
+This CSI driver is not suitable for EKS Fargate.
+
 Before you can configure ASCP and Kubernetes, you must have the following items:
 + An AWS account
 + An AWS Identity and Access Management account with permissions to modify an Secrets Manager\.
