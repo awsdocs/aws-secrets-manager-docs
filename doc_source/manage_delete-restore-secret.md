@@ -179,7 +179,7 @@ You can use the following commands to deprecate a version of a secret stored in 
 
 You must identify the secret by the friendly name or ARN\. You also specify the staging labels you want to add, move, or remove\.
 
-You can specify `FromSecretVersionId` and `MoveToSecretId` in the following combinations:
+You can specify `RemoveFromVersionId` and `MoveToSecretId` in the following combinations:
 + `RemoveFromVersionId` only: This deletes staging labels completely from the specified version\. 
 + `MoveToVersionId` only: This adds the staging labels to the specified version\. If other versions have any of the staging labels already attached, Secrets Manager automatically removes the labels from those versions\.
 + `MoveToVersionId` and `RemoveFromVersionId`: These explicitly move a label\. The staging label must be present on the `RemoveFromVersionId` version of the secret, or an error occurs\.
