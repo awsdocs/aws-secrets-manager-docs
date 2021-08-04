@@ -34,7 +34,7 @@ The following explains this scenario in more detail:
 
 ## Configuring rotation between two users<a name="configure-rotating-two-users-only"></a>
 
-If you use your secret for one of the [supported Amazon RDS databases](intro.md#full-rotation-support), follow the procedures in [Enabling rotation for an Amazon RDS database secret](enable-rotation-rds.md)\.
+If you use your secret for one of the [supported Amazon RDS databases](intro.md#full-rotation-support), follow the procedures in [Rotating secrets for databases with built\-in rotation support](rotating-secrets-built-in.md)\.
 
 If instead you want to configure rotation for another service or database, create your Lambda rotation function and customize it using these instructions:
 

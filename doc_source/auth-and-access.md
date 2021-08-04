@@ -1,5 +1,9 @@
 # Authentication and access control for AWS Secrets Manager<a name="auth-and-access"></a>
 
+Secrets Manager uses AWS Identity and Access Management \(IAM\) to secure access to the secrets\. IAM provides the following:
++ **Authentication** – Verifies the identity of individuals requests\. Secrets Manager uses a sign\-in process with passwords, access keys, and multi\-factor authentication \(MFA\) tokens to prove the identify of the users\.
++ **Authorization** – Ensures only approved individuals can perform operations on AWS resources, such as secrets\. This enables you to grant write access to specific secrets to one user while granting read\-only permissions on different secrets to another user\.
+
 Access to AWS Secrets Manager requires AWS credentials\. Those credentials must contain permission to access the AWS resources you want to access, such as your Secrets Manager secrets\. The following sections provide details on how you can use AWS Identity and Access Management \(IAM\) policies to help secure access to your secrets and control who can access and administer them\.
 
 Access to secrets must be tightly controlled because the secrets contain extremely sensitive information \. By using the permissions capabilities of AWS and IAM permission policies, you can control which users or services have access to your secrets\. You can specify which API, CLI, and console operations the user can perform on the authorized secrets\. By taking advantage of the granular access features in the [IAM policy language](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements.html), you can choose to limit the user to only a subset of your secrets—or even to one individual secret—by using tags as filters\. You can also restrict a user to specific versions of a secret by using staging labels as filters\. 

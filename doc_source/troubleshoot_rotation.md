@@ -81,7 +81,7 @@ For example, if you use the MySQL Single User rotation function, the `SecretStri
 This can occur if there are network configuration issues that prevent the Lambda function from communicating with either your secured database/service or the Secrets Manager service endpoint, on the public Internet\. If you run your database or service in a VPC, then you use one of two options for configuration:
 + Make the database in the VPC publicly accessible with an Amazon EC2 Elastic IP address\.
 + Configure the Lambda rotation function to operate in the same VPC as the database/service\.
-+ If your VPC doesn't have access to the public Internet, for example, if you don't [configure the VPC with a NAT gateway](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html) for access, then you must [configure the VPC with a private service endpoint for Secrets Manager](rotation-network-rqmts.md) accessible from within the VPC\.
++ If your VPC doesn't have access to the public Internet, for example, if you don't [configure the VPC with a NAT gateway](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html) for access, then you must [configure the VPC with a private service endpoint for Secrets Manager](rotating-secrets.md#rotation-network-rqmts) accessible from within the VPC\.
 
 To determine if this type of configuration issue caused the rotation failure, perform the following steps\.
 

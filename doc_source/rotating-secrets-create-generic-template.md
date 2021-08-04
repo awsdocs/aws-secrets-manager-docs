@@ -96,7 +96,7 @@ If the database or service using your credentials resides in a VPC provided by A
 
    Open the AWS Lambda console at [https://console\.aws\.amazon\.com/lambda/](https://console.aws.amazon.com/lambda/)\.
 
-1. Customize the code to implement your chosen rotation scenario\. For details, see [Understanding and customizing your Lambda rotation function](rotating-secrets-lambda-function-customizing.md)\.
+1. Customize the code to implement your chosen rotation scenario\. For details, see [Overview of the Lambda rotation function](rotating-secrets-lambda-function-overview.md)\.
 
 1. Finally, you can apply the rotation configuration to your secret and perform the initial rotation\. Specify the number of days between successive rotations with the `--rotation-rules` parameter, and set `AutomaticallyAfterDays` to the desired number of days\.
 

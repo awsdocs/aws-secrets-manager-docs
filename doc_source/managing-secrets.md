@@ -9,3 +9,4 @@ This section describes how to create, update, retrieve, search, and delete secre
 + [Deleting and restoring a secret](manage_delete-restore-secret.md)
 + [Managing a resource\-based policy for a secret](manage_secret-policy.md)
 + [Creating and managing multi\-Region Secrets Manager secrets](create-manage-multi-region-secrets.md)
++ [Automating secret creation in AWS CloudFormation](integrating_cloudformation.md)

@@ -1,6 +1,6 @@
 # Rotating AWS Secrets Manager secrets for other databases or services<a name="rotating-secrets-other"></a>
 
-You can configure AWS Secrets Manager to automatically rotate the secret for a secured service or database\. Secrets Manager natively knows how to [rotate secrets for Amazon RDS databases](rotating-secrets-rds.md)\. However, Secrets Manager also enables you to rotate secrets for other databases or third\-party services\. Because each service or database can have a unique way of configuring its secrets, Secrets Manager uses a Lambda function that you must write to work with whatever database or service that you choose\. You customize the Lambda function to implement the service\-specific details of how to rotate a secret\.
+You can configure AWS Secrets Manager to automatically rotate the secret for a secured service or database\. Secrets Manager natively knows how to [rotate secrets for Amazon RDS databases](rotating-secrets-built-in.md)\. However, Secrets Manager also enables you to rotate secrets for other databases or third\-party services\. Because each service or database can have a unique way of configuring its secrets, Secrets Manager uses a Lambda function that you must write to work with whatever database or service that you choose\. You customize the Lambda function to implement the service\-specific details of how to rotate a secret\.
 
 When you enable rotation for a secret for another database or some other type of service, you must create and configure the Lambda function and write the code\.
 

@@ -6,7 +6,7 @@ Secrets Manager enables you to replace hardcoded credentials in your code, inclu
 
 ## Getting started with Secrets Manager<a name="intro-getting-started"></a>
 
-For a list of terms and concepts you need to understand to make full use of Secrets Manager, see [Key terms and concepts for AWS Secrets Manager](terms-concepts.md)\.
+For a list of terms and concepts you need to understand to make full use of Secrets Manager, see [Key terms and concepts for AWS Secrets Manager](getting-started.md#terms-concepts)\.
 
 Typical users of Secrets Manager have one or more of the following roles:
 + Secrets Manager administrator – Administers the Secrets Manager service\. Grants permissions to individuals who can then perform the other roles listed here\.
@@ -42,7 +42,7 @@ Secrets Manager enables you to replace stored credentials with a runtime call to
 
 Most of the time, your client requires access to the most recent version of the encrypted secret value\. When you query for the encrypted secret value, you can choose to provide only the secret name or Amazon Resource Name \(ARN\), without specifying any version information at all\. If you do this, Secrets Manager automatically returns the most recent version of the secret value\.
 
-However, other versions can exist at the same time\. Most systems support secrets more complicated than a simple password, such as full sets of credentials including the connection details, the user ID, and the password\. Secrets Manager allows you to store multiple sets of these credentials at the same time\. Secrets Manager stores each set in a different version of the secret\. During the secret rotation process, Secrets Manager tracks the older credentials, as well as the new credentials you want to start using, until the rotation completes\. It tracks these different versions by using *[staging labels](terms-concepts.md#term_staging-label)*\.
+However, other versions can exist at the same time\. Most systems support secrets more complicated than a simple password, such as full sets of credentials including the connection details, the user ID, and the password\. Secrets Manager allows you to store multiple sets of these credentials at the same time\. Secrets Manager stores each set in a different version of the secret\. During the secret rotation process, Secrets Manager tracks the older credentials, as well as the new credentials you want to start using, until the rotation completes\. It tracks these different versions by using *[staging labels](getting-started.md#term_staging-label)*\.
 
 ### Storing different types of secrets<a name="features_storing-secrets"></a>
 

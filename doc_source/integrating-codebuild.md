@@ -1,0 +1,5 @@
+# Storing AWS CodeBuild registry credentials with Secrets Manager<a name="integrating-codebuild"></a>
+
+AWS CodeBuild is a fully managed build service in the cloud\. CodeBuild compiles your source code, runs unit tests, and produces artifacts ready to deploy\. CodeBuild eliminates the need to provision, manage, and scale your own build servers\. It provides prepackaged build environments for popular programming languages and build tools such as Apache Maven, Gradle, and more\. You can also customize build environments in CodeBuild to use your own build tools\. CodeBuild scales automatically to meet peak build requests\.
+
+You can store your private registry credentials using Secrets Manager\. See [Private registry with AWS Secrets Manager sample for CodeBuild](https://docs.aws.amazon.com/codebuild/latest/userguide/sample-private-registry.html)\.

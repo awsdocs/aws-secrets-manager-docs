@@ -1,6 +1,8 @@
 # AWS managed policies available for use with AWS Secrets Manager<a name="reference_available-policies"></a>
 
-This section identifies the AWS managed policies you can use to help manage access to your secrets\. You can't modify or delete an AWS managed policy, but you can attach or detach them to entities in your account as needed\.
+AWS addresses many common use cases by providing standalone IAM policies created and administered by AWS\. These *managed policies* grant necessary permissions for common use cases so you can avoid investigating the necessary permissions\. For more information, see [AWS Managed Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-vs-inline.html#aws-managed-policies) in the *IAM User Guide*\.
+
+This section identifies the AWS managed policies you can use to help manage access to your secrets\. You can attach or detach an AWS managed policy to users in your account, but you can't modify or delete the policy\.
 
 
 ****  

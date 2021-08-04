@@ -62,4 +62,4 @@ Follow the steps on one of the following tabs:
 
 For more information about Lambda function options and coding techniques, see the [AWS Lambda Developer Guide](https://docs.aws.amazon.com/lambda/latest/dg/)\. 
 
-For more information about coding your own Secrets Manager rotation function, see [Understanding and customizing your Lambda rotation function](rotating-secrets-lambda-function-customizing.md)\.
+For more information about coding your own Secrets Manager rotation function, see [Overview of the Lambda rotation function](rotating-secrets-lambda-function-overview.md)\.

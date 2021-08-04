@@ -1,10 +1,13 @@
 # Monitoring the use of your AWS Secrets Manager secrets<a name="monitoring"></a>
 
+You can use CloudTrail and CloudWatch to montor activity related to your secrets\. CloudTrail captures API activity for your AWS resources by any AWS service and writes the activity to log files in your Amazon S3 buckets\. CloudWatch enables you to create rules to monitor those log files and trigger actions when activities of interest occur\. For example, a text message can alert you whenever someone creates a new secret, or when a secret rotates successfully\. You could also create an alert for when a client attempts to use a deprecated version of a secret instead of the current version\. This can help with troubleshooting\.
+
 As a best practice, you should monitor your secrets to ensure usage of your secrets and log any changes to them\. This helps you to ensure that any unexpected usage or change can be investigated, and unwanted changes can be rolled back\. AWS Secrets Manager currently supports two AWS services that enable you to monitor your organization and activity\.
 
 **Topics**
 + [Logging AWS Secrets Manager API calls with AWS CloudTrail](#monitoring_cloudtrail)
 + [Amazon CloudWatch Events](#monitoring_cloudwatch)
++ [Monitoring Secrets Manager secrets using AWS Config](integrating_awsconfig.md)
 
 ## Logging AWS Secrets Manager API calls with AWS CloudTrail<a name="monitoring_cloudtrail"></a>
 

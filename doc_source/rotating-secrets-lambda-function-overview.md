@@ -1,5 +1,7 @@
 # Overview of the Lambda rotation function<a name="rotating-secrets-lambda-function-overview"></a>
 
+Secrets Manager uses a Lambda function to rotate secrets\. The rotation function and the secret must be in the same AWS Region\.
+
 AWS Secrets Manager uses an AWS Lambda function to perform the actual rotation of a secret\. If you use your secret for one of the [supported Amazon RDS databases](intro.md#full-rotation-support), then Secrets Manager provides the Lambda function for you\. And Secrets Manager automatically customizes the function to meet the requirements of the specified database\. If you use your secret for another service, then you must provide the code for the Lambda function\.
 
 When a configured rotation schedule or a manual process triggers rotation , Secrets Manager calls the Lambda function several times, each time with different parameters\. The Lambda function performs several tasks throughout the process of rotating a secret\. The `Step` parameter in the request specifies the task performed for each request\.

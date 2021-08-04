@@ -24,7 +24,7 @@ Secrets Manager supports Amazon VPC [interface endpoints](https://docs.aws.amazo
 The VPC interface endpoint connects your VPC directly to Secrets Manager without a NAT device, VPN connection, or AWS Direct Connect connection\. The instances in your VPC don't require public IP addresses to communicate with Secrets Manager\.
 
 For your Lambda rotation function to find the private endpoint, perform one of the following steps:
-+ You can manually specify the VPC endpoint in [Secrets Manager API operations](https://docs.aws.amazon.com/secretsmanager/latest/apireference/) and [AWS CLI commands](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/index.html)\. For example, the following command uses the **endpoint\-url** parameter to specify a VPC endpoint in an AWS CLI command to Secrets Manager\.
++ You can manually specify the VPC endpoint in [Secrets Manager API operations](https://docs.aws.amazon.com/secretsmanager/latest/apireference/) and AWS CLI commands\. For example, the following command uses the **endpoint\-url** parameter to specify a VPC endpoint in an AWS CLI command to Secrets Manager\. For more information, see [AWS CLI command line options](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-options.html)\.
 
   ```
   $ aws secretsmanager list-secrets --endpoint-url https://vpce-1234a5678b9012c-12345678.secretsmanager.us-west-2.vpce.amazonaws.com
@@ -182,7 +182,7 @@ For example, the following sample secret policy allows a user to perform Secrets
 
 When a user sends a request to Secrets Manager, Secrets Manager compares the VPC endpoint ID in the request to the `aws:sourceVpce` condition key value in the policy\. If they don't match, Secrets Manager denies the request\.
 
-To use a policy like this one, replace the placeholder AWS account ID and VPC endpoint IDs with valid values for your account\.
+To use a policy like this one, on your **Secret details** page, choose **Edit permissions**\. Replace the placeholder AWS account ID and VPC endpoint IDs with valid values for your account\.
 
 ```
 {
@@ -217,7 +217,7 @@ You can also use the `aws:sourceVpc` condition key to restrict access to your se
 
 The following sample secret policy allows commands to create and manage secrets only when they come from `vpc-12345678`\. In addition, the policy allows operations that use access the secret encrypted value only when the requests come from `vpc-2b2b2b2b`\. You might use a policy like this one if you run an application in one VPC, but you use a second, isolated VPC for management functions\.
 
-To use a policy like this one, replace the placeholder AWS account ID and VPC endpoint IDs with valid values for your account\.
+To use a policy like this one, on your **Secret details** page, choose **Edit permissions**\. Replace the placeholder AWS account ID and VPC endpoint IDs with valid values for your account\.
 
 ```
 {
@@ -271,6 +271,8 @@ To use a policy like this one, replace the placeholder AWS account ID and VPC en
 ## Create an endpoint policy for your Secrets Manager VPC endpoint<a name="vpc-endpoint-policy"></a>
 
 Once you create a Secrets Manager VPC endpoint, you can attach an endpoint policy to control secrets\-related activity on the endpoint\. For example, you can attach an endpoint policy to define the performed Secrets Manager actions, actions performed on the secrets, the IAM users or roles performing these actions, and the accounts accessed through the VPC endpoint\. For additional information about endpoint policies, including a list of the AWS services supporting endpoint policies, see [Using VPC Endpoint policies](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-endpoints-access.html#vpc-endpoints-policies)\. 
+
+To add a policy to your secret, on the **Secret details** page, choose **Edit permissions**\.
 
 **Note**  
 AWS does not share VPC endpoints across AWS services\. If you use VPC endpoints for multiple AWS services, such as Secrets Manager and Amazon S3, you must attach a distinct policy to each endpoint\.

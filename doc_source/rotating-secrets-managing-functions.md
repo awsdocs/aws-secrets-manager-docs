@@ -32,7 +32,7 @@ You can grant all of these by attaching the following AWS managed policies:
 
 1. Navigate to the list of functions, and choose the name of the function to delete\.
 
-1. On the function details page, a banner at the top displays **This function belongs to the CloudFormation stack **aws\-serverless\-repository\-SecretsManager*<rotation\_template\_name>**<unique\_guid>***\. Visit the CloudFormation console to manage this stack\.**\. 
+1. On the function details page, a banner at the top displays **This function belongs to the CloudFormation stack `aws-serverless-repository-SecretsManager<rotation_template_name><unique_guid>`\. Visit the CloudFormation console to manage this stack\.**\. 
 
    Choose the **CloudFormation console** link to open the AWS CloudFormation console on the **Stack Details** page\.
 
@@ -40,7 +40,7 @@ You can grant all of these by attaching the following AWS managed policies:
 
    1. Expand the **Resources** section for the stack, and then choose the **Physical ID** value for the row, with the **Type** set to **AWS::IAM::Role**\. This opens the IAM console in a separate tab\.
 
-   1. Examine the rows with **Inline policy** as the **Policy type**\. You should see the AWSLambdaBasicExecutionRole AWS managed function attached\. You should also see one or two inline policies named **SecretsManager*<template name>*Policy0** and **SecretsManager*<template name>*Policy1**\. If you see any policies other than those, Secrets Manager did not create them as part of the stack\. The policies were added manually after the stack was created\. You must manually delete or detach them\. If you don't, the request to delete the stack in the following steps can fail\.
+   1. Examine the rows with **Inline policy** as the **Policy type**\. You should see the `AWSLambdaBasicExecutionRole` AWS managed function attached\. You should also see one or two inline policies named **SecretsManager*<template name>*Policy0** and **SecretsManager*<template name>*Policy1**\. If you see any policies other than those, Secrets Manager did not create them as part of the stack\. The policies were added manually after the stack was created\. You must manually delete or detach them\. If you don't, the request to delete the stack in the following steps can fail\.
 
    1. Return to the **Stack Details** page of the AWS CloudFormation console\.
 

@@ -1,24 +1,21 @@
 # Automating secret creation in AWS CloudFormation<a name="integrating_cloudformation"></a>
 
-By using an AWS CloudFormation template, you can automate creating secrets for database or service resources in your AWS cloud infrastructure\. 
+You can use AWS CloudFormation to create and reference secrets from within your AWS CloudFormation stack template\. You can create a secret and then reference it from another part of the template\. For example, you can retrieve the user name and password from the new secret and then use that to define the user name and password for a new database\. You can create and attach resource\-based policies to a secret\. You can also configure rotation by defining a Lambda function in your template and associating the function with your new secret as its rotation Lambda function\. 
 
-You can use AWS CloudFormation to automate the creation of your cloud infrastructure\. You create a template in either JSON or YAML to define the resources you need for your project\. AWS CloudFormation then processes the template and builds the defined resources\. This enables you to easily recreate a new copy of your infrastructure whenever you need it\. For example, you can duplicate your test infrastructure to create the public version\. You can also easily share the infrastructure as a simple text file, which enables others to replicate the resources without manual intervention\.
+You create an AWS CloudFormation template in either JSON or YAML\. AWS CloudFormation processes the template and builds the resources that are defined in the template\. You can use templates to create a new copy of your infrastructure whenever you need it\. For example, you can duplicate your test infrastructure to create the public version\. You can also share the infrastructure as a simple text file, so other people can replicate the resources\.
 
-Secrets Manager provides the following resource types to enable you to create secrets as part of an AWS CloudFormation template\. For details about configuring each in your AWS CloudFormation template, choose the resource type name for a link to the *AWS CloudFormation User Guide*\.
-+ **[ AWS::SecretsManager::Secret ](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-secretsmanager-secret.html)** – Creates a secret and stores it in Secrets Manager\. You can specify a password or let Secrets Manager generate one for you\. You may also create an empty secret and update it later using the parameter `SecretString.` 
-+ **[ AWS::SecretsManager::ResourcePolicy ](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-secretsmanager-resourcepolicy.html)** – Creates a resource\-based policy and attaches it to the specified secret\. A resource\-based policy controls who can perform actions on the secret\.
+Secrets Manager provides the following resource types that you can use to create secrets in an AWS CloudFormation template:
++ **[ AWS::SecretsManager::Secret ](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-secretsmanager-secret.html)** – Creates a secret and stores it in Secrets Manager\. You can specify a password or Secrets Manager can generate one for you\. You can also create an empty secret and then update it later using the parameter `SecretString.` 
++ **[ AWS::SecretsManager::ResourcePolicy ](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-secretsmanager-resourcepolicy.html)** – Creates a resource\-based policy and attaches it to the secret\. A resource\-based policy controls who can perform actions on the secret\.
 + **[ AWS::SecretsManager::RotationSchedule ](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-secretsmanager-rotationschedule.html)** – Configures a secret to perform automatic periodic rotation using the specified Lambda rotation function\.
-+ **[ AWS::SecretsManager::SecretTargetAttachment ](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-secretsmanager-secrettargetattachment.html)** – After you create a secret and then reference it to access the credentials when you create a service or database, this resource type goes back and finishes the configuration of the secret\. Secrets Manager configures the secret with the details about the service or database required for rotation to work\. For example, for an Amazon RDS DB instance, Secrets Manager adds the connection details and database engine type as entries in the `SecureString` property of the secret\.
++ **[ AWS::SecretsManager::SecretTargetAttachment ](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-secretsmanager-secrettargetattachment.html)** – Configures the secret with the details about the service or database that Secrets Manager needs to rotate the secret\. For example, for an Amazon RDS DB instance, Secrets Manager adds the connection details and database engine type as entries in the `SecureString` property of the secret\.
 
 ## Examples<a name="integrating_cloudformation_examples"></a>
 
-The following example templates create a secret and an Amazon RDS MySQL DB instance using the credentials in the secret as the master user and password\. The secret has a resource\-based policy attached that specifies access to the secret\. The template also creates a Lambda rotation function and configures the secret to automatically rotate every 30 days\.
+The following example templates create a secret and an Amazon RDS MySQL DB instance using the credentials in the secret as the user and password\. The secret has a resource\-based policy attached that defines who can access the secret\. The template also creates a Lambda rotation function and configures the secret to automatically rotate every 30 days\.
 
 **Note**  
 The [JSON specification](https://json.org/) doesn't support comments\. See the [YAML](http://yaml.org/spec/1.2/spec.html) version later on this page for comments\.
-
-**Note**  
-If deploying a Aurora PostgreSQL database, you must create a username other than **admin**\. **admin** is a reserved keyword and you cannot create the database with that username\.
 
 ### JSON<a name="integrating_cloudformation_examples-1.json"></a>
 

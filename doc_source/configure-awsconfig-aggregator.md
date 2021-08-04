@@ -3,7 +3,7 @@
 You configure AWS Config Multi\-Account Multi\-Region Data Aggregator to review configurations of your secrets across all accounts and regions in your organization, and then review your secret configurations and compare to secrets management best practices\. 
 
 **Note**  
-You must enable AWS Config and the AWS Config managed rules specific to secrets across all accounts and regions before you create an aggregator\. You can use [ CloudFormation StackSets](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-concepts.html) to enable AWS Config and provision rules across all accounts and regions [here](https://docs.aws.amazon.com/blogs/aws/use-cloudformation-stacksets-to-provision-resources-across-multiple-aws-accounts-and-regions/)\.  
+You must enable AWS Config and the AWS Config managed rules specific to secrets across all accounts and regions before you create an aggregator\. For more information, see [Use CloudFormation StackSets to provision resources across multiple AWS accounts and Regions](http://aws.amazon.com/blogs/aws/use-cloudformation-stacksets-to-provision-resources-across-multiple-aws-accounts-and-regions)\.  
 For more information about AWS Config Aggregator, see [Multi\-Account Multi\-Region Data Aggregation](https://docs.aws.amazon.com/config/latest/developerguide/aggregate-data.html) in the AWS Config Developer Guide\.
 
 You create an Aggregator from your organization's master account or from any member account in your organization\. Use the following steps to create an AWS Config Aggregator:

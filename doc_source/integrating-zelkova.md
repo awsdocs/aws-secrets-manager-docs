@@ -1,0 +1,5 @@
+# Integrating Zelkova with Secrets Manager resource policies<a name="integrating-zelkova"></a>
+
+Zelkova uses automated reasoning to analyze policies and the future consequences of policies\. This includes [AWS Identity and Access Management \(IAM\) policies](https://aws.amazon.com/iam/), [Amazon Simple Storage Service \(Amazon S3\)](https://aws.amazon.com/s3/) policies, Secrets Manager resource policies, and other resource policies\. These policies dictate who can \(or can’t\) perform actions on which resources\. Because Zelkova uses automated reasoning, you no longer have to think about what questions you need to ask about your policies\. Using fancy math, as mentioned above, Zelkova automatically derives the questions and answers you should ask about your policies, and improves your confidence in your security configuration\(s\)\.
+
+For more information about Zelkova, see [ How AWS uses automated reasoning to help you achieve security at scale](https://aws.amazon.com/blogs/security/protect-sensitive-data-in-the-cloud-with-automated-reasoning-zelkova/) on the AWS Security Blog\.

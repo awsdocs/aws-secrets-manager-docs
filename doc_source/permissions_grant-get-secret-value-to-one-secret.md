@@ -4,7 +4,7 @@ When you write an application to use Secrets Manager to retrieve and use a secre
 
 Open the IAM console at [https://console\.aws\.amazon\.com/iam/](https://console.aws.amazon.com/iam/)\.
 
-Choose **Create Policy** and add the following code:
+Choose **Create Policy** and add the following code\. You can find the ARN for your secret in the Secrets Manager console on the **Secret details** page under **Secret ARN**\.
 
 ```
 {

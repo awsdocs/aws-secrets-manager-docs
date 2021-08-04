@@ -37,7 +37,6 @@ You should understand that an *implicit* deny can be overridden with an explicit
 Policy A and Policy B can be of any type: an IAM identity\-based policy attached to a user or role, or a resource\-based policy attached to the secret\. You can include the effect of additional policies by taking the effective permission of the first two policies \(the results\) and treating that like a new Policy A\. Then add the results of the third policy as Policy B, and repeat this for each additional policy that applies\.
 
 **Topics**
-+ [AWS managed policies](combining-identity-resource-policies.md)
 + [Specifying policy statement elements](auth-and-access_policy-elements.md)
 + [Identity\-based policies](auth-and-access_iam-policies.md)
 + [Resource\-based policies](auth-and-access_resource-policies.md)

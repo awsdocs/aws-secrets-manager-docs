@@ -8,6 +8,7 @@ You and AWS share the responsibility for security\. The [shared responsibility m
 
 **Topics**
 + [Data protection in AWS Secrets Manager](data-protection.md)
++ [Encrypting and decrypting secrets](security-encryption.md)
 + [Infrastructure security in AWS Secrets Manager](infrastructure-security.md)
 + [Resiliency in AWS Secrets Manager](disaster-recovery-resiliency.md)
 + [Compliance validation for AWS Secrets Manager](secretsmanager-compliance.md)

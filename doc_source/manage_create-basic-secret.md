@@ -1,137 +1,100 @@
 # Creating a secret<a name="manage_create-basic-secret"></a>
 
-AWS Secrets Manager enables you to store secrets with a minimum of effort\. A secret consists of a minimum of metadata and a single encrypted secret value\. Secrets Manager stores the secret and automatically labels it with `AWSCURRENT`\.<a name="proc-create"></a>
+A *secret* is a set of credentials, such as a user name and password, that you store in an encrypted form in Secrets Manager\. The secret also includes the connection information to access a database or other service, which Secrets Manager doesn't encrypt\.
 
-**Creating a secret**  
-Follow the steps under one of the following tabs:
+You control access to the secret with IAM permission policies, which means that only authorized users can access or modify the secret\. Applications which access the database or other service use an IAM user or role, so you grant permission to that user or role to access the secret\. You can do this by resource or by identity:
++ You can attach a resource\-based policy to the secret and then in the policy, list the users or roles that have access\. For more information, see [Resource\-based policies](auth-and-access_resource-based-policies.md)\.
++ You can attach an identity\-based policy to a user or role, and then in the policy, list the secrets that the identity can access\. For more information, see [Identity\-based policies](auth-and-access_identity-based-policies.md)\.<a name="proc-create"></a><a name="rds-creds"></a><a name="redshift-creds"></a><a name="DocDB"></a><a name="nonrds-creds"></a><a name="other-creds"></a><a name="manage_create-basic-secret_console"></a><a name="manage_create-basic-secret_console.title"></a>
 
-------
-#### [ Using the Secrets Manager console ]<a name="proc-create-console"></a>
+To create a secret, you need the permissions granted by the **SecretsManagerReadWrite** AWS managed policy\. For more information, see [Managed policies](reference_available-policies.md)\.
 
-**Minimum permissions**  
-To create a secret in the console, you must have these permissions:  
-The permissions granted by the **SecretsManagerReadWrite** AWS managed policy\.
-The permissions granted by the **IAMFullAccess** AWS managed policy – required only if you enable rotation for the secret\.
-`kms:CreateKey` – required only if you want Secrets Manager to create a custom AWS KMS customer master key \(CMK\)\. 
-`kms:Encrypt` – required only if you use a custom AWS KMS key to encrypt your secret instead of the default Secrets Manager CMK for your account\. You don't need this permission to use the account default AWS managed CMK for Secrets Manager\.
-`kms:Decrypt` – required only if you use a custom AWS KMS key to encrypt your secret instead of the default Secrets Manager CMK for your account\. You don't need this permission to use the account default AWS managed CMK for Secrets Manager\.
-`kms:GenerateDataKey` – required only if you use a custom AWS KMS key to encrypt your secret instead of the default Secrets Manager CMK for your account\. You don't need this permission to use the account default AWS managed CMK for Secrets Manager\.
+**To create a secret \(console\)**
 
-1. Sign in to the AWS Secrets Manager console at [https://console\.aws\.amazon\.com/secretsmanager/](https://console.aws.amazon.com/secretsmanager/)\.
+1. Open the Secrets Manager console at [https://console\.aws\.amazon\.com/secretsmanager/](https://console.aws.amazon.com/secretsmanager/)\.
 
 1. Choose **Store a new secret**\.
 
-1. In the **Select secret type** section, specify the type of secret you want to create by choosing one of the following options\. Then supply the required information\.
+1. On the **Select secret type **page, do the following:
 
-1. For **Secret name**, type an optional path and name, such as **production/MyAwesomeAppSecret** or **development/TestSecret**\. Notice that the use of the slash character enables you to structure your secrets into a hierarchy, such as grouping by the deployment environment, which you might find useful for organizing and managing your secrets at scale\. You can optionally add a description to help you remember the purpose of this secret\.
+   1. For **Select secret type**, do one of the following:
+      + To store database credentials, choose **Amazon RDS**, **Amazon DocumentDB**, **Amazon Redshift**, or **Other database**, and then enter the credentials you want to store\.
+      + To store non\-database credentials or other information, choose **Other type of secrets**, and then in **Specify the key/value pairs to be stored in this secret**, do one of the following:
+        + In **Key/value pairs**, enter the secret you want to store in **Key** and **Value** pairs\. You can add as many pairs as you need\. For example, you can specify **Key** **Username**, and then for **Value** enter the user name\. Add a second **Key** **Password**, and then for **Value** enter the password\. You can add pairs for **Database name**, **Server address**, **TCP port**, and so on\. 
+        + On the **Plaintext** tab, enter your secret in any format\. 
 
-   The secret name must be ASCII letters, digits, or any of the following characters: /\_\+=\.@\-
-**Note**  
-If you add a secret to the Systems Manager Parameter Store, you must add a forward slash to the directory structure\. For more information, see AWS Systems Manager documentation on [Organizing Parameters into Hierarchies](https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-su-organize.html)\.
+   1. For **Encryption key**, choose the AWS KMS key that Secrets Manager uses to encrypt the protected text in the secret:
+      + Choose **DefaultEncryptionKey** to use the AWS managed key for Secrets Manager\. There is no cost for using this key\. 
+      + Choose another KMS key from the list\. You must have the following permissions: `kms:Encrypt`, `kms:Decrypt`, and `kms:GenerateDataKey`\.
+      + Choose **Add new key** to go to the AWS KMS console to create a customer managed key\. You must have `kms:CreateKey` permission\. You will be charged for KMS keys that you create\. 
 
-1. \(Optional\) In the **Tags** section, you can add one or more tags to your secret\. A tag consists of a key and a value you define\. Tags assist with managing your AWS resources\. You can create tags to associate resources with your organization's structure, such as Key="Department" and Value="Accounting"\. This can help with cost allocation and tracking\. You assign tags to group resources together by the application using them \(Key="AppName" and Value="HRDatabase"\)\. You create tags for almost any purpose\. Each resource, like a secret, can have several tags attached\. For more information, see [AWS Tagging Strategies](https://aws.amazon.com/answers/account-management/aws-tagging-strategies/) on the *AWS Answers* website\.
-**Important**  
-Do not store sensitive information about a secret in the tags\. Store sensitive information only in the secret value \(the `SecretString` or `SecretBinary` fields\) of the secret where encryption protects the information\.
+   1. If you chose database credentials in step 3a, for **Database**, enter your database connection information\.
 
-1. After you complete the **Name**, **Description**, and any **Tags**, choose **Next**\.
+   1. Choose **Next**\.
 
-1. \(Optional\) At this point, you can configure rotation for your secret\. Because you created a "basic" secret without rotation, leave the option as **Disable automatic rotation**, and then choose **Next**\.
+1. On the **Secret name and description** page, do the following:
 
-   For information about configuring rotation on new or existing secrets, see [Rotating your AWS Secrets Manager secrets](rotating-secrets.md)\.
+   1. For **Secret name**, enter a name for your secret, for example **MyAppSecret** or **development/TestSecret**\. Use slashes to create a hierarchy for your secrets\. 
 
-1. Review your settings, and then choose **Store secret** to save everything you entered as a new secret in Secrets Manager\.
+   1. \(Optional\) For **Description**, enter information to help you remember the purpose of this secret\.
 
-------
-#### [ Amazon RDS ]<a name="rds-creds"></a>
+   1. \(Optional\) In the **Tags** section, add tags to your secret\. For tagging strategies, see [Tag your secrets](best-practice_tagging.md)\. Don't store sensitive information in tags because they aren't encrypted\.
 
-Use this type of secret for one of the [supported database services](intro.md#full-rotation-support) Secrets Manager provides full rotation support with a preconfigured Lambda rotation function\. You specify only the authentication credentials because Secrets Manager determines other parameters by querying the database instance\.
+   1. \(Optional\) In **Resource permissions**, to add a resource policy to your secret, choose **Edit permissions**\. For more information, see [Resource\-based policies](auth-and-access_resource-based-policies.md)\.
 
-1. Type the user name and password to allow access to the database\. Choose a user with only the permissions required by the customer accessing this secret\.
+   1. \(Optional\) In **Replicate secret**, to replicate your secret to another AWS Region, choose **Replicate secret to other Regions**\. For more information, see [Multi\-Region secrets](create-manage-multi-region-secrets.md)\.
 
-1. Choose the AWS KMS encryption key you want to use to encrypt the protected text in the secret\. If you don't choose one, Secrets Manager checks for a default key for the account, and uses the default key if it exists\. If a default key does not exist, Secrets Manager creates one for you automatically\. You can also choose **Add new key** to create a custom CMK specifically for this secret\. To create your own AWS KMS CMK, you must have permission to create CMKs in your account\. 
+   1. Choose **Next**\.
 
-1. Choose the database instance from the list\. Secrets Manager retrieves the connection details about the database by querying the chosen instance\.
+1. \(Optional\) On the **Configure automatic rotation** page, you can turn on automatic rotation\. You can also keep rotation off for now and then turn it on later\. For more information, see [Rotating secrets](rotating-secrets.md)\. Choose **Next**\.
 
-------
-#### [ Amazon Redshift ]<a name="redshift-creds"></a>
+1. On the **Review** page, review your secret details, and then choose **Store**\.
 
-Use this type of secret for an Amazon Redshift cluster\. You only specify the authentication credentials because Secrets Manager determines other parameters by querying the database instance\.
+## AWS CLI<a name="proc-create-api"></a>
 
-1. Type the user name and password to allow access to the database\. 
+To create a secret by using the AWS CLI, you first create a JSON file or binary file that contains your secret\. Then you use the [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/create-secret.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/create-secret.html) operation\.
 
-1. Choose the AWS KMS encryption key you want to use to encrypt the protected text in the secret\. If you don't choose one, Secrets Manager checks for a default key for the account, and uses the default key if it exists\. If a default key does not exist, Secrets Manager creates one for you automatically\. You can also choose **Add new key** to create a custom CMK specifically for this secret\. To create your own AWS KMS CMK, you must have permissions to create CMKs in your account\. 
+If you want Secrets Manager to rotate the secret, your secret must be in the format described in [Rotation function templates](reference_available-rotation-templates.md)\. Otherwise, you can store your secret in any format\.
 
-1. Choose the correct database engine\. 
+**To create a secret that uses the AWS managed key for Secrets Manager**
 
-1. Specify the connection details by typing the database server IP address, database name, and TCP port number\. 
+1. Create your secret in a file, for example a JSON file named **mycreds\.json**\.
 
-------
-#### [ Amazon DocumentDB database ]<a name="DocDB"></a>
+   ```
+   {
+         "username": "saanvi",
+         "password": "aDM4N3*!8TT"
+   }
+   ```
 
-Use this type of secret for a Amazon DocumentDB database\. You only specify the authentication credentials because Secrets Manager determines other parameters by querying the database instance\.
+1. In the AWS CLI, use the following command\.
 
-1. Type the user name and password to allow access to the database\. 
+   ```
+   $ aws secretsmanager create-secret --name production/MyAwesomeAppSecret --secret-string file://mycreds.json
+   ```
 
-1. Choose the AWS KMS encryption key you want to use to encrypt the protected text in the secret\. If you don't choose one, Secrets Manager checks for a default key for the account, and uses it if it exists\. If a default key doesn't exist, Secrets Manager creates one for you automatically\. You can also choose **Add new key** to create a custom CMK specifically for this secret\. To create your own AWS KMS CMK, you must have permissions to create CMKs in your account\. 
+   The following shows the output\.
 
-1. Choose the correct database engine\. 
+   ```
+   {
+       "SecretARN": "arn:aws:secretsmanager:region:accountid:secret:production/MyAwesomeAppSecret-AbCdEf",
+       "SecretName": "production/MyAwesomeAppSecret",
+       "SecretVersionId": "EXAMPLE1-90ab-cdef-fedc-ba987EXAMPLE"
+   }
+   ```
 
-1. Specify the connection details by typing the database server IP address, database name, and TCP port number\.
+**To create a secret that uses a customer managed key**
++ In your AWS CLI command, include the [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_CreateSecret.html#SecretsManager-CreateSecret-request-KmsKeyId](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_CreateSecret.html#SecretsManager-CreateSecret-request-KmsKeyId) parameter, as shown in the following example\.
 
-------
-#### [ Other databases ]<a name="nonrds-creds"></a>
+  ```
+  aws secretsmanager create-secret --name production/MyAwesomeAppSecret --secret-string file://mycreds.json --KmsKeyId MyKMSKey
+  ```
 
-Secrets Manager supports other types of databases and uses this secret for those types\. However, you must provide additional information about the database\. To rotate this secret, you must write a custom Lambda rotation function to parse the secret and interact with the service to rotate the secret \. 
+## AWS SDK<a name="manage_create-basic-secret_SDK"></a>
 
-1. Type the user name and password to allow access to the database\.
-
-1. Choose the AWS KMS encryption key you want to use to encrypt the protected text in the secret\. If you don't choose one, Secrets Manager checks for a default key for the account, and uses it if it exists\. If a default key doesn't exist, Secrets Manager creates one for you automatically\. You can also choose **Add new key** to create a custom CMK specifically for this secret\. To create your own AWS KMS CMK, you must have permissions to create CMKs in your account\.
-
-1. Choose the type of database engine to run your database\.
-
-1. Specify the connection details by typing the database server IP address, database name, and TCP port number\.
-
-------
-#### [ Other type of secret ]<a name="other-creds"></a>
-
-Secrets Manager can be configured for other databases or services and uses this secret for them\. You must supply the structure and details of your secret\. To rotate this secret, you must write a custom Lambda rotation function parse the secret and interact with the service to rotate the secret on your behalf\. 
-
-1. Specify the details of your custom secret as **Key** and **Value** pairs\. For example, you can specify a key of UserName, and then supply the appropriate user name as the value\. Add a second key with the name of Password and the password text as the value\. You could also add entries for `Database name`, `Server address`, `TCP port`, and so on\. You can add as many pairs as you need to store the information you require\.
-
-   Alternatively, you can choose the **Plaintext** tab and enter the secret value in any format\. 
-
-1. Choose the AWS KMS encryption key you want to use to encrypt the protected text in the secret\. If you don't choose one, Secrets Manager checks for a default key in the account, and uses it if it exists\. If a default key doesn't exist, Secrets Manager creates one for you automatically\. You can also choose **Add new key** to create a custom CMK specifically for this secret\. To create your own AWS KMS CMK, you must have permissions to create CMKs in your account\.
-
-------
-#### [ Using the AWS CLI or AWS SDK operations ]<a name="proc-create-api"></a>
-
-You use the following commands to create a secret in Secrets Manager:
-+ **API/SDK:** [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_CreateSecret.html](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_CreateSecret.html) 
-  + [C\+\+](http://sdk.amazonaws.com/cpp/api/LATEST/namespace_aws_1_1_secrets_manager.html)
-  + [Java](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/secretsmanager/package-summary.html)
-  + [PHP](https://docs.aws.amazon.com/aws-sdk-php/v3/api/namespace-Aws.SecretsManager.html)
-  + [Python](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html)
-  + [Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SecretsManager.html)
-  + [Node\.js](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SecretsManager.html)
-+ **AWS CLI:** [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/create-secret.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/create-secret.html)
-
-**Example**  
-An example of an AWS CLI command to perform the equivalent of the console\-based secret configuration\. This command assumes you've placed your secret, such as this example JSON text structure `{"username":"anika","password":"aDM4N3*!8TT"}`, in a file named `mycreds.json`\.  
-
-```
-$ aws secretsmanager create-secret --name production/MyAwesomeAppSecret --secret-string file://mycreds.json
-{
-    "SecretARN": "arn:aws:secretsmanager:region:accountid:secret:production/MyAwesomeAppSecret-AbCdEf",
-    "SecretName": "production/MyAwesomeAppSecret",
-    "SecretVersionId": "EXAMPLE1-90ab-cdef-fedc-ba987EXAMPLE"
-}
-```
-
-**Important**  
-You can create a secret using any desired format for `SecretString`\. For example, you could use a simple JSON key\-value pair, or , `{"username":"someuser", "password":"securepassword"}` However, if you want to enable rotation for this secret later, then you must use the specific structure expected by the rotation function used with this secret\. For the details of each required rotation function to work with the secret value, see the **Expected SecretString Value** entry under the relevant rotation function at [AWS templates you can use to create Lambda rotation functions ](reference_available-rotation-templates.md)\.
-
-Secrets Manager does not require The `ClientRequestToken` parameter because you use the AWS CLI, which automatically generates and supplies one for you\. When you use the default Secrets Manager CMK for the account, you don't need the `KmsKeyId` parameter \. When you use the Secrets Manager console and the `SecretString` , you can't use `SecretBinary`\. Secrets Manager reserves the `SecretType` for use by the console\.
-
-In a working environment, where your customers use an application that uses the secret to access a database, you might still need to grant permissions to the IAM user or role the application uses to access the secret\. You can do this by attaching a resource\-based policy directly to the secret, and listing the user or role in the `Principal` element\. Or you can attach a policy to the user or role that identifies the secret in the `Resource` element\.
-
-------
+To create a secret by using one of the AWS SDKs, use the [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_CreateSecret.html](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_CreateSecret.html) action\. For more information, see:
++ [C\+\+](http://sdk.amazonaws.com/cpp/api/LATEST/namespace_aws_1_1_secrets_manager.html)
++ [Java](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/secretsmanager/package-summary.html)
++ [PHP](https://docs.aws.amazon.com/aws-sdk-php/v3/api/namespace-Aws.SecretsManager.html)
++ [Python](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html)
++ [Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SecretsManager.html)
++ [Node\.js](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SecretsManager.html)
