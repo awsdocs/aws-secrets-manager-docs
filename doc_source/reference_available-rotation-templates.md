@@ -23,6 +23,8 @@ Each of the following templates creates a Lambda rotation function for a differe
 + [MongoDB master user](#sar-template-mongodb-multiuser)
 + [Amazon Redshift single user](#sar-template-redshift-singleuser)
 + [Amazon Redshift primary user](#sar-template-redshift-multiuser)
++ [Amazon CloudFront API Key header injection](#sar-template-cloudfront-apikey-header-injection)
++ [Amazon ALB API Key header check](#sar-template-alb-apikey-header-check)
 + [Generic rotation function template](#sar-template-generic)
 
 ## Templates for Amazon RDS databases<a name="RDS_rotation_templates"></a>
@@ -293,6 +295,38 @@ arn:aws:serverlessrepo:us-east-1:123456789012:applications/SecretsManagerRDSMySQ
 +  [https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerRedshiftRotationMultiUser/lambda_function.py](https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerRedshiftRotationMultiUser/lambda_function.py)
 
 ## Templates for other services<a name="OTHER_rotation_templates"></a>
+
+### Amazon CloudFront API Key header injection<a name="sar-template-cloudfront-apikey-header-injection"></a>
++ **Name:** SecretsManagerCloudFront
++ **Supported service:** CloudFront\. This Lambda function will add a header to to requests from CloudFront to the backend origin service\.
++ **Rotation strategy:** A secret contains a json string of 3 active key values\. The Lambda Function will pop the oldest key, push a new key, then update a CloudFront distribution to match\.
++ **Expected `SecretString` structure:** 
+
+  ```
+  {
+    "key1": "<required:string>",
+    "key2": "<required:string>",
+    "key3": "<required:string>",
+  }
+  ```
+
++ **Source code:** [https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerCloudFront/](https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerCloudFront/)
+
+### Amazon ALB API Key header check<a name="sar-template-alb-apikey-header-check"></a>
++ **Name:** SecretsManagerAlb
++ **Supported service:** Application Load Balancer\. This Lambda function will update the ALB Listener Rules to look for a static API key header\. Unless the header is found, the request will be returned an HTTP403 Access Denied response\.
++ **Rotation strategy:** A secret contains a json string of 3 active key values\. The Lambda Function will pop the oldest key, push a new key, then update ALB Listener Rules to match\.
++ **Expected `SecretString` structure:** 
+
+  ```
+  {
+    "key1": "<required:string>",
+    "key2": "<required:string>",
+    "key3": "<required:string>",
+  }
+  ```
+
++ **Source code:** [https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerCloudFrontAlb/](https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerCloudFrontAlb/)
 
 ### Generic rotation function template<a name="sar-template-generic"></a>
 + **Name:** SecretsManagerRotationTemplate
