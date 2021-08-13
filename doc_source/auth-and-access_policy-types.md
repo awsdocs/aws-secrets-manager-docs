@@ -5,7 +5,7 @@ Secrets Manager grants permissions , as in almost all AWS services, by creating 
   + Grant access to multiple resources to share with the identity\.
   + Control access to APIs for nonexistent resources, such as the various `Create*` operations\.
   + Grant access to an IAM group to a resource\.
-+ **Resource\-based policies** – Attached directly to a resource—in this case, a secret\. The policy specifies access to the secret and the actions the user performs on the secret\. The attached secret automatically and implicitly becomes the `Resource` of the policy\. You can specify the `Principals`accessing the secret and the `Actions` the principals can perform\. The policies enable you to perform the following actions:
++ **Resource\-based policies** – Attached directly to a resource—in this case, a secret\. The policy specifies access to the secret and the actions the user performs on the secret\. The attached secret automatically and implicitly becomes the `Resource` of the policy\. You can specify the `Principals` accessing the secret and the `Actions` the principals can perform\. The policies enable you to perform the following actions:
   + Grant access to multiple principals \(users or roles\) to a single secret\. Note that you *can't* specify an IAM group as a principal in a resource\-based policy\. Only users and roles can be principals\.
   + Grant access to users or roles in other AWS accounts by specifying the account IDs in the `Principal` element of a policy statement\. If you require a "cross account" access to a secret , then this might be one of the primary reasons to use a resource\-based policy\.
 
