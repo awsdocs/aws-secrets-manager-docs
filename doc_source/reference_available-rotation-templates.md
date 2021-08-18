@@ -310,7 +310,7 @@ arn:aws:serverlessrepo:us-east-1:123456789012:applications/SecretsManagerRDSMySQ
   }
   ```
 
-+ **Source code:** [https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerCloudFront/](https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerCloudFront/)
++ **Source code:** [https://github.com/aws-samples/aws-secrets-manager-rotation-examples/tree/main/SecretsManagerCloudFront](https://github.com/aws-samples/aws-secrets-manager-rotation-examples/tree/main/SecretsManagerCloudFront)
 
 ### Amazon ALB API Key header check<a name="sar-template-alb-apikey-header-check"></a>
 + **Name:** SecretsManagerAlb
@@ -326,7 +326,7 @@ arn:aws:serverlessrepo:us-east-1:123456789012:applications/SecretsManagerRDSMySQ
   }
   ```
 
-+ **Source code:** [https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerCloudFrontAlb/](https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerCloudFrontAlb/)
++ **Source code:** [https://github.com/aws-samples/aws-secrets-manager-rotation-examples/tree/main/SecretsManagerAlb](https://github.com/aws-samples/aws-secrets-manager-rotation-examples/tree/main/SecretsManagerAlb)
 
 ### Generic rotation function template<a name="sar-template-generic"></a>
 + **Name:** SecretsManagerRotationTemplate
