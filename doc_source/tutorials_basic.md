@@ -114,7 +114,7 @@ In this step, you retrieve the secret by using the Secrets Manager console and t
    ```
    $ aws secretsmanager describe-secret --secret-id tutorials/MyFirstSecret
    {
-       "ARN": "arn:aws::secretsmanager:region:123456789012:secret:tutorials/MyFirstSecret-jiObOV",
+       "ARN": "arn:aws::secretsmanager:region:account-id:secret:tutorials/MyFirstSecret-jiObOV",
        "Name": "tutorials/MyFirstSecret",
        "Description": "Basic Create Secret",
        "LastChangedDate": 1522680794.8,
@@ -134,7 +134,7 @@ In this step, you retrieve the secret by using the Secrets Manager console and t
    ```
    $ aws secretsmanager get-secret-value --secret-id tutorials/MyFirstSecret --version-stage AWSCURRENT
    {
-       "ARN": "arn:secretsmanager:region:123456789012:secret:tutorials/MyFirstSecret-jiObOV",
+       "ARN": "arn:secretsmanager:region:account-id:secret:tutorials/MyFirstSecret-jiObOV",
        "Name": "tutorials/MyFirstSecret",
        "VersionId": "EXAMPLE1-90ab-cdef-fedc-ba987EXAMPLE",
        "SecretString": "S3@ttl3R0cks",
