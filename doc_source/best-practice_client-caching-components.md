@@ -1,3 +1,0 @@
-# Improving performance by using the AWS provided client\-side caching components<a name="best-practice_client-caching-components"></a>
-
-To use your secrets most efficiently, you should not simply retrieve the secret value from Secrets Manager every time you need to use the credentials\. Instead, use a supported Secrets Manager client component to cache your secrets and update them only when required because of rotation\. AWS has created such client components for you and made them available as open\-source\. For more information, see [Caching secrets to improve performance](use-client-side-caching.md#use-client-side-caching-components)

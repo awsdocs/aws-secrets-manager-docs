@@ -6,7 +6,8 @@ Use the information here to help you diagnose and fix access\-denied or other co
 + [I receive an "access denied" message when I send a request to AWS Secrets Manager\.](#troubleshoot_general_access-denied-service)
 + [I receive an "access denied" message when I send a request with temporary security credentials\.](#troubleshoot_general_access-denied-temp-creds)
 + [Changes I make aren't always immediately visible\.](#troubleshoot_general_eventual-consistency)
-+ [I receive a “cannot generate a data key with an asymmetric CMK” message when creating a secret\.](#asymmetrical-key)
++ [I receive a “cannot generate a data key with an asymmetric KMS key” message when creating a secret\.](#asymmetrical-key)
++ [An AWS CLI or AWS SDK operation can't find my secret from a partial ARN\.](#ARN_secretnamehyphen)
 
 ## I receive an "access denied" message when I send a request to AWS Secrets Manager\.<a name="troubleshoot_general_access-denied-service"></a>
 + Verify that you have permissions to call the operation and resource you requested\. An administrator must grant permissions by attaching an IAM policy to your IAM user, or to a group that you're a member of\. If the policy statements that grant those permissions include any conditions, such as time\-of\-day or IP address restrictions, you also must meet those requirements when you send the request\. For information about viewing or modifying policies for an IAM user, group, or role, see [Working with Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage.html) in the *IAM User Guide*\.
@@ -30,6 +31,16 @@ For more information about how some other AWS services are affected by this, con
 + [Amazon EC2 Eventual Consistency](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/query-api-troubleshooting.html#eventual-consistency) in the *Amazon EC2 API Reference*
 + 
 
-## I receive a “cannot generate a data key with an asymmetric CMK” message when creating a secret\.<a name="asymmetrical-key"></a>
+## I receive a “cannot generate a data key with an asymmetric KMS key” message when creating a secret\.<a name="asymmetrical-key"></a>
 
-Verify you are using a symmetric customer master key \(CMK\) instead of an asymmetric CMK\. Secrets Manager uses a symmetric customer master key \(CMK\) associated with a secret to generate a data key for each secret value\. Secrets Manager also uses the CMK to decrypt that data key when it needs to decrypt the encrypted secret value\. You can track the requests and responses in AWS CloudTrail events, Amazon CloudWatch Logs, and audit trails\. You cannot use an asymmetric CMK at this time\. 
+Verify you are using a symmetric KMS key instead of an asymmetric KMS key\. Secrets Manager uses a symmetric KMS key associated with a secret to generate a data key for each secret value\. Secrets Manager also uses the KMS key to decrypt that data key when it needs to decrypt the encrypted secret value\. You can track the requests and responses in AWS CloudTrail events, Amazon CloudWatch Logs, and audit trails\. You cannot use an asymmetric KMS key at this time\. 
+
+## An AWS CLI or AWS SDK operation can't find my secret from a partial ARN\.<a name="ARN_secretnamehyphen"></a>
+
+If your secret's name ends in a hyphen followed by six characters, Secrets Manager might not be able to find the secret from a partial ARN\. Secrets Manager adds a hyphen and six random characters to ARNs, so if your secret ends in the same pattern, Secrets Manager assumes you are specifying a complete ARN\. Instead, use the full ARN for `SecretId`\.
+
+For example, if your secret name is `MySecret-abcdef`, with the ARN `arn:aws:secretsmanager:<Region>:<AccountId>:secret:MySecret-abcdef-nutBrk`, and you call the following operation, then Secrets Manager might not find the secret\. 
+
+```
+aws secretsmanager describe-secret --secret-id arn:aws:secretsmanager:<Region>:<AccountId>:secret:MySecret-abcdef
+```

@@ -19,7 +19,7 @@ To learn more about CloudTrail see the [AWS CloudTrail User Guide](https://docs.
 
 In addition to logging AWS API calls, CloudTrail captures other related events that might have a security or compliance impact on your AWS account or might help you troubleshoot operational problems\. CloudTrail records these events as non\-API service events\.
 
-Secrets Manager has three non\-API service events:
+Secrets Manager has the following non\-API service events:
 + `RotationAbandoned` event \- a mechanism to inform you that the Secrets Manager service removed the AWSPENDING label from an existing version of a secret\. When you manually create a new version of a secret, you send a message signalling the abandonment of the current ongoing rotation in favor of the new secret version\. As a result, Secrets Manager removes the AWSPENDING label to allow future rotations to succeed and publish a CloudTrail event to provide awareness of the change\. 
 + `RotationStarted` event \- a mechanism that notifies you of a secret starting rotation\. 
 + `RotationSucceeded` event \- a mechanism that notifies you of a successful rotation event\.

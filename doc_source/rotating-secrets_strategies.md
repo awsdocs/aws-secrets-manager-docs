@@ -3,7 +3,7 @@
 There are three main strategies for rotating a secret: 
 + The secret contains credentials for a user that can update itself in the service or database\. Use the single\-user strategy\.
 
-  While a single user credential is rotating, there is potentially a short period of time, typically a few seconds, between the time you change the password and when the clients begin to use the newer password\. Use [Exponential backoff and jitter](http://aws.amazon.com/blogs/blogs/architecture/exponential-backoff-and-jitter/) to mitigate any outage during a rotation\.
+  While a single user credential is rotating, there is potentially a short period of time, typically a few seconds, between the time you change the password and when the clients begin to use the newer password\. Use [Exponential backoff and jitter](https://aws.amazon.com/blogs/architecture/exponential-backoff-and-jitter/) to mitigate any outage during a rotation\.
 + If your secret contains credentials for a user that is not permitted to update itself in the service or database, use the multi\-user strategy\. The first secret contains the service or database credentials, and the second secret contains credentials of a superuser who can update the first user's password\.
 + If you need high availability for your secret, use the alternate\-user strategy\. In this scenario, you can create one user the rotation process clones to create two users with equal access to the secured resource\. The rotation process alternates between the two users\. Secrets Manager changes the password, and tests the "inactive" one while your users continue to access the database or service by using the credentials in the "active" secret\. 
 

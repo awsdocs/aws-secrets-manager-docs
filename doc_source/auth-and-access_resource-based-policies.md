@@ -12,6 +12,7 @@ For information about alternative, identity\-based permission policies, see [Usi
 
 **Topics**
 + [Controlling access to secrets for principals](permissions_grant-limited-principal.md)
++ [Cross\-account access](auth-and-access_cross-account-role-vs-account.md)
 + [Granting read\-only access to a role](#example_1)
 
 ## Granting read\-only access to a role<a name="example_1"></a>

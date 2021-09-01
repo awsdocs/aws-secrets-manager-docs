@@ -98,7 +98,7 @@ In this step, you create a secret in Secrets Manager, and populate the secret wi
 
 1. For **Password**, type the same password that you provided for **adminuser** when you created your database\.
 
-1. For **Select the encryption key**, leave it set to **DefaultEncryptionKey**\. AWS bills your account if you use a custom master key \(CMK\) instead of the default CMK\.
+1. For **Select the encryption key**, leave it set to **DefaultEncryptionKey**\. There is a charge for creating new KMS keys\.
 
 1. For **Select which RDS database this secret will access**, and choose the instance **MyTestDatabaseInstance** you created in Step 1\. Choose **Next**\.
 

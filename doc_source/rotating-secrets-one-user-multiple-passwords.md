@@ -37,7 +37,7 @@ To configure a rotation mechanism for an authentication system that allows you t
    1. For **Select secret type**, choose **Other type of secret**, including the user name and the first set of credentials\. For example, enter two key\-value pairs for the protected secret text\. The pairs can be similar the examples:    
 [\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/secretsmanager/latest/userguide/rotating-secrets-one-user-multiple-passwords.html)
 
-   1. For **AWS KMS Encryption Key**, choose the key to use to encrypt this secret, or leave the default set to the **DefaultMasterKey** for the account\. To use the default key, the credentials that access the secret must be from the same account that owns the secret\. If the user credentials reside in a different account, then you must create and specify a custom customer master key \(CMK\)\.
+   1. For **AWS KMS Encryption Key**, choose the key to use to encrypt this secret, or leave the default set to the **DefaultMasterKey** for the account\. To use the default key, the credentials that access the secret must be from the same account that owns the secret\. If the user credentials reside in a different account, then you must create a customer managed key in AWS KMS\. There is a charge for creating KMS keys\.
 
    1. For **Select rotation period**, choose or type the number of days between rotations\.
 **Note**  

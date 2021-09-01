@@ -1,5 +1,0 @@
-# Using Secrets Manager to provide database credentials to Lambda functions<a name="lambda-functions"></a>
-
-You can use Secrets Manager to securely provide database credentials to Lambda functions and secure the databases as well as use the credentials to connect and query them without hardcoding the secrets in code or passing them through environmental variables\. Secrets with an extended life cycle should rotate regularly to keep access to critical systems secure\. Secrets Manager provide the ability to manage and rotate your database passwords\.
-
-For more information on implementing this feature, see [How to securely provide database credentials to Lambda functions by using AWS Secrets Manager](https://aws.amazon.com/blogs/security/how-to-securely-provide-database-credentials-to-lambda-functions-by-using-aws-secrets-manager/)

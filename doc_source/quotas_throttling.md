@@ -1,4 +1,4 @@
-# Adding retries to your application<a name="throttling"></a>
+# Adding retries to your application<a name="quotas_throttling"></a>
 
 Your AWS client might see calls to Secrets Manager fail due to unexpected issues on the client side\. Or calls might fail due to rate limiting from the Secrets Manager resource you attempt to invoke\. When you exceed an API request quota, Secrets Manager throttles the request, that is, it rejects an otherwise valid request and returns a `ThrottlingException` error\. To respond, use a [backoff and retry strategy](https://docs.aws.amazon.com/general/latest/gr/api-retries.html)\.In either case, these kinds of failures often don’t require special handling and the call should be made again, often after a brief waiting period\. AWS provides many features to assist in retrying client calls to AWS services when you experience these kinds of errors or exceptions\.
 

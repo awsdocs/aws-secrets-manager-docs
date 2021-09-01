@@ -31,9 +31,7 @@ This tutorial assumes you can access an AWS account, and you can sign in to AWS 
 
     You provide your secret information, such as credentials and connection details, as key name and value string pairs\. For example, you could specify “UserName” as a key name and the user sign\-in name as the value\.
 
-1. For **Select the encryption key**, choose **DefaultEncryptionKey**\. Secrets Manager always encrypts the secret when you select this option, and provides it at no charge to you\. If you choose to use a custom KMS key, then AWS charges you at the standard AWS KMS rate\.
-
-   Secrets Manager uses a unique encryption key that resides within the account and can only be used with Secrets Manager in the same region\.
+1. For **Select the encryption key**, choose **DefaultEncryptionKey**\. This is the AWS managed key \(`aws/secretsmanager`\), and there is no cost for using it\. If you choose to create a customer managed key in AWS KMS, then AWS charges you at the standard AWS KMS rate\.
 
 1. Choose **Next**\.
 
@@ -79,7 +77,7 @@ The output of the command displays the following information:
 
 ```
 {
-    "ARN": "arn:aws:secretsmanager:us-west-2:123456789012:secret:tutorials/MyFirstSecret-rzM8Ja",
+    "ARN": "arn:aws:secretsmanager:Region:AccountId:secret:tutorials/MyFirstSecret-rzM8Ja",
     "Name": "MyFirstSecret",
     "VersionId": "35e07aa2-684d-42fd-b076-3b3f6a19c6dc"
 }
@@ -114,7 +112,7 @@ In this step, you retrieve the secret by using the Secrets Manager console and t
    ```
    $ aws secretsmanager describe-secret --secret-id tutorials/MyFirstSecret
    {
-       "ARN": "arn:aws::secretsmanager:region:account-id:secret:tutorials/MyFirstSecret-jiObOV",
+       "ARN": "arn:aws::secretsmanager:Region:AccountId:secret:tutorials/MyFirstSecret-jiObOV",
        "Name": "tutorials/MyFirstSecret",
        "Description": "Basic Create Secret",
        "LastChangedDate": 1522680794.8,
@@ -134,7 +132,7 @@ In this step, you retrieve the secret by using the Secrets Manager console and t
    ```
    $ aws secretsmanager get-secret-value --secret-id tutorials/MyFirstSecret --version-stage AWSCURRENT
    {
-       "ARN": "arn:secretsmanager:region:account-id:secret:tutorials/MyFirstSecret-jiObOV",
+       "ARN": "arn:secretsmanager:Region:AccountId:secret:tutorials/MyFirstSecret-jiObOV",
        "Name": "tutorials/MyFirstSecret",
        "VersionId": "EXAMPLE1-90ab-cdef-fedc-ba987EXAMPLE",
        "SecretString": "S3@ttl3R0cks",

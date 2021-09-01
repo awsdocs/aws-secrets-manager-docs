@@ -5,6 +5,6 @@ When you use AWS Config to evaluate your resource configurations, you can assess
 + `[secretsmanager\-scheduled\-rotation\-success\-check](https://docs.aws.amazon.com/config/latest/developerguide/secretsmanager-scheduled-rotation-success-check.html)`— Checks if Secrets Manager successfully rotates secrets\. AWS Config verifies the rule and checks if the last rotated date falls within the configured rotation frequency\. 
 
   For more information about AWS Config and rules, see the AWS Config product[ documentation\.](https://docs.aws.amazon.com/config/latest/developerguide/WhatIsConfig.html)
-+ `[secretsmanager\-using\-cmk](https://docs.aws.amazon.com/config/latest/developerguide/secretsmanager-using-cmk.html)` — Checks if AWS encrypts all secrets using an AWS KMS customer master key\(CMK\)\.
++ `[secretsmanager\-using\-cmk](https://docs.aws.amazon.com/config/latest/developerguide/secretsmanager-using-cmk.html)` — Checks if AWS encrypts all secrets using the AWS managed key `aws/secretsmanager` or a customer managed key you created in AWS KMS\.
 + `[secretsmanager\-secret\-unused](https://docs.aws.amazon.com/config/latest/developerguide/secretsmanager-secret-unused.html)`— Checks if Secrets Manager accessed secrets within a specified number of days\.
 + `[secretsmanager\-secret\-periodic\-rotation](https://docs.aws.amazon.com/config/latest/developerguide/secretsmanager-secret-periodic-rotation.html)`— Checks if AWS rotated secrets within the past specified number of days\.

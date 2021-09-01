@@ -4,14 +4,7 @@ In the past, when you created a custom application to retrieve information from 
 
 Secrets Manager enables you to replace hardcoded credentials in your code, including passwords, with an API call to Secrets Manager to retrieve the secret programmatically\. This helps ensure the secret can't be compromised by someone examining your code, because the secret no longer exists in the code\. Also, you can configure Secrets Manager to automatically rotate the secret for you according to a specified schedule\. This enables you to replace long\-term secrets with short\-term ones, significantly reducing the risk of compromise\.
 
-## Getting started with Secrets Manager<a name="intro-getting-started"></a>
-
-For a list of terms and concepts you need to understand to make full use of Secrets Manager, see [Key terms and concepts for AWS Secrets Manager](getting-started.md#terms-concepts)\.
-
-Typical users of Secrets Manager have one or more of the following roles:
-+ Secrets Manager administrator – Administers the Secrets Manager service\. Grants permissions to individuals who can then perform the other roles listed here\.
-+ Database or service administrator – Administers the database or service with secrets stored in Secrets Manager\. Determines and configures the rotation and expiration settings for their secrets\. 
-+ Application developer – Creates the application, and then configures the application to request the appropriate credentials from Secrets Manager\.
+For a list of terms and concepts you need to understand to make full use of Secrets Manager, see [Getting started with AWS Secrets Manager](getting-started.md)\.
 
 ## Basic Secrets Manager scenario<a name="intro-basic-scenario"></a>
 
@@ -49,14 +42,14 @@ However, other versions can exist at the same time\. Most systems support secret
 Secrets Manager enables you to store text in the encrypted secret data portion of a secret\. This typically includes the connection details of the database or service\. These details can include the server name, IP address, and port number, as well as the user name and password used to sign in to the service\. For details on secrets, see the [maximum and minimum values](reference_limits.html#reference_limits_max-min)\. The protected text doesn't include:
 +  Secret name and description
 +  Rotation or expiration settings
-+  ARN of the AWS KMS customer master key \(CMK\) associated with the secret
++  ARN of the KMS key associated with the secret
 + Any attached AWS tags 
 
 ### Encrypting your secret data<a name="features_kms-encryption"></a>
 
-Secrets Manager encrypts the protected text of a secret by using [AWS Key Management Service \(AWS KMS\)](https://docs.aws.amazon.com/kms/latest/developerguide/)\. Many AWS services use AWS KMS for key storage and encryption\. AWS KMS ensures secure encryption of your secret when at rest\. Secrets Manager associates every secret with an AWS KMS CMK\. It can be either the default CMK for Secrets Manager for the account, or a customer\-created CMK\. 
+Secrets Manager encrypts the protected text of a secret by using [AWS Key Management Service \(AWS KMS\)](https://docs.aws.amazon.com/kms/latest/developerguide/)\. Many AWS services use AWS KMS for key storage and encryption\. AWS KMS ensures secure encryption of your secret when at rest\. Secrets Manager associates every secret with a KMS key\. It can be either AWS managed key for Secrets Manager for the account \(`aws/secretsmanager`\), or a customer managed key you create in AWS KMS\. 
 
-Whenever Secrets Manager encrypt a new version of the protected secret data, Secrets Manager requests AWS KMS to generate a new data key from the specified CMK\. Secrets Manager uses this data key for [envelope encryption](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#enveloping)\. Secrets Manager stores the encrypted data key with the protected secret data\. Whenever the secret needs decryption, Secrets Manager requests AWS KMS to decrypt the data key, which Secrets Manager then uses to decrypt the protected secret data\. Secrets Manager never stores the data key in unencrypted form, and always disposes the data key immediately after use\.
+Whenever Secrets Manager encrypt a new version of the protected secret data, Secrets Manager requests AWS KMS to generate a new data key from the KMS key\. Secrets Manager uses this data key for [envelope encryption](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#enveloping)\. Secrets Manager stores the encrypted data key with the protected secret data\. Whenever the secret needs decryption, Secrets Manager requests AWS KMS to decrypt the data key, which Secrets Manager then uses to decrypt the protected secret data\. Secrets Manager never stores the data key in unencrypted form, and always disposes the data key immediately after use\.
 
 In addition, Secrets Manager, by default, only accepts requests from hosts using open standard [Transport Layer Security \(TLS\)](https://en.wikipedia.org/wiki/Transport_Layer_Security) and [Perfect Forward Secrecy](https://en.wikipedia.org/wiki/Forward_secrecy)\. Secrets Manager ensures encryption of your secret while in transit between AWS and the computers you use to retrieve the secret\.
 
@@ -71,11 +64,11 @@ You define and implement rotation with an AWS Lambda function\. This function de
 + Verifies the new version\.
 + Marks the new version as production ready\.
 
-Staging labels help you to keep track of the different versions of your secrets\. Each version can have multiple staging labels attached, but each staging label can only be attached to one version\. For example, Secrets Manager labels the currently active and in\-use version of the secret with `AWSCURRENT`\. You should configure your applications to always query for the current version of the secret\. When the rotation process creates a new version of a secret, Secrets Manager automatically adds the staging label `AWSPENDING` to the new version until testing and validation completes\. Only then does Secrets Manager add the `AWSCURRENT` staging label to this new version\. Your applications immediately start using the new secret the next time they query for the `AWSCURRENT` version\.
+Staging labels help you to keep track of the different versions of your secrets\. Each version can have multiple staging labels attached, but each staging label can only be attached to one version\. For example, Secrets Manager labels the currently active and in\-use version of the secret with `AWSCURRENT`\. You should configure your applications to always query for the current version of the secret\. When the rotation process creates a new version of a secret, Secrets Manager automatically adds the staging label `AWSPENDING` to the new version until testing and validation completes\. Only then does Secrets Manager add the `AWSCURRENT` staging label to this new version\. Your applications immediately start using the new secret the next time they query for the `AWSCURRENT` version\.<a name="rds-supported-database-list"></a>
 
 #### Databases with fully configured and ready\-to\-use rotation support<a name="full-rotation-support"></a>
 
-When you choose to enable rotation, Secrets Manager supports the following Amazon Relational Database Service \(Amazon RDS\) databases with AWS written and tested Lambda rotation function templates, and full configuration of the rotation process:<a name="rds-supported-database-list"></a>
+When you choose to enable rotation, Secrets Manager supports the following Amazon Relational Database Service \(Amazon RDS\) databases with AWS written and tested Lambda rotation function templates, and full configuration of the rotation process:
 + Amazon Aurora on Amazon RDS
 + MySQL on Amazon RDS
 + PostgreSQL on Amazon RDS
@@ -119,12 +112,8 @@ We recommend using the SDK specific to the programming language you prefer inste
 
 ## Pricing for Secrets Manager<a name="asm_pricing"></a>
 
-When you use Secrets Manager, you pay only for what you use, and no minimum or setup fees\. For the current complete pricing list, see [AWS Secrets Manager Pricing](https://aws.amazon.com/secrets-manager/pricing)\.
+When you use Secrets Manager, you pay only for what you use, and no minimum or setup fees\. There is no charge for secrets that you have marked for deletion\. For the current complete pricing list, see [AWS Secrets Manager Pricing](https://aws.amazon.com/secrets-manager/pricing)\.
 
-### AWS KMS – custom encryption keys<a name="pricing-kms"></a>
+You can use the AWS managed key \(`aws/secretsmanager`\) that Secrets Manager creates to encrypt your secrets for free\. If you create your own KMS keys to encrypt your secrets, AWS charges you at the current AWS KMS rate\. For more information, see [AWS Key Management Service pricing](https://aws.amazon.com/kms/pricing)\.
 
-If you create your own customer master keys by using AWS KMS to encrypt your secrets, AWS charges you at the current AWS KMS rate\. However, you can use the "default" key created by AWS Secrets Manager for your account for free\. For more information about the cost of customer\-created AWS KMS keys, see [AWS Key Management Service Pricing](https://aws.amazon.com/kms/pricing)\.
-
-### AWS CloudTrail Logging – storage and notification<a name="pricing-cloudtrail"></a>
-
-If you enable AWS CloudTrail on your account, you can obtain logs of API calls AWS Secrets Manager sends out\. Secrets Manager logs all events as management events\. There are no data events\. There's no additional charge for capturing a single trail in AWS CloudTrail to capture management events\. AWS CloudTrail stores the first copy of all management events for free\. However, you can incur charges for Amazon S3 for log storage and for Amazon SNS if you enable notification\. Also, if you set up additional trails, the additional copies of management events can incur costs\. For more information, see the [AWS CloudTrail](https://aws.amazon.com/cloudtrail/pricing) pricing page\.
+If you enable AWS CloudTrail on your account, you can obtain logs of the API calls that Secrets Manager sends out\. Secrets Manager logs all events as management events\. AWS CloudTrail stores the first copy of all management events for free\. However, you can incur charges for Amazon S3 for log storage and for Amazon SNS if you enable notification\. Also, if you set up additional trails, the additional copies of management events can incur costs\. For more information, see [AWS CloudTrail pricing](https://aws.amazon.com/cloudtrail/pricing)\.

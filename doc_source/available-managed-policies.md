@@ -1,4 +1,0 @@
-# AWS managed policy for Secrets Manager<a name="available-managed-policies"></a>
-
-AWS Secrets Manager provides the following AWS managed policy to allow granting permissions easier\. Choose the link to view the policy in the IAM console\.
-+ [SecretsManagerReadWrite](https://console.aws.amazon.com/iam/home?#/policies/arn:aws:iam::aws:policy/SecretsManagerReadWrite) – This policy grants the access required to administer Secrets Manager, except the policy doesn't include the IAM permissions required to create roles and attach policies to those roles\. For those permissions, attach the [IAMFullAccess](https://console.aws.amazon.com/iam/home?#/policies/arn:aws:iam::aws:policy/IAMFullAccess) managed policy\. For instructions, see the following section [Granting full Secrets Manager administrator permissions to a user](permissions_grant-admin-actions.md)\.

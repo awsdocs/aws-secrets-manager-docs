@@ -1,4 +1,4 @@
-# Cross\-account access – should I specify a user/role or the account?<a name="best-practice_cross-account-role-vs-account"></a>
+# Cross\-account access<a name="auth-and-access_cross-account-role-vs-account"></a>
 
 When you want to use a resource\-based policy attached to a secret give access to an IAM principal in a different AWS account, you have two options:
 + **Specify only the other account ID** – In the `Principal` element of the statement, you specify the Amazon Resource Name \(ARN\) of the "foreign" account root\. This enables the administrator of the foreign account to delegate access to roles in the foreign account\. The administrator must then assign IAM permission policies to the role or roles that require access to the secret\.

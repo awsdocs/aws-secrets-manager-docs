@@ -6,10 +6,10 @@ Before you can configure multi\-Region secrets, you must enable the regions wher
 To create a secret in the console, you must have these permissions:  
 The permissions granted by the **SecretsManagerReadWrite** AWS managed policy\.
 The permissions granted by the **IAMFullAccess** AWS managed policy – required only if you enable rotation for the secret\.
-`kms:CreateKey` – required only if you want Secrets Manager to create a AWS KMS customer master key \(CMK\)\. 
-`kms:Encrypt` – required only if you use a custom AWS KMS key to encrypt your secret instead of the default Secrets Manager CMK for your account\. You don't need this permission to use the account default AWS managed CMK for Secrets Manager\.
-`kms:Decrypt` – required only if you use a created AWS KMS key to encrypt your secret instead of the default Secrets Manager CMK for your account\. You don't need this permission to use the account default AWS managed CMK for Secrets Manager\.
-`kms:GenerateDataKey` – required only if you use a custom AWS KMS key to encrypt your secret instead of the default Secrets Manager CMK for your account\. You don't need this permission to use the account default AWS managed CMK for Secrets Manager\.
+`kms:CreateKey` – required only if you want Secrets Manager to create a customer managed key\. 
+`kms:Encrypt` – required only if you use a customer managed key to encrypt your secret instead of the AWS managed key \(`aws/secretsmanager`\) for your account\. You don't need this permission to use `aws/secretsmanager`\.
+`kms:Decrypt` – required only if you use a customer managed key to encrypt your secret instead of the AWS managed key \(`aws/secretsmanager`\) for your account\. You don't need this permission to use `aws/secretsmanager`\.
+`kms:GenerateDataKey` – required only if you use a custom AWS KMS key to encrypt your secret instead of the AWS managed key \(`aws/secretsmanager`\) for your account\. You don't need this permission to use `aws/secretsmanager`\.
 
 ------
 #### [ Using the Secrets Manager console ]
@@ -38,7 +38,7 @@ The permissions granted by the **IAMFullAccess** AWS managed policy – required
 
 1. From the **AWS Region** list, select the Region or Regions to replicate the secret\. You can add multiple Regions during this step\. 
 
-1. From the **Encryption Key** list, choose the key used to encrypt the secret\. You can choose the default encryption key or a regional CMK\.
+1. From the **Encryption Key** list, choose the key used to encrypt the secret\. You can choose the AWS managed key \(`aws/secretsmanager`\) or a customer managed key you create in AWS KMS\.
 
 1. To add more Regions, choose **Add more Regions** and choose additional Regions and encryption keys\.
 

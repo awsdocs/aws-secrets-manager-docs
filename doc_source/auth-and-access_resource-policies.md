@@ -12,7 +12,7 @@ The following example describes a Secrets Manager secret policy with one stateme
             "Effect": "Allow",
             "Principal": {"AWS": "arn:aws:iam::123456789012:root" },
             "Action": "secretsmanager:GetSecretValue",
-            "Resource": "arn:aws:secretsmanager:<region>:<account_id>:secret:prod/ServerA-a1b2c3",
+            "Resource": "arn:aws:secretsmanager:region:account_id:secret:prod/ServerA-a1b2c3",
             "Condition": {
                 "ForAnyValue:StringEquals": {
                     "secretsmanager:VersionStage" : "AWSCURRENT"

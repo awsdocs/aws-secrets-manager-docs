@@ -25,13 +25,13 @@ The following example policy can be attached to a user, group, or role\. The pol
            "Sid" : "Stmt1DescribeSecret",  
            "Effect": "Allow",
            "Action": [ "secretsmanager:DescribeSecret" ],
-           "Resource": "arn:aws:secretsmanager:<region>:<account_id>:secret:TestEnv/*"
+           "Resource": "arn:aws:secretsmanager:region:account_idsecret:TestEnv/*"
         },
         {
             "Sid" : "Stmt2GetSecretValue",  
             "Effect": "Allow",
             "Action": [ "secretsmanager:GetSecretValue" ],
-            "Resource": "arn:aws:secretsmanager:<region>:<account_id>:secret:TestEnv/*",
+            "Resource": "arn:aws:secretsmanager:region:account_id:secret:TestEnv/*",
             "Condition" : { 
                 "ForAnyValue:StringLike" : {
                     "secretsmanager:VersionStage" : "AWSCURRENT" 

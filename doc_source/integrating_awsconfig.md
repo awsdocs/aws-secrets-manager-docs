@@ -13,7 +13,7 @@ AWS Config allows you to assess, audit, and evaluate configurations across your 
 
 If you have multi\-account and multi\-region AWS resources in AWS Config, you can view configuration and compliance data from multiple accounts and regions into a single account\. As a result, you can identify noncompliant resources across multiple accounts\.\.
 
-By tracking your secrets with AWS Config, a secret becomes an AWS Config supported resource, and you can track changes to the secret metadata, such as secret description and rotation configuration, relationship to other AWS sources such as the KMS Key used for secret encryption, Lambda function used for secret rotation, as well as attributes such as tags associated with the secrets\. 
+By tracking your secrets with AWS Config, a secret becomes an AWS Config supported resource, and you can track changes to the secret metadata, such as secret description and rotation configuration, relationship to other AWS sources such as the KMS key used for secret encryption, Lambda function used for secret rotation, as well as attributes such as tags associated with the secrets\. 
 
 You can also leverage [AWS Managed Config Rules](https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config_use-managed-rules.html) to evaluate if your secrets configuration complies with your organization’s security and compliance requirements, and identify secrets that don’t conform to these standards\.
 

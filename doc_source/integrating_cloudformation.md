@@ -10,12 +10,14 @@ Secrets Manager provides the following resource types that you can use to create
 + **[ AWS::SecretsManager::RotationSchedule ](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-secretsmanager-rotationschedule.html)** – Configures a secret to perform automatic periodic rotation using the specified Lambda rotation function\.
 + **[ AWS::SecretsManager::SecretTargetAttachment ](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-secretsmanager-secrettargetattachment.html)** – Configures the secret with the details about the service or database that Secrets Manager needs to rotate the secret\. For example, for an Amazon RDS DB instance, Secrets Manager adds the connection details and database engine type as entries in the `SecureString` property of the secret\.
 
+You can also use the AWS Cloud Development Kit \(CDK\)\. For more information, see [AWS Secrets Manager Construct Library](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-secretsmanager-readme.html)\.
+
 ## Examples<a name="integrating_cloudformation_examples"></a>
 
 The following example templates create a secret and an Amazon RDS MySQL DB instance using the credentials in the secret as the user and password\. The secret has a resource\-based policy attached that defines who can access the secret\. The template also creates a Lambda rotation function and configures the secret to automatically rotate every 30 days\.
 
 **Note**  
-The [JSON specification](https://json.org/) doesn't support comments\. See the [YAML](http://yaml.org/spec/1.2/spec.html) version later on this page for comments\.
+The [JSON specification](https://json.org/) doesn't support comments\. See the [YAML](#integrating_cloudformation_examples-1.yaml) version later on this page for comments\.
 
 ### JSON<a name="integrating_cloudformation_examples-1.json"></a>
 
@@ -210,7 +212,7 @@ The [JSON specification](https://json.org/) doesn't support comments\. See the [
 
 ### YAML<a name="integrating_cloudformation_examples-1.yaml"></a>
 
-```yaml
+```
 ---
 Transform: AWS::SecretsManager-2020-07-23
 Description: This is an example template to demonstrate CloudFormation resources for

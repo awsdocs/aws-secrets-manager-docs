@@ -6,13 +6,13 @@ You configure AWS Config Multi\-Account Multi\-Region Data Aggregator to review 
 You must enable AWS Config and the AWS Config managed rules specific to secrets across all accounts and regions before you create an aggregator\. For more information, see [Use CloudFormation StackSets to provision resources across multiple AWS accounts and Regions](http://aws.amazon.com/blogs/aws/use-cloudformation-stacksets-to-provision-resources-across-multiple-aws-accounts-and-regions)\.  
 For more information about AWS Config Aggregator, see [Multi\-Account Multi\-Region Data Aggregation](https://docs.aws.amazon.com/config/latest/developerguide/aggregate-data.html) in the AWS Config Developer Guide\.
 
-You create an Aggregator from your organization's master account or from any member account in your organization\. Use the following steps to create an AWS Config Aggregator:
+You create an Aggregator from your organization's management account or from any member account in your organization\. Use the following steps to create an AWS Config Aggregator:
 
 1. Log into the AWS Config console at [https://console\.aws\.amazon\.com/config/](https://console.aws.amazon.com/config/)\.
 
 1. Choose **Aggregators** and then **Add Aggregator**\.
 
-1. In the **Allow data replication** section, check the **Allow AWS Config to replicate data**\. You must enable this to provide the master account access to the resource configuration and compliance details for all of the accounts and regions in your organization\.
+1. In the **Allow data replication** section, check the **Allow AWS Config to replicate data**\. You must enable this to provide the management account access to the resource configuration and compliance details for all of the accounts and regions in your organization\.
 
 1. Type a unique name, consisting of up to 64 alphanumeric characters, for your aggregator in the **Aggregator name** field\.
 

@@ -37,7 +37,7 @@ To create a secret, you need the permissions granted by the **SecretsManagerRead
 
    1. \(Optional\) For **Description**, enter information to help you remember the purpose of this secret\.
 
-   1. \(Optional\) In the **Tags** section, add tags to your secret\. For tagging strategies, see [Tag your secrets](best-practice_tagging.md)\. Don't store sensitive information in tags because they aren't encrypted\.
+   1. \(Optional\) In the **Tags** section, add tags to your secret\. For tagging strategies, see [Tag your secrets](managing-secrets_tagging.md)\. Don't store sensitive information in tags because they aren't encrypted\.
 
    1. \(Optional\) In **Resource permissions**, to add a resource policy to your secret, choose **Edit permissions**\. For more information, see [Resource\-based policies](auth-and-access_resource-based-policies.md)\.
 

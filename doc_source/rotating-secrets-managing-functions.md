@@ -1,6 +1,6 @@
 # Deleting unused Lambda rotation functions<a name="rotating-secrets-managing-functions"></a>
 
-After you create a rotation function for a secret, at some point, you might decide you no longer need the secret rotation\. \. [Deleting the secret](manage_delete-restore-secret.md) might be an obvious step\. However, you might also want to consider removing the Lambda rotation function that rotates the secret\. If you share the rotation function among several secrets, then you don't want to delete the function until you delete the last secret rotated by the function\.
+After you create a rotation function for a secret, at some point, you might decide you no longer need the secret rotation\. [Deleting a secret](manage_delete-secret.md) might be an obvious step\. However, you might also want to consider removing the Lambda rotation function that rotates the secret\. If you share the rotation function among several secrets, then you don't want to delete the function until you delete the last secret rotated by the function\.
 
 If you create the rotation function as described in this guide, by using a AWS Serverless Application Repository template, then you don't simply delete the function\. Secrets Manager created the function as part of an AWS CloudFormation stack\. Deleting the stack deletes everything the stack created\. In this case, Secrets Manager deletes both the Lambda function and the IAM role that grants permissions to the function\. You must perform the following steps to delete everything cleanly\.
 

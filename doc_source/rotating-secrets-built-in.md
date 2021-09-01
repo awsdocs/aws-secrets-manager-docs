@@ -7,7 +7,7 @@ AWS Secrets Manager has built\-in rotation support for:
 
 For these types of secrets, Secrets Manager provides a Lambda rotation function to automatically rotate your secret on a schedule\. For other types of secrets, see [Rotating AWS Secrets Manager secrets for other databases or services](rotating-secrets-other.md)\. 
 
-When you turn on rotation for a TBD secret, Secrets Manager creates a Lambda rotation function and an IAM role associated with the function\. See [Overview of the Lambda rotation function](rotating-secrets-lambda-function-overview.md)\.
+When you turn on rotation for this type of secret, Secrets Manager creates a Lambda rotation function and an IAM role associated with the function\. See [Overview of the Lambda rotation function](rotating-secrets-lambda-function-overview.md)\.
 
 To turn on rotation, you must have the permissions provided by the following managed policies:
 + `SecretsManagerReadWrite` – Provides Secrets Manager, Lambda, and AWS CloudFormation permissions\. See [Managed policies](reference_available-policies.md)\.
@@ -28,8 +28,8 @@ To turn on rotation, you must have the permissions provided by the following man
    1. For **Select rotation interval**, choose the number of days to keep the secret before rotating it\.
 
    1. Do one of the following:
-      + Choose **Create a new Lambda function** to TBD, and then enter the name for your new function\. Secrets Manager adds "SecretsManager" to the beginning of your function name\.
-      + Choose **Use an existing Lambda function** to TBD\.
+      + Choose **Create a new Lambda function** and then enter the name for your new function\. Secrets Manager adds "SecretsManager" to the beginning of your function name\.
+      + Choose **Use an existing Lambda function**\.
 
    1. Do one of the following:
       + Choose **Use this secret / Single\-user rotation** if the credentials are for a user who can change their database password\. See [Rotating AWS Secrets Manager secrets for one user with a single password](rotating-secrets-one-user-one-password.md)\.

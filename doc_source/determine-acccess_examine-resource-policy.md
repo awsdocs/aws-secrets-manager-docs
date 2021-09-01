@@ -46,7 +46,7 @@ In the preceding policy statement, `&region-arn;iam::111122223333:user/anaya` re
 
 ```
 {
-    "Sid": "Allow an app associated with an &IAM; role to only read the current version of a secret",
+    "Sid": "Allow an app associated with an IAM role to only read the current version of a secret",
     "Effect": "Allow",
     "Principal":  {"AWS": "arn:aws:iam::123456789012:role/EncryptionApp" },
     "Action": ["secretsmanager:GetSecretValue"],

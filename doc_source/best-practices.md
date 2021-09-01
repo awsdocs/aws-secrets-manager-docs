@@ -1,37 +1,34 @@
-# AWS Secrets Manager Best practices<a name="best-practices"></a>
+# Secrets Manager best practices<a name="best-practices"></a>
 
 The following recommendations help you to more securely use AWS Secrets Manager:
 
-**Topics**
-+ [Protecting additional sensitive information](#best-practice_what-not-to-put-in-secret-text)
-+ [Improving performance by using the AWS provided client\-side caching components](best-practice_client-caching-components.md)
-+ [Adding retries to your application](throttling.md)
-+ [Mitigating the risks of logging and debugging your Lambda function](best-practice_lamda-debug-statements.md)
-+ [Mitigating the risks of using the AWS CLI to store your secrets](best-practice_cli-exposure-risks.md)
-+ [Cross\-account access – should I specify a user/role or the account?](best-practice_cross-account-role-vs-account.md)
-+ [Running everything in a VPC](best-practice_using-a-vpc.md)
-+ [Tag your secrets](best-practice_tagging.md)
-+ [Rotating secrets on a schedule](best-practice-rotating-secrets.md)
-+ [Auditing access to secrets](audit-secrets.md)
-+ [Monitoring your secrets with AWS Config](aws-config.md)
-+ [Using Secrets Manager to provide database credentials to Lambda functions](lambda-functions.md)
-+ [More resources on best practices](more-resources.md)
+**Protect additional sensitive information**  
+A secret often includes more information than a user name and password, such as password hints\. See [Protecting additional sensitive information](manage_what-not-to-put-in-secret-text.md)\.
 
-## Protecting additional sensitive information<a name="best-practice_what-not-to-put-in-secret-text"></a>
+**Improve performance by using client\-side caching**  
+To use your secrets most efficiently, cache your secrets on the client and update the cache when the secret changes\. See [Caching secrets to improve performance](use-client-side-caching.md#use-client-side-caching-components)\.
 
-A secret often includes several pieces of information besides the user name and password\. Depending on the database, service, or website, you can choose to include additional sensitive data\. This data can include password hints, or question\-and\-answer pairs you can use to recover your password\.
+**Add retries to your application**  
+Your AWS client might see calls to Secrets Manager fail due to rate limiting\. When you exceed an API request quota, Secrets Manager throttles the request\. To respond, use a backoff and retry strategy\. See [Adding retries to your application](quotas_throttling.md)\.
 
-Ensure you protect any information that might be used to gain access to the credentials in the secret as securely as the credentials themselves\. Don't store this type of information in the `Description` or any other non\-encrypted part of the secret\.
+**Mitigate the risks of logging and debugging your Lambda function**  
+When you create a Lambda rotation function, be cautious about including debugging or logging statements in your function\. These statements can cause information in your function to be written to Amazon CloudWatch, so make sure the log doesn't include any sensitive data from the secret\. If you do include these statements in your code for testing and debugging, make sure you remove them before using the code in production\. Also remove any logs that include sensitive information collected during development\.  
+The Lambda functions for [supported databases](intro.md#full-rotation-support) don't include logging and debug statements\. 
 
-Instead, store all such sensitive information as part of the encrypted secret value, either in the `SecretString` or `SecretBinary` field\. You can store up to 65536 bytes in the secret\. In the `SecretString` field, the text usually takes the form of JSON key\-value string pairs, as shown in the following example:
+**Mitigate the risks of using the AWS CLI to store your secrets**  
+When you use the AWS CLI and enter commands in a command shell, there is a risk of the command history being accessed or utilities having access to your command parameters\. See [Mitigating the risks of using the AWS CLI to store your secrets](security_cli-exposure-risks.md)\.
 
-```
-{
-  "engine": "mysql",
-  "username": "user1",
-  "password": "i29wwX!%9wFV",
-  "host": "my-database-endpoint.us-east-1.rds.amazonaws.com",
-  "dbname": "myDatabase",
-  "port": "3306"
-}
-```
+**Run everything in a VPC **  
+We recommend that you run as much of your infrastructure as possible on private networks that are not accessible from the public internet\. See [Running everything in a VPC ](integrating_vpc.md)\.
+
+**Rotate secrets on a schedule**  
+If you don't change your secrets for a long period of time, the secrets become more likely to be compromised\. We recommend that you rotate your secrets every 30 days\. See [Rotating your AWS Secrets Manager secrets](rotating-secrets.md)
+
+**Monitor your secrets**  
+Monitor your secrets and log any changes to them\. You can use the logs if you need to investigate any unexpected usage or change, and then you can roll back unwanted changes\. You can also set automated checks for inappropriate usage of secrets and any attempts to delete secrets\. See [Monitoring the use of your AWS Secrets Manager secrets](monitoring.md)\.
+
+**Use Secrets Manager to provide credentials to Lambda functions**  
+Use Secrets Manager to securely provide database credentials to Lambda functions without hardcoding the secrets in code or passing them through environmental variables\. See [How to securely provide database credentials to Lambda functions by using AWS Secrets Manager](https://aws.amazon.com/blogs/security/how-to-securely-provide-database-credentials-to-lambda-functions-by-using-aws-secrets-manager/)\.
+
+**More resources on best practices**  
+For more resources, see [ Security Pillar \- AWS Well\-Architected Framework](https://docs.aws.amazon.com/wellarchitected/latest/security-pillar/welcome.html)\.

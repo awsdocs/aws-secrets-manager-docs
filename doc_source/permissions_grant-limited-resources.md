@@ -23,8 +23,8 @@ Choose **Create Policy** and add the following code:
             "Effect": "Allow",
             "Action": "secretsmanager:*",
             "Resource": [
-                "arn:aws:secretsmanager:<region>:<account-id-number>:secret:a_specific_secret_name-a1b2c3",
-                "arn:aws:secretsmanager:<region>:<account-id-number>:secret:another_secret_name-??????"
+                "arn:aws:secretsmanager:region:1234-5678-9012:secret:a_specific_secret_name-a1b2c3",
+                "arn:aws:secretsmanager:region:1234-5678-9012:secret:another_secret_name-??????"
             ]
         }
     ]

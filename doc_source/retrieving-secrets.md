@@ -6,7 +6,7 @@ To retrieve a secret in the console, you must have these permissions:
 + `secretsmanager:ListSecrets` – Use to navigate to the secret to retrieve\.
 + `secretsmanager:DescribeSecret` — Use to retrieve the non\-encrypted parts of the secret\.
 + `secretsmanager:GetSecretValue` – Use to retrieve the encrypted part of the secret\.
-+ `kms:Decrypt` – Required only if you used a custom AWS KMS customer master key \(CMK\) to encrypt your secret\.
++ `kms:Decrypt` – Required only if you used a customer managed key instead of the AWS managed key \(`aws/secretsmanager`\) to encrypt your secret\.
 
 **To retrieve a secret \(console\)**
 
@@ -32,7 +32,7 @@ You can use the following commands to retrieve a secret stored in AWS Secrets Ma
   + [Node\.js](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SecretsManager.html)
 + **AWS CLI:** [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/get-secret-value.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/get-secret-value.html)
 
-You identify the secret by the friendly name or ARN\. You can include the version, but if you don't specify a version, Secrets Manager defaults to the version with the staging label `AWSCURRENT`\. Secrets Manager returns the contents of the secret text in the response parameters `PlaintextString`\. If you stored binary data in the secret, Secrets Manager also returns `Plaintext`, a byte array\. Secrets Manager uses the last modified date for the `CreatedDate` output\.
+You identify the secret by the name or ARN\. You can include the version, but if you don't specify a version, Secrets Manager defaults to the version with the staging label `AWSCURRENT`\. Secrets Manager returns the contents of the secret text in the response parameters `PlaintextString`\. If you stored binary data in the secret, Secrets Manager also returns `Plaintext`, a byte array\. Secrets Manager uses the last modified date for the `CreatedDate` output\.
 
 **Example**  
 The following example shows how to decrypt and retrieve the encrypted secret information from the default version of the secret named "MyTestDatabase"\.   

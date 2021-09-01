@@ -17,18 +17,18 @@ Secrets Manager invokes the Lambda function with the following JSON request stru
 ```
 
 The following describes the parameters of the request: 
-+ **Step** – Specifies the part of the rotation function behavior to invoke\. Each of the different values identifies a step of the rotation process\. The following section [The steps of the Lambda rotation function](#rotation-explanation-of-steps) explains each step in detail\. The separation into independently invoked steps enables the AWS Secrets Manager team to add additional functionality to occur between steps\.
++ **Step** – Specifies the part of the rotation function behavior to invoke\. Each of the different values identifies a step of the rotation process\. The following section [The steps of rotation](#rotation-explanation-of-steps) explains each step in detail\. The separation into independently invoked steps enables the AWS Secrets Manager team to add additional functionality to occur between steps\.
 + **secretId** – The ID or Amazon Resource Name \(ARN\) for the secret to rotate\. Secrets Manager assigns an ARN to every secret when you initially create the secret\. The version rotating automatically becomes the **default** version labeled `AWSCURRENT`\.
 + **clientRequestToken** – A string Secrets Manager provides to the Lambda function\. You must pass the string to any Secrets Manager APIs you call from within the Lambda function\. Secrets Manager uses this token to ensure the idempotency of requests during any required retries caused by failures of individual calls\. This value is a [UUID\-type](https://wikipedia.org/wiki/Universally_unique_identifier) value to ensure uniqueness within the specified secret\. This value becomes the `SecretVersionId` of the new version of the secret\.
 
- The same `secretId` and `clientTokenRequest` invoke every step\. Only the `Step` parameter changes with each call\. This prevents you from storing any state between steps\. The parameters provide all of the necessary information—or as part of the information in the versions accessed with the `AWSPENDING` or `AWSCURRENT` labels\.
+ The same `secretId` and `ClientRequestToken` invoke every step\. Only the `Step` parameter changes with each call\. This prevents you from storing any state between steps\. The parameters provide all of the necessary information—or as part of the information in the versions accessed with the `AWSPENDING` or `AWSCURRENT` labels\.
 
 For descriptions of the specific tasks to be performed in each step for the different rotation strategies, see the following topics:
 + [Rotating AWS Secrets Manager secrets for one user with a single password](rotating-secrets-one-user-one-password.md)
 + [Rotating AWS Secrets Manager secrets by alternating between two existing users](rotating-secrets-two-users.md)
 + [Rotating AWS Secrets Manager secrets for one user supporting multiple credentials](rotating-secrets-one-user-multiple-passwords.md)
 
-## The steps of the Lambda rotation function<a name="rotation-explanation-of-steps"></a>
+## The steps of rotation<a name="rotation-explanation-of-steps"></a>
 
 The functionality built into the Lambda rotation function breaks down into distinct steps\. The `Step` parameter invokes each step by calling the function with one of the parameter values\.
 

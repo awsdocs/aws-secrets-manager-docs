@@ -12,7 +12,7 @@ Choose **Create Policy** and add the following code\. You can find the ARN for y
     "Statement": {
         "Effect": "Allow",
         "Action": "secretsmanager:GetSecretValue",
-        "Resource": "<arn-of-the-secret-the-app-needs-to-access>"
+        "Resource": "SecretARN"
     }
 }
 ```
