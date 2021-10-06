@@ -1,3 +1,0 @@
-# Access control and authorization<a name="auth-and-access_authorization"></a>
-
-You can have a valid identity with credentials to authenticate your requests, but you also need *permissions* to make Secrets Manager API requests to create, manage, or use Secrets Manager resources\. For example, you must have permissions to create a secret, to manage the secret, to retrieve the secret, as well as other tasks\. The following sections describe managing permissions for Secrets Manager\. 

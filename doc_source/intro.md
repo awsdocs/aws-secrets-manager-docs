@@ -4,7 +4,7 @@ In the past, when you created a custom application to retrieve information from 
 
 Secrets Manager enables you to replace hardcoded credentials in your code, including passwords, with an API call to Secrets Manager to retrieve the secret programmatically\. This helps ensure the secret can't be compromised by someone examining your code, because the secret no longer exists in the code\. Also, you can configure Secrets Manager to automatically rotate the secret for you according to a specified schedule\. This enables you to replace long\-term secrets with short\-term ones, significantly reducing the risk of compromise\.
 
-For a list of terms and concepts you need to understand to make full use of Secrets Manager, see [Getting started with AWS Secrets Manager](getting-started.md)\.
+For a list of terms and concepts you need to understand to make full use of Secrets Manager, see [Get started with AWS Secrets Manager](getting-started.md)\.
 
 ## Basic Secrets Manager scenario<a name="intro-basic-scenario"></a>
 
@@ -23,7 +23,7 @@ The following diagram illustrates the most basic scenario\. The diagram displays
 1. The client application parses the credentials, connection string, and any other required information from the response and then uses the information to access the database server\.
 
 **Note**  
-Secrets Manager supports many types of secrets\. However, Secrets Manager can *natively* rotate credentials for [supported AWS databases](#full-rotation-support) without any additional programming\. However, rotating the secrets for other databases or services requires creating a custom Lambda function to define how Secrets Manager interacts with the database or service\. You need some programming skill to create the function\. For more information, see [Rotating your AWS Secrets Manager secrets](rotating-secrets.md)\.
+Secrets Manager supports many types of secrets\. However, Secrets Manager can *natively* rotate credentials for [supported AWS databases](#full-rotation-support) without any additional programming\. However, rotating the secrets for other databases or services requires creating a custom Lambda function to define how Secrets Manager interacts with the database or service\. You need some programming skill to create the function\. For more information, see [Rotate your AWS Secrets Manager secrets](rotating-secrets.md)\.
 
 ## Features of Secrets Manager<a name="features"></a>
 
@@ -35,9 +35,9 @@ Secrets Manager enables you to replace stored credentials with a runtime call to
 
 Most of the time, your client requires access to the most recent version of the encrypted secret value\. When you query for the encrypted secret value, you can choose to provide only the secret name or Amazon Resource Name \(ARN\), without specifying any version information at all\. If you do this, Secrets Manager automatically returns the most recent version of the secret value\.
 
-However, other versions can exist at the same time\. Most systems support secrets more complicated than a simple password, such as full sets of credentials including the connection details, the user ID, and the password\. Secrets Manager allows you to store multiple sets of these credentials at the same time\. Secrets Manager stores each set in a different version of the secret\. During the secret rotation process, Secrets Manager tracks the older credentials, as well as the new credentials you want to start using, until the rotation completes\. It tracks these different versions by using *[staging labels](getting-started.md#term_staging-label)*\.
+However, other versions can exist at the same time\. Most systems support secrets more complicated than a simple password, such as full sets of credentials including the connection details, the user ID, and the password\. Secrets Manager allows you to store multiple sets of these credentials at the same time\. Secrets Manager stores each set in a different version of the secret\. During the secret rotation process, Secrets Manager tracks the older credentials, as well as the new credentials you want to start using, until the rotation completes\.
 
-### Storing different types of secrets<a name="features_storing-secrets"></a>
+### Store different types of secrets<a name="features_storing-secrets"></a>
 
 Secrets Manager enables you to store text in the encrypted secret data portion of a secret\. This typically includes the connection details of the database or service\. These details can include the server name, IP address, and port number, as well as the user name and password used to sign in to the service\. For details on secrets, see the [maximum and minimum values](reference_limits.html#reference_limits_max-min)\. The protected text doesn't include:
 +  Secret name and description
@@ -45,7 +45,7 @@ Secrets Manager enables you to store text in the encrypted secret data portion o
 +  ARN of the KMS key associated with the secret
 + Any attached AWS tags 
 
-### Encrypting your secret data<a name="features_kms-encryption"></a>
+### Encrypt your secret data<a name="features_kms-encryption"></a>
 
 Secrets Manager encrypts the protected text of a secret by using [AWS Key Management Service \(AWS KMS\)](https://docs.aws.amazon.com/kms/latest/developerguide/)\. Many AWS services use AWS KMS for key storage and encryption\. AWS KMS ensures secure encryption of your secret when at rest\. Secrets Manager associates every secret with a KMS key\. It can be either AWS managed key for Secrets Manager for the account \(`aws/secretsmanager`\), or a customer managed key you create in AWS KMS\. 
 
@@ -53,7 +53,7 @@ Whenever Secrets Manager encrypt a new version of the protected secret data, Sec
 
 In addition, Secrets Manager, by default, only accepts requests from hosts using open standard [Transport Layer Security \(TLS\)](https://en.wikipedia.org/wiki/Transport_Layer_Security) and [Perfect Forward Secrecy](https://en.wikipedia.org/wiki/Forward_secrecy)\. Secrets Manager ensures encryption of your secret while in transit between AWS and the computers you use to retrieve the secret\.
 
-### Automatically rotating your secrets<a name="features_autorotate"></a>
+### Automatically rotate your secrets<a name="features_autorotate"></a>
 
 You can configure Secrets Manager to automatically rotate your secrets without user intervention and on a specified schedule\.
 
@@ -82,7 +82,7 @@ You can also choose to enable rotation on the following services, fully supporte
 + Amazon DocumentDB 
 + Amazon Redshift 
 
-You can also store secrets for almost any other kind of database or service\. However, to automatically rotate the secrets, you need to create and configure a custom Lambda rotation function\. For more information about writing a custom Lambda function for a database or service, see [Overview of the Lambda rotation function](rotating-secrets-lambda-function-overview.md)\. 
+You can also store secrets for almost any other kind of database or service\. However, to automatically rotate the secrets, you need to create and configure a custom Lambda rotation function\. For more information about writing a custom Lambda function for a database or service, see \. 
 
 ### Control access to secrets<a name="features_control-access"></a>
 
@@ -90,7 +90,7 @@ You can attach AWS Identity and Access Management \(IAM\) permission policies to
 
 Alternatively, you can attach a resource\-based policy directly to the secret to grant permissions specifying users who can read or modify the secret and the versions\. Unlike an identity\-based policy which automatically applies to the user, group, or role, a resource\-based policy attached to a secret uses the `Principal` element to identify the target of the policy\. The `Principal` element can include users and roles from the same account as the secret or principals from other accounts\.
 
-## Accessing Secrets Manager<a name="asm_access"></a>
+## Access Secrets Manager<a name="asm_access"></a>
 
 You can work with Secrets Manager in any of the following ways:
 

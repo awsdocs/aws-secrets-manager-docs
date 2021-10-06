@@ -1,4 +1,4 @@
-# Troubleshooting general issues<a name="troubleshoot_general"></a>
+# Troubleshoot general issues<a name="troubleshoot_general"></a>
 
 Use the information here to help you diagnose and fix access\-denied or other common issues that you might encounter when you're working with AWS Secrets Manager\.
 
@@ -26,7 +26,7 @@ Design your global applications to account for these potential delays\. Also, en
 
 For more information about how some other AWS services are affected by this, consult the following resources:
 + [Managing data consistency](https://docs.aws.amazon.com/redshift/latest/dg/managing-data-consistency.html) in the *Amazon Redshift Database Developer Guide*
-+ [Amazon S3 Data Consistency Model](https://docs.aws.amazon.com/AmazonS3/latest/dev/Introduction.html#ConsistencyModel) in the *Amazon Simple Storage Service Developer Guide*
++ [Amazon S3 Data Consistency Model](https://docs.aws.amazon.com/AmazonS3/latest/dev/Introduction.html#ConsistencyModel) in the *Amazon Simple Storage Service User Guide*
 + [Ensuring Consistency When Using Amazon S3 and Amazon EMR for ETL Workflows](http://aws.amazon.com/blogs/big-data/ensuring-consistency-when-using-amazon-s3-and-amazon-elastic-mapreduce-for-etl-workflows/) in the AWS Big Data Blog
 + [Amazon EC2 Eventual Consistency](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/query-api-troubleshooting.html#eventual-consistency) in the *Amazon EC2 API Reference*
 + 
@@ -39,8 +39,8 @@ Verify you are using a symmetric KMS key instead of an asymmetric KMS key\. Secr
 
 If your secret's name ends in a hyphen followed by six characters, Secrets Manager might not be able to find the secret from a partial ARN\. Secrets Manager adds a hyphen and six random characters to ARNs, so if your secret ends in the same pattern, Secrets Manager assumes you are specifying a complete ARN\. Instead, use the full ARN for `SecretId`\.
 
-For example, if your secret name is `MySecret-abcdef`, with the ARN `arn:aws:secretsmanager:<Region>:<AccountId>:secret:MySecret-abcdef-nutBrk`, and you call the following operation, then Secrets Manager might not find the secret\. 
+For example, if your secret name is `MySecret-abcdef`, with the ARN `arn:aws:secretsmanager:us-east-2:111122223333:secret:MySecret-abcdef-nutBrk`, and you call the following operation, then Secrets Manager might not find the secret\. 
 
 ```
-aws secretsmanager describe-secret --secret-id arn:aws:secretsmanager:<Region>:<AccountId>:secret:MySecret-abcdef
+aws secretsmanager describe-secret --secret-id arn:aws:secretsmanager:us-east-2:111122223333:secret:MySecret-abcdef
 ```

@@ -1,4 +1,4 @@
-# Retrieving secrets<a name="retrieving-secrets"></a>
+# Retrieve secrets<a name="retrieving-secrets"></a>
 
 With Secrets Manager, you can programmatically and securely retrieve your secrets in your applications\. You can also retrieve your secrets by using the console or the AWS CLI\.<a name="proc-secret-value"></a>
 
@@ -20,7 +20,7 @@ To retrieve a secret in the console, you must have these permissions:
    + Choose **Secret key/value** to see the credentials as individual keys and values\. 
    + Choose **Plaintext** to see the JSON text string that Secrets Manager encrypts and stores\.
 
-## Retrieving secrets programmatically<a name="retrieving-secrets_pro"></a>
+## Retrieve secrets programmatically<a name="retrieving-secrets_pro"></a>
 
 You can use the following commands to retrieve a secret stored in AWS Secrets Manager:
 + **API/SDK:** [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html)
@@ -33,20 +33,3 @@ You can use the following commands to retrieve a secret stored in AWS Secrets Ma
 + **AWS CLI:** [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/get-secret-value.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/get-secret-value.html)
 
 You identify the secret by the name or ARN\. You can include the version, but if you don't specify a version, Secrets Manager defaults to the version with the staging label `AWSCURRENT`\. Secrets Manager returns the contents of the secret text in the response parameters `PlaintextString`\. If you stored binary data in the secret, Secrets Manager also returns `Plaintext`, a byte array\. Secrets Manager uses the last modified date for the `CreatedDate` output\.
-
-**Example**  
-The following example shows how to decrypt and retrieve the encrypted secret information from the default version of the secret named "MyTestDatabase"\.   
-
-```
-$ aws secretsmanager get-secret-value --secret-id development/MyTestDatabase
-{
-    "ARN": "arn:aws:secretsmanager:region:accountid:secret:development/MyTestDatabase-AbCdEf",
-    "Name": "development/MyTestDatabase",
-    "VersionId": "EXAMPLE1-90ab-cdef-fedc-ba987EXAMPLE",
-    "SecretString": "{\"ServerName\":\"MyDBServer\",\"UserName\":\"Anaya\",\"Password\":\"MyT0pSecretP@ssw0rd\"}",
-    "SecretVersionStages": [
-        "AWSCURRENT"
-    ],
-    "CreatedDate": 1510089380.309
-}
-```

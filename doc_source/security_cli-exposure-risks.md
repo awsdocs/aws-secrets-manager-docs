@@ -1,4 +1,4 @@
-# Mitigating the risks of using the AWS CLI to store your secrets<a name="security_cli-exposure-risks"></a>
+# Mitigate the risks of using the AWS CLI to store your secrets<a name="security_cli-exposure-risks"></a>
 
 When you use the AWS Command Line Interface \(AWS CLI\) to invoke AWS operations, you enter those commands in a command shell\. For example, you can use the Windows command prompt or Windows PowerShell, or the Bash or Z shell, among others\. Many of these command shells include functionality designed to increase productivity\. But this functionality can be used to compromise your secrets\. For example, in most shells, you can use the up arrow key to see the last entered command\. The *command history* feature can be exploited by anyone who accesses your unsecured session\. Also, other utilities that work in the background might have access to your command parameters, with the intended goal of helping you perform your tasks more efficiently\. To mitigate such risks, ensure you take the following steps:
 + Always lock your computer when you walk away from your console\.

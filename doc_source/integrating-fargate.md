@@ -1,4 +1,4 @@
-# Integrating Secrets Manager with AWS Fargate<a name="integrating-fargate"></a>
+# Integrate Secrets Manager with AWS Fargate<a name="integrating-fargate"></a>
 
 AWS Fargate is a technology that you can use with Amazon ECS to run containers without managing servers or clusters of Amazon ECS instances\. With AWS Fargate, you no longer have to provision, configure, or scale clusters of virtual machines to run containers\. This removes the need to choose server types, decide when to scale your clusters, or optimize cluster packing\.
 

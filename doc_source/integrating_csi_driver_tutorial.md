@@ -2,7 +2,7 @@
 
 In this tutorial, you create an example secret in Secrets Manager, and then you mount the secret in an Amazon EKS pod and deploy it\. 
 
-Before you begin, install the ASCP: [Installing the ASCP](integrating_csi_driver.md#integrating_csi_driver_install)\.
+Before you begin, install the ASCP: [Install the ASCP](integrating_csi_driver.md#integrating_csi_driver_install)\.
 
 **To create and mount a secret**
 
@@ -13,13 +13,13 @@ Before you begin, install the ASCP: [Installing the ASCP](integrating_csi_driver
    CLUSTERNAME=<CLUSTERNAME>
    ```
 
-1. Create a test secret\. For more information, see [Creating a secret](manage_create-basic-secret.md)\.
+1. Create a test secret\. For more information, see [Create a secret](manage_create-basic-secret.md)\.
 
    ```
    aws --region "$REGION" secretsmanager  create-secret --name MySecret --secret-string '{"username":"lijuan", "password":"hunter2"}'
    ```
 
-1. Create a resource policy for the pod that limits its access to the secret you created in the previous step\. For *<SECRETARN>*, use the ARN of the secret\. Save the policy ARN in a shell variable\. For more information, see [Granting read access to one secret](permissions_grant-get-secret-value-to-one-secret.md)\.
+1. Create a resource policy for the pod that limits its access to the secret you created in the previous step\. For *<SECRETARN>*, use the ARN of the secret\. Save the policy ARN in a shell variable\. 
 
    ```
    POLICY_ARN=$(aws --region "$REGION" --query Policy.Arn --output text iam create-policy --policy-name nginx-deployment-policy --policy-document '{

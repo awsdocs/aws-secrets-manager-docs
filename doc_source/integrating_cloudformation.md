@@ -1,4 +1,4 @@
-# Automating secret creation in AWS CloudFormation<a name="integrating_cloudformation"></a>
+# Automate secret creation in AWS CloudFormation<a name="integrating_cloudformation"></a>
 
 You can use AWS CloudFormation to create and reference secrets from within your AWS CloudFormation stack template\. You can create a secret and then reference it from another part of the template\. For example, you can retrieve the user name and password from the new secret and then use that to define the user name and password for a new database\. You can create and attach resource\-based policies to a secret\. You can also configure rotation by defining a Lambda function in your template and associating the function with your new secret as its rotation Lambda function\. 
 

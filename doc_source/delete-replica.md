@@ -1,4 +1,4 @@
-# Deleting a replica secret<a name="delete-replica"></a>
+# Delete a replica secret<a name="delete-replica"></a>
 
 You can delete each replica secret from a Region by removing the replica secret from the primary secret, and then deleting it\.
 

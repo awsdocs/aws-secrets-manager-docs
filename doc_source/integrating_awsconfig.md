@@ -1,4 +1,4 @@
-# Monitoring Secrets Manager secrets using AWS Config<a name="integrating_awsconfig"></a>
+# Monitor Secrets Manager secrets using AWS Config<a name="integrating_awsconfig"></a>
 
 
 
@@ -19,6 +19,6 @@ You can also leverage [AWS Managed Config Rules](https://docs.aws.amazon.com/con
 
 **Topics**
 + [AWS Config supported rules for Secrets Manager](aws-config-rules.md)
-+ [Implementing secrets management best practices using AWS Config](implementing-awsconfig-rules.md)
-+ [Configuring AWS Config Secrets Manager rules](configuring-awsconfig-rules.md)
-+ [Configuring AWS Config Multi\-Account Multi\-Region Data Aggregator for secrets management best practices](configure-awsconfig-aggregator.md)
++ [Best practices using AWS Config](implementing-awsconfig-rules.md)
++ [Configure AWS Config Secrets Manager rules](configuring-awsconfig-rules.md)
++ [Configure AWS Config Multi\-Account Multi\-Region Data Aggregator for secrets management best practices](configure-awsconfig-aggregator.md)

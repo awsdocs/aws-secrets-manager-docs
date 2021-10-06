@@ -1,6 +1,6 @@
-# Modifying a secret<a name="manage_update-secret"></a>
+# Modify a secret<a name="manage_update-secret"></a>
 
-You can modify some parts of a secret after you create it: the description, resource\-based policy, the encryption key, and tags\. You can also change the encrypted secret value; however, we recommend you use rotation to update secret values that contain credentials\. Rotation updates both the secret in Secrets Manager and the credentials on the database or service\. This keeps the secret automatically synchronized so when clients request a secret value, they always get a working set of credentials\. For more information, see [Rotating your AWS Secrets Manager secrets](rotating-secrets.md)\.
+You can modify some parts of a secret after you create it: the description, resource\-based policy, the encryption key, and tags\. You can also change the encrypted secret value; however, we recommend you use rotation to update secret values that contain credentials\. Rotation updates both the secret in Secrets Manager and the credentials on the database or service\. This keeps the secret automatically synchronized so when clients request a secret value, they always get a working set of credentials\. For more information, see [Rotate your AWS Secrets Manager secrets](rotating-secrets.md)\.
 
 **To update a secret \(console\)**
 
@@ -10,13 +10,13 @@ You can modify some parts of a secret after you create it: the description, reso
 
 1. In the secret details page, do any of the following:
    + To update the description, in the **Secrets details** section, choose **Actions**, and then choose **Edit description**\.
-   + To update the encryption key, in the **Secrets details** section, choose **Actions**, and then choose **Edit encryption key**\. See [Encrypting and decrypting secrets](security-encryption.md)\.
+   + To update the encryption key, in the **Secrets details** section, choose **Actions**, and then choose **Edit encryption key**\. See [Secret encryption and decryption](security-encryption.md)\.
    + To update tags, in the **Tags** section, choose **Edit**\. See [Tag your secrets](managing-secrets_tagging.md)\.
    + To update the secret value, in the **Secret value** section, choose **Retrieve secret value** and then choose **Edit**\. 
 
      Secrets Manager creates a new version of the secret with the staging label `AWSCURRENT`\. You can still access the old version\. From the CLI, use the [get\-secret\-value](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html) action with `version-id` `AWSPREVIOUS`\. 
-   + To update rotation for your secret, choose Edit rotation\. See [Rotating your AWS Secrets Manager secrets](rotating-secrets.md)\.
-   + To update permissions for your secret, choose Edit permissions\. See [Resource\-based policies](auth-and-access_resource-policies.md)\.
+   + To update rotation for your secret, choose Edit rotation\. See [Rotate your AWS Secrets Manager secrets](rotating-secrets.md)\.
+   + To update permissions for your secret, choose Edit permissions\. See [Attach a permissions policy to a secret](auth-and-access_resource-policies.md)\.
 
 ## AWS CLI<a name="manage_update-secret_CLI"></a>
 
@@ -28,7 +28,7 @@ The following example adds or replaces the description with the one in the `--de
 ```
 $ aws secretsmanager update-secret --secret-id production/MyAwesomeAppSecret --description 'This is the description I want to attach to the secret.'
             {
-              "ARN": "arn:aws:secretsmanager:region:accountid:secret:production/MyAwesomeAppSecret-AbCdEf",
+              "ARN": "arn:aws:secretsmanager:us-east-2:111122223333:secret:production/MyAwesomeAppSecret-AbCdEf",
               "Name": "production/MyAwesomeAppSecret",
               "VersionId": "EXAMPLE1-90ab-cdef-fedc-ba987EXAMPLE"
               }
@@ -39,7 +39,7 @@ The following example adds or replaces the encryption key for this secret\.
 When you change the encryption key, Secrets Manager re\-encrypts versions of the secret that have the staging labels `AWSCURRENT`, `AWSPENDING`, and `AWSPREVIOUS` under the new encryption key\. When the secret value changes, Secrets Manager also encrypts it under the new key\. You can use the old key or the new one to decrypt the secret when you retrieve it\.  
 
 ```
-$ aws secretsmanager update-secret --secret-id production/MyAwesomeAppSecret --kms-key-id arn:aws:kms:region:123456789012:key/EXAMPLE1-90ab-cdef-fedc-ba987EXAMPLE
+$ aws secretsmanager update-secret --secret-id production/MyAwesomeAppSecret --kms-key-id arn:aws:kms:Region:AccountId:key/EXAMPLE1-90ab-cdef-fedc-ba987EXAMPLE
 ```
 
 **Example: Update secret value**  
@@ -50,7 +50,7 @@ The following example AWS CLI command updates the secret value for a secret\.
 ```
 $ aws secretsmanager put-secret-value --secret-id production/MyAwesomeAppSecret --secret-string '{"username":"anika","password":"a different password"}'
           {
-            "SecretARN": "arn:aws:secretsmanager:us-west-2:123456789012:secret:production/MyAwesomeAppSecret-AbCdEf",
+            "SecretARN": "arn:aws:secretsmanager:us-east-2:123456789012:secret:production/MyAwesomeAppSecret-AbCdEf",
             "SecretName": "production/MyAwesomeAppSecret",
             "VersionId": "EXAMPLE1-90ab-cdef-fedc-ba987EXAMPLE"
             }

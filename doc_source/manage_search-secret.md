@@ -20,7 +20,7 @@ You can search for a secret using these attributes:
 
   For instance, searching for **MyValue** returns only secrets with a Tag Value of MyValue, not myvalue or other variations\. 
 
-## Using search without filters<a name="no-filters"></a>
+## Search without filters<a name="no-filters"></a>
 
 Using the Search feature without specifying filters returns different search results for secrets\. When you specify a search keyword, the search returns all secrets with that keyword in the name, tag key, tag value, or description and ignores case\-sensitivity in the results\. 
 
@@ -29,13 +29,9 @@ If you use a full text search without any filters, the search feature ignores sp
 Secrets Manager provides this type of search behavior by default\. 
 
 **Note**  
-Secrets Manager is a regional service and the search returns matches stored in the selected region\.<a name="proc-search-secret"></a>
+Secrets Manager is a regional service and the search returns matches stored in the selected region\.
 
-**Searching for secrets**  
-Use the steps on one of the following tabs:
-
-------
-#### [ Using the Secrets Manager console ]<a name="proc-secret-search-console"></a>
+**To search for a secret \(console\)**
 
 1. Open the Secrets Manager console at [https://console\.aws\.amazon\.com/secretsmanager/](https://console.aws.amazon.com/secretsmanager/)\.
 
@@ -44,54 +40,35 @@ Use the steps on one of the following tabs:
    + **Description**
    + **Tag Keys**
    + **Tag Value**
-**Note**  
-You may use multiple filters for your search criteria\.
 
-1. Type your keyword in the **Search** field and press **Enter**\.
+1. Type your keyword in the **Search** field and press **Enter**\. You may use multiple filters for your search criteria\.
 
-1. Secrets Manager returns a list of secrets matching your search criteria\.
-
-For example, searching for secrets with the keyword, **conducts**, in the secret description, returns two secrets: 
-
-
-| Secret Name | Description | 
-| --- | --- | 
-|  SecretsManager\-rotation\-lambda  |  Conducts an AWS Secrets Manager rotation for RDS MySQL using single user rotation scheme  | 
-|  SecretsManager\-rotation\-Developers  |  Conducts an AWS Secrets Manager rotation for RDS MySQL using single user rotation scheme  | 
-
-------
-#### [ Using the AWS CLI or AWS SDK operations ]<a name="proc-secret-search-api"></a>
-
-You can use the following commands to search for a secret stored in AWS Secrets Manager:
-+ **API/SDK:** [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_ListSecret.html](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_ListSecret.html)
-  + [C\+\+](http://sdk.amazonaws.com/cpp/api/LATEST/namespace_aws_1_1_secrets_manager.html)
-  + [Java](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/secretsmanager/package-summary.html)
-  + [PHP](https://docs.aws.amazon.com//aws-sdk-php/v3/api/namespace-Aws.SecretsManager.html)
-  + [Python](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html)
-  + [Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SecretsManager.html)
-  + [Node\.js](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SecretsManager.html)
-+ **AWS CLI:** [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/list-secret.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/list-secret.html)
-
-
-
+**To search for secrets \(AWS CLI or SDK\)**
++ Use the following commands to search for a secret stored in AWS Secrets Manager:
+  + **API/SDK:** [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_ListSecret.html](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_ListSecret.html)
+    + [C\+\+](http://sdk.amazonaws.com/cpp/api/LATEST/namespace_aws_1_1_secrets_manager.html)
+    + [Java](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/secretsmanager/package-summary.html)
+    + [PHP](https://docs.aws.amazon.com//aws-sdk-php/v3/api/namespace-Aws.SecretsManager.html)
+    + [Python](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html)
+    + [Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SecretsManager.html)
+    + [Node\.js](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SecretsManager.html)
+  + **AWS CLI:** [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/list-secret.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/list-secret.html)  
 **Example**  
-The following example of the AWS CLI command searches for secrets with the keyword, **conducts**, in the description\.   
 
-```
-$ aws secretsmanager list-secrets --filters '[{"Key":"description", "Values":["conducts"]}]' --query "SecretList[*].{SecretName:Name,Description:Description}"
-{
-   [
+    The following example searches for secrets with the keyword **conducts** in the description\. 
+
+    ```
+    $ aws secretsmanager list-secrets --filters Key=description,Values=conducts
     {
-        "Description": "Conducts an AWS SecretsManager rotation for RDS MySQL using single user rotation scheme", 
-        "SecretName": "SecretsManager-rotation-lambda"
-    }, 
-    {
-        "Description": "Conducts an AWS SecretsManager rotation for RDS MySQL using single user rotation scheme", 
-        "SecretName": "SecretsManager-rotation-Developers"
+       [
+        {
+            "Description": "Conducts an AWS SecretsManager rotation for RDS MySQL using single user rotation scheme", 
+            "SecretName": "SecretsManager-rotation-lambda"
+        }, 
+        {
+            "Description": "Conducts an AWS SecretsManager rotation for RDS MySQL using single user rotation scheme", 
+            "SecretName": "SecretsManager-rotation-Developers"
+        }
+    ]
     }
-]
-}
-```
-The query returns two secrets, `SecretsManager-rotation-lambda` and `SecretsManager-rotation-Developers`, that contain the keyword, **conducts** in the description\.
-
-------
+    ```

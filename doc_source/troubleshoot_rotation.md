@@ -1,4 +1,4 @@
-# Troubleshooting AWS Secrets Manager rotation of secrets<a name="troubleshoot_rotation"></a>
+# Troubleshoot AWS Secrets Manager rotation of secrets<a name="troubleshoot_rotation"></a>
 
 Use the information here to help you diagnose and fix common errors that you might encounter when you're rotating Secrets Manager secrets\.
 
@@ -61,7 +61,7 @@ This enables the rotation function to retrieve the credentials from the master s
 
 ## Rotation fails because the secret value is not formatted as expected by the rotation function\.<a name="tshoot-lambda-mismatched-secretvalue"></a>
 
-Rotation might also fail if you don't format the secret value as a JSON structure as expected by the rotation function\. The rotation function you use determines the format used\. For the details of what each rotation function requires for the secret value, see the **Expected SecretString Value** entry under the relevant rotation function at [AWS templates you can use to create Lambda rotation functions ](reference_available-rotation-templates.md)\.
+Rotation might also fail if you don't format the secret value as a JSON structure as expected by the rotation function\. The rotation function you use determines the format used\. For the details of what each rotation function requires for the secret value, see the **Expected SecretString Value** entry under the relevant rotation function at [Secrets Manager rotation function templates](reference_available-rotation-templates.md)\.
 
 For example, if you use the MySQL Single User rotation function, the `SecretString` text structure must look like this:
 
@@ -81,7 +81,7 @@ For example, if you use the MySQL Single User rotation function, the `SecretStri
 This can occur if there are network configuration issues that prevent the Lambda function from communicating with either your secured database/service or the Secrets Manager service endpoint, on the public Internet\. If you run your database or service in a VPC, then you use one of two options for configuration:
 + Make the database in the VPC publicly accessible with an Amazon EC2 Elastic IP address\.
 + Configure the Lambda rotation function to operate in the same VPC as the database/service\.
-+ If your VPC doesn't have access to the public Internet, for example, if you don't [configure the VPC with a NAT gateway](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html) for access, then you must [configure the VPC with a private service endpoint for Secrets Manager](rotating-secrets.md#rotation-network-rqmts) accessible from within the VPC\.
++ If your VPC doesn't have access to the public Internet, for example, if you don't [configure the VPC with a NAT gateway](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html) for access, then you must [configure the VPC with a private service endpoint for Secrets Manager](rotation-network-rqmts.md) accessible from within the VPC\.
 
 To determine if this type of configuration issue caused the rotation failure, perform the following steps\.
 

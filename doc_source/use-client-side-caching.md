@@ -1,4 +1,4 @@
-# Caching secrets to improve performance<a name="use-client-side-caching"></a><a name="use-client-side-caching-components"></a>
+# Cache secrets to improve performance<a name="use-client-side-caching"></a><a name="use-client-side-caching-components"></a>
 
 To efficiently use your secret, you must not simply retrieve the secret value every time you want to use it\. You should also include code to perform the following operations:
 + Your application should cache a secret after retrieving it\. Then, instead of retrieving the secret across the network from Secrets Manager every time you need it, use the cached value\. 

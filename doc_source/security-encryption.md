@@ -1,4 +1,4 @@
-# Encrypting and decrypting secrets<a name="security-encryption"></a>
+# Secret encryption and decryption<a name="security-encryption"></a>
 
 Secrets Manager uses [envelope encryption](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#enveloping) with AWS KMS [keys](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#master_keys) and [data keys](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#data-keys) to protect each secret value\. Whenever the secret value in a secret changes, Secrets Manager generates a new data key to protect it\. The data key is encrypted under a KMS key and stored in the metadata of the secret\. To decrypt the secret, Secrets Manager first decrypts the encrypted data key using the KMS key in AWS KMS\. 
 
@@ -12,10 +12,10 @@ To find the KMS key associated with a secret, view the secret in the console or 
 
 **Topics**
 + [Encryption and decryption processes](#security-encryption-encrypt)
-+ [Using your KMS key](#security-encryption-using-cmk)
-+ [Authorizing use of the KMS key](#security-encryption-authz)
++ [How Secrets Manager uses your KMS key](#security-encryption-using-cmk)
++ [Permissions for the KMS key](#security-encryption-authz)
 + [Secrets Manager encryption context](#security-encryption-encryption-context)
-+ [Monitoring Secrets Manager interaction with AWS KMS](#security-encryption-logs)
++ [Monitor Secrets Manager interaction with AWS KMS](#security-encryption-logs)
 
 ## Encryption and decryption processes<a name="security-encryption-encrypt"></a>
 
@@ -35,7 +35,7 @@ To decrypt an encrypted secret value:
 
 1. Secrets Manager uses the plaintext data key to decrypt the secret value\. Then it removes the data key from memory as soon as possible\.
 
-## Using your KMS key<a name="security-encryption-using-cmk"></a>
+## How Secrets Manager uses your KMS key<a name="security-encryption-using-cmk"></a>
 
 Secrets Manager uses the KMS key that is associated with a secret to generate a data key for each secret value\. Secrets Manager also uses the KMS key to decrypt that data key when it needs to decrypt the encrypted secret value\. You can track the requests and responses in AWS CloudTrail events, [Amazon CloudWatch Logs](https://docs.aws.amazon.com/kms/latest/developerguide/services-secrets-manager.html#asm-logs), and audit trails\.
 
@@ -59,7 +59,7 @@ When you establish or change the KMS key that is associated with secret, Secrets
 You can identify these validation calls because the value of the `SecretVersionId` key [encryption context](https://docs.aws.amazon.com/kms/latest/developerguide/services-secrets-manager.html#asm-encryption-context) in these requests is `RequestToValidateKeyAccess`\.  
 In the past, Secrets Manager validation calls did not include an encryption context\. You might find calls with no encryption context in older AWS CloudTrail logs\.
 
-## Authorizing use of the KMS key<a name="security-encryption-authz"></a>
+## Permissions for the KMS key<a name="security-encryption-authz"></a>
 
 When Secrets Manager uses a KMS key in cryptographic operations, it acts on behalf of the user who is creating or changing the secret value in the secret\.
 
@@ -124,7 +124,7 @@ In its [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API
 
 ```
 "encryptionContext": {
-    "SecretARN": "arn:aws:secretsmanager:us-west-2:111122223333:secret:test-secret-a1b2c3",
+    "SecretARN": "arn:aws:secretsmanager:us-east-2:111122223333:secret:test-secret-a1b2c3",
     "SecretVersionId": "EXAMPLE1-90ab-cdef-fedc-ba987SECRET1"
 }
 ```
@@ -138,10 +138,10 @@ The Secrets Manager encryption context consists of two name\-value pairs\.
   "SecretARN": "ARN of an Secrets Manager secret"
   ```
 
-  For example, if the ARN of the secret is `arn:aws:secretsmanager:us-west-2:111122223333:secret:test-secret-a1b2c3`, the encryption context would include the following pair\.
+  For example, if the ARN of the secret is `arn:aws:secretsmanager:us-east-2:111122223333:secret:test-secret-a1b2c3`, the encryption context would include the following pair\.
 
   ```
-  "SecretARN": "arn:aws:secretsmanager:us-west-2:111122223333:secret:test-secret-a1b2c3"
+  "SecretARN": "arn:aws:secretsmanager:us-east-2:111122223333:secret:test-secret-a1b2c3"
   ```
 + **SecretVersionId** – The second name–value pair identifies the version of the secret\. The key is `SecretVersionId`\. The value is the version ID\.
 
@@ -161,7 +161,7 @@ In these validation requests, the value of the `SecretARN` is the actual ARN of 
 
 ```
 "encryptionContext": {
-    "SecretARN": "arn:aws:secretsmanager:us-west-2:111122223333:secret:test-secret-a1b2c3",
+    "SecretARN": "arn:aws:secretsmanager:us-east-2:111122223333:secret:test-secret-a1b2c3",
     "SecretVersionId": "RequestToValidateKeyAccess"
 }
 ```
@@ -169,9 +169,9 @@ In these validation requests, the value of the `SecretARN` is the actual ARN of 
 **Note**  
 In the past, Secrets Manager validation requests did not include an encryption context\. You might find calls with no encryption context in older AWS CloudTrail logs\.
 
-## Monitoring Secrets Manager interaction with AWS KMS<a name="security-encryption-logs"></a>
+## Monitor Secrets Manager interaction with AWS KMS<a name="security-encryption-logs"></a>
 
-You can use AWS CloudTrail and Amazon CloudWatch Logs to track the requests that Secrets Manager sends to AWS KMS on your behalf\. For information about monitoring the use of secrets, see [Monitoring the use of your AWS Secrets Manager secrets](monitoring.md)\.
+You can use AWS CloudTrail and Amazon CloudWatch Logs to track the requests that Secrets Manager sends to AWS KMS on your behalf\. For information about monitoring the use of secrets, see [Monitor the use of your AWS Secrets Manager secrets](monitoring.md)\.
 
 **GenerateDataKey**  
 When you [create or change](https://docs.aws.amazon.com/kms/latest/developerguide/services-secrets-manager.html#asm-using-cmk) the secret value in a secret, Secrets Manager sends a *[GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html)* request to AWS KMS that specifies the KMS key for the secret\.   
@@ -197,14 +197,14 @@ The event that records the `GenerateDataKey` operation is similar to the followi
     "eventTime": "2018-05-31T23:23:41Z",
     "eventSource": "kms.amazonaws.com",
     "eventName": "GenerateDataKey",
-    "awsRegion": "us-west-2",
+    "awsRegion": "us-east-2",
     "sourceIPAddress": "secretsmanager.amazonaws.com",
     "userAgent": "secretsmanager.amazonaws.com",
     "requestParameters": {
-        "keyId": "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab",
+        "keyId": "arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab",
         "keySpec": "AES_256",
         "encryptionContext": {
-            "SecretARN": "arn:aws:secretsmanager:us-west-2:111122223333:secret:test-secret-a1b2c3",
+            "SecretARN": "arn:aws:secretsmanager:us-east-2:111122223333:secret:test-secret-a1b2c3",
             "SecretVersionId": "EXAMPLE1-90ab-cdef-fedc-ba987SECRET1"
         }
     },
@@ -214,7 +214,7 @@ The event that records the `GenerateDataKey` operation is similar to the followi
     "readOnly": true,
     "resources": [
         {
-            "ARN": "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab",
+            "ARN": "arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab",
             "accountId": "111122223333",
             "type": "AWS::KMS::Key"
         }
@@ -248,12 +248,12 @@ The event that records the `Decrypt` operation is similar to the following examp
     "eventTime": "2018-05-31T23:36:09Z",
     "eventSource": "kms.amazonaws.com",
     "eventName": "Decrypt",
-    "awsRegion": "us-west-2",
+    "awsRegion": "us-east-2",
     "sourceIPAddress": "secretsmanager.amazonaws.com",
     "userAgent": "secretsmanager.amazonaws.com",
     "requestParameters": {
         "encryptionContext": {
-            "SecretARN": "arn:aws:secretsmanager:us-west-2:111122223333:secret:test-secret-a1b2c3",
+            "SecretARN": "arn:aws:secretsmanager:us-east-2:111122223333:secret:test-secret-a1b2c3",
             "SecretVersionId": "EXAMPLE1-90ab-cdef-fedc-ba987SECRET1"
         }
     },
@@ -263,7 +263,7 @@ The event that records the `Decrypt` operation is similar to the following examp
     "readOnly": true,
     "resources": [
         {
-            "ARN": "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab",
+            "ARN": "arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab",
             "accountId": "111122223333",
             "type": "AWS::KMS::Key"
         }

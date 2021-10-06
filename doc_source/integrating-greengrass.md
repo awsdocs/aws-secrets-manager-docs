@@ -1,4 +1,4 @@
-# Integrating Secrets Manager with AWS IoT Greengrass<a name="integrating-greengrass"></a>
+# Integrate Secrets Manager with AWS IoT Greengrass<a name="integrating-greengrass"></a>
 
 AWS IoT Greengrass lets you authenticate with services and applications from Greengrass devices without hard\-coding passwords, tokens, or other secrets\.
 

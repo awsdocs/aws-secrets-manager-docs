@@ -1,4 +1,4 @@
-# Using Secrets Manager secrets in Amazon Elastic Kubernetes Service<a name="integrating_csi_driver"></a>
+# Use Secrets Manager secrets in Amazon Elastic Kubernetes Service<a name="integrating_csi_driver"></a>
 
 To show secrets from Secrets Manager as files mounted in [Amazon EKS](https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html) pods, you can use the AWS Secrets and Configuration Provider \(ASCP\) for the [Kubernetes Secrets Store CSI Driver](https://secrets-store-csi-driver.sigs.k8s.io/)\. The ASCP works with Amazon Elastic Kubernetes Service \(Amazon EKS\) 1\.17\+\.
 
@@ -12,7 +12,7 @@ For a tutorial about how to use the ASCP, see [Tutorial: Create and mount a secr
 
 To learn how to integrate Parameter Store with Amazon EKS, see [Use Parameter Store parameters in Amazon Elastic Kubernetes Service](https://docs.aws.amazon.com/systems-manager/latest/userguide/integrating_csi_driver.html)\. 
 
-## Installing the ASCP<a name="integrating_csi_driver_install"></a>
+## Install the ASCP<a name="integrating_csi_driver_install"></a>
 
 The ASCP is available on GitHub in the [secrets\-store\-csi\-provider\-aws](https://github.com/aws/secrets-store-csi-driver-provider-aws) repository\. The repo also contains example YAML files for creating and mounting a secret\. You first install the Kubernetes Secrets Store CSI Driver, and then you install the ASCP\.
 
@@ -37,7 +37,7 @@ To grant your Amazon EKS pod access to secrets in Secrets Manager, you first cre
 
 The ASCP retrieves the pod identity and exchanges it for the IAM role\. ASCP assumes the IAM role of the pod, which gives it access to the secrets you authorized\. Other containers can't access the secrets unless you also associate them with the IAM role\. 
 
-For information about creating policies, see [Identity\-based policies](auth-and-access_identity-based-policies.md)\.
+For information about creating policies, see [Attach a permissions policy to an identity](auth-and-access_iam-policies.md)\.
 
 For a tutorial about how to use the ASCP, see [Tutorial: Create and mount a secret in an Amazon EKS pod](integrating_csi_driver_tutorial.md)\.
 
@@ -82,7 +82,7 @@ Required if you don't use a Secrets Manager ARN for `objectName`\. Can be either
 **objectVersion**  
 \(Optional\) The version ID of the secret\. We recommend you don't use this field because you must update it every time you update the secret\. By default the most recent version is used\.   
 **objectVersionLabel**  
-\(Optional\) The alias for the version\. The default is the most recent version AWSCURRENT\. For more information, see [Staging label](getting-started.md#term_staging-label)\. 
+\(Optional\) The alias for the version\. The default is the most recent version AWSCURRENT\. For more information, see [Version](getting-started.md#term_version)\. 
 
 **region**  
 \(Optional\) The AWS Region of the secret\. If you don't use this field, the ASCP looks up the Region from the annotation on the node\. This lookup adds overhead to mount requests, so we recommend that you provide the Region for clusters that use large numbers of pods\.
@@ -116,13 +116,13 @@ spec:
   provider: aws
   parameters:
     objects: |
-        - objectName: "arn:aws:secretsmanager:us-east-1:[111122223333]:secret:MySecret-00AACC"
+        - objectName: "arn:aws:secretsmanager:us-east-2:[111122223333]:secret:MySecret-00AACC"
           jmesPath: 
               - path: username
                 objectAlias: dbusername
               - path: password
                 objectAlias: dbpassword
-        - objectName: "arn:aws:secretsmanager:us-east-1:[111122223333]:secret:MySecret2-00AABB"
+        - objectName: "arn:aws:secretsmanager:us-east-2:[111122223333]:secret:MySecret2-00AABB"
         - objectName: "MySecret3"
           objectType: "secretsmanager"
         - objectName: "MySecret4"

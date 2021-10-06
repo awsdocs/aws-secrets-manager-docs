@@ -1,4 +1,4 @@
-# Protecting additional sensitive information<a name="manage_what-not-to-put-in-secret-text"></a>
+# Protect additional sensitive information<a name="manage_what-not-to-put-in-secret-text"></a>
 
 A secret often includes several pieces of information besides the user name and password\. Depending on the database, service, or website, you can choose to include additional sensitive data\. This data can include password hints, or question\-and\-answer pairs you can use to recover your password\.
 

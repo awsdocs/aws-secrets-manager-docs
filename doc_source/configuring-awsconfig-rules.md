@@ -1,4 +1,4 @@
-# Configuring AWS Config Secrets Manager rules<a name="configuring-awsconfig-rules"></a>
+# Configure AWS Config Secrets Manager rules<a name="configuring-awsconfig-rules"></a>
 **Important**  
 If using the AWS Config console for the first time, see [Setting Up AWS Config \(Console\)](https://docs.aws.amazon.com/config/latest/developerguide/gs-console.html)\.
 

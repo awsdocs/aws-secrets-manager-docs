@@ -1,8 +1,8 @@
-# Tutorial: Rotating a secret for an AWS database<a name="tutorials_db-rotate"></a>
+# Tutorial: Rotate a secret for an AWS database<a name="tutorials_db-rotate"></a>
 
 In this tutorial, you create a secret for an AWS database and configure the secret to rotate on a schedule\. You trigger one rotation manually, and then confirm that the new version of the secret continues to provide access\.
 
-**[Configuring a test MySQL database](#tut-db-rotate-step1)**  
+**[Configure a test MySQL database](#tut-db-rotate-step1)**  
 In this step, create a test database in Amazon Relational Database Service \(Amazon RDS\)\. For this tutorial, the test database runs MySQL\.
 
 **[Step 2: Create your secret](#tut-db-rotate-step2)**  
@@ -29,7 +29,7 @@ The tutorial uses a MySQL client tool, MySQLWorkbench, to interact with the data
 The database configured in this tutorial allows access to the public internet on port 3306, again for simplicity in setup for the tutorial\. To complete this tutorial, you must be able to access the MySQL database from your internet\-connected computer by using the MySQL client tool, MySQLWorkbench\. We recommend you follow the guidance in the Lambda and Amazon EC2 VPC documentation to configure production servers securely\.
 
 **Important**  
-For rotation to work, your network environment must permit the Lambda rotation function to communicate with your database and the Secrets Manager service\. Because this tutorial configures your database with public internet access, Lambda automatically configures your rotation function to access the database through the public IP address\. If you block public internet access to your database instance, then you must configure the Lambda function to run in the same VPC as the database instance\. Then you must either [configure your VPC with a private Secrets Manager endpoint](rotating-secrets.md#rotation-network-rqmts), or [configure the VPC with public internet access by using a NAT gateway](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html), so that the Lambda rotation function can access the public Secrets Manager endpoint\.
+For rotation to work, your network environment must permit the Lambda rotation function to communicate with your database and the Secrets Manager service\. Because this tutorial configures your database with public internet access, Lambda automatically configures your rotation function to access the database through the public IP address\. If you block public internet access to your database instance, then you must configure the Lambda function to run in the same VPC as the database instance\. Then you must either [configure your VPC with a private Secrets Manager endpoint](rotation-network-rqmts.md), or [configure the VPC with public internet access by using a NAT gateway](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html), so that the Lambda rotation function can access the public Secrets Manager endpoint\.
 
 ## Required permissions<a name="tut_db-rotate-perms"></a>
 
@@ -38,7 +38,7 @@ To successfully run this tutorial, you must have all of the permissions associat
 **Warning**  
 The `iam:CreateRole` and `iam:AttachRolePolicy` permit a user to grant themselves any permissions, so grant these policies only to trusted users in an account\.
 
-## Configuring a test MySQL database<a name="tut-db-rotate-step1"></a>
+## Configure a test MySQL database<a name="tut-db-rotate-step1"></a>
 
 1. For this part of the tutorial, sign in to your account and configure a MySQL database in Amazon RDS\.
 
@@ -78,7 +78,7 @@ Database creation may take up to 20 minutes before the DB instance becomes avail
    1. Under **Source type**, choose **Anywhere**, and choose **Save rules**\.
 
 **Note**  
-To configure the tutorial correctly, use these settings at a minimum\. If you require a private VPC, then the Lambda function must be configured to run in that VPC\. Next, you must either configure your VPC with a [private Secrets Manager endpoint](rotating-secrets.md#rotation-network-rqmts) or configure the VPC with public internet access by using a [NAT gateway](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html)\. These configurations allow the Lambda rotation function to access the public Secrets Manager endpoint\.
+To configure the tutorial correctly, use these settings at a minimum\. If you require a private VPC, then the Lambda function must be configured to run in that VPC\. Next, you must either configure your VPC with a [private Secrets Manager endpoint](rotation-network-rqmts.md) or configure the VPC with public internet access by using a [NAT gateway](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html)\. These configurations allow the Lambda rotation function to access the public Secrets Manager endpoint\.
 
 ## Step 2: Create your secret<a name="tut-db-rotate-step2"></a>
 
@@ -191,7 +191,7 @@ After you rotate the secret, you can confirm the new credentials in the secret w
 ## Step 6: Clean up<a name="tut-db-rotate-step6"></a>
 
 **Important**  
-If you intend to also perform the tutorial [Tutorial: Rotating a user secret with a master secret](tutorials_db-rotate-master.md), don't perform these steps until you complete the tutorial\.
+If you intend to also perform the tutorial [Tutorial: Rotate a user secret with a master secret](tutorials_db-rotate-master.md), don't perform these steps until you complete the tutorial\.
 
 Because databases and secrets can incur charges on your AWS bill, you should remove the database instance and the secret you created in this tutorial after you finish experimenting with the tutorial\.
 

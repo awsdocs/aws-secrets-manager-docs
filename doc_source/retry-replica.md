@@ -1,4 +1,4 @@
-# Retrying secret replication<a name="retry-replica"></a>
+# Retry secret replication<a name="retry-replica"></a>
 
 Secret replication can fail for the following reasons:
 + A secret with the same name already exists in a Region\.

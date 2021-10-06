@@ -1,9 +1,0 @@
-# Actions and operations<a name="auth-and-access_operations"></a>
-
-Secrets Manager provides a set of *operations* \(API calls and CLI commands\) to work with secrets\. The operations enable you to perform actions such as creating, listing, accessing, modifying, or deleting secrets\. These operations correspond to policy *actions* you can use to grant or deny access to that operation\. In most cases, a one\-to\-one relationship exists between API operations and the actions you can assign in a policy\. To control access to an operation, specify the corresponding action in the `Action` element of an IAM policy\. For a list of allowed Secrets Manager actions used in a policy, see [Actions, resources, and context keys you can use in an IAM policy or secret policy for AWS Secrets Manager](reference_iam-permissions.md)\.
-+ When you combine both an `Action` element and a `Resource` element in an *identity*\-based permission policy `Statement`, then you control both the performed actions and the resources\. The limits apply to the user, group, or role of the attached the policy\. \.
-+ When you combine both an `Action` element and a `Principal` element in a *resource*\-based permission policy `Statement`, then you control both actions that can be performed—and the users, groups, or roles \(the principals\) performing those actions\. The limits apply to the secret with the attached policy\.
-
-When you want to grant permissions to *create new secrets*, use an identity\-based policy attached to your users, groups, or roles\. This technique can also be helpful when you want to manage multiple secrets together in a similar manner\.
-
-When you want to grant permissions to *access existing secrets*, you can use a resource\-based policy attached to the secret\.

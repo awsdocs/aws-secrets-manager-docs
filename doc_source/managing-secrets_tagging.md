@@ -3,7 +3,7 @@
 Several AWS services enable you to add *tags* to your resources, and Secrets Manager allows you tag your secrets\. Secrets Manager defines a tag as a simple label consisting of a customer\-defined key and an optional value\. You can use the tags to make it easy to manage, search, and filter the resources in your AWS account\. When you tag your secrets, be sure to follow these guidelines:
 + Use a standardized naming scheme across all of your resources\. Remember tags are case sensitive\.
 + Create tag sets enabling you to perform the following:
-  + **Security/access control** – You can grant or deny access to a secret by checking the tags attached to the secret\. See [Implementing attribute\-based access control \(ABAC\) for secrets](tag-secrets-abac.md)\.
+  + **Security/access control** – You can grant or deny access to a secret by checking the tags attached to the secret\. See [Example: Control access to secrets using tags](auth-and-access_examples.md#tag-secrets-abac)\.
   + **Cost allocation and tracking** – You can group and categorize your AWS bills by tags\. For more information, see [Using Cost Allocation Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html) in the *AWS Billing and Cost Management User Guide*\.
   + **Automation** – You can use tags to filter resources for automation activities\. For example, some customers run automated start/stop scripts to turn off development environments during non\-business hours to reduce costs\. You can create and then check for a tag indicating if a specific Amazon EC2 instance should be included in the shutdown\.
   + **AWS Management Console** – Some AWS service consoles enable you to organize the displayed resources according to the tags, and to sort and filter by tags\. AWS also provides the Resource Groups tool to create a custom console that consolidates and organizes your resources based on their tags\. For more information, see [Working with Resource Groups](https://docs.aws.amazon.com/) in the *AWS Management Console Getting Started Guide*\.
@@ -31,7 +31,7 @@ For more information, see [AWS Tagging Strategies](https://aws.amazon.com/answer
   The following example adds or replaces the tags with those provided by the `--tags` parameter\. Tag key names and values are case sensitive, and tag keys must be unique\. The parameter is expected to be a JSON array of `Key` and `Value` elements:
 
   ```
-  $ aws secretsmanager tag-resource --secret-id MySecret2 --tags '[{"Key":"costcenter","Value":"12345"},{"Key":"environment","Value":"production"}]'
+  $ aws secretsmanager tag-resource --secret-id MySecret2 --tags Key=costcenter,Value=12345
   ```  
 **Example**  
 
@@ -53,3 +53,10 @@ For more information, see [AWS Tagging Strategies](https://aws.amazon.com/answer
   + [Python](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html)
   + [Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SecretsManager.html)
   + [Node\.js](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SecretsManager.html)
+
+**To find secrets with a specific tag \(AWS CLI\)**
++ Use [list\-secrets](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_ListSecrets.html)\. The following example finds secrets with the `tag` **costcenter** and the `value` **12345**:
+
+  ```
+  $ aws secretsmanager list-secrets --filters Key=tag-key,Values=costcenter Key=tag-value,Values=12345
+  ```

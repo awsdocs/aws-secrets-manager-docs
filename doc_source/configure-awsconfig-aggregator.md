@@ -1,4 +1,4 @@
-# Configuring AWS Config Multi\-Account Multi\-Region Data Aggregator for secrets management best practices<a name="configure-awsconfig-aggregator"></a>
+# Configure AWS Config Multi\-Account Multi\-Region Data Aggregator for secrets management best practices<a name="configure-awsconfig-aggregator"></a>
 
 You configure AWS Config Multi\-Account Multi\-Region Data Aggregator to review configurations of your secrets across all accounts and regions in your organization, and then review your secret configurations and compare to secrets management best practices\. 
 

@@ -1,4 +1,4 @@
-# Editing an encryption key<a name="edit-key"></a>
+# Edit an encryption key<a name="edit-key"></a>
 
 When you change the encryption key associated with your replica secret, all future secret versions use the new key\. Be sure your applications have `kms:Decrypt` permissions on the new key\. 
 

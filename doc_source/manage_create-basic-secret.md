@@ -1,12 +1,12 @@
-# Creating a secret<a name="manage_create-basic-secret"></a>
+# Create a secret<a name="manage_create-basic-secret"></a>
 
 A *secret* is a set of credentials, such as a user name and password, that you store in an encrypted form in Secrets Manager\. The secret also includes the connection information to access a database or other service, which Secrets Manager doesn't encrypt\.
 
 You control access to the secret with IAM permission policies, which means that only authorized users can access or modify the secret\. Applications which access the database or other service use an IAM user or role, so you grant permission to that user or role to access the secret\. You can do this by resource or by identity:
-+ You can attach a resource\-based policy to the secret and then in the policy, list the users or roles that have access\. For more information, see [Resource\-based policies](auth-and-access_resource-based-policies.md)\.
-+ You can attach an identity\-based policy to a user or role, and then in the policy, list the secrets that the identity can access\. For more information, see [Identity\-based policies](auth-and-access_identity-based-policies.md)\.<a name="proc-create"></a><a name="rds-creds"></a><a name="redshift-creds"></a><a name="DocDB"></a><a name="nonrds-creds"></a><a name="other-creds"></a><a name="manage_create-basic-secret_console"></a><a name="manage_create-basic-secret_console.title"></a>
++ You can attach a resource\-based policy to the secret and then in the policy, list the users or roles that have access\. For more information, see [Attach a permissions policy to a secret](auth-and-access_resource-policies.md)\.
++ You can attach an identity\-based policy to a user or role, and then in the policy, list the secrets that the identity can access\. For more information, see [Attach a permissions policy to an identity](auth-and-access_iam-policies.md)\.<a name="proc-create"></a><a name="rds-creds"></a><a name="redshift-creds"></a><a name="DocDB"></a><a name="nonrds-creds"></a><a name="other-creds"></a><a name="manage_create-basic-secret_console"></a><a name="manage_create-basic-secret_console.title"></a>
 
-To create a secret, you need the permissions granted by the **SecretsManagerReadWrite** AWS managed policy\. For more information, see [Managed policies](reference_available-policies.md)\.
+To create a secret, you need the permissions granted by the **SecretsManagerReadWrite** AWS managed policy\. For more information, see [AWS managed policy](reference_available-policies.md)\.
 
 **To create a secret \(console\)**
 
@@ -39,13 +39,13 @@ To create a secret, you need the permissions granted by the **SecretsManagerRead
 
    1. \(Optional\) In the **Tags** section, add tags to your secret\. For tagging strategies, see [Tag your secrets](managing-secrets_tagging.md)\. Don't store sensitive information in tags because they aren't encrypted\.
 
-   1. \(Optional\) In **Resource permissions**, to add a resource policy to your secret, choose **Edit permissions**\. For more information, see [Resource\-based policies](auth-and-access_resource-based-policies.md)\.
+   1. \(Optional\) In **Resource permissions**, to add a resource policy to your secret, choose **Edit permissions**\. For more information, see [Attach a permissions policy to a secret](auth-and-access_resource-policies.md)\.
 
-   1. \(Optional\) In **Replicate secret**, to replicate your secret to another AWS Region, choose **Replicate secret to other Regions**\. For more information, see [Multi\-Region secrets](create-manage-multi-region-secrets.md)\.
+   1. \(Optional\) In **Replicate secret**, to replicate your secret to another AWS Region, choose **Replicate secret to other Regions**\. You can replicate your secret now or come back and replicate it later\. For more information, see [Multi\-Region secrets](create-manage-multi-region-secrets.md)\.
 
    1. Choose **Next**\.
 
-1. \(Optional\) On the **Configure automatic rotation** page, you can turn on automatic rotation\. You can also keep rotation off for now and then turn it on later\. For more information, see [Rotating secrets](rotating-secrets.md)\. Choose **Next**\.
+1. \(Optional\) On the **Configure automatic rotation** page, you can turn on automatic rotation\. You can also keep rotation off for now and then turn it on later\. For more information, see [Rotate secrets](rotating-secrets.md)\. Choose **Next**\.
 
 1. On the **Review** page, review your secret details, and then choose **Store**\.
 
@@ -76,7 +76,7 @@ If you want Secrets Manager to rotate the secret, your secret must be in the for
 
    ```
    {
-       "SecretARN": "arn:aws:secretsmanager:region:accountid:secret:production/MyAwesomeAppSecret-AbCdEf",
+       "SecretARN": "arn:aws:secretsmanager:Region:AccountId:secret:production/MyAwesomeAppSecret-AbCdEf",
        "SecretName": "production/MyAwesomeAppSecret",
        "SecretVersionId": "EXAMPLE1-90ab-cdef-fedc-ba987EXAMPLE"
    }

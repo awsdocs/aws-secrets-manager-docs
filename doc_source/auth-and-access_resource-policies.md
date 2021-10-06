@@ -1,32 +1,75 @@
-# Resource\-based policies<a name="auth-and-access_resource-policies"></a>
+# Attach a permissions policy to a secret<a name="auth-and-access_resource-policies"></a>
 
-Each Secrets Manager secret can have one resource\-based permissions policy,a *secret policy*, attached to it\. You can use a secret policy to grant cross\-account permissions as an alternative to using identity\-based policies with IAM roles\. For example, you can grant permissions to a user in Account B to access your secret in Account A by adding permissions to the secret policy, and identifying the user in Account B as a `Principal`, instead of creating an IAM role\.
+In a resource\-based policy, you specify who can access the secret and the actions they can perform on the secret\. You can use resource\-based policies to:
++ Grant access to a single secret to multiple users and roles\. 
++ Grant access to users or roles in other AWS accounts\.
 
-The following example describes a Secrets Manager secret policy with one statement\. The statement allows the administrator of account 123456789012 to delegate permissions to users and roles in that account\. The policy limits the permissions the administrator can delegate to the `secretsmanager:GetSecretValue` action on a single secret named "prod/ServerA\-a1b2c3"\. The condition ensures the user can retrieve only the current version of the secret\.
+See [Permissions policy examples](auth-and-access_examples.md)\.
+
+When you attach a resource\-based policy to a secret in the console, Secrets Manager uses the automated reasoning engine [Zelkova](https://aws.amazon.com/blogs/security/protect-sensitive-data-in-the-cloud-with-automated-reasoning-zelkova/) and the API `ValidateResourcePolicy` to prevent you from granting a wide range of IAM principals access to your secrets\. Alternatively, you can call the `PutResourcePolicy` API with the `BlockPublicPolicy` parameter from the CLI or SDK\. 
+
+**To view, change, or delete the resource policy for a secret \(console\)**
+
+1. Open the Secrets Manager console at [https://console\.aws\.amazon\.com/secretsmanager/](https://console.aws.amazon.com/secretsmanager/)\.
+
+1. In the secret details page for your secret, in the **Resource permissions** section, choose **Edit permissions**\.
+
+1. In the code field, do one of the following, and then choose **Save**:
+   + To attach or modify a resource policy, enter the policy\. 
+   + To delete the policy, clear the code field\.
+
+## AWS CLI<a name="auth-and-access_resource_cli"></a>
+
+To retrieve the policy attached to the secret, use [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/get-resource-policy.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/get-resource-policy.html)\.
+
+**Example**  
+The following CLI command retrieves the policy attached to the secret\.  
 
 ```
+$ aws secretsmanager get-resource-policy --secret-id production/MyAwesomeAppSecret
 {
-    "Version" : "2012-10-17",
-    "Statement" : [
-        {
-            "Effect": "Allow",
-            "Principal": {"AWS": "arn:aws:iam::123456789012:root" },
-            "Action": "secretsmanager:GetSecretValue",
-            "Resource": "arn:aws:secretsmanager:region:account_id:secret:prod/ServerA-a1b2c3",
-            "Condition": {
-                "ForAnyValue:StringEquals": {
-                    "secretsmanager:VersionStage" : "AWSCURRENT"
-                }
-            }
-        }
-    ]
+  "ARN": "arn:aws:secretsmanager:us-east-2:123456789012:secret:production/MyAwesomeAppSecret-a1b2c3",
+  "Name": "MyAwesomeAppSecret",
+  "ResourcePolicy": "{\"Version\":\"2012-10-17\",\"Statement\":{\"Effect\":\"Allow\",\"Principal\":{\"AWS\":\"arn:aws:iam::111122223333:root\",\"arn:aws:iam::444455556666:root\"},\"Action\":[\"secretsmanager:GetSecret\",\"secretsmanager:GetSecretValue\"],\"Resource\":\"*\"}}"
 }
 ```
 
-**Important**  
-When an IAM principal from one account accesses a secret in a different account, the secret must be encrypted by using a custom AWS KMS CMK\. A secret encrypted with the default Secrets Manager CMK for the account can be decrypted only by principals in that account\. A principal from a different account must be granted permission to both the secret and to the custom AWS KMS CMK\.   
-As an alternative, you can grant the user cross\-account access to assume an IAM role in the same account as the secret\. Because the role exists in the same account as the secret, the role can access secrets encrypted with the default AWS KMS key for the account\.
+To delete the policy attached to the secret, use [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/delete-resource-policy.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/delete-resource-policy.html)\.
 
-Because a secret version can have multiple staging labels attached, you need to use the [IAM policy language's set operators](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_multi-value-conditions.html) to compare them in a policy\. In the previous example, `ForAnyValue:StringLike` states that if any one of the labels attached to the version under evaluation matches "`AWSCURRENT`", then the statement matches, and applies the `Effect`\.
+**Example**  
+The following CLI command deletes the policy attached to the secret\.  
 
-For more example resource\-based policies with Secrets Manager, see [Using resource\-based policies for Secrets Manager](auth-and-access_resource-based-policies.md)\. For additional information about using resource\-based policies instead of IAM roles \(identity\-based policies\), see [How IAM Roles Differ from Resource\-based Policies](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_compare-resource-policies.html) in the *IAM User Guide*\.
+```
+$ aws secretsmanager delete-resource-policy --secret-id production/MyAwesomeAppSecret
+{
+  "ARN": "arn:aws:secretsmanager:us-east-2:123456789012:secret:production/MyAwesomeAppSecret-a1b2c3",
+  "Name": "production/MyAwesomeAppSecret"
+}
+```
+
+To attach a policy for the secret, use [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/put-resource-policy.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/put-resource-policy.html)\. If there is already a policy attached, the command first removes it, and then attaches the new policy\. The policy must be formatted as JSON structured text\. See [JSON policy document structure](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies-introduction)\.
+
+**Example**  
+The following CLI command attaches the resource\-based policy attached to the secret\. The policy is defined in the file `secretpolicy.json`\. Use the [Permissions policy examples](auth-and-access_examples.md) to get started writing your policy\.  
+
+```
+$ aws secretsmanager put-resource-policy --secret-id production/MyAwesomeAppSecret --resource-policy file://secretpolicy.json 
+{
+  "ARN": "arn:aws:secretsmanager:us-east-2:123456789012:secret:production/MyAwesomeAppSecret-a1b2c3",
+  "Name": "MyAwesomeAppSecret"
+  }
+```
+
+## AWS SDK<a name="auth-and-access_resource_sdk"></a>
+
+To retrieve the policy attached to a secret, use [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetResourcePolicy.html](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetResourcePolicy.html) \.
+
+To delete a policy attached to a secret, use [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_DeleteResourcePolicy.html](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_DeleteResourcePolicy.html)\.
+
+To attach a policy to a secret, use [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_PutResourcePolicy.html](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_PutResourcePolicy.html)\. If there is already a policy attached, the command first removes it, and then attaches the new policy\. The policy must be formatted as JSON structured text\. See [JSON policy document structure](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies-introduction)\. Use the [Permissions policy examples](auth-and-access_examples.md) to get started writing your policy\.
++ [C\+\+](http://sdk.amazonaws.com/cpp/api/LATEST/namespace_aws_1_1_secrets_manager.html)
++ [Java](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/secretsmanager/package-summary.html)
++ [PHP](https://docs.aws.amazon.com//aws-sdk-php/v3/api/namespace-Aws.SecretsManager.html)
++ [Python](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html)
++ [Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SecretsManager.html)
++ [Node\.js](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SecretsManager.html)

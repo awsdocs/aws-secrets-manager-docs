@@ -1,4 +1,4 @@
-# Integrating Secrets Manager with Amazon Elastic Container Service<a name="integrating-ecs"></a>
+# Integrate Secrets Manager with Amazon Elastic Container Service<a name="integrating-ecs"></a>
 
 Amazon ECS enables you to inject sensitive data into your containers by storing your sensitive data in Secrets Manager secrets and then referencing them in your container definition\. Sensitive data stored in Secrets Manager secrets can be exposed to a container as environment variables or as part of the log configuration\.
 

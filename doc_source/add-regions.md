@@ -1,4 +1,4 @@
-# Adding additional Regions to a replica secret<a name="add-regions"></a>
+# Add additional Regions to a replica secret<a name="add-regions"></a>
 
 
 

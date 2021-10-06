@@ -1,4 +1,4 @@
-# Creating and managing multi\-Region Secrets Manager secrets<a name="create-manage-multi-region-secrets"></a>
+# Create and manage multi\-Region Secrets Manager secrets<a name="create-manage-multi-region-secrets"></a>
 
 Secrets Manager lets you easily replicate your secrets in multiple AWS Regions to support applications spread across those Regions as well as disaster recovery scenarios\. You can create a primary secret in one AWS Region, and then replicate the secret to all AWS Regions where the application uses the secret\. Secrets Manager securely replicates the primary secret for use in specified AWS Regions without the overhead of managing a complex custom solution for this functionality\.
 
@@ -12,7 +12,7 @@ You can also use this feature to replicate secrets and read them in required Reg
 
 You can replicate secrets across all of your enabled AWS Regions\. However, if you use Secrets Manager in special AWS Regions such as AWS GovCloud \(US\) or China Regions, you can only configure secrets and the replicas within these specialized AWS Regions\. You cannot replicate a secret in your enabled AWS Regions to a specialized Region or replicate secrets from a specialized region to a commercial region\. 
 
-**Enabling Regions in AWS**  
+**Enable Regions in AWS**  
 An AWS Region is a collection of AWS resources in a geographic area\. Each AWS Region is isolated and independent of the other Regions\. Regions provide fault tolerance, stability, and resilience, and can also reduce latency\. They enable you to create redundant resources that remain available and unaffected by a Regional outage\.
 
 If a Region is disabled by default, you must enable it before you can create and manage resources\. The following Regions are disabled by default:
@@ -28,5 +28,5 @@ For more information on enabling Regions, see [Managing AWS Regions](https://doc
 You can manage multi\-Region secrets using the Secrets Manager console, API, or CLI or provision them using AWS CloudFormation templates\.
 
 **Topics**
-+ [Configuring primary and replica secrets](multi-region-config.md)
-+ [Managing multi\-Region secrets in Secrets Manager](manage-multiregion-secret.md)
++ [Configure primary and replica secrets](multi-region-config.md)
++ [Manage multi\-Region secrets in Secrets Manager](manage-multiregion-secret.md)

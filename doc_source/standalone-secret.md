@@ -1,4 +1,4 @@
-# Promoting a replica secret to a standalone secret<a name="standalone-secret"></a>
+# Promote a replica secret to a standalone secret<a name="standalone-secret"></a>
 
 You may want to promote a replica secret to a standalone secret in the following scenarios: 
 + Implementing disaster recovery \- You can promote a replica secret to a standalone instance as a disaster recovery solution if the primary secret becomes unavailable\.

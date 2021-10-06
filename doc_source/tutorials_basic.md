@@ -1,4 +1,4 @@
-# Tutorial: Creating and retrieving a secret<a name="tutorials_basic"></a>
+# Tutorial: Create and retrieve a secret<a name="tutorials_basic"></a>
 
 In this tutorial, you create a secret and store it in AWS Secrets Manager\. You can then retrieve the secret using the AWS Management Console or the AWS CLI\. 
 
@@ -7,7 +7,7 @@ Users new to Secrets Manager can benefit from enrolling in the 30 day free trial
 **[Step 1: Create and store your secret in AWS Secrets Manager](#tutorial-basic-step1)**  
 In this step, you create a secret and provide the basic information required by AWS Secrets Manager\.
 
-**[Step 2: Retrieving your secret from AWS Secrets Manager ](#tutorial-basic-step2)**  
+**[Step 2: Retrieve your secret from AWS Secrets Manager ](#tutorial-basic-step2)**  
 Next, you use the Secrets Manager console and the AWS CLI to retrieve the secret\.
 
 ## Prerequisites<a name="tut-basic-prereqs"></a>
@@ -77,7 +77,7 @@ The output of the command displays the following information:
 
 ```
 {
-    "ARN": "arn:aws:secretsmanager:Region:AccountId:secret:tutorials/MyFirstSecret-rzM8Ja",
+    "ARN": "arn:aws:secretsmanager:us-east-2:111122223333:secret:tutorials/MyFirstSecret-rzM8Ja",
     "Name": "MyFirstSecret",
     "VersionId": "35e07aa2-684d-42fd-b076-3b3f6a19c6dc"
 }
@@ -85,7 +85,7 @@ The output of the command displays the following information:
 
 ------
 
-### Step 2: Retrieving your secret from AWS Secrets Manager<a name="tutorial-basic-step2"></a>
+### Step 2: Retrieve your secret from AWS Secrets Manager<a name="tutorial-basic-step2"></a>
 
 In this step, you retrieve the secret by using the Secrets Manager console and the AWS CLI\.
 
@@ -112,7 +112,7 @@ In this step, you retrieve the secret by using the Secrets Manager console and t
    ```
    $ aws secretsmanager describe-secret --secret-id tutorials/MyFirstSecret
    {
-       "ARN": "arn:aws::secretsmanager:Region:AccountId:secret:tutorials/MyFirstSecret-jiObOV",
+       "ARN": "arn:aws::secretsmanager:us-east-2:111122223333:secret:tutorials/MyFirstSecret-jiObOV",
        "Name": "tutorials/MyFirstSecret",
        "Description": "Basic Create Secret",
        "LastChangedDate": 1522680794.8,
@@ -132,7 +132,7 @@ In this step, you retrieve the secret by using the Secrets Manager console and t
    ```
    $ aws secretsmanager get-secret-value --secret-id tutorials/MyFirstSecret --version-stage AWSCURRENT
    {
-       "ARN": "arn:secretsmanager:Region:AccountId:secret:tutorials/MyFirstSecret-jiObOV",
+       "ARN": "arn:aws:secretsmanager:us-east-2:111122223333:secret:tutorials/MyFirstSecret-jiObOV",
        "Name": "tutorials/MyFirstSecret",
        "VersionId": "EXAMPLE1-90ab-cdef-fedc-ba987EXAMPLE",
        "SecretString": "S3@ttl3R0cks",
@@ -148,4 +148,4 @@ In this step, you retrieve the secret by using the Secrets Manager console and t
    The rest of the output includes the JSON version of your secret value in the `SecretString` response field\.
 
 **Summary**  
-This tutorial demonstrated how easily you can create a simple secret, and to retrieve the secret value when you need it\. For another tutorial on creating a secret and configuring automatic rotation, see [Tutorial: Rotating a secret for an AWS database](tutorials_db-rotate.md)\.
+This tutorial demonstrated how easily you can create a simple secret, and to retrieve the secret value when you need it\. For another tutorial on creating a secret and configuring automatic rotation, see [Tutorial: Rotate a secret for an AWS database](tutorials_db-rotate.md)\.

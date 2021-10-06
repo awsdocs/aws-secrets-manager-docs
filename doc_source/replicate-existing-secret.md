@@ -1,4 +1,4 @@
-# Creating a replica secret from an existing secret<a name="replicate-existing-secret"></a>
+# Create a replica secret from an existing secret<a name="replicate-existing-secret"></a>
 
 You can set up an existing secret for replication across multiple Regions\. You can keep specific secrets regional by setting up an IAM policy that restricts permissions to the replication APIs\.
 
