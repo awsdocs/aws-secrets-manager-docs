@@ -162,8 +162,6 @@ To configure secret rotation
 
 1. For **Select rotation interval**, choose **30 days**\.
 
-1. Under **Select the secret will be used to perform the rotation**, choose **Use this secret**\.
-
 1. Choose **Save**\. Secrets Manager begins to configure rotation for your secret, including creating the Lambda rotation function and attaching a role enabling Secrets Manager to invoke the function\. 
 
 1. Stay on the console page with the **Rotation is being configured** message, until the message changes to **Your secret MyTestDatabaseMasterSecret has been successfully stored and secret rotation is enabled\.**

@@ -299,6 +299,6 @@ arn:aws:serverlessrepo:us-east-2:123456789012:applications/SecretsManagerRDSMySQ
 ### Generic rotation function template<a name="sar-template-generic"></a>
 + **Name:** SecretsManagerRotationTemplate
 + **Supported database/service:** None\. You supply the code to interact with whatever service you want\.
-+ **Rotation strategy:** You can use this template to implement your own strategy\. See [Automatically rotate another type of secret](rotate-secrets_turn-on-for-other.md)\.
++ **Rotation strategy:** You can use this template to implement your own strategy\. Rotation templates have four steps: [How rotation works](rotate-secrets_how.md)\. To use a rotation function that you created based on this template, see [Automatically rotate another type of secret](rotate-secrets_turn-on-for-other.md)\.
 + **Expected `SecretString` structure:** You define this\.
 + **Source code: ** [https://github\.com/aws\-samples/aws\-secrets\-manager\-rotation\-lambdas/tree/master/SecretsManagerRotationTemplate/lambda\_function\.py](https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerRotationTemplate/lambda_function.py)

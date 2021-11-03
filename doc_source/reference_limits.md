@@ -19,7 +19,7 @@ You can operate multiple AWS Regions in your account, and each quota is per AWS 
 
 | Entity | Quota | 
 | --- | --- | 
-| Secrets | 40,000 | 
+| Secrets | 500,000 | 
 | Versions of a secret | \~100  | 
 | Staging labels attached across all versions of a secret | 20 | 
 | Versions attached to a label at the same time | 1 | 

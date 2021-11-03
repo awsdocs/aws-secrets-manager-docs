@@ -1,6 +1,6 @@
 # How rotation works<a name="rotate-secrets_how"></a>
 
-To rotate a secret, Secrets Manager calls a Lambda function according to the schedule you set up\. During rotation, Secrets Manager calls the same function several times, each time with different parameters\. The rotation function does the work of rotating the secret\. There are four steps to rotating a secret, which correspond to four steps in the Lambda rotation function:
+To rotate a secret, Secrets Manager calls a Lambda function according to the schedule you set up\. During rotation, Secrets Manager calls the same function several times, each time with different parameters\. The rotation function does the work of rotating the secret\. There are four steps to rotating a secret, which correspond to four steps in the Lambda rotation function\. Secrets Manager uses [staging labels](https://docs.aws.amazon.com/secretsmanager/latest/userguide/getting-started.html#term_version) to label secret versions during rotation\.
 
 **Step 1: Create a new version of the secret \(`createSecret`\)**  
 The first step of rotation is to create a new version of the secret\. Depending on your [rotation strategy](https://docs.aws.amazon.com/secretsmanager/latest/userguide/rotating-secrets_strategies.html), the new version can contain a new password, a new username and password, or more secret information\. Secrets Manager labels the new version with the staging label `AWSPENDING`\.
@@ -16,7 +16,7 @@ Finally, rotation moves the label `AWSCURRENT` from the previous secret version 
 
 During rotation, Secrets Manager logs events that indicate the state of rotation\. For more information, see [Secrets Manager non\-API events](monitoring.md#logging-non-API-events)\.
 
-After rotation is successful, applications that [](retrieving-secrets.md) from Secrets Manager automatically get the updated credentials\. For more details about how each step of rotation works, see the [Secrets Manager rotation function templates](reference_available-rotation-templates.md)\.
+After rotation is successful, applications that [retrieve secrets](https://docs.aws.amazon.com/secretsmanager/latest/userguide/retrieving-secrets.html) from Secrets Manager automatically get the updated credentials\. For more details about how each step of rotation works, see the [Secrets Manager rotation function templates](reference_available-rotation-templates.md)\.
 
 To turn on automatic rotation, see: 
 + [Automatically rotate an Amazon RDS, Amazon DocumentDB, or Amazon Redshift secret](rotate-secrets_turn-on-for-db.md) 

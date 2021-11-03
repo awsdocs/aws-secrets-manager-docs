@@ -32,4 +32,42 @@ You can use the following commands to retrieve a secret stored in AWS Secrets Ma
   + [Node\.js](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SecretsManager.html)
 + **AWS CLI:** [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/get-secret-value.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/get-secret-value.html)
 
-You identify the secret by the name or ARN\. You can include the version, but if you don't specify a version, Secrets Manager defaults to the version with the staging label `AWSCURRENT`\. Secrets Manager returns the contents of the secret text in the response parameters `PlaintextString`\. If you stored binary data in the secret, Secrets Manager also returns `Plaintext`, a byte array\. Secrets Manager uses the last modified date for the `CreatedDate` output\.
+You identify the secret by the name or ARN\. You can include the version, but if you don't specify a version, Secrets Manager defaults to the version with the staging label `AWSCURRENT`\. Secrets Manager returns the contents of the secret text in the response parameters `PlaintextString`\. If you stored binary data in the secret, Secrets Manager also returns `Plaintext`, a byte array\. Secrets Manager uses the last modified date for the `CreatedDate` output\. 
+
+The following example retrieves the current secret value for `MyAwesomeAppSecret`\.
+
+```
+$ aws secretsmanager get-secret-value --secret-id MyAwesomeAppSecret
+```
+
+```
+{
+    "ARN": "arn:aws:secretsmanager:Region:AccountId:secret:MyAwesomeAppSecret-N4KUiT",
+    "Name": "MyAwesomeAppSecret",
+    "VersionId": "8f514297-c9e7-4d32-8d6c-b02590c3dff0",
+    "SecretString": "{\"username\":\"saanvi\",\"password\":\"aDM4N3*!8TT\"}",
+    "VersionStages": [
+        "AWSCURRENT"
+    ],
+    "CreatedDate": "2020-01-01T12:40:34.236000-07:00"
+}
+```
+
+The following example retrieves the previous secret value for `MyAwesomeAppSecret`\.
+
+```
+aws secretsmanager get-secret-value --secret-id MyAwesomeAppSecret --version-stage AWSPREVIOUS 
+```
+
+```
+{
+    "ARN": "arn:aws:secretsmanager:Region:AccountId:secret:MyAwesomeAppSecret-N4KUiT",
+    "Name": "MyAwesomeAppSecret",
+    "VersionId": "6a317b3e-123c-4168-b391-99b180e15609",
+    "SecretString": "{\"username\":\"saanvi\",\"password\":\"\"}",
+    "VersionStages": [
+        "AWSPREVIOUS"
+    ],
+    "CreatedDate": "2020-01-01T12:40:34.236000-07:00"
+}
+```

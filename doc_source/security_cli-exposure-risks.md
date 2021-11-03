@@ -12,7 +12,7 @@ When you use the AWS Command Line Interface \(AWS CLI\) to invoke AWS operations
   $ touch secret.txt                                                                           # Creates an empty text file
   $ chmod go-rx secret.txt                                                                     # Restricts access to the file to only the user
   $ cat > secret.txt                                                                           # Redirects standard input (STDIN) to the text file
-  ThisIsMyTopSecretPassword^Z                                                                  # Everything the user types from this point up to the CTRL-D (^D) is saved in the file
+  ThisIsMyTopSecretPassword^D                                                                  # Everything the user types from this point up to the CTRL-D (^D) is saved in the file
   $ aws secretsmanager create-secret --name TestSecret --secret-string file://secret.txt       # The Secrets Manager command takes the --secret-string parameter from the contents of the file
   $ shred -u secret.txt                                                                        # The file is destroyed so it can no longer be accessed.
   ```

@@ -37,10 +37,20 @@ Verify you are using a symmetric KMS key instead of an asymmetric KMS key\. Secr
 
 ## An AWS CLI or AWS SDK operation can't find my secret from a partial ARN\.<a name="ARN_secretnamehyphen"></a>
 
-If your secret's name ends in a hyphen followed by six characters, Secrets Manager might not be able to find the secret from a partial ARN\. Secrets Manager adds a hyphen and six random characters to ARNs, so if your secret ends in the same pattern, Secrets Manager assumes you are specifying a complete ARN\. Instead, use the full ARN for `SecretId`\.
+In many cases, Secrets Manager can find your secret from part of an ARN rather than the full ARN\. However, if your secret's name ends in a hyphen followed by six characters, Secrets Manager might not be able to find the secret from only part of an ARN\. Instead, we recommend that you use the complete ARN\.
 
-For example, if your secret name is `MySecret-abcdef`, with the ARN `arn:aws:secretsmanager:us-east-2:111122223333:secret:MySecret-abcdef-nutBrk`, and you call the following operation, then Secrets Manager might not find the secret\. 
+Secrets Manager constructs an ARN for a secret with Region, account, secret name, and then a hyphen and six more characters, as follows:
 
 ```
-aws secretsmanager describe-secret --secret-id arn:aws:secretsmanager:us-east-2:111122223333:secret:MySecret-abcdef
+arn:aws:secretsmanager:us-east-2:111122223333:secret:SecretName-abcdef
+```
+
+If your secret name ends with a hyphen and six characters, using only part of the ARN can appear to Secrets Manager as though you are specifying a full ARN\. For example, you might have a secret named `MySecret-abcdef` with the ARN
+
+`arn:aws:secretsmanager:us-east-2:111122223333:secret:MySecret-abcdef-nutBrk`
+
+If you call the following operation, which only uses part of the secret ARN, then Secrets Manager might not find the secret\. 
+
+```
+$ aws secretsmanager describe-secret --secret-id arn:aws:secretsmanager:us-east-2:111122223333:secret:MySecret-abcdef
 ```
