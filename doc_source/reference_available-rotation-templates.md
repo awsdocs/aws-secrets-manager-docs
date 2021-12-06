@@ -16,9 +16,9 @@ Secrets Manager provides the following rotation function templates:
   + [Amazon RDS PostgreSQL alternating users](#sar-template-postgre-multiuser)
   + [Amazon RDS Microsoft SQLServer single user](#sar-template-sqlserver-singleuser)
   + [Amazon RDS Microsoft SQLServer alternating users](#sar-template-sqlserver-multiuser)
-+ [Amazon DocumentDB databases](#NON-RDS_rotation_templates)
-  + [Amazon DocumentDB MongoDB single user](#sar-template-mongodb-singleuser)
-  + [Amazon DocumentDB MongoDB alternating users](#sar-template-mongodb-multiuser)
++ [Amazon DocumentDB databases \(with MongoDB compatibility\)](#NON-RDS_rotation_templates)
+  + [Amazon DocumentDB single user](#sar-template-mongodb-singleuser)
+  + [Amazon DocumentDB alternating users](#sar-template-mongodb-multiuser)
 + [Amazon Redshift](#template-redshift)
   + [Amazon Redshift single user](#sar-template-redshift-singleuser)
   + [Amazon Redshift primary user](#sar-template-redshift-multiuser)
@@ -212,11 +212,11 @@ Secrets Manager provides the following rotation function templates:
   ```
 + **Source code: **[https://github\.com/aws\-samples/aws\-secrets\-manager\-rotation\-lambdas/tree/master/SecretsManagerRDSSQLServerRotationMultiUser/lambda\_function\.py](https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerRDSSQLServerRotationMultiUser/lambda_function.py)
 
-## Amazon DocumentDB databases<a name="NON-RDS_rotation_templates"></a>
+## Amazon DocumentDB databases \(with MongoDB compatibility\)<a name="NON-RDS_rotation_templates"></a>
 
-### Amazon DocumentDB MongoDB single user<a name="sar-template-mongodb-singleuser"></a>
+### Amazon DocumentDB single user<a name="sar-template-mongodb-singleuser"></a>
 + **Name:** SecretsManagerMongoDBRotationSingleUser
-+ **Supported database/service:** MongoDB database version 3\.2 or 3\.4\.
++ **Supported database/service:** Amazon DocumentDB
 + **Rotation strategy:** [Single user rotation strategy](rotating-secrets_strategies.md#rotating-secrets-one-user-one-password)\.
 + **Expected `SecretString` structure:** 
 
@@ -232,9 +232,9 @@ Secrets Manager provides the following rotation function templates:
   ```
 + **Source code:** [https://github\.com/aws\-samples/aws\-secrets\-manager\-rotation\-lambdas/tree/master/SecretsManagerMongoDBRotationSingleUser/lambda\_function\.py](https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerMongoDBRotationSingleUser/lambda_function.py)
 
-### Amazon DocumentDB MongoDB alternating users<a name="sar-template-mongodb-multiuser"></a>
+### Amazon DocumentDB alternating users<a name="sar-template-mongodb-multiuser"></a>
 + **Name:** SecretsManagerMongoDBRotationMultiUser
-+ **Supported database or service:** MongoDB database version 3\.2 or 3\.4\.
++ **Supported database/service:** Amazon DocumentDB
 + **Rotation strategy:** [Alternating users rotation strategy](rotating-secrets_strategies.md#rotating-secrets-two-users)\.
 + **Expected `SecretString` structure:** 
 

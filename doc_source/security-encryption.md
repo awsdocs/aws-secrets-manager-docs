@@ -171,7 +171,7 @@ In the past, Secrets Manager validation requests did not include an encryption c
 
 ## Monitor Secrets Manager interaction with AWS KMS<a name="security-encryption-logs"></a>
 
-You can use AWS CloudTrail and Amazon CloudWatch Logs to track the requests that Secrets Manager sends to AWS KMS on your behalf\. For information about monitoring the use of secrets, see [Monitor the use of your AWS Secrets Manager secrets](monitoring.md)\.
+You can use AWS CloudTrail and Amazon CloudWatch Logs to track the requests that Secrets Manager sends to AWS KMS on your behalf\. For information about monitoring the use of secrets, see [Monitor AWS Secrets Manager secrets](monitoring.md)\.
 
 **GenerateDataKey**  
 When you [create or change](https://docs.aws.amazon.com/kms/latest/developerguide/services-secrets-manager.html#asm-using-cmk) the secret value in a secret, Secrets Manager sends a *[GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html)* request to AWS KMS that specifies the KMS key for the secret\.   

@@ -1,4 +1,4 @@
-# Retrieve secrets<a name="retrieving-secrets"></a>
+# Retrieve secrets from AWS Secrets Manager<a name="retrieving-secrets"></a>
 
 With Secrets Manager, you can programmatically and securely retrieve your secrets in your applications\. You can also retrieve your secrets by using the console or the AWS CLI\.<a name="proc-secret-value"></a>
 

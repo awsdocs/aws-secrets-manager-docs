@@ -1,14 +1,10 @@
 # Tutorial: Create and retrieve a secret<a name="tutorials_basic"></a>
 
-In this tutorial, you create a secret and store it in AWS Secrets Manager\. You can then retrieve the secret using the AWS Management Console or the AWS CLI\. 
+In this tutorial, you create a secret and store it in AWS Secrets Manager\. You can use either the console or the AWS CLI\. The secret contains a single password, stored as a key\-value pair\. You encrypt your secret with the AWS managed key \(`aws/secretsmanager`\)\. There is no cost for using this key\. 
+
+You then retrieve the secret using the console or the AWS CLI\. 
 
 Users new to Secrets Manager can benefit from enrolling in the 30 day free trial and not receive billing for the activity performed in this tutorial\.
-
-**[Step 1: Create and store your secret in AWS Secrets Manager](#tutorial-basic-step1)**  
-In this step, you create a secret and provide the basic information required by AWS Secrets Manager\.
-
-**[Step 2: Retrieve your secret from AWS Secrets Manager ](#tutorial-basic-step2)**  
-Next, you use the Secrets Manager console and the AWS CLI to retrieve the secret\.
 
 ## Prerequisites<a name="tut-basic-prereqs"></a>
 
@@ -16,124 +12,72 @@ This tutorial assumes you can access an AWS account, and you can sign in to AWS 
 
 ## Step 1: Create and store your secret in AWS Secrets Manager<a name="tutorial-basic-step1"></a>
 
-------
-#### [ Secrets Manager Console ]
-
-**Creating and storing your secret from the console**
+**To store your secret by using the console**
 
 1. Sign in to the AWS Secrets Manager console at [https://console\.aws\.amazon\.com/secretsmanager/](https://console.aws.amazon.com/secretsmanager/)\.
 
-1. On either the service introduction page or the **Secrets** list page, choose **Store a new secret**\.
+1. Choose **Store a new secret**\.
 
-1. On the **Store a new secret** page, choose **Other type of secret**\. You choose this type of secret because your secret doesn't apply to a database\.
+1. On the **Store a new secret** page, do the following:
 
-1. Under **Specify key/value pairs to be stored in the secret**, in the first field, type **MyFirstSecret**\. To configure a password, add a value in the next field\. 
+   1. For Secret type, choose **Other type of secret**\. 
 
-    You provide your secret information, such as credentials and connection details, as key name and value string pairs\. For example, you could specify “UserName” as a key name and the user sign\-in name as the value\.
+   1. For **Key/value pairs**, in the first field, enter **MyPassword**\. In the second field, enter **S3@tt13R0cks**, a temporary password\. This is the text that will be encrypted when you store the secret\.
 
-1. For **Select the encryption key**, choose **DefaultEncryptionKey**\. This is the AWS managed key \(`aws/secretsmanager`\), and there is no cost for using it\. If you choose to create a customer managed key in AWS KMS, then AWS charges you at the standard AWS KMS rate\.
+   1. For **Encryption key**, keep **DefaultEncryptionKey**\. 
 
-1. Choose **Next**\.
+   1. Choose **Next**\.
 
-1. Under **Secret name**, type a name for the secret in the text field\. You must use only alphanumeric characters and the characters /\_\+=\.@\-\.
+1. On the next page, for **Secret name**, enter **tutorial/MyFirstSecret**, and then at the bottom of the page, choose **Next**\.
 
-   For example, you can use a secret name such as **tutorials/MyFirstSecret**\. This stores your secret in the virtual folder **tutorials** with the value **MyFirstSecret**\. We recommend naming secrets in a hierarchical manner which makes managing your secrets easier\.
+1. On the next page, keep **Disable automatic rotation**, and then at the bottom of the page, choose **Next**\.
 
-1. In the **Description** field, type a description of the secret\.
+1. On the **Review** page, you can check your secret settings\.
 
-   For **Description**, type, for example, **Create Secret**
+   In **Sample code**, you can copy the code to paste in your applications\. These examples retrieve the secret value that you stored\. In this tutorial, you stored a password\. 
 
-1. In the **Tags** section, add desired tags in the **Key** and **Value \- optional** text fields\.
+   Choose **Store**\.
 
-   For this tutorial, you can leave tags blank\. However, we recommend using tags as a best practice to help identify secrets\.
+    Secrets Manager console returns to the list of secrets in your account and your new secret is now in the list\.
 
-1. Choose **Next**\.
+**To store your secret by using the CLI**
 
-1. In this tutorial, choose **Disable automatic rotation**, and then choose **Next**\.
-**Note**  
-The next tutorial describes rotating a secret\.
+1. Open a command prompt to run the AWS CLI\. If you haven't installed the AWS CLI, see [Installing the AWS Command Line Interface](https://docs.aws.amazon.com/cli/latest/userguide/installing.html)\. 
 
-1. On the **Review** page, you can check your secret settings\. Also, be sure to review the **Sample code** section with cut\-and\-paste–enabled code you can add to your own applications and use this secret to retrieve the credentials\. Each tab displays the code in different programming languages\.
-
-1. To save your changes, choose **Store**\.
-
-    Secrets Manager console returns to the list of secrets in your account with your new secret now included in the list\.
-
-------
-#### [ Secrets Manager CLI ]
-
-1. Open a command prompt to run the AWS CLI\. If you haven't installed the AWS CLI yet, see [Installing the AWS Command Line Interface](https://docs.aws.amazon.com/cli/latest/userguide/installing.html)\. 
-
-1. **Creating your secret**
-
-   Type the following command and parameters:
+1. Enter the following command:
 
    ```
-   $ aws secretsmanager create-secret --name tutorials/MyFirstSecret 
-             --description "Basic Create Secret" --secret-string S3@tt13R0cks
-   ```
-
-The output of the command displays the following information:
-
-```
-{
-    "ARN": "arn:aws:secretsmanager:us-east-2:111122223333:secret:tutorials/MyFirstSecret-rzM8Ja",
-    "Name": "MyFirstSecret",
-    "VersionId": "35e07aa2-684d-42fd-b076-3b3f6a19c6dc"
-}
-```
-
-------
-
-### Step 2: Retrieve your secret from AWS Secrets Manager<a name="tutorial-basic-step2"></a>
-
-In this step, you retrieve the secret by using the Secrets Manager console and the AWS CLI\.
-
-**Retrieving your secret in the AWS Secrets Manager console**
-
-1. If not already logged into the console, go to the console at [https://console\.aws\.amazon\.com/secretsmanager/](https://console.aws.amazon.com/secretsmanager/) and log into the Secrets Manager service\.
-
-1. On the **Secrets** list page, choose the name of the new secret you created\.
-
-   Secrets Manager displays the **Secrets details** page for your secret\.
-
-1. In the **Secret value** section, choose **Retrieve secret value**\.
-
-1. You can view your secret as either key\-value pairs, or as a JSON text structure\.
-
-**To retrieve your secret by using the AWS Secrets Manager CLI**
-
-1. Open a command prompt to run the AWS CLI\. If you haven't installed the AWS CLI yet, see [Installing the AWS Command Line Interface](https://docs.aws.amazon.com/cli/latest/userguide/installing.html)\. 
-
-1. Using credentials with permissions to access your secret, type the following command and parameters\.
-
-   **To view all of the details of your secret except the encrypted text:**
-
-   ```
-   $ aws secretsmanager describe-secret --secret-id tutorials/MyFirstSecret
+   $ aws secretsmanager create-secret --name tutorial/MyFirstSecret --secret-string S3@tt13R0cks
    {
-       "ARN": "arn:aws::secretsmanager:us-east-2:111122223333:secret:tutorials/MyFirstSecret-jiObOV",
-       "Name": "tutorials/MyFirstSecret",
-       "Description": "Basic Create Secret",
-       "LastChangedDate": 1522680794.8,
-       "LastAccessedDate": 1522627200.0,
-       "VersionIdsToStages": {
-           "EXAMPLE1-90ab-cdef-fedc-ba987EXAMPLE": [
-               "AWSCURRENT"
-           ]
-       }
+       "ARN": "arn:aws:secretsmanager:us-east-2-2:111122223333:secret:tutorial/MyFirstSecret-a1b2c3",
+       "Name": "tutorial/MyFirstSecret",
+       "VersionId": "EXAMPLE1-90ab-cdef-fedc-ba987EXAMPLE"
    }
    ```
 
-    Review the **VersionIdsToStages** response value\. The output contains a list of all active versions of the secret and the staging labels attached to each version\. In this tutorial, you should see a single version ID \(a UUID type value\) mapping to a single staging label `AWSCURRENT`\.
+## Step 2: Retrieve your secret from AWS Secrets Manager<a name="tutorial-basic-step2"></a>
 
-   **To view the encrypted text in your secret:**
+**To retrieve your secret by using the console**
+
+1. Open the Secrets Manager console at [https://console\.aws\.amazon\.com/secretsmanager/](https://console.aws.amazon.com/secretsmanager/)\.
+
+1. On the **Secrets** list page, choose **tutorial/MyFirstSecret**\. 
+
+1. On the **Secrets details** page, in the **Secret value** section, choose **Retrieve secret value**\.
+
+   You can view your secret as either key\-value pairs, or on the **Plaintext** tab as a JSON text structure\.
+
+**To retrieve your secret by using the CLI**
+
+1. Open a command prompt to run the AWS CLI\. If you haven't installed the AWS CLI, see [Installing the AWS Command Line Interface](https://docs.aws.amazon.com/cli/latest/userguide/installing.html)\. 
+
+1. Enter the following command:
 
    ```
-   $ aws secretsmanager get-secret-value --secret-id tutorials/MyFirstSecret --version-stage AWSCURRENT
+   $ aws secretsmanager get-secret-value --secret-id tutorial/MyFirstSecret
    {
-       "ARN": "arn:aws:secretsmanager:us-east-2:111122223333:secret:tutorials/MyFirstSecret-jiObOV",
-       "Name": "tutorials/MyFirstSecret",
+       "ARN": "arn:aws:secretsmanager:us-east-2:111122223333:secret:tutorial/MyFirstSecret-a1b2c3",
+       "Name": "tutorial/MyFirstSecret",
        "VersionId": "EXAMPLE1-90ab-cdef-fedc-ba987EXAMPLE",
        "SecretString": "S3@ttl3R0cks",
        "VersionStages": [
@@ -142,10 +86,3 @@ In this step, you retrieve the secret by using the Secrets Manager console and t
        "CreatedDate": 1522680764.668
    }
    ```
-
-   If you want details for a version with a different staging label than `AWSCURRENT`, you must include the `--version-stage` parameter in the previous command\. Secrets Manager uses `AWSCURRENT` as the default value\.
-
-   The rest of the output includes the JSON version of your secret value in the `SecretString` response field\.
-
-**Summary**  
-This tutorial demonstrated how easily you can create a simple secret, and to retrieve the secret value when you need it\. For another tutorial on creating a secret and configuring automatic rotation, see [Tutorial: Rotate a secret for an AWS database](tutorials_db-rotate.md)\.

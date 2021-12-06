@@ -1,4 +1,4 @@
-# Rotate your AWS Secrets Manager secrets<a name="rotating-secrets"></a>
+# Rotate AWS Secrets Manager secrets<a name="rotating-secrets"></a>
 
 *Rotation* is the process of periodically updating a secret\. When you rotate a secret, you update the credentials in both the secret and the database or service\. In Secrets Manager, you can set up automatic rotation for your secrets\. Applications that [retrieve the secret](https://docs.aws.amazon.com/secretsmanager/latest/userguide/retrieving-secrets.html#retrieving-secrets_pro) from Secrets Manager automatically get the new credentials after rotation\.
 

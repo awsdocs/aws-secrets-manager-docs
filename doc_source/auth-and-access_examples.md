@@ -8,6 +8,8 @@ Permissions policies that you attach to resources and identities are very simila
   You can grant permissions to an application that retrieves a secret from Secrets Manager\. For example, an application running on an Amazon EC2 instance might need access to a database\. You can create an IAM role attached to the EC2 instance profile and then use a permissions policy to grant the role access to the secret\.
 
   You can also grant permissions to users authenticated by an identity system other than IAM\. For example, you can associate IAM roles to mobile app users who sign in with Amazon Cognito\. The role grants the app temporary credentials with the permissions in the role permission policy\. Then you can use a permissions policy to grant the role access to the secret\. 
+
+  [AWS service principals](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html#principal-services) are not typically used as principals in a policy attached to a secret, but some AWS services require it\. When the principal is a service principal, we recommend that you use the [aws:SourceArn](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-sourcearn) and [aws:SourceAccount](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-sourceaccount) global condition keys\. See [Example: Service principal](#auth-and-access_service)\.
 + `Action`: what they can do\. See [Secrets Manager actions](reference_iam-permissions.md#reference_iam-permissions_actions)\.
 + `Resource`: which secrets they can access\. See [Secrets Manager resources](reference_iam-permissions.md#iam-resources)\. 
 
@@ -26,6 +28,7 @@ To attach a policy to an identity, see [Attach a permissions policy to an identi
 + [Example: Permissions and VPCs](#auth-and-access_examples_vpc)
 + [Example: Control access to secrets using tags](#tag-secrets-abac)
 + [Example: Limit access to identities with tags that match secrets' tags](#auth-and-access_tags2)
++ [Example: Service principal](#auth-and-access_service)
 
 ## Example: Permission to retrieve secret values<a name="auth-and-access_examples_read"></a>
 
@@ -149,7 +152,7 @@ The following policy grants permission to create secrets and view a list of secr
 
 ## Example: Permissions and VPCs<a name="auth-and-access_examples_vpc"></a>
 
-If you need to access Secrets Manager from within a VPC, you can make sure that requests to Secrets Manager come from the VPC by including a condition in your permissions policies\. For more information, see [VPC endpoint conditions](reference_iam-permissions.md#iam-contextkeys-vpcendpoint) and [Using Secrets Manager with VPC endpoints](vpc-endpoint-overview.md)\.
+If you need to access Secrets Manager from within a VPC, you can make sure that requests to Secrets Manager come from the VPC by including a condition in your permissions policies\. For more information, see [VPC endpoint conditions](reference_iam-permissions.md#iam-contextkeys-vpcendpoint) and [Using AWS Secrets Manager with VPC endpoints](vpc-endpoint-overview.md)\.
 
 Make sure that requests to access the secret from other AWS services also come from the VPC, otherwise this policy will deny them access\.
 
@@ -236,10 +239,14 @@ The following policy allows `DescribeSecret` on secrets with a tag with the key 
 {
   "Version": "2012-10-17",
   "Statement": {
-      "Effect": "Allow",
-      "Action": "secretsmanager:DescribeSecret",
-      "Resource": "*",
-      "Condition": { "StringEquals": { "secretsmanager:ResourceTag/ServerName": "ServerABC" } }
+    "Effect": "Allow",
+    "Action": "secretsmanager:DescribeSecret",
+    "Resource": "*",
+    "Condition": {
+      "StringEquals": {
+        "secretsmanager:ResourceTag/ServerName": "ServerABC"
+      }
+    }
   }
 }
 ```
@@ -258,10 +265,51 @@ The following policy grants `GetSecretValue` to account *`123456789012`* only if
   "Version": "2012-10-17",
   "Statement": {
     "Effect": "Allow",
-    "Principal": { "AWS": "123456789012" },
-    "Condition": { "StringEquals" : { "aws:ResourceTag/AccessProject": "${ aws:PrincipalTag/AccessProject }" } },
+    "Principal": {
+      "AWS": "123456789012"
+    },
+    "Condition": {
+      "StringEquals": {
+        "aws:ResourceTag/AccessProject": "${ aws:PrincipalTag/AccessProject }"
+      }
+    },
     "Action": "secretsmanager:GetSecretValue",
     "Resource": "*"
-  } 
+  }
+}
+```
+
+## Example: Service principal<a name="auth-and-access_service"></a>
+
+If the resource policy attached to your secret includes an [AWS service principal](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html#principal-services), we recommend that you use the [aws:SourceArn](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-sourcearn) and [aws:SourceAccount](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-sourceaccount) global condition keys\. The ARN and account values are included in the authorization context only when a request comes to Secrets Manager from another AWS service\. This combination of conditions avoids a potential [confused deputy scenario](https://docs.aws.amazon.com/IAM/latest/UserGuide/confused-deputy.html)\. 
+
+Service principals are not typically used as principals in a policy attached to a secret, but some AWS services require it\. For information about resource policies that a service requires you to attach to a secret, see the service's documentation\.
+
+**Example Allow a service to access a secret using a service principal \(attach to a secret\)**  
+
+```
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": [
+          "service-name.amazonaws.com"
+        ]
+      },
+      "Action": "secretsmanager:GetSecretValue",
+      "Resource": "*",
+      "Condition": {
+        "ArnLike": {
+          "aws:sourceArn": "arn:aws:service-name::123456789012:*"
+        },
+        "StringEquals": {
+          "aws:sourceAccount": "123456789012"
+        }
+      }
+
+    }
+  ]
 }
 ```

@@ -2,9 +2,10 @@
 
 AWS Secrets Manager works with the following services:
 + [AWS CloudFormation](integrating_cloudformation.md)
-+ [AWS CloudTrail and Amazon CloudWatch](monitoring.md)
++ [AWS CloudTrail](monitoring.md#monitoring_CTlong)
++ [Amazon CloudWatch](monitoring.md#monitoring_CWlong)
 + [AWS CodeBuild](integrating-codebuild.md)
-+ [AWS Config](integrating_awsconfig.md)
++ [AWS Config](monitoring.md#monitoring_CClong)
 + [Amazon Elastic Container Service \(Amazon ECS\)](integrating-ecs.md)
 + [Amazon EMR](integrating-emr.md)
 + [AWS Fargate](integrating-fargate.md)
@@ -14,5 +15,5 @@ AWS Secrets Manager works with the following services:
 + [Amazon EKS ](integrating_csi_driver.md)
 + [Parameter Store](integrating_parameterstore.md)
 + [Amazon SageMaker](integrating-sagemaker.md)
-+ [AWS Security Hub](integrating-securityhub.md)
++ [AWS Security Hub](monitoring.md#integrating-securityhub)
 + [Zelkova](integrating-zelkova.md)

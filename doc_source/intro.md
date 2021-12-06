@@ -23,7 +23,7 @@ The following diagram illustrates the most basic scenario\. The diagram displays
 1. The client application parses the credentials, connection string, and any other required information from the response and then uses the information to access the database server\.
 
 **Note**  
-Secrets Manager supports many types of secrets\. However, Secrets Manager can *natively* rotate credentials for [supported AWS databases](#full-rotation-support) without any additional programming\. However, rotating the secrets for other databases or services requires creating a custom Lambda function to define how Secrets Manager interacts with the database or service\. You need some programming skill to create the function\. For more information, see [Rotate your AWS Secrets Manager secrets](rotating-secrets.md)\.
+Secrets Manager supports many types of secrets\. However, Secrets Manager can *natively* rotate credentials for [supported AWS databases](#full-rotation-support) without any additional programming\. However, rotating the secrets for other databases or services requires creating a custom Lambda function to define how Secrets Manager interacts with the database or service\. You need some programming skill to create the function\. For more information, see [Rotate AWS Secrets Manager secrets](rotating-secrets.md)\.
 
 ## Features of Secrets Manager<a name="features"></a>
 
@@ -82,7 +82,7 @@ You can also choose to enable rotation on the following services, fully supporte
 + Amazon DocumentDB 
 + Amazon Redshift 
 
-You can also store secrets for almost any other kind of database or service\. However, to automatically rotate the secrets, you need to create and configure a custom Lambda rotation function\. For more information about writing a custom Lambda function for a database or service, see \. 
+You can also store secrets for almost any other kind of database or service\. However, to automatically rotate the secrets, you need to create and configure a custom Lambda rotation function\. For more information about writing a custom Lambda function for a database or service, see [How rotation works](rotate-secrets_how.md)\. 
 
 ### Control access to secrets<a name="features_control-access"></a>
 

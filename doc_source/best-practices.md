@@ -2,9 +2,6 @@
 
 The following recommendations help you to more securely use AWS Secrets Manager:
 
-**Protect additional sensitive information**  
-A secret often includes more information than a user name and password, such as password hints\. See [Protect additional sensitive information](manage_what-not-to-put-in-secret-text.md)\.
-
 **Improve performance by using client\-side caching**  
 To use your secrets most efficiently, cache your secrets on the client and update the cache when the secret changes\. See [Cache secrets to improve performance](use-client-side-caching.md#use-client-side-caching-components)\.
 
@@ -22,10 +19,10 @@ When you use the AWS CLI and enter commands in a command shell, there is a risk 
 We recommend that you run as much of your infrastructure as possible on private networks that are not accessible from the public internet\. See [Running everything in a VPC ](integrating_vpc.md)\.
 
 **Rotate secrets on a schedule**  
-If you don't change your secrets for a long period of time, the secrets become more likely to be compromised\. We recommend that you rotate your secrets every 30 days\. See [Rotate your AWS Secrets Manager secrets](rotating-secrets.md)
+If you don't change your secrets for a long period of time, the secrets become more likely to be compromised\. We recommend that you rotate your secrets every 30 days\. See [Rotate AWS Secrets Manager secrets](rotating-secrets.md)
 
 **Monitor your secrets**  
-Monitor your secrets and log any changes to them\. You can use the logs if you need to investigate any unexpected usage or change, and then you can roll back unwanted changes\. You can also set automated checks for inappropriate usage of secrets and any attempts to delete secrets\. See [Monitor the use of your AWS Secrets Manager secrets](monitoring.md)\.
+Monitor your secrets and log any changes to them\. You can use the logs if you need to investigate any unexpected usage or change, and then you can roll back unwanted changes\. You can also set automated checks for inappropriate usage of secrets and any attempts to delete secrets\. See [Monitor AWS Secrets Manager secrets](monitoring.md)\.
 
 **Use Secrets Manager to provide credentials to Lambda functions**  
 Use Secrets Manager to securely provide database credentials to Lambda functions without hardcoding the secrets in code or passing them through environmental variables\. See [How to securely provide database credentials to Lambda functions by using AWS Secrets Manager](https://aws.amazon.com/blogs/security/how-to-securely-provide-database-credentials-to-lambda-functions-by-using-aws-secrets-manager/)\.

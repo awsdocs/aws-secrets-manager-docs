@@ -1,16 +1,41 @@
 # Promote a replica secret to a standalone secret<a name="standalone-secret"></a>
 
-You may want to promote a replica secret to a standalone secret in the following scenarios: 
-+ Implementing disaster recovery \- You can promote a replica secret to a standalone instance as a disaster recovery solution if the primary secret becomes unavailable\.
-+ Enabling secret rotation \- If you decide that you want to enable rotation, promote the secret to a standalone secret and configure rotation\. 
+A replica secret is a secret that is replicated from a primary in another AWS Region\. It has the same secret value and metadata as the primary, but it can be encrypted with a different KMS key\. A replica secret can't be updated independently from its primary secret, except for its encryption key\. Promoting a replica secret disconnects the replica secret from the primary secret and makes the replica secret a standalone secret\. Changes to the primary secret won't replicate to the standalone secret\. 
 
-For any other changes, to a replica secret, promote it to a standalone secret and add the changes\.
+You might want to promote a replica secret to a standalone secret as a disaster recovery solution if the primary secret becomes unavailable\. Or you might want to promote a replica to a standalone secret if you want to turn on rotation for the replica\.
 
-Attempting to change any of the replica secret parameters generates an error message indicating failure to update the secret\. You must promote the replica secret before changing any parameters\.
+If you promote a replica, be sure to update the corresponding applications to use the standalone secret\. 
 
-To promote a replica secret, choose **Promote to standalone secret**\. 
+**To promote a replica secret \(console\)**
 
-Promoting a replica secret severs the relationship of the replica secret to the primary secret\. Any changes to the primary secret no longer replicate to the standalone secret\. 
+1. Log in to the Secrets Manager at [https://console\.aws\.amazon\.com/secretsmanager/](https://console.aws.amazon.com/secretsmanager/)\. 
 
-**Note**  
-Be sure to update the corresponding applications to use the standalone secret\.
+1. On the **Secrets** page, choose the primary secret\.
+
+1. On the Secret details page, in the **Replicate secret** section, choose the ARN of the replica you want to promote\.
+
+1. On the replica secret details page, choose **Promote to standalone secret**\. choose **Promote to standalone secret**\.
+
+## AWS CLI<a name="standalone-secret-cli"></a>
+
+To promote a replica to a standalone secret, use the [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/stop-replication-to-replica.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/stop-replication-to-replica.html) action\. You must call this action from the replica secret Region\.
+
+**Example**  
+The following example promotes a replica secret to a standalone\.   
+
+```
+$ aws secretsmanager stop-replication-to-replica \
+        --secret-id development/MyTestDatabase
+```
+
+## AWS SDK<a name="standalone-secret-sdk"></a>
+
+To promote a replica to a standalone secret, use the [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_StopReplicationToReplica.html](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_StopReplicationToReplica.html) command\. You must call this command from the replica secret Region\.
+
+For more information, see:
++ [C\+\+](http://sdk.amazonaws.com/cpp/api/LATEST/namespace_aws_1_1_secrets_manager.html)
++ [Java](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/secretsmanager/package-summary.html)
++ [PHP](https://docs.aws.amazon.com//aws-sdk-php/v3/api/namespace-Aws.SecretsManager.html)
++ [Python](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html)
++ [Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SecretsManager.html)
++ [Node\.js](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SecretsManager.html)

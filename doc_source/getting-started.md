@@ -31,13 +31,13 @@ Secrets Manager uses IAM permission policies to make sure that only authorized u
 
 A secret has *versions* which hold copies of the encrypted secret value\. When you change the secret value, or the secret is rotated, Secrets Manager creates a new version\. See [Version](#term_version)\.
 
-You can use a secret across multiple AWS Regions by *replicating* it\. When you replicate a secret, you create a copy of the original or *primary secret* called a *replica secret*\. The replica secret remains linked to the primary secret\. See [Create and manage multi\-Region Secrets Manager secrets ](create-manage-multi-region-secrets.md)\.
+You can use a secret across multiple AWS Regions by *replicating* it\. When you replicate a secret, you create a copy of the original or *primary secret* called a *replica secret*\. The replica secret remains linked to the primary secret\. See [Replicate an AWS Secrets Manager secret to other AWS Regions](create-manage-multi-region-secrets.md)\.
 
 To create a secret, see [Create a secret](manage_create-basic-secret.md)\.
 
 ## Rotation<a name="term_rotation"></a>
 
-*Rotation* is the process of periodically updating a secret to make it more difficult for an attacker to access the credentials\. In Secrets Manager, you can set up automatic rotation for your secrets\. When Secrets Manager rotates a secret, it updates the credentials in both the secret and the database or service\. See [Rotate your AWS Secrets Manager secrets](rotating-secrets.md)\.
+*Rotation* is the process of periodically updating a secret to make it more difficult for an attacker to access the credentials\. In Secrets Manager, you can set up automatic rotation for your secrets\. When Secrets Manager rotates a secret, it updates the credentials in both the secret and the database or service\. See [Rotate AWS Secrets Manager secrets](rotating-secrets.md)\.
 
 ## Version<a name="term_version"></a>
 

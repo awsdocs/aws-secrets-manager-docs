@@ -6,7 +6,7 @@ There are two rotation strategies offered by Secrets Manager:
 
 ## Single user rotation strategy<a name="rotating-secrets-one-user-one-password"></a>
 
-The single user strategy updates credentials for one user in one secret\. See [Tutorial: Rotate a secret for an AWS database](tutorials_db-rotate.md)\.
+The single user strategy updates credentials for one user in one secret\.
 
 This is the simplest rotation strategy, and it is appropriate for most use cases\. You can use single\-user rotation for:
 + Accessing databases\. Database connections are not dropped when a secret rotates, and new connections after rotation use the new credentials\.
@@ -28,7 +28,7 @@ To use this strategy, the user in your secret must have permission to update the
 
 The alternating users strategy updates credentials for two users in one secret\. You create the first user, and rotation clones it to create the second\. 
 
-Each subsequent version of a secret updates the other user\. For example, if the first version has `user1/password1`, then the second version has `user2/password2`\. The third version has `user1/password3`, and the fourth version has `user2/password4`\. You have two sets of valid credentials at any given time: both the current and previous credentials are valid\. See [Tutorial: Rotate a user secret with a master secret](tutorials_db-rotate-master.md)\.
+Each subsequent version of a secret updates the other user\. For example, if the first version has `user1/password1`, then the second version has `user2/password2`\. The third version has `user1/password3`, and the fourth version has `user2/password4`\. You have two sets of valid credentials at any given time: both the current and previous credentials are valid\. 
 
 Applications continue to use the existing version of the credentials while rotation creates the new version\. Once the new version is ready, rotation switches the staging labels so that applications use the new version\. 
 

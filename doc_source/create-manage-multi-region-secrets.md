@@ -1,32 +1,53 @@
-# Create and manage multi\-Region Secrets Manager secrets<a name="create-manage-multi-region-secrets"></a>
+# Replicate an AWS Secrets Manager secret to other AWS Regions<a name="create-manage-multi-region-secrets"></a>
 
-Secrets Manager lets you easily replicate your secrets in multiple AWS Regions to support applications spread across those Regions as well as disaster recovery scenarios\. You can create a primary secret in one AWS Region, and then replicate the secret to all AWS Regions where the application uses the secret\. Secrets Manager securely replicates the primary secret for use in specified AWS Regions without the overhead of managing a complex custom solution for this functionality\.
+You can replicate your secrets in multiple AWS Regions to support applications spread across those Regions to meet Regional access and low latency requirements\. If you later need to, you can promote a replica secret to a standalone and then set it up for replication independently\. Secrets Manager replicates the encrypted secret data and metadata such as tags and resource policies across the specified Regions\. 
 
- Secrets Manager enables the easy lifecycle management of multi\-Region secrets by replicating the primary secret and the associated metadata to the replica secrets\. Replicated secrets have a common name across all Regions to enable you to easily find multi\-Region secrets and begin using them with minimal changes to your application\. Secrets Manager integrates with AWS Key Management Service \(AWS KMS\) to encrypt every version of every secret with a unique data key protected by a KMS key\. This integration protects your secrets under encryption keys that never leave AWS KMS unencrypted\. 
+If you turn on rotation for your primary secret, Secrets Manager rotates the secret in the primary Region, and the new secret value propagates to all of the associated replica secrets\. You don't have to manage rotation individually for all of the replica secrets\. 
 
-Secrets Manager replicates all encrypted secret data and metadata such as tags, resource policies and secret updates such as rotation across the specified Regions\. 
+You can replicate secrets across all of your enabled AWS Regions\. However, if you use Secrets Manager in special AWS Regions such as AWS GovCloud \(US\) or China Regions, you can only configure secrets and the replicas within these specialized AWS Regions\. You can't replicate a secret in your enabled AWS Regions to a specialized Region or replicate secrets from a specialized region to a commercial region\. 
 
-You can set up a single, tag\-based IAM policy to provision access to the secret in all Regions\. 
+Before you can replicate a secret to another Region, you must enable that Region\. For more information, see [Managing AWS Regions\.](https://docs.aws.amazon.com/general/latest/gr/rande-manage.html#rande-manage-enable)
 
-You can also use this feature to replicate secrets and read them in required Regions to meet Regional access and low latency requirements of your multi\-Region applications\. Use multi\-Region secrets to support your disaster recovery strategies by converting any secret replica to a stand\-alone secret and set it up for replication independently\.
+**To replicate a secret to other Regions \(console\)**
 
-You can replicate secrets across all of your enabled AWS Regions\. However, if you use Secrets Manager in special AWS Regions such as AWS GovCloud \(US\) or China Regions, you can only configure secrets and the replicas within these specialized AWS Regions\. You cannot replicate a secret in your enabled AWS Regions to a specialized Region or replicate secrets from a specialized region to a commercial region\. 
+1. Open the Secrets Manager console at [https://console\.aws\.amazon\.com/secretsmanager/](https://console.aws.amazon.com/secretsmanager/)\.
 
-**Enable Regions in AWS**  
-An AWS Region is a collection of AWS resources in a geographic area\. Each AWS Region is isolated and independent of the other Regions\. Regions provide fault tolerance, stability, and resilience, and can also reduce latency\. They enable you to create redundant resources that remain available and unaffected by a Regional outage\.
+1. On the **Secrets** page, choose your secret\.
 
-If a Region is disabled by default, you must enable it before you can create and manage resources\. The following Regions are disabled by default:
-+ Africa \(Cape Town\)
-+ Asia Pacific \(Hong Kong\)
-+ Europe \(Milan\)
-+ Middle East \(Bahrain\)
+1. On the Secret details page, do one of the following:
+   + If your secret is not replicated, choose **Replicate secret**\.
+   + If your secret is replicated, in the **Replicate secret** section, choose **Add Region**\.
 
-When you enable a Region, AWS performs actions to prepare your account in that Region, such as distributing your IAM resources to the Region\. This process takes a few minutes for most accounts, but this can take several hours\. You cannot use the Region until this process is complete\.
+1. In the **Add replica regions** dialog box, do the following:
 
-For more information on enabling Regions, see [Managing AWS Regions](https://docs.aws.amazon.com/general/latest/gr/rande-manage.html)\.
+   1. For **AWS Region**, choose the Region you want to replicate the secret to\.
 
-You can manage multi\-Region secrets using the Secrets Manager console, API, or CLI or provision them using AWS CloudFormation templates\.
+   1. \(Optional\) For **Encryption key**, choose a KMS key to encrypt the secret with\. The key must be in the replica Region, and you can choose the same key as the primary secret\.
 
-**Topics**
-+ [Configure primary and replica secrets](multi-region-config.md)
-+ [Manage multi\-Region secrets in Secrets Manager](manage-multiregion-secret.md)
+   1. \(Optional\) To add another Region, choose **Add more regions**\.
+
+   1. Choose **Replicate**\.
+
+   You return to the secret details page\. In the **Replicate secret** section, the **Replication status** shows for each Region\. The following are some reasons that replication can fail and how to resolve them:
+   + **Failed** \- Secret with the same name exists in the selected Region\. One option to resolve is to overwrite the duplicate name secret in the replica Region\. Choose the **Actions** menu and then choose **Retry replication**\. In the **Retry replication** dialog box, choose **Overwrite** and then choose **Retry replication**\.
+   + **Failed** \- No permissions available on the KMS key to complete the replication\. One option to resolve is to update permissions policies for the KMS key so that you have `kms:Decrypt` permission\.
+   + **Failed ** \- Secret replication failed due to a network error\. When the network is available, choose the **Actions** menu and then choose **Retry replication**\.
+   + **Failed** \- You have not enabled the Region where the replication occurs\. For more information about how to enable a Region, see [Managing AWS Regions\.](https://docs.aws.amazon.com/general/latest/gr/rande-manage.html#rande-manage-enable)
+
+## AWS CLI<a name="create-manage-multi-region-secrets_CLI"></a>
+
+To replicate a secret, use the [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/replicate-secret-to-regions.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/replicate-secret-to-regions.html) action\. The following example replicates a secret to US East \(N\. Virginia\)\. 
+
+```
+$ aws secretsmanager replicate-secret-to-regions --secret-id production/DBWest --add-replica-regions region us-east-1        
+```
+
+## AWS SDK<a name="create-manage-multi-region-secrets_SDK"></a>
+
+To replicate a secret, use the [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_ReplicateSecretToRegions.html](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_ReplicateSecretToRegions.html) command\. For more information, see:
++ [C\+\+](http://sdk.amazonaws.com/cpp/api/LATEST/namespace_aws_1_1_secrets_manager.html)
++ [Java](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/secretsmanager/package-summary.html)
++ [PHP](https://docs.aws.amazon.com/aws-sdk-php/v3/api/namespace-Aws.SecretsManager.html)
++ [Python](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html)
++ [Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SecretsManager.html)
++ [Node\.js](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SecretsManager.html)
