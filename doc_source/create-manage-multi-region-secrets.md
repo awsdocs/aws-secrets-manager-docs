@@ -2,6 +2,8 @@
 
 You can replicate your secrets in multiple AWS Regions to support applications spread across those Regions to meet Regional access and low latency requirements\. If you later need to, you can promote a replica secret to a standalone and then set it up for replication independently\. Secrets Manager replicates the encrypted secret data and metadata such as tags and resource policies across the specified Regions\. 
 
+Multi\-Region secrets are supported in all AWS Regions except Asia Pacific \(Jakarta\)\.
+
 If you turn on rotation for your primary secret, Secrets Manager rotates the secret in the primary Region, and the new secret value propagates to all of the associated replica secrets\. You don't have to manage rotation individually for all of the replica secrets\. 
 
 You can replicate secrets across all of your enabled AWS Regions\. However, if you use Secrets Manager in special AWS Regions such as AWS GovCloud \(US\) or China Regions, you can only configure secrets and the replicas within these specialized AWS Regions\. You can't replicate a secret in your enabled AWS Regions to a specialized Region or replicate secrets from a specialized region to a commercial region\. 
@@ -44,10 +46,4 @@ $ aws secretsmanager replicate-secret-to-regions --secret-id production/DBWest -
 
 ## AWS SDK<a name="create-manage-multi-region-secrets_SDK"></a>
 
-To replicate a secret, use the [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_ReplicateSecretToRegions.html](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_ReplicateSecretToRegions.html) command\. For more information, see:
-+ [C\+\+](http://sdk.amazonaws.com/cpp/api/LATEST/namespace_aws_1_1_secrets_manager.html)
-+ [Java](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/secretsmanager/package-summary.html)
-+ [PHP](https://docs.aws.amazon.com/aws-sdk-php/v3/api/namespace-Aws.SecretsManager.html)
-+ [Python](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html)
-+ [Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SecretsManager.html)
-+ [Node\.js](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SecretsManager.html)
+To replicate a secret, use the [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_ReplicateSecretToRegions.html](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_ReplicateSecretToRegions.html) command\. For more information, see [AWS SDKs](asm_access.md#asm-sdks)\.

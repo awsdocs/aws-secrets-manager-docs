@@ -1,6 +1,6 @@
 # Retrieve secrets from AWS Secrets Manager<a name="retrieving-secrets"></a>
 
-With Secrets Manager, you can programmatically and securely retrieve your secrets in your applications\. You can also retrieve your secrets by using the console or the AWS CLI\.<a name="proc-secret-value"></a>
+With Secrets Manager, you can programmatically and securely retrieve your secrets in your applications\. You can also retrieve your secrets by using the console or the AWS CLI\.
 
 To retrieve a secret in the console, you must have these permissions:
 + `secretsmanager:ListSecrets` – Use to navigate to the secret to retrieve\.

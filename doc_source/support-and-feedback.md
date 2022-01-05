@@ -1,12 +1,9 @@
 # Support and feedback for AWS Secrets Manager<a name="support-and-feedback"></a>
 
-We welcome your feedback\. You can send comments to [awssecretsmanager\-feedback@amazon\.com](mailto:awssecretsmanager-feedback@amazon.com)\. You also can post your feedback and questions in our [AWS Secrets Manager support forum](https://forums.aws.amazon.com/forum.jspa?forumID=296)\. For more information about the AWS Support forums, see [Forums Help](https://forums.aws.amazon.com/help.jspa)\.
+We welcome your feedback\. You can send comments or requests for new features to [awssecretsmanager\-feedback@amazon\.com](mailto:awssecretsmanager-feedback@amazon.com)\. You can also use the feedback links at the top and bottom of each documentation page\.
 
-To request new features for the AWS Secrets Manager console or command line tools, we recommend you submit them in email to [awssecretsmanager\-feedback@amazon\.com](mailto:awssecretsmanager-feedback@amazon.com)\.
-
-To provide feedback for our documentation, you can use the feedback link at the bottom of each web page\. Be specific about the issue you face and how the documentation failed to help you\. Let us know what you saw and how that differed from what you expected\. That helps us to understand what we need to do to improve the documentation\.
-
-Here are some additional resources available to you:
+Here are some additional resources:
++ **[AWS re:Post](https://repost.aws/tags/TAJAqKRtZ5RY6XCoNAUTcVzQ/aws-secrets-manager)** –A community\-driven question\-and\-answer service\.
 + **[AWS Training Catalog](https://aws.amazon.com/training/course-descriptions/)** – Role\-based and specialty courses, as well as self\-paced labs, to help you sharpen your AWS skills and gain practical experience\.
 + **[AWS Developer Tools](https://aws.amazon.com/developertools/)** – Tools and resources that provide documentation, code examples, release notes, and other information to help you build innovative applications with AWS\.
 + **[AWS Support Center](https://console.aws.amazon.com/support/home#/)** – The hub for creating and managing your AWS Support cases\. It includes links to other helpful resources, such as forums, technical FAQs, service health status, and AWS Trusted Advisor\.

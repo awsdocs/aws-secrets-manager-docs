@@ -1,4 +1,4 @@
-# Delete a secret<a name="manage_delete-secret"></a><a name="proc-delete-version"></a>
+# Delete a secret<a name="manage_delete-secret"></a>
 
 Because of the critical nature of secrets, AWS Secrets Manager intentionally makes deleting a secret difficult\. Secrets Manager does not immediately delete secrets\. Instead, Secrets Manager immediately makes the secrets inaccessible and scheduled for deletion after a recovery window of a minimum of seven days\. Until the recovery window ends, you can recover a secret you previously deleted\. There is no charge for secrets that you have marked for deletion\. 
 
@@ -8,7 +8,7 @@ You can't directly delete a version of a secret\. Instead, you remove all stagin
 
 If you don't know whether an application still uses a secret, you can create an Amazon CloudWatch alarm to alert you to any attempts to access a secret during the recovery window\. For more information, see [Monitor secrets scheduled for deletion](monitoring_cloudwatch_deleted-secrets.md)\.
 
-To delete a secret, you must have `secretsmanager:ListSecrets` and `secretsmanager:DeleteSecret` permissions\.<a name="proc-delete-secret"></a><a name="proc-delete-secret-console"></a>
+To delete a secret, you must have `secretsmanager:ListSecrets` and `secretsmanager:DeleteSecret` permissions\.
 
 **To delete a secret \(console\)**
 
@@ -38,7 +38,7 @@ To delete a secret, you must have `secretsmanager:ListSecrets` and `secretsmanag
 
 1. In the **Replicate Secret** section, choose the replica secret\.
 
-1. From the **Actions** menu, choose **Delete Replica**\.<a name="proc-deleted-secret-cli"></a>
+1. From the **Actions** menu, choose **Delete Replica**\.
 
 ## AWS CLI<a name="manage_delete-secret_cli"></a>
 
@@ -89,16 +89,8 @@ $ aws secretsmanager update-secret-version-stage \
     "ARN": "arn:aws:secretsmanager:us-east-2:111122223333:secret:development/MyTestDatabase-AbCdEf",
     "Name": "development/MyTestDatabase"
 }
-```<a name="proc-delete-secret-api"></a><a name="proc-delete-version-api"></a>
+```
 
 ## AWS SDK<a name="manage_delete-secret_sdk"></a>
 
-To delete a secret, use the [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_DeleteSecret.html](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_DeleteSecret.html) command\. To delete a version of a secret, use the [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UpdateSecretVersionStage.html](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UpdateSecretVersionStage.html) command\. To delete a replica, use the [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_StopReplicationToReplica.html](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_StopReplicationToReplica.html) command\.
-
-For more information, see:
-+ [C\+\+](http://sdk.amazonaws.com/cpp/api/LATEST/namespace_aws_1_1_secrets_manager.html)
-+ [Java](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/secretsmanager/package-summary.html)
-+ [PHP](https://docs.aws.amazon.com//aws-sdk-php/v3/api/namespace-Aws.SecretsManager.html)
-+ [Python](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html)
-+ [Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SecretsManager.html)
-+ [Node\.js](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SecretsManager.html)
+To delete a secret, use the [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_DeleteSecret.html](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_DeleteSecret.html) command\. To delete a version of a secret, use the [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UpdateSecretVersionStage.html](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UpdateSecretVersionStage.html) command\. To delete a replica, use the [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_StopReplicationToReplica.html](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_StopReplicationToReplica.html) command\. For more information, see [AWS SDKs](asm_access.md#asm-sdks)\.

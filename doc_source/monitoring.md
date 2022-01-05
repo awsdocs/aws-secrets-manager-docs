@@ -28,6 +28,8 @@ You can receive notifications from Amazon SNS about your secret configurations\.
 
 If you have secrets in multiple AWS accounts and AWS Regions in your organization, you can aggregate that configuration and compliance data\. 
 
+Monitoring secrets with AWS Config is supported in all AWS Regions except Asia Pacific \(Jakarta\)\.
+
 ## Use Security Hub for security best practices in Secrets Manager<a name="integrating-securityhub"></a>
 
 AWS Security Hub provides you with a comprehensive view of your security state in AWS and helps you check your environment against security industry standards and best practices\.

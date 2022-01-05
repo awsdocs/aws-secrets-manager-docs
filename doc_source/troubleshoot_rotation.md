@@ -13,6 +13,7 @@ Rotating secrets in AWS Secrets Manager requires you to use a Lambda function th
 + [Secrets Manager says I successfully configured rotation, but the password isn't rotating](#tshoot-lambda-connection-with-internet)
 + [Rotation fails with an "Internal failure" error message](#tshoot-lambda-missingexcludedchars)
 + [CloudTrail shows access\-denied errors during rotation](#tshoot-lambda-accessdeniedduringrotation)
++ [My database requires an SSL/TLS connection but the Lambda rotation function isn't using SSL/TLS](#tshoot-lambda-SSLTLS)
 
 ## I want to find the diagnostic logs for my Lambda rotation function<a name="tshoot-rotation-find-logs"></a>
 
@@ -147,3 +148,30 @@ Also, if your rotation uses separate master secret credentials to rotate this se
     ]
 }
 ```
+
+## My database requires an SSL/TLS connection but the Lambda rotation function isn't using SSL/TLS<a name="tshoot-lambda-SSLTLS"></a>
+
+If your database requires an SSL/TLS connection, but the rotation function uses an unencrypted connection, the rotation function can't connect to the database, and rotation fails\. In Amazon CloudWatch, the rotation function logs one of the following errors:
++ For single\-user rotation:
+
+  `setSecret: Unable to log into database with previous, current, or pending secret of secret arn SecretArn`
++ For multi\-user rotation:
+
+  `setSecret: Unable to log into database using current credentials for secret SecretArn`
+
+Rotation functions for Amazon RDS \(except Oracle\) and Amazon DocumentDB automatically use Secure Socket Layer \(SSL\) or Transport Layer Security \(TLS\) to connect to your database, if it is available\. Otherwise they use an unencrypted connection\.<a name="rotation-function-created-date"></a>
+
+**Note**  
+If you set up automatic secret rotation before December 20, 2021, your rotation function might be based on an older template that did not support SSL/TLS\. To support connections that use SSL/TLS, you need to [recreate your rotation function](rotate-secrets_turn-on-for-db.md)\.
+
+**To determine when your rotation function was created**
+
+1. In the Secrets Manager console [https://console\.aws\.amazon\.com/secretsmanager/](https://console.aws.amazon.com/secretsmanager/), open your secret\. In the **Rotation configuration** section, under **Lambda rotation function**, you see the **Lambda function ARN**, for example, `arn:aws:lambda:aws-region:123456789012:function:SecretsManagerMyRotationFunction`\. Copy the function name from the end of the ARN, in this example `SecretsManagerMyRotationFunction`\.
+
+1. In the AWS Lambda console [https://console\.aws\.amazon\.com/lambda/](https://console.aws.amazon.com/lambda/), under **Functions**, paste your Lambda function name in the search box, choose Enter, and then choose the Lambda function\. 
+
+1. In the function details page, on the **Configuration** tab, under **Tags**, copy the value next to the key **aws:cloudformation:stack\-name**\.
+
+1. In the AWS CloudFormation console [https://console\.aws\.amazon\.com/cloudformation](https://console.aws.amazon.com/cloudformation/), under **Stacks**, paste the key value in the search box, and then choose Enter\.
+
+1. The list of stacks filters so that only the stack that created the Lambda rotation function appears\. In the **Created date** column, view the date the stack was created\. This is the date the Lambda rotation function was created\.

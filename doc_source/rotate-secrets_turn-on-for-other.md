@@ -37,6 +37,8 @@ For help resolving common rotation issues, see [Troubleshoot AWS Secrets Manager
 
 ## AWS SDK and AWS CLI<a name="rotating-secrets-other_cli"></a>
 
-To turn on rotation, see:
-+ **API/SDK:** [RotateSecret](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_RotateSecret.html)
-+ **AWS CLI:** [rotate\-secret](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/rotate-secret.html)
+To turn on rotation, see [rotate\-secret](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/rotate-secret.html)\.
+
+## AWS SDK<a name="rotating-secrets-other_sdk"></a>
+
+To turn on rotation, use the [RotateSecret](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_RotateSecret.html) action\. For more information, see [AWS SDKs](asm_access.md#asm-sdks)\.

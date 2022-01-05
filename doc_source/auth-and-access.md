@@ -18,7 +18,7 @@ By using IAM permission policies, you control which users or services have acces
 
 ## Permissions for Lambda rotation functions<a name="auth-and-access_rotate"></a>
 
-Secrets Manager uses AWS Lambda functions to [rotate secrets](https://docs.aws.amazon.com/secretsmanager/latest/userguide/rotating-secrets.html)\. The Lambda function must have access to the secret as well as the database or service that the secret contains credentials for\. See [Permissions for the Lambda rotation function](rotating-secrets-required-permissions-function.md)\.
+Secrets Manager uses AWS Lambda functions to [rotate secrets](https://docs.aws.amazon.com/secretsmanager/latest/userguide/rotating-secrets.html)\. The Lambda function must have access to the secret as well as the database or service that the secret contains credentials for\. See [Permissions for rotation](rotating-secrets-required-permissions-function.md)\.
 
 ## Permissions for encryption keys<a name="auth-and-access_encrypt"></a>
 

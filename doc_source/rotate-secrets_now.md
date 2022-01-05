@@ -16,6 +16,8 @@ You can only rotate a secret that has automatic rotation turned on\. Turn on aut
 
 ## AWS SDK and AWS CLI<a name="rotate-secrets_now_cli"></a>
 
-To rotate a secret immediately, see:
-+ **API/SDK:** [RotateSecret](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_RotateSecret.html)
-+ **AWS CLI:** [rotate\-secret](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/rotate-secret.html)
+To rotate a secret immediately, see [rotate\-secret](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/rotate-secret.html)\.
+
+## AWS SDK<a name="rotate-secrets_now_sdk"></a>
+
+To rotate a secret immediately, use the [RotateSecret](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_RotateSecret.html) action\. For more information, see [AWS SDKs](asm_access.md#asm-sdks)\.

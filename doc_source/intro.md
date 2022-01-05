@@ -64,7 +64,7 @@ You define and implement rotation with an AWS Lambda function\. This function de
 + Verifies the new version\.
 + Marks the new version as production ready\.
 
-Staging labels help you to keep track of the different versions of your secrets\. Each version can have multiple staging labels attached, but each staging label can only be attached to one version\. For example, Secrets Manager labels the currently active and in\-use version of the secret with `AWSCURRENT`\. You should configure your applications to always query for the current version of the secret\. When the rotation process creates a new version of a secret, Secrets Manager automatically adds the staging label `AWSPENDING` to the new version until testing and validation completes\. Only then does Secrets Manager add the `AWSCURRENT` staging label to this new version\. Your applications immediately start using the new secret the next time they query for the `AWSCURRENT` version\.<a name="rds-supported-database-list"></a>
+Staging labels help you to keep track of the different versions of your secrets\. Each version can have multiple staging labels attached, but each staging label can only be attached to one version\. For example, Secrets Manager labels the currently active and in\-use version of the secret with `AWSCURRENT`\. You should configure your applications to always query for the current version of the secret\. When the rotation process creates a new version of a secret, Secrets Manager automatically adds the staging label `AWSPENDING` to the new version until testing and validation completes\. Only then does Secrets Manager add the `AWSCURRENT` staging label to this new version\. Your applications immediately start using the new secret the next time they query for the `AWSCURRENT` version\.
 
 #### Databases with fully configured and ready\-to\-use rotation support<a name="full-rotation-support"></a>
 
@@ -78,7 +78,7 @@ When you choose to enable rotation, Secrets Manager supports the following Amazo
 
 #### Other services with fully configured and ready\-to\-use rotation support<a name="other-with-full-rotation-support"></a>
 
-You can also choose to enable rotation on the following services, fully supported with AWS written and tested Lambda rotation function templates, and full configuration of the rotation process:<a name="other-supported-list"></a>
+You can also choose to enable rotation on the following services, fully supported with AWS written and tested Lambda rotation function templates, and full configuration of the rotation process:
 + Amazon DocumentDB 
 + Amazon Redshift 
 
@@ -89,26 +89,6 @@ You can also store secrets for almost any other kind of database or service\. Ho
 You can attach AWS Identity and Access Management \(IAM\) permission policies to your users, groups, and roles that grant or deny access to specific secrets, and restrict management of those secrets\. For example, you might attach one policy to a group with members that require the ability to fully manage and configure your secrets\. Another policy attached to a role used by an application might grant only read permission on the one secret the application needs to run\.
 
 Alternatively, you can attach a resource\-based policy directly to the secret to grant permissions specifying users who can read or modify the secret and the versions\. Unlike an identity\-based policy which automatically applies to the user, group, or role, a resource\-based policy attached to a secret uses the `Principal` element to identify the target of the policy\. The `Principal` element can include users and roles from the same account as the secret or principals from other accounts\.
-
-## Access Secrets Manager<a name="asm_access"></a>
-
-You can work with Secrets Manager in any of the following ways:
-
-**AWS Management Console**  
-You can manage your secrets using the browser\-based [The Secrets Manager console](https://console.aws.amazon.com/secretsmanager/) and perform almost any task related to your secrets by using the console\.  
-Currently, you can't perform the following task in the console:  
-+ *Store binary data in a secret\.* The console currently stores data only in the `SecretString` field of the secret, and does not use the `SecretBinary` field\. To store binary data, you must currently use the AWS CLI or one of the AWS SDKs\. 
-
-**AWS Command Line Tools**  
-The AWS command line tools allows you to issue commands at your system command line to perform Secrets Manager and other AWS tasks\. This can be faster and more convenient than using the console\. The command line tools can be useful if you want to build scripts to perform AWS tasks\.  
-AWS provides two sets of command line tools: the [AWS Command Line Interface](https://aws.amazon.com/cli/) \(AWS CLI\) and the [AWS Tools for Windows PowerShell](https://aws.amazon.com/powershell/)\. For information about installing and using the AWS CLI, see the [AWS Command Line Interface User Guide](https://docs.aws.amazon.com/cli/latest/userguide/)\. For information about installing and using the Tools for Windows PowerShell, see the [AWS Tools for Windows PowerShell User Guide](https://docs.aws.amazon.com/powershell/latest/userguide/)\.
-
-**AWS SDKs**  
-The AWS SDKs consist of libraries and sample code for various programming languages and platforms, for example, [Java](https://aws.amazon.com/sdk-for-java/), [Python](https://aws.amazon.com/sdk-for-python/), [Ruby](https://aws.amazon.com/sdk-for-ruby/), [\.NET](https://aws.amazon.com/sdk-for-net/), [iOS and Android](https://aws.amazon.com/mobile/resources/), and [others](https://aws.amazon.com/tools/#sdk)\. The SDKs include tasks such as cryptographically signing requests, managing errors, and retrying requests automatically\. For more information about the AWS SDKs, including how to download and install them, see [Tools for Amazon Web Services](https://aws.amazon.com/tools/#sdk)\.
-
-**Secrets Manager HTTPS Query API**  
-The Secrets Manager HTTPS Query API gives you programmatic access to Secrets Manager and AWS\. The HTTPS Query API allows you to issue HTTPS requests directly to the service\. When you use the HTTPS API, you must include code to digitally sign requests by using your credentials\. For more information, see [Calling the API by Making HTTP Query Requests](https://docs.aws.amazon.com/secretsmanager/latest/userguide/query-requests.html) and the [AWS Secrets Manager API Reference](https://docs.aws.amazon.com/secretsmanager/latest/apireference/)\.  
-We recommend using the SDK specific to the programming language you prefer instead of using the HTTPS Query API\. The SDK performs many useful tasks you perform manually\. The SDKs automatically sign your requests and convert the response into a structure syntactically appropriate to your language\. Use the HTTPS Query API only when an SDK is unavailable\.
 
 ## Pricing for Secrets Manager<a name="asm_pricing"></a>
 

@@ -2,8 +2,13 @@
 
 The following recommendations help you to more securely use AWS Secrets Manager:
 
+**Use SSL/TLS to communicate with AWS resources**  
+We recommend you use Secure Socket Layer \(SSL\) or Transport Layer Security \(TLS\) to communicate with your AWS resources, including databases\.   
+Rotation functions for Amazon RDS \(except Oracle\) and Amazon DocumentDB automatically use Secure Socket Layer \(SSL\) or Transport Layer Security \(TLS\) to connect to your database, if it is available\. Otherwise they use an unencrypted connection\.  
+If you set up automatic secret rotation before December 20, 2021, your rotation function might be based on an older template that did not support SSL/TLS\. See [Determine when your rotation function was created](troubleshoot_rotation.md#rotation-function-created-date)\. If it was created before December 20, 2021, to support connections that use SSL/TLS, you need to [recreate your rotation function](rotate-secrets_turn-on-for-db.md)\.
+
 **Improve performance by using client\-side caching**  
-To use your secrets most efficiently, cache your secrets on the client and update the cache when the secret changes\. See [Cache secrets to improve performance](use-client-side-caching.md#use-client-side-caching-components)\.
+To use your secrets most efficiently, cache your secrets on the client and update the cache when the secret changes\. See [Cache secrets to improve performance](use-client-side-caching.md)\.
 
 **Add retries to your application**  
 Your AWS client might see calls to Secrets Manager fail due to rate limiting\. When you exceed an API request quota, Secrets Manager throttles the request\. To respond, use a backoff and retry strategy\. See [Add retries to your application](quotas_throttling.md)\.

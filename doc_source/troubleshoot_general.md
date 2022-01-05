@@ -1,4 +1,4 @@
-# Troubleshoot general issues<a name="troubleshoot_general"></a>
+# Troubleshoot general issues in AWS Secrets Manager<a name="troubleshoot_general"></a>
 
 Use the information here to help you diagnose and fix access\-denied or other common issues that you might encounter when you're working with AWS Secrets Manager\.
 

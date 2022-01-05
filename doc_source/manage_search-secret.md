@@ -49,11 +49,5 @@ $ aws secretsmanager list-secrets --filters Key=description,Values=conducts
 
 ## AWS SDK<a name="manage_search-secret_sdk"></a>
 
-To find secrets by using one of the AWS SDKs, use [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_ListSecret.html](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_ListSecret.html)\. For more information, see:
-+ [C\+\+](http://sdk.amazonaws.com/cpp/api/LATEST/namespace_aws_1_1_secrets_manager.html)
-+ [Java](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/secretsmanager/package-summary.html)
-+ [PHP](https://docs.aws.amazon.com//aws-sdk-php/v3/api/namespace-Aws.SecretsManager.html)
-+ [Python](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html)
-+ [Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SecretsManager.html)
-+ [Node\.js](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SecretsManager.html)
+To find secrets by using one of the AWS SDKs, use [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_ListSecret.html](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_ListSecret.html)\. For more information, see [AWS SDKs](asm_access.md#asm-sdks)\.
 

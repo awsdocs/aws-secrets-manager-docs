@@ -1,6 +1,12 @@
 # Automatically rotate an Amazon RDS, Amazon DocumentDB, or Amazon Redshift secret<a name="rotate-secrets_turn-on-for-db"></a>
 
-Secrets Manager provides complete rotation templates for Amazon RDS, Amazon DocumentDB, and Amazon Redshift secrets\. For other types of secrets, see [Automatically rotate another type of secret](rotate-secrets_turn-on-for-other.md)\.
+Secrets Manager provides complete rotation templates for Amazon RDS, Amazon DocumentDB, and Amazon Redshift secrets\. For other types of secrets, see [Automatically rotate another type of secret](rotate-secrets_turn-on-for-other.md)\. 
+
+Rotation functions for Amazon RDS \(except Oracle\) and Amazon DocumentDB automatically use Secure Socket Layer \(SSL\) or Transport Layer Security \(TLS\) to connect to your database, if it is available\. Otherwise they use an unencrypted connection\.
+
+**Note**  
+If you set up automatic secret rotation before December 20, 2021, your rotation function might be based on an older template that did not support SSL/TLS\. See [Determine when your rotation function was created](troubleshoot_rotation.md#rotation-function-created-date)\. If it was created before December 20, 2021, to support connections that use SSL/TLS, you need to [recreate your rotation function](#rotate-secrets_turn-on-for-db)\.  
+Edit your secret, and then choose **Edit rotation**\. In the dialog box, choose **Create a rotation function** to recreate your rotation function\. If you made [customizations](rotate-secrets_customize.md) to your previous rotation function, you must redo them in the new rotation function\.
 
 Another way to automatically rotate a secret is to use AWS CloudFormation to create the secret, and include `AWS::SecretsManager::RotationSchedule`\. See [Automate secret creation in AWS CloudFormation](https://docs.aws.amazon.com/secretsmanager/latest/userguide/integrating_cloudformation.html)\.
 
@@ -37,8 +43,10 @@ Before you begin, you need the following:
 
 For help resolving common rotation issues, see [Troubleshoot AWS Secrets Manager rotation of secrets](troubleshoot_rotation.md)\.
 
-## AWS SDK and AWS CLI<a name="rotating-secrets-built-in_cli"></a>
+## AWS CLI<a name="rotating-secrets-built-in_cli"></a>
 
-To turn on rotation, see:
-+ **API/SDK:** [RotateSecret](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_RotateSecret.html)
-+ **AWS CLI:** [rotate\-secret](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/rotate-secret.html)
+To turn on rotation, see [rotate\-secret](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/rotate-secret.html)\.
+
+## AWS SDK<a name="rotating-secrets-built-in_sdk"></a>
+
+To turn on rotation, use the [RotateSecret](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_RotateSecret.html) action\. For more information, see [AWS SDKs](asm_access.md#asm-sdks)\.

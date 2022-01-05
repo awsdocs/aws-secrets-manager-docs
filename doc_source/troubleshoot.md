@@ -4,4 +4,4 @@ If you encounter issues when working with AWS Secrets Manager, consult the topic
 
 **Topics**
 + [Troubleshoot general issues](troubleshoot_general.md)
-+ [Troubleshoot AWS Secrets Manager rotation of secrets](troubleshoot_rotation.md)
++ [Troubleshoot rotation](troubleshoot_rotation.md)

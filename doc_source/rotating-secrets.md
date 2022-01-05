@@ -11,6 +11,6 @@ To turn on automatic rotation, you need administrator permissions\. See [Secrets
 + [Rotate a secret immediately](rotate-secrets_now.md)
 + [How rotation works](rotate-secrets_how.md)
 + [Network access for the rotation function](rotation-network-rqmts.md)
-+ [Permissions for the Lambda rotation function](rotating-secrets-required-permissions-function.md)
++ [Permissions for rotation](rotating-secrets-required-permissions-function.md)
 + [Customize a Lambda rotation function for Secrets Manager](rotate-secrets_customize.md)
 + [Secrets Manager rotation function templates](reference_available-rotation-templates.md)

@@ -17,7 +17,7 @@ If you store text in the secret, it usually takes the form of JSON key\-value st
 
 You control access to the secret with IAM permission policies, which means that only authorized users can access or modify the secret\. Applications which access the database or other service use an IAM user or role, so you grant permission to that user or role to access the secret\. You can do this by resource or by identity:
 + You can attach a resource\-based policy to the secret and then in the policy, list the users or roles that have access\. For more information, see [Attach a permissions policy to a secret](auth-and-access_resource-policies.md)\.
-+ You can attach an identity\-based policy to a user or role, and then in the policy, list the secrets that the identity can access\. For more information, see [Attach a permissions policy to an identity](auth-and-access_iam-policies.md)\.<a name="proc-create"></a><a name="rds-creds"></a><a name="redshift-creds"></a><a name="DocDB"></a><a name="nonrds-creds"></a><a name="other-creds"></a><a name="manage_create-basic-secret_console"></a><a name="manage_create-basic-secret_console.title"></a>
++ You can attach an identity\-based policy to a user or role, and then in the policy, list the secrets that the identity can access\. For more information, see [Attach a permissions policy to an identity](auth-and-access_iam-policies.md)\.
 
 To create a secret, you need the permissions granted by the **SecretsManagerReadWrite** AWS managed policy\. For more information, see [AWS managed policy](reference_available-policies.md)\.
 
@@ -101,10 +101,4 @@ If you want Secrets Manager to rotate the secret, your secret must be in the for
 
 ## AWS SDK<a name="manage_create-basic-secret_SDK"></a>
 
-To create a secret by using one of the AWS SDKs, use the [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_CreateSecret.html](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_CreateSecret.html) action\. For more information, see:
-+ [C\+\+](http://sdk.amazonaws.com/cpp/api/LATEST/namespace_aws_1_1_secrets_manager.html)
-+ [Java](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/secretsmanager/package-summary.html)
-+ [PHP](https://docs.aws.amazon.com/aws-sdk-php/v3/api/namespace-Aws.SecretsManager.html)
-+ [Python](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html)
-+ [Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SecretsManager.html)
-+ [Node\.js](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SecretsManager.html)
+To create a secret by using one of the AWS SDKs, use the [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_CreateSecret.html](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_CreateSecret.html) action\. For more information, see [AWS SDKs](asm_access.md#asm-sdks)\.
