@@ -1,10 +1,22 @@
 # Get started with AWS Secrets Manager<a name="getting-started"></a>
 
+There are many different types of secrets you might have in your organization\. Here are some of them, and where you can store them in AWS:
++ AWS credentials – [AWS Identity and Access Management](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html)
++ Encryption keys – [AWS Key Management Service](https://docs.aws.amazon.com/kms/latest/developerguide/overview.html)
++ SSH keys – [Amazon EC2 Instance Connect](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Connect-using-EC2-Instance-Connect.html)
++ Private keys and certificates – [AWS Certificate Manager](https://docs.aws.amazon.com/acm/latest/userguide/acm-overview.html)
++ **Database credentials – Secrets Manager**
++ **Application credentials – Secrets Manager**
++ **OAuth tokens – Secrets Manager**
++ **Application Programming Interface \(API\) keys – Secrets Manager**
+
+## Secrets Manager concepts<a name="getting-started_concepts"></a>
+
 The following concepts are important for understanding how Secrets Manager works\.
 
-## Secret<a name="term_secret"></a>
+### Secret<a name="term_secret"></a>
 
-In Secrets Manager, a *secret* consists of a set of credentials, user name and password, and the connection details to access a database or other service\. You can also store any other type of secret information in a secret as text or binary\. To store multiple values in one secret, we recommend that you use a JSON text string with key/value pairs, for example:
+In Secrets Manager, a *secret* consists of secret information, the *secret value*, plus metadata about the secret\. A secret value can be a string or binary\. To store multiple string values in one secret, we recommend that you use a JSON text string with key/value pairs, for example:
 
 ```
 {
@@ -17,7 +29,7 @@ In Secrets Manager, a *secret* consists of a set of credentials, user name and p
 }
 ```
 
-A secret has metadata:
+A secret's metadata includes:
 + An Amazon Resource Name \(ARN\) with the following format:
 
   ```
@@ -33,13 +45,13 @@ A secret has *versions* which hold copies of the encrypted secret value\. When y
 
 You can use a secret across multiple AWS Regions by *replicating* it\. When you replicate a secret, you create a copy of the original or *primary secret* called a *replica secret*\. The replica secret remains linked to the primary secret\. See [Replicate an AWS Secrets Manager secret to other AWS Regions](create-manage-multi-region-secrets.md)\.
 
-To create a secret, see [Create a secret](manage_create-basic-secret.md)\.
+See [Create a secret](manage_create-basic-secret.md)\.
 
-## Rotation<a name="term_rotation"></a>
+### Rotation<a name="term_rotation"></a>
 
 *Rotation* is the process of periodically updating a secret to make it more difficult for an attacker to access the credentials\. In Secrets Manager, you can set up automatic rotation for your secrets\. When Secrets Manager rotates a secret, it updates the credentials in both the secret and the database or service\. See [Rotate AWS Secrets Manager secrets](rotating-secrets.md)\.
 
-## Version<a name="term_version"></a>
+### Version<a name="term_version"></a>
 
 A secret has *versions* which hold copies of the encrypted secret value\. When you change the secret value, or the secret is rotated, Secrets Manager creates a new version\. A secret always has a version with the staging label `AWSCURRENT`, which is the current secret value\.
 

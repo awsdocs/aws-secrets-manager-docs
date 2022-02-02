@@ -6,7 +6,6 @@ Rotating secrets in AWS Secrets Manager requires you to use a Lambda function th
 
 **Topics**
 + [I want to find the diagnostic logs for my Lambda rotation function](#tshoot-rotation-find-logs)
-+ [I can't predict when rotation will start](#tshoot-scheduling-rotation)
 + [I get "access denied" when trying to configure rotation for my secret](#tshoot-lambda-initialconfig-perms)
 + [My first rotation fails after I enable rotation](#tshoot-lambda-initialconfig-mastersecret)
 + [Rotation fails because the secret value is not formatted as expected by the rotation function\.](#tshoot-lambda-mismatched-secretvalue)
@@ -28,12 +27,6 @@ When the rotation function doesn't operate the way you expect, you should first 
 1. On the **Monitor** tab, choose **Logs**, and then choose **View logs in CloudWatch**\.
 
    The CloudWatch console opens and displays the logs for your function\.
-
-## I can't predict when rotation will start<a name="tshoot-scheduling-rotation"></a>
-
-You can predict only the date of the next rotation, not the time\.
-
-Secrets Manager schedules the next rotation when the previous one is complete\. Secrets Manager schedules the date by adding the rotation interval \(number of days\) to the actual date of the last rotation\. The service chooses the hour within that 24\-hour date window randomly\. The minute is also chosen somewhat randomly, but is weighted towards the top of the hour and influenced by a variety of factors that help distribute load\.
 
 ## I get "access denied" when trying to configure rotation for my secret<a name="tshoot-lambda-initialconfig-perms"></a>
 

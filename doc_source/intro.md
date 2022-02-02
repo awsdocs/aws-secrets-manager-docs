@@ -6,7 +6,14 @@ Secrets Manager enables you to replace hardcoded credentials in your code, inclu
 
 For a list of terms and concepts you need to understand to make full use of Secrets Manager, see [Get started with AWS Secrets Manager](getting-started.md)\.
 
-## Basic Secrets Manager scenario<a name="intro-basic-scenario"></a>
+**Topics**
++ [Basic AWS Secrets Manager scenario](#intro-basic-scenario)
++ [Features of AWS Secrets Manager](#features)
++ [Compliance with standards for AWS Secrets Manager](#asm_compliance)
++ [Pricing for AWS Secrets Manager](#asm_pricing)
++ [Support and feedback for AWS Secrets Manager](#support-and-feedback)
+
+## Basic AWS Secrets Manager scenario<a name="intro-basic-scenario"></a>
 
 The following diagram illustrates the most basic scenario\. The diagram displays you can store credentials for a database in Secrets Manager, and then use those credentials in an application to access the database\.
 
@@ -25,7 +32,7 @@ The following diagram illustrates the most basic scenario\. The diagram displays
 **Note**  
 Secrets Manager supports many types of secrets\. However, Secrets Manager can *natively* rotate credentials for [supported AWS databases](#full-rotation-support) without any additional programming\. However, rotating the secrets for other databases or services requires creating a custom Lambda function to define how Secrets Manager interacts with the database or service\. You need some programming skill to create the function\. For more information, see [Rotate AWS Secrets Manager secrets](rotating-secrets.md)\.
 
-## Features of Secrets Manager<a name="features"></a>
+## Features of AWS Secrets Manager<a name="features"></a>
 
 ### Programmatically retrieve encrypted secret values at runtime<a name="features_retrieve-by-label"></a>
 
@@ -64,7 +71,7 @@ You define and implement rotation with an AWS Lambda function\. This function de
 + Verifies the new version\.
 + Marks the new version as production ready\.
 
-Staging labels help you to keep track of the different versions of your secrets\. Each version can have multiple staging labels attached, but each staging label can only be attached to one version\. For example, Secrets Manager labels the currently active and in\-use version of the secret with `AWSCURRENT`\. You should configure your applications to always query for the current version of the secret\. When the rotation process creates a new version of a secret, Secrets Manager automatically adds the staging label `AWSPENDING` to the new version until testing and validation completes\. Only then does Secrets Manager add the `AWSCURRENT` staging label to this new version\. Your applications immediately start using the new secret the next time they query for the `AWSCURRENT` version\.
+Staging labels help you to keep track of the different versions of your secrets\. Each version can have multiple staging labels attached, but each staging label can only be attached to one version\. For example, Secrets Manager labels the currently active and in\-use version of the secret with `AWSCURRENT`\. You should configure your applications to always query for the current version of the secret\. When the rotation process creates a new version of a secret, Secrets Manager automatically adds the staging label `AWSPENDING` to the new version until testing and validation completes\. Only then does Secrets Manager add the `AWSCURRENT` staging label to this new version\. Your applications immediately start using the new secret the next time they query for the `AWSCURRENT` version\.<a name="rds-supported-database-list"></a>
 
 #### Databases with fully configured and ready\-to\-use rotation support<a name="full-rotation-support"></a>
 
@@ -78,7 +85,7 @@ When you choose to enable rotation, Secrets Manager supports the following Amazo
 
 #### Other services with fully configured and ready\-to\-use rotation support<a name="other-with-full-rotation-support"></a>
 
-You can also choose to enable rotation on the following services, fully supported with AWS written and tested Lambda rotation function templates, and full configuration of the rotation process:
+You can also choose to enable rotation on the following services, fully supported with AWS written and tested Lambda rotation function templates, and full configuration of the rotation process:<a name="other-supported-list"></a>
 + Amazon DocumentDB 
 + Amazon Redshift 
 
@@ -90,10 +97,42 @@ You can attach AWS Identity and Access Management \(IAM\) permission policies to
 
 Alternatively, you can attach a resource\-based policy directly to the secret to grant permissions specifying users who can read or modify the secret and the versions\. Unlike an identity\-based policy which automatically applies to the user, group, or role, a resource\-based policy attached to a secret uses the `Principal` element to identify the target of the policy\. The `Principal` element can include users and roles from the same account as the secret or principals from other accounts\.
 
-## Pricing for Secrets Manager<a name="asm_pricing"></a>
+## Compliance with standards for AWS Secrets Manager<a name="asm_compliance"></a>
+
+AWS Secrets Manager has undergone auditing for the following standards and can be part of your solution when you need to obtain compliance certification\.
+
+
+|  |  | 
+| --- |--- |
+| ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/secretsmanager/latest/userguide/images/HIPAA.jpg) |  AWS has expanded its Health Insurance Portability and Accountability Act \(HIPAA\) compliance program to include AWS Secrets Manager as a [HIPAA\-eligible service](https://aws.amazon.com/compliance/hipaa-eligible-services-reference/)\. If you have an executed Business Associate Agreement \(BAA\) with AWS, you can use Secrets Manager to help build your HIPAA\-compliant applications\. AWS offers a [HIPAA\-focused whitepaper](https://d0.awsstatic.com/whitepapers/compliance/AWS_HIPAA_Compliance_Whitepaper.pdf) for customers who are interested in learning more about how they can leverage AWS for the processing and storage of health information\. For more information, see [HIPAA Compliance](https://aws.amazon.com/compliance/hipaa-compliance/)\.  | 
+| ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/secretsmanager/latest/userguide/images/pci_aws.png) |  AWS Secrets Manager has an Attestation of Compliance for Payment Card Industry \(PCI\) Data Security Standard \(DSS\) version 3\.2 at Service Provider Level 1\. Customers who use AWS products and services to store, process, or transmit cardholder data can use AWS Secrets Manager as they manage their own PCI DSS compliance certification\. For more information about PCI DSS, including how to request a copy of the AWS PCI Compliance Package, see [PCI DSS Level 1](https://aws.amazon.com/compliance/pci-dss-level-1-faqs/)\.  | 
+| ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/secretsmanager/latest/userguide/images/iso_aws.png) |  AWS Secrets Manager has successfully completed compliance certification for ISO/IEC 27001, ISO/IEC 27017, ISO/IEC 27018, and ISO 9001\. For more information, see [ISO 27001](https://aws.amazon.com/compliance/iso-27001-faqs/), [ISO 27017](https://aws.amazon.com/compliance/iso-27017-faqs/), [ISO 27018](https://aws.amazon.com/compliance/iso-27018-faqs/), [ISO 9001](https://aws.amazon.com/compliance/iso-9001-faqs/)\.  | 
+| ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/secretsmanager/latest/userguide/images/soc_aws.png) |  System and Organization Control \(SOC\) reports are independent third\-party examination reports that demonstrate how Secrets Manager achieves key compliance controls and objectives\. The purpose of these reports is to help you and your auditors understand the AWS controls that are established to support operations and compliance\. For more information, see [SOC Compliance](https://aws.amazon.com/compliance/soc-faqs/)\.   | 
+| ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/secretsmanager/latest/userguide/images/FedRAMP-PRIMARY-LOGO.png) | The Federal Risk and Authorization Management Program \(FedRAMP\) is a government\-wide program that provides a standardized approach to security assessment, authorization, and continuous monitoring for cloud products and services\. The FedRAMP Program also provides provisional authorizations for services and regions for East/West and GovCloud to consume government or regulated data\. For more information, see [ FedRAMP Compliance\.](https://aws.amazon.com/compliance/fedramp/) | 
+| ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/secretsmanager/latest/userguide/images/DoD.jpg) | The Department of Defense \(DoD\) Cloud Computing Security Requirements Guide \(SRG\) provides a standardized assessment and authorization process for cloud service providers \(CSPs\) to gain a DoD provisional authorization, so that they can serve DoD customers\. For more information, see [ DoD SRG Resources](https://aws.amazon.com/compliance/dod/) | 
+| ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/secretsmanager/latest/userguide/images/IRAP.jpg) | The Information Security Registered Assessors Program \(IRAP\) enables Australian government customers to validate that appropriate controls are in place and determine the appropriate responsibility model for addressing the requirements of the Australian government Information Security Manual \(ISM\) produced by the Australian Cyber Security Centre \(ACSC\)\. For more information, see [ IRAP Resources](https://aws.amazon.com/compliance/irap/) | 
+| ![\[Image NOT FOUND\]](http://docs.aws.amazon.com/secretsmanager/latest/userguide/images/compliance-privacy-singapore.png) | Amazon Web Services \(AWS\) achieved the Outsourced Service Provider’s Audit Report \(OSPAR\) attestation\. AWS alignment with the Association of Banks in Singapore \(ABS\) Guidelines on Control Objectives and Procedures for Outsourced Service Providers \(ABS Guidelines\) demonstrates to customers AWS commitment to meeting the high expectations for cloud service providers set by the financial services industry in Singapore\. For more information, see [ OSPAR Resources](https://aws.amazon.com/compliance/OSPAR/) | 
+
+## Pricing for AWS Secrets Manager<a name="asm_pricing"></a>
 
 When you use Secrets Manager, you pay only for what you use, and no minimum or setup fees\. There is no charge for secrets that you have marked for deletion\. For the current complete pricing list, see [AWS Secrets Manager Pricing](https://aws.amazon.com/secrets-manager/pricing)\.
 
 You can use the AWS managed key \(`aws/secretsmanager`\) that Secrets Manager creates to encrypt your secrets for free\. If you create your own KMS keys to encrypt your secrets, AWS charges you at the current AWS KMS rate\. For more information, see [AWS Key Management Service pricing](https://aws.amazon.com/kms/pricing)\.
 
 If you enable AWS CloudTrail on your account, you can obtain logs of the API calls that Secrets Manager sends out\. Secrets Manager logs all events as management events\. AWS CloudTrail stores the first copy of all management events for free\. However, you can incur charges for Amazon S3 for log storage and for Amazon SNS if you enable notification\. Also, if you set up additional trails, the additional copies of management events can incur costs\. For more information, see [AWS CloudTrail pricing](https://aws.amazon.com/cloudtrail/pricing)\.
+
+## Support and feedback for AWS Secrets Manager<a name="support-and-feedback"></a>
+
+We welcome your feedback\. You can send comments to [awssecretsmanager\-feedback@amazon\.com](mailto:awssecretsmanager-feedback@amazon.com)\. You also can post your feedback and questions in our [AWS Secrets Manager support forum](https://forums.aws.amazon.com/forum.jspa?forumID=296)\. For more information about the AWS Support forums, see [Forums Help](https://forums.aws.amazon.com/help.jspa)\.
+
+To request new features for the AWS Secrets Manager console or command line tools, we recommend you submit them in email to [awssecretsmanager\-feedback@amazon\.com](mailto:awssecretsmanager-feedback@amazon.com)\.
+
+To provide feedback for our documentation, you can use the feedback link at the bottom of each web page\. Be specific about the issue you face and how the documentation failed to help you\. Let us know what you saw and how that differed from what you expected\. That helps us to understand what we need to do to improve the documentation\.
+
+Here are some additional resources available to you:
++ **[AWS Training Catalog](https://aws.amazon.com/training/course-descriptions/)** – Role\-based and specialty courses, as well as self\-paced labs, to help you sharpen your AWS skills and gain practical experience\.
++ **[AWS Developer Tools](https://aws.amazon.com/developertools/)** – Tools and resources that provide documentation, code examples, release notes, and other information to help you build innovative applications with AWS\.
++ **[AWS Support Center](https://console.aws.amazon.com/support/home#/)** – The hub for creating and managing your AWS Support cases\. It includes links to other helpful resources, such as forums, technical FAQs, service health status, and AWS Trusted Advisor\.
++ **[AWS Support](https://aws.amazon.com/premiumsupport/)** – A one\-on\-one, fast\-response support channel for helping you build and run applications in the cloud\.
++ **[Contact Us](https://aws.amazon.com/contact-us/)** – A central contact point for inquiries about AWS billing, accounts, events, and other issues\.
++ **[AWS Site Terms](https://aws.amazon.com/terms/)** – Detailed information about our copyright and trademark, your account, your license, site access, and other topics\.

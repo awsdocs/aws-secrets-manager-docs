@@ -19,11 +19,17 @@ Before you begin, you need the following:
 
 1. On the **Secret details** page, in the **Rotation configuration** section, choose **Edit rotation**\. The **Edit rotation configuration** dialog box opens\. Do the following:
 
-   1. Choose **Enable automatic rotation**\.
+   1. Turn on **Automatic rotation**\.
 
-   1. For **Select rotation interval**, choose the number of days to keep the secret before rotating it\.
+   1. Under **Rotation schedule**, enter your schedule in UTC time zone by doing one of the following:
+      + Choose **Schedule expression builder** to build a schedule in a form\. Secrets Manager stores your schedule as a **rate\(\)** or **cron\(\)** expression\. The rotation window automatically starts at midnight unless you specify a **Start time**\. 
+      + Choose **Schedule expression**, and then do one of the following:
+        + Enter the *cron expression* for your schedule, for example, **cron\(0 21 L \* ? \*\)**, which rotates the secret on the last day of every month at 9:00 PM UTC\+0\. A cron expression for Secrets Manager must have **0** in the minutes field because Secrets Manager rotation windows open on the hour\. It must have **\*** in the year field, because Secrets Manager does not support rotation schedules that are more than a year apart\. For more information, see [Schedule expressions](rotate-secrets_schedule.md)\. 
+        + Enter a *rate expression* for a daily rate, for example, **rate\(10 days\)**, which rotates the secret every 10 days\. The expression must include **rate\(\)**\. With a rate expression, the rotation window automatically starts at midnight\.
 
-   1. For **Choose a Lambda function**, do one of the following:
+   1. \(Optional\) For **Window duration**, choose the length of the window during which you want Secrets Manager to rotate your secret, for example **3h** for a three hour window\. The window must not go into the next UTC day\. The rotation window automatically ends at the end of the day if you don't specify **Window duration**\. 
+
+   1. Under **Rotation function**, do one of the following:
 
       1. If you already created a rotation function for this type of secret, choose it\.
 

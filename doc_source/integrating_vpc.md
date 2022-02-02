@@ -6,4 +6,4 @@ To enable secret rotation within a VPC environment, perform these steps:
 
 1. Configure your Lambda rotation function to run within the same VPC as the database server or service with a rotated secret\. For more information, see [Configuring a Lambda Function to Access Resources in an Amazon VPC](https://docs.aws.amazon.com/lambda/latest/dg/vpc.html) in the *AWS Lambda Developer Guide*\.
 
-1. The Lambda rotation function, now running from within your VPC, must be able to access a Secrets Manager service endpoint\. If the VPC has no direct Internet connectivity, then you can configure your VPC with a private Secrets Manager endpoint accessible by all of the resources in your VPC\. For details, see [Using AWS Secrets Manager with VPC endpoints](vpc-endpoint-overview.md)\.
+1. The Lambda rotation function, now running from within your VPC, must be able to access a Secrets Manager service endpoint\. If the VPC has no direct Internet connectivity, then you can configure your VPC with a private Secrets Manager endpoint accessible by all of the resources in your VPC\. For details, see [Using AWS Secrets Manager with a VPC endpoint](vpc-endpoint-overview.md)\.

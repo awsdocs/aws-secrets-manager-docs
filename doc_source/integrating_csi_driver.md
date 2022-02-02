@@ -1,4 +1,4 @@
-# Use Secrets Manager secrets in Amazon Elastic Kubernetes Service<a name="integrating_csi_driver"></a>
+# Use AWS Secrets Manager secrets in Amazon Elastic Kubernetes Service<a name="integrating_csi_driver"></a>
 
 To show secrets from Secrets Manager as files mounted in [Amazon EKS](https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html) pods, you can use the AWS Secrets and Configuration Provider \(ASCP\) for the [Kubernetes Secrets Store CSI Driver](https://secrets-store-csi-driver.sigs.k8s.io/)\. The ASCP works with Amazon Elastic Kubernetes Service \(Amazon EKS\) 1\.17\+\.
 
@@ -46,6 +46,8 @@ For a tutorial about how to use the ASCP, see [Tutorial: Create and mount a secr
 To show secrets in Amazon EKS as though they are files on the filesystem, you create a `SecretProviderClass` YAML file that contains information about your secrets and how to display them in the Amazon EKS pod\. 
 
 The `SecretProviderClass` must be in the same namespace as the Amazon EKS pod it references\. 
+
+If Amazon EKS does not have internet access, for the provider to access Secrets Manager, you need to set up a [VPC endpoint](vpc-endpoint-overview.md)\.
 
 For a tutorial about how to use the ASCP, see [Tutorial: Create and mount a secret in an Amazon EKS pod](integrating_csi_driver_tutorial.md)\.
 

@@ -1,4 +1,4 @@
-# Using AWS Secrets Manager with VPC endpoints<a name="vpc-endpoint-overview"></a>
+# Using AWS Secrets Manager with a VPC endpoint<a name="vpc-endpoint-overview"></a>
 
 Instead of connecting your VPC to an internet, you can connect directly to Secrets Manager through a private endpoint you configure within your VPC\. When you use a VPC service endpoint, communication between your VPC and Secrets Manager occurs entirely within the AWS network, and requires no public Internet access\.
 

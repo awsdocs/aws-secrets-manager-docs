@@ -1,73 +1,12 @@
 # Retrieve secrets from AWS Secrets Manager<a name="retrieving-secrets"></a>
 
-With Secrets Manager, you can programmatically and securely retrieve your secrets in your applications\. You can also retrieve your secrets by using the console or the AWS CLI\.
+You can retrieve your secrets by using the console \([https://console\.aws\.amazon\.com/secretsmanager/](https://console.aws.amazon.com/secretsmanager/)\) or the AWS CLI \([https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/get-secret-value.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/get-secret-value.html)\)\.
 
-To retrieve a secret in the console, you must have these permissions:
-+ `secretsmanager:ListSecrets` – Use to navigate to the secret to retrieve\.
-+ `secretsmanager:DescribeSecret` — Use to retrieve the non\-encrypted parts of the secret\.
-+ `secretsmanager:GetSecretValue` – Use to retrieve the encrypted part of the secret\.
-+ `kms:Decrypt` – Required only if you used a customer managed key instead of the AWS managed key \(`aws/secretsmanager`\) to encrypt your secret\.
-
-**To retrieve a secret \(console\)**
-
-1. Open the Secrets Manager console at [https://console\.aws\.amazon\.com/secretsmanager/](https://console.aws.amazon.com/secretsmanager/)\.
-
-1. On the **Secrets** page, choose your secret\.
-
-1. On the **Secret details** page, in the **Secret value** section, choose **Retrieve secret value**\.
-
-1. Do one of the following:
-   + Choose **Secret key/value** to see the credentials as individual keys and values\. 
-   + Choose **Plaintext** to see the JSON text string that Secrets Manager encrypts and stores\.
-
-## Retrieve secrets programmatically<a name="retrieving-secrets_pro"></a>
-
-You can use the following commands to retrieve a secret stored in AWS Secrets Manager:
-+ **API/SDK:** [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html)
-  + [C\+\+](http://sdk.amazonaws.com/cpp/api/LATEST/namespace_aws_1_1_secrets_manager.html)
-  + [Java](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/secretsmanager/package-summary.html)
-  + [PHP](https://docs.aws.amazon.com//aws-sdk-php/v3/api/namespace-Aws.SecretsManager.html)
-  + [Python](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html)
-  + [Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SecretsManager.html)
-  + [Node\.js](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SecretsManager.html)
-+ **AWS CLI:** [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/get-secret-value.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/get-secret-value.html)
-
-You identify the secret by the name or ARN\. You can include the version, but if you don't specify a version, Secrets Manager defaults to the version with the staging label `AWSCURRENT`\. Secrets Manager returns the contents of the secret text in the response parameters `PlaintextString`\. If you stored binary data in the secret, Secrets Manager also returns `Plaintext`, a byte array\. Secrets Manager uses the last modified date for the `CreatedDate` output\. 
-
-The following example retrieves the current secret value for `MyAwesomeAppSecret`\.
-
-```
-$ aws secretsmanager get-secret-value --secret-id MyAwesomeAppSecret
-```
-
-```
-{
-    "ARN": "arn:aws:secretsmanager:Region:AccountId:secret:MyAwesomeAppSecret-N4KUiT",
-    "Name": "MyAwesomeAppSecret",
-    "VersionId": "8f514297-c9e7-4d32-8d6c-b02590c3dff0",
-    "SecretString": "{\"username\":\"saanvi\",\"password\":\"aDM4N3*!8TT\"}",
-    "VersionStages": [
-        "AWSCURRENT"
-    ],
-    "CreatedDate": "2020-01-01T12:40:34.236000-07:00"
-}
-```
-
-The following example retrieves the previous secret value for `MyAwesomeAppSecret`\.
-
-```
-aws secretsmanager get-secret-value --secret-id MyAwesomeAppSecret --version-stage AWSPREVIOUS 
-```
-
-```
-{
-    "ARN": "arn:aws:secretsmanager:Region:AccountId:secret:MyAwesomeAppSecret-N4KUiT",
-    "Name": "MyAwesomeAppSecret",
-    "VersionId": "6a317b3e-123c-4168-b391-99b180e15609",
-    "SecretString": "{\"username\":\"saanvi\",\"password\":\"\"}",
-    "VersionStages": [
-        "AWSPREVIOUS"
-    ],
-    "CreatedDate": "2020-01-01T12:40:34.236000-07:00"
-}
-```
+In applications, you can retrieve your secrets by calling [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html) in any of the AWS SDKs\. However, we recommend that you cache your secret values by using client\-side caching\. Caching secrets improves speed and reduces your costs\. 
++ For Java applications: 
+  + If you store database credentials in the secret, use the [Secrets Manager SQL connection drivers](retrieving-secrets_jdbc.md) to connect to a database using the credentials in the secret\. 
+  + For other types of secrets, use the [Secrets Manager Java\-based caching component](retrieving-secrets_cache-java.md)\.
++ For Python applications, use the [Secrets Manager Python\-based caching component](retrieving-secrets_cache-python.md)\.
++ For \.NET applications, use the [Secrets Manager \.NET\-based caching component](retrieving-secrets_cache-net.md)\.
++ For Go applications, use the [Secrets Manager Go\-based caching component](retrieving-secrets_cache-go.md)\.
++ For applications that run in Amazon EKS, you can use [AWS Secrets and Configuration Provider \(ASCP\)](integrating_csi_driver.md) to mount secrets as files in Amazon EKS\.

@@ -31,6 +31,7 @@ For SDK documentation, see:
 + [Python](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html)
 + [Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SecretsManager.html)
 + [Node\.js](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SecretsManager.html)
++ [Go](https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/welcome.html)
 
 ## HTTPS Query API<a name="asm-sdks_query-api"></a>
 

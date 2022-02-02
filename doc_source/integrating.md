@@ -12,7 +12,7 @@ AWS Secrets Manager works with the following services:
 + [AWS Identity and Access Management \(IAM\)](auth-and-access.md)
 + [AWS IoT Greengrass](integrating-greengrass.md)
 + [AWS Key Management Service \(AWS KMS\)](security-encryption.md)
-+ [Amazon EKS ](integrating_csi_driver.md)
++ [Use secrets in Amazon EKS ](integrating_csi_driver.md)
 + [Parameter Store](integrating_parameterstore.md)
 + [Amazon SageMaker](integrating-sagemaker.md)
 + [AWS Security Hub](monitoring.md#integrating-securityhub)

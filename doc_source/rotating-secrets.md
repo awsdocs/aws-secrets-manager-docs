@@ -8,6 +8,7 @@ To turn on automatic rotation, you need administrator permissions\. See [Secrets
 + [Rotation strategies](rotating-secrets_strategies.md)
 + [Automatically rotate an Amazon RDS, Amazon DocumentDB, or Amazon Redshift secret](rotate-secrets_turn-on-for-db.md)
 + [Automatically rotate another type of secret](rotate-secrets_turn-on-for-other.md)
++ [Schedule expressions in Secrets Manager rotation](rotate-secrets_schedule.md)
 + [Rotate a secret immediately](rotate-secrets_now.md)
 + [How rotation works](rotate-secrets_how.md)
 + [Network access for the rotation function](rotation-network-rqmts.md)

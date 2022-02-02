@@ -1,6 +1,6 @@
 # Create a Secrets Manager secret and an Amazon RDS MySQL DB instance with AWS CloudFormation<a name="cfn-example_RDSsecret"></a>
 
-The following example templates create a secret and an Amazon RDS MySQL DB instance using the credentials in the secret as the user and password\. The secret has a resource\-based policy attached that defines who can access the secret\. The template also creates a Lambda rotation function and configures the secret to automatically rotate every 30 days\.
+The following example templates create a secret and an Amazon RDS MySQL DB instance using the credentials in the secret as the user and password\. The secret has a resource\-based policy attached that defines who can access the secret\. The template also creates a Lambda rotation function and configures the secret to automatically rotate between 8:00 AM and 10:00 AM UTC on the first day of every month\.
 
 For information about creating resources with AWS CloudFormation, see [Learn template basics](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/gettingstarted.templatebasics.html) in the AWS CloudFormation User Guide\.
 
@@ -187,7 +187,8 @@ For information about creating resources with AWS CloudFormation, see [Learn tem
                     }
                 },
                 "RotationRules": {
-                    "AutomaticallyAfterDays": 30
+                    "Duration": 2h,
+                    "ScheduleExpression": "cron(0 8 1 * ? *)"
                 }
             }
         }
@@ -332,5 +333,6 @@ Resources:
           - - Ref: TestSubnet01
             - Ref: TestSubnet02
       RotationRules:
-        AutomaticallyAfterDays: 30
+        Duration: 2h
+        ScheduleExpression: 'cron(0 8 1 * ? *)'
 ```
