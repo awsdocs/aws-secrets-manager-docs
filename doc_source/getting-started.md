@@ -23,7 +23,7 @@ In Secrets Manager, a *secret* consists of secret information, the *secret value
   "host"       : "ProdServer-01.databases.example.com",
   "port"       : "8888",
   "username"   : "administrator",
-  "password"   : "My-P@ssw0rd!F0r+Th3_Acc0unt",
+  "password"   : "EXAMPLE-PASSWORD",
   "dbname"     : "MyDatabase",
   "engine"     : "mysql"
 }

@@ -2,7 +2,9 @@
 
 You can replicate your secrets in multiple AWS Regions to support applications spread across those Regions to meet Regional access and low latency requirements\. If you later need to, you can promote a replica secret to a standalone and then set it up for replication independently\. Secrets Manager replicates the encrypted secret data and metadata such as tags and resource policies across the specified Regions\. 
 
-Multi\-Region secrets are supported in all AWS Regions except Asia Pacific \(Jakarta\)\.
+The ARN for replicated secrets shows the Region the replica is in, for example:
++ Primary secret: `arn:aws::secretsmanager:Region1:123456789012:secret:MySecret-a1b2c3`
++ Replica secret: `arn:aws::secretsmanager:Region2:123456789012:secret:MySecret-a1b2c3`\.
 
 If you turn on rotation for your primary secret, Secrets Manager rotates the secret in the primary Region, and the new secret value propagates to all of the associated replica secrets\. You don't have to manage rotation individually for all of the replica secrets\. 
 

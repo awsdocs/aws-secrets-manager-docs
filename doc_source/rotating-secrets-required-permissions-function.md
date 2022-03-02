@@ -2,10 +2,10 @@
 
 Secrets Manager uses a Lambda function to rotate a secret\. The Lambda function has a resource policy that allows Secrets Manager to invoke it\. Secrets Manager calls the Lambda function by invoking an [IAM execution role](https://docs.aws.amazon.com/lambda/latest/dg/lambda-intro-execution-role.html) attached to the Lambda function\. Permissions for the Lambda function are granted through the IAM execution role as inline policies\. If you turn on rotation by using the Secrets Manager console, the Lambda function, resource policy, execution role, and execution role inline policies are created for you\. 
 
-To turn on automatic rotation, you must have permission to create the IAM execution role and attach a permission policy to it\. You need either the [IAMFullAccess AWS managed policy](https://console.aws.amazon.com/iam/home?#/policies/arn:aws:iam::aws:policy/IAMFullAccess) or both `iam:CreateRole` and `iam:AttachRolePolicy` permissions\. 
+To turn on automatic rotation, you must have permission to create the IAM execution role and attach a permission policy to it\. You need both `iam:CreateRole` and `iam:AttachRolePolicy` permissions\. 
 
 **Warning**  
-The [IAMFullAccess AWS managed policy](https://console.aws.amazon.com/iam/home?#/policies/arn:aws:iam::aws:policy/IAMFullAccess) or both `iam:CreateRole` and `iam:AttachRolePolicy` permissions allow a user to grant themselves any permissions\.
+Granting an identity both `iam:CreateRole` and `iam:AttachRolePolicy` permissions allows the identity to grant themselves any permissions\.
 
 In the resource policy for your Lambda function, we recommend that you include the context key `aws:SourceAccount` to help prevent AWS Lambda from being used as a [confused deputy](https://docs.aws.amazon.com/IAM/latest/UserGuide/confused-deputy.html)\. For some AWS services, to avoid the confused deputy scenario, AWS recommends that you use both the [aws:SourceArn](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-sourcearn) and [aws:SourceAccount](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-sourceaccount) global condition keys\. However, if you include the context key `aws:SourceArn` in your Lambda rotation function policy, the rotation function can only be used to rotate the secret specified by that ARN\. We recommend that you include only the context key `aws:SourceAccount` so that you can use the rotation function for multiple secrets\.
 

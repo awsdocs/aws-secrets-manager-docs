@@ -11,7 +11,7 @@ To use the Secrets Manager SQL Connection drivers:
   ```
   {
     "username": "username",
-    "password": "password",
+    "password": "EXAMPLE-PASSWORD",
     "engine": "engineType",
     "host": "host",
     "port": portNumber,

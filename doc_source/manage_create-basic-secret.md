@@ -8,7 +8,7 @@ If you store text in the secret, it usually takes the form of JSON key\-value st
 {
   "engine": "mysql",
   "username": "user1",
-  "password": "i29wwX!%9wFV",
+  "password": "EXAMPLE-PASSWORD",
   "host": "my-database-endpoint.us-east-1.rds.amazonaws.com",
   "dbname": "myDatabase",
   "port": "3306"
@@ -79,7 +79,7 @@ If you want Secrets Manager to rotate the secret, your secret must be in the for
    ```
    {
          "username": "saanvi",
-         "password": "aDM4N3*!8TT"
+         "password": "EXAMPLE-PASSWORD"
    }
    ```
 

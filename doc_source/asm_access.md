@@ -30,8 +30,9 @@ For SDK documentation, see:
 + [PHP](https://docs.aws.amazon.com//aws-sdk-php/v3/api/namespace-Aws.SecretsManager.html)
 + [Python](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html)
 + [Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SecretsManager.html)
++ [\.NET](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/SecretsManager/NSecretsManagerModel.html)
 + [Node\.js](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SecretsManager.html)
-+ [Go](https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/welcome.html)
++ [Go](https://docs.aws.amazon.com/sdk-for-go/api/service/secretsmanager/)
 
 ## HTTPS Query API<a name="asm-sdks_query-api"></a>
 

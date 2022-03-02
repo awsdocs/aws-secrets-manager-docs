@@ -7,7 +7,7 @@ For a secret that contains this JSON:
 ```
 {
   "username": "saanvi",
-  "password": "2J{X[Fif*Sp7L+jyDD0!-WH;&>\\hlgtr"
+  "password": "EXAMPLE-PASSWORD"
 }
 ```
 

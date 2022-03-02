@@ -6,11 +6,18 @@ To get started writing your own permissions policy, see [Permissions policy exam
 
 ## Secrets Manager actions<a name="reference_iam-permissions_actions"></a>
 
-See [Actions defined by AWS Secrets Manager](https://docs.aws.amazon.com/service-authorization/latest/reference/list_awssecretsmanager.html#awssecretsmanager-actions-as-permissions)\. 
+
+****  
+[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html)
 
 ## Secrets Manager resources<a name="iam-resources"></a>
 
-See [Resource types defined by AWS Secrets Manager](https://docs.aws.amazon.com/service-authorization/latest/reference/list_awssecretsmanager.html#awssecretsmanager-resources-for-iam-policies)\.
+
+****  
+
+| Resource types | ARN | Condition keys | 
+| --- | --- | --- | 
+|   [https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#iam-resources](https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#iam-resources)  |  arn:$\{Partition\}:secretsmanager:$\{Region\}:$\{Account\}:secret:$\{SecretId\}  |   [aws:RequestTag/$\{TagKey\}](#awssecretsmanager-aws_RequestTag___TagKey_)   [aws:ResourceTag/$\{TagKey\}](#awssecretsmanager-aws_ResourceTag___TagKey_)   [aws:TagKeys](#awssecretsmanager-aws_TagKeys)   [secretsmanager:ResourceTag/tag\-key](#awssecretsmanager-secretsmanager_ResourceTag_tag-key)   [secretsmanager:resource/AllowRotationLambdaArn](#awssecretsmanager-secretsmanager_resource_AllowRotationLambdaArn)   | 
 
 Secrets Manager constructs the last part of the secret ARN by appending a dash and six random alphanumeric characters at the end of the secret name\. If you delete a secret and then recreate another with the same name, this formatting helps ensure that individuals with permissions to the original secret don't automatically get access to the new secret because Secrets Manager generates six new random characters\.
 
@@ -18,7 +25,53 @@ You can find the ARN for a secret in the Secrets Manager console on the secret d
 
 ## Condition keys<a name="iam-contextkeys"></a>
 
-See [Condition keys for AWS Secrets Manager](https://docs.aws.amazon.com/service-authorization/latest/reference/list_awssecretsmanager.html#awssecretsmanager-policy-keys)\.
+If you include string conditions from the following table in your permissions policy, callers to Secrets Manager must pass the matching parameter or they are denied access\. To avoid denying callers for a missing parameter, add `IfExists` to the end of the condition operator name, for example `StringLikeIfExists`\. For more information, see [IAM JSON policy elements: Condition operators](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition_operators.html)\.
+
+
+****  
+
+| Condition keys | Description | Type | 
+| --- | --- | --- | 
+|   [https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#iam-contextkeys](https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#iam-contextkeys)  | Filters access by a key that is present in the request the user makes to the Secrets Manager service | String | 
+|   [https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-resourcetag](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-resourcetag)  | Filters access by the tags associated with the resource | String | 
+|   [https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#iam-contextkeys](https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#iam-contextkeys)  | Filters access by the list of all the tag key names present in the request the user makes to the Secrets Manager service | String | 
+|   [https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#iam-contextkeys](https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#iam-contextkeys)  | Filters access by the list of Regions in which to replicate the secret | ArrayOfString | 
+|   [https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#iam-contextkeys](https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#iam-contextkeys)  | Filters access by whether the resource policy blocks broad AWS account access | Bool | 
+|   [https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#iam-contextkeys](https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#iam-contextkeys)  | Filters access by the description text in the request | String | 
+|   [https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#iam-contextkeys](https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#iam-contextkeys)  | Filters access by whether the secret is to be deleted immediately without any recovery window | Bool | 
+|   [https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#iam-contextkeys](https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#iam-contextkeys)  | Filters access by whether to overwrite a secret with the same name in the destination Region | Bool | 
+|   [https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#iam-contextkeys](https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#iam-contextkeys)  | Filters access by the ARN of the KMS key in the request | String | 
+|   [https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#iam-contextkeys](https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#iam-contextkeys)  | Filters access by whether the rotation rules of the secret are to be modified | Bool | 
+|   [https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#iam-contextkeys](https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#iam-contextkeys)  | Filters access by the friendly name of the secret in the request | String | 
+|   [https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#iam-contextkeys](https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#iam-contextkeys)  | Filters access by the number of days that Secrets Manager waits before it can delete the secret | Numeric | 
+|   [https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#iam-contextkeys](https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#iam-contextkeys)  | Filters access by a tag key and value pair | String | 
+|   [https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#iam-contextkeys](https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#iam-contextkeys)  | Filters access by whether the secret is to be rotated immediately | Bool | 
+|   [https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#iam-contextkeys](https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#iam-contextkeys)  | Filters access by the ARN of the rotation Lambda function in the request | ARN | 
+|   [https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#iam-contextkeys](https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#iam-contextkeys)  | Filters access by the SecretID value in the request | ARN | 
+|   [https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#iam-contextkeys](https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#iam-contextkeys)  | Filters access by primary region in which the secret is created | String | 
+|   [https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#iam-contextkeys](https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#iam-contextkeys)  | Filters access by the unique identifier of the version of the secret in the request | String | 
+|   [https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#iam-contextkeys](https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#iam-contextkeys)  | Filters access by the list of version stages in the request | String | 
+|   [https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#iam-contextkeys](https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#iam-contextkeys)  | Filters access by the ARN of the rotation Lambda function associated with the secret | ARN | 
+
+## Block broad access to secrets with `BlockPublicPolicy` condition<a name="iam-contextkeys-blockpublicpolicy"></a>
+
+In identity policies that allow the action `PutResourcePolicy`, we recommend you use `BlockPublicPolicy: true`\. This condition means that users can only attach a resource policy to a secret if the policy doesn't allow broad access\. The following example shows how to use `BlockPublicPolicy`\.
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": {
+        "Effect": "Allow",
+        "Action": "secretsmanager:PutResourcePolicy",
+        "Resource": "SecretId",
+        "Condition": {
+            "Bool": {
+                "secretsmanager:BlockPublicPolicy": "true"
+            }
+        }
+    }
+}
+```
 
 ## IP address conditions<a name="iam-contextkeys-ipaddress"></a>
 

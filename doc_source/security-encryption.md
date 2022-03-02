@@ -45,7 +45,7 @@ The following Secrets Manager operations trigger a request to use your KMS key\.
 Secrets Manager calls the AWS KMS [GenerateDataKey](https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey.html) operation in response to the following Secrets Manager operations\.  
 + [CreateSecret](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_CreateSecret.html) – If the new secret includes a secret value, Secrets Manager requests a new data key to encrypt it\. 
 + [PutSecretValue](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_PutSecretValue.html)– Secrets Manager requests a new data key to encrypt the specified secret value\.
-+ [UpdateSecret](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UpdateSecret.html) – If the update changes the secret value, Secrets Manager requests a new data key to encrypt the new secret value\.
++ [UpdateSecret](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UpdateSecret.html) – If you change the secret value or the KMS key, Secrets Manager requests a new data key to encrypt the new secret value\.
 The [RotateSecret](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_RotateSecret.html) operation does not call `GenerateDataKey`, because it does not change the secret value\. However, if the Lambda function that `RotateSecret` invokes changes the secret value, its call to the `PutSecretValue` operation triggers a `GenerateDataKey` request\.
 
 **Decrypt**  
@@ -95,7 +95,7 @@ ecrets Manager",
     "Principal" : {
       "AWS" : "*"
     },
-    "Action" : [ "kms:Encrypt", "kms:Decrypt", "kms:ReEncrypt*", "kms:GenerateDataKey*", "kms:CreateGrant", "kms:Describ
+    "Action" : [ "kms:Decrypt", "kms:ReEncrypt*", "kms:GenerateDataKey*", "kms:CreateGrant", "kms:Describ
 eKey" ],
     "Resource" : "*",
     "Condition" : {

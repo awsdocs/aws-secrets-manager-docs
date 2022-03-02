@@ -50,7 +50,7 @@ We recommend you avoid calling `PutSecretValue` or `UpdateSecret` at a sustained
 The following example AWS CLI command updates the secret value for a secret\.   
 
 ```
-$ aws secretsmanager put-secret-value --secret-id production/MyAwesomeAppSecret --secret-string '{"username":"anika","password":"a different password"}'
+$ aws secretsmanager put-secret-value --secret-id production/MyAwesomeAppSecret --secret-string '{"username":"anika","password":"EXAMPLE-PASSWORD"}'
           {
             "SecretARN": "arn:aws:secretsmanager:us-east-2:123456789012:secret:production/MyAwesomeAppSecret-AbCdEf",
             "SecretName": "production/MyAwesomeAppSecret",

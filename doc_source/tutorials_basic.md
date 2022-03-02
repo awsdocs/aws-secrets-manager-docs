@@ -22,7 +22,7 @@ This tutorial assumes you can access an AWS account, and you can sign in to AWS 
 
    1. For Secret type, choose **Other type of secret**\. 
 
-   1. For **Key/value pairs**, in the first field, enter **MyPassword**\. In the second field, enter **S3@tt13R0cks**, a temporary password\. This is the text that will be encrypted when you store the secret\.
+   1. For **Key/value pairs**, in the first field, enter **MyPassword**\. In the second field, enter a password\. This is the text that will be encrypted when you store the secret\.
 
    1. For **Encryption key**, keep **DefaultEncryptionKey**\. 
 
@@ -47,7 +47,7 @@ This tutorial assumes you can access an AWS account, and you can sign in to AWS 
 1. Enter the following command:
 
    ```
-   $ aws secretsmanager create-secret --name tutorial/MyFirstSecret --secret-string S3@tt13R0cks
+   $ aws secretsmanager create-secret --name tutorial/MyFirstSecret --secret-string EXAMPLE-PASSWORD
    {
        "ARN": "arn:aws:secretsmanager:us-east-2-2:111122223333:secret:tutorial/MyFirstSecret-a1b2c3",
        "Name": "tutorial/MyFirstSecret",

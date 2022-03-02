@@ -10,3 +10,6 @@ In applications, you can retrieve your secrets by calling [https://docs.aws.amaz
 + For \.NET applications, use the [Secrets Manager \.NET\-based caching component](retrieving-secrets_cache-net.md)\.
 + For Go applications, use the [Secrets Manager Go\-based caching component](retrieving-secrets_cache-go.md)\.
 + For applications that run in Amazon EKS, you can use [AWS Secrets and Configuration Provider \(ASCP\)](integrating_csi_driver.md) to mount secrets as files in Amazon EKS\.
++ For JavaScript applications, call the SDK directly with [https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SecretsManager.html#getSecretValue-property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SecretsManager.html#getSecretValue-property)\.
++ For PHP applications, call the SDK directly with [https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-secretsmanager-2017-10-17.html#getsecretvalue](https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-secretsmanager-2017-10-17.html#getsecretvalue)\.
++ For Ruby applications, call the SDK directly with [https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SecretsManager/Client.html#get_secret_value-instance_method](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SecretsManager/Client.html#get_secret_value-instance_method)\.

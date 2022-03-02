@@ -4,7 +4,7 @@ This example creates a secret named **CloudFormationCreatedSecret\-*a1b2c3d4e5f6
 
 ```
 {
-  "password": "[a(MR+IjIuz7JaK\"B61WYZq1hY6$29p",
+  "password": "EXAMPLE-PASSWORD",
   "username": "saanvi"
 }
 ```
