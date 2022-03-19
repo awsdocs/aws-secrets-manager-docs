@@ -238,16 +238,16 @@ The following policy allows `DescribeSecret` on secrets with a tag with the key 
 ```
 {
   "Version": "2012-10-17",
-  "Statement": {
+  "Statement": [
     "Effect": "Allow",
     "Action": "secretsmanager:DescribeSecret",
     "Resource": "*",
     "Condition": {
       "StringEquals": {
-        "secretsmanager:ResourceTag/ServerName": "ServerABC"
+        "aws:ResourceTag/ServerName": "ServerABC"
       }
     }
-  }
+  ]
 }
 ```
 
