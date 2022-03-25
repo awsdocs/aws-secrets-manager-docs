@@ -1,8 +1,8 @@
 # Create a secret<a name="manage_create-basic-secret"></a>
 
-A *secret* is a set of credentials, such as a user name and password, that you store in an encrypted form in Secrets Manager\. The secret also includes the connection information to access a database or other service, which Secrets Manager doesn't encrypt\. You can also include other sensitive information, for example, passwords hints or question\-and\-answer pairs you can use to recover your password\. Don't store this type of information in the `Description` or any other non\-encrypted part of the secret\.
+A *secret* can be a password, a set of credentials such as a user name and password, an OAuth token, or other secret information that you store in an encrypted form in Secrets Manager\. 
 
-If you store text in the secret, it usually takes the form of JSON key\-value string pairs, as shown in the following example:
+If you store text in the secret, it usually takes the form of JSON key\-value string pairs, as shown in the following example which contains Amazon RDS credentials:
 
 ```
 {

@@ -23,7 +23,7 @@ The CloudTrail console enables you to view events that occurred within the past 
 
 1. To see additional details, choose the expand arrow next to event\. To see all of the information available, choose **View event**\.
 
-## AWS CLI or SDK<a name="w282aac25c13c11"></a>
+## AWS CLI or SDK<a name="w340aac27c13c11"></a>
 
 **To retrieve Secrets Manager events from CloudTrail logs \(AWS CLI or SDK\)**
 

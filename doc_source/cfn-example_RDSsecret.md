@@ -1,6 +1,13 @@
-# Create a Secrets Manager secret and an Amazon RDS MySQL DB instance with AWS CloudFormation<a name="cfn-example_RDSsecret"></a>
+# Create a Secrets Manager secret with automatic rotation and an Amazon RDS MySQL DB instance with AWS CloudFormation<a name="cfn-example_RDSsecret"></a>
 
-The following example templates create a secret and an Amazon RDS MySQL DB instance using the credentials in the secret as the user and password\. The secret has a resource\-based policy attached that defines who can access the secret\. The template also creates a Lambda rotation function and configures the secret to automatically rotate between 8:00 AM and 10:00 AM UTC on the first day of every month\.
+This example creates a secret and an Amazon RDS MySQL DB instance using the credentials in the secret as the user and password\. Secrets Manager generates a password with 32 characters\. The template also creates a Lambda rotation function from the [Rotation function templates](reference_available-rotation-templates.md) and configures the secret to automatically rotate between 8:00 AM and 10:00 AM UTC on the first day of every month\. As a security best practice, the DB instance is in an Amazon VPC\.
+
+To see an example without automatic rotation, see [Create a secret with Amazon RDS credentials](cfn-example_RDSsecret_no-rotation.md)\.
+
+This example uses the following CloudFormation resources for Secrets Manager:
++ [https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-secretsmanager-secret.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-secretsmanager-secret.html)
++ [https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-secretsmanager-secrettargetattachment.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-secretsmanager-secrettargetattachment.html)
++ [https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-secretsmanager-rotationschedule.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-secretsmanager-rotationschedule.html)
 
 For information about creating resources with AWS CloudFormation, see [Learn template basics](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/gettingstarted.templatebasics.html) in the AWS CloudFormation User Guide\.
 
@@ -93,8 +100,8 @@ For information about creating resources with AWS CloudFormation, see [Learn tem
                 "GenerateSecretString": {
                     "SecretStringTemplate": "{\"username\": \"admin\"}",
                     "GenerateStringKey": "password",
-                    "PasswordLength": 16,
-                    "ExcludeCharacters": "\"@/\\"
+                    "PasswordLength": 32,
+                    "ExcludeCharacters": "/@\"'\\"
                 },
                 "Tags": [
                     {
@@ -263,8 +270,8 @@ Resources:
       GenerateSecretString:
         SecretStringTemplate: '{"username": "admin"}'
         GenerateStringKey: password
-        PasswordLength: 16
-        ExcludeCharacters: "\"@/\\"
+        PasswordLength: 32
+        ExcludeCharacters: "/@\"'\\"
       Tags:
       - Key: AppName
         Value: MyApp

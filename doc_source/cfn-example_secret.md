@@ -4,10 +4,13 @@ This example creates a secret named **CloudFormationCreatedSecret\-*a1b2c3d4e5f6
 
 ```
 {
-  "password": "EXAMPLE-PASSWORD",
-  "username": "saanvi"
+    "password": "EXAMPLE-PASSWORD",
+    "username": "saanvi"
 }
 ```
+
+This example uses the following CloudFormation resource:
++ [https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-secretsmanager-secret.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-secretsmanager-secret.html)
 
 For information about creating resources with AWS CloudFormation, see [Learn template basics](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/gettingstarted.templatebasics.html) in the AWS CloudFormation User Guide\.
 

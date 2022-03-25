@@ -152,7 +152,7 @@ The following policy grants permission to create secrets and view a list of secr
 
 ## Example: Permissions and VPCs<a name="auth-and-access_examples_vpc"></a>
 
-If you need to access Secrets Manager from within a VPC, you can make sure that requests to Secrets Manager come from the VPC by including a condition in your permissions policies\. For more information, see [VPC endpoint conditions](reference_iam-permissions.md#iam-contextkeys-vpcendpoint) and [Using AWS Secrets Manager with a VPC endpoint](vpc-endpoint-overview.md)\.
+If you need to access Secrets Manager from within a VPC, you can make sure that requests to Secrets Manager come from the VPC by including a condition in your permissions policies\. For more information, see [VPC endpoint conditions](reference_iam-permissions.md#iam-contextkeys-vpcendpoint) and [Using an AWS Secrets Manager VPC endpoint](vpc-endpoint-overview.md)\.
 
 Make sure that requests to access the secret from other AWS services also come from the VPC, otherwise this policy will deny them access\.
 

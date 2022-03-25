@@ -15,3 +15,4 @@ To turn on automatic rotation, you need administrator permissions\. See [Secrets
 + [Permissions for rotation](rotating-secrets-required-permissions-function.md)
 + [Customize a Lambda rotation function for Secrets Manager](rotate-secrets_customize.md)
 + [Secrets Manager rotation function templates](reference_available-rotation-templates.md)
++ [Troubleshoot AWS Secrets Manager rotation of secrets](troubleshoot_rotation.md)

@@ -21,7 +21,7 @@ Secrets Manager provides the following rotation function templates:
   + [Amazon DocumentDB alternating users](#sar-template-mongodb-multiuser)
 + [Amazon Redshift](#template-redshift)
   + [Amazon Redshift single user](#sar-template-redshift-singleuser)
-  + [Amazon Redshift primary user](#sar-template-redshift-multiuser)
+  + [Amazon Redshift alternating users](#sar-template-redshift-multiuser)
 + [Other types of secrets](#OTHER_rotation_templates)
   + [Generic rotation function template](#sar-template-generic)
 
@@ -254,10 +254,6 @@ Secrets Manager provides the following rotation function templates:
 ## Amazon Redshift<a name="template-redshift"></a>
 
 ### Amazon Redshift single user<a name="sar-template-redshift-singleuser"></a>
-
-```
-arn:aws:serverlessrepo:us-east-2:123456789012:applications/SecretsManagerRDSMySQLRotationSingleUser
-```
 + **Name:** SecretsManagerRedshiftRotationSingleUser
 + **Supported database/service:** Amazon Redshift
 + **Rotation strategy:** [Single user rotation strategy](rotating-secrets_strategies.md#rotating-secrets-one-user-one-password)\.
@@ -275,7 +271,7 @@ arn:aws:serverlessrepo:us-east-2:123456789012:applications/SecretsManagerRDSMySQ
   ```
 + **Source code: ** [https://github\.com/aws\-samples/aws\-secrets\-manager\-rotation\-lambdas/tree/master/SecretsManagerRedshiftRotationSingleUser/lambda\_function\.py](https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerRedshiftRotationSingleUser/lambda_function.py)
 
-### Amazon Redshift primary user<a name="sar-template-redshift-multiuser"></a>
+### Amazon Redshift alternating users<a name="sar-template-redshift-multiuser"></a>
 + **Name:** SecretsManagerRedshiftRotationMultiUser
 + **Supported database/service:** Amazon Redshift
 + **Rotation strategy:** [Alternating users rotation strategy](rotating-secrets_strategies.md#rotating-secrets-two-users)\.

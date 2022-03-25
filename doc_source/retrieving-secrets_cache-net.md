@@ -2,7 +2,7 @@
 
 When you retrieve a secret, you can use the Secrets Manager \.NET\-based caching component to cache it for future use\. Retrieving a cached secret is faster than retrieving it from Secrets Manager\. Because there is a cost for calling Secrets Manager APIs, using a cache can reduce your costs\. 
 
-The cache policy is Least Recently Used \(LRU\), so when the cache must discard a secret, it discards the least recently used secret\. By default, the cache refreshes secrets every hour and when a secret is rotated\. You can configure how often the secret is refreshed in the cache, and you can hook into the secret retrieval to add more functionality\.
+The cache policy is Least Recently Used \(LRU\), so when the cache must discard a secret, it discards the least recently used secret\. By default, the cache refreshes secrets every hour\. You can configure how often the secret is refreshed in the cache, and you can hook into the secret retrieval to add more functionality\.
 
 To use the component, you must have the following:
 + \.NET Framework 4\.6\.1 or higher, or \.NET Standard 2\.0 or higher\. See [Download \.NET](https://dotnet.microsoft.com/en-us/download) on the Microsoft \.NET website\.

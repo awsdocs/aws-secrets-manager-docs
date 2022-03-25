@@ -87,4 +87,4 @@ To allow or deny access to requests from a particular VPC or VPC endpoint, use `
 
 If you use these condition keys in a resource policy statement that allows or denies access to Secrets Manager secrets, you can inadvertently deny access to services that use Secrets Manager to access secrets on your behalf\. Only some AWS services can run with an endpoint within your VPC\. If you restrict requests for a secret to a VPC or VPC endpoint, then calls to Secrets Manager from a service not configured for the service can fail\.
 
-See [Using AWS Secrets Manager with a VPC endpoint](vpc-endpoint-overview.md)\.
+See [Using an AWS Secrets Manager VPC endpoint](vpc-endpoint-overview.md)\.

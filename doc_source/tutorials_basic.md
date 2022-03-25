@@ -1,88 +1,81 @@
-# Tutorial: Create and retrieve a secret<a name="tutorials_basic"></a>
+# Tutorial: Create and retrieve a secret in AWS Secrets Manager<a name="tutorials_basic"></a>
 
-In this tutorial, you create a secret and store it in AWS Secrets Manager\. You can use either the console or the AWS CLI\. The secret contains a single password, stored as a key\-value pair\. You encrypt your secret with the AWS managed key \(`aws/secretsmanager`\)\. There is no cost for using this key\. 
+In this tutorial, you create a secret in AWS Secrets Manager that contains a single string\. You then retrieve the secret string using the console\. To create other types of secrets, see [Create a secret](manage_create-basic-secret.md)\.
 
-You then retrieve the secret using the console or the AWS CLI\. 
+**Contents**
++ [Permissions](#tutorials_basic-permissions)
++ [Step 1: Create a secret](#tutorial-basic-step1)
++ [Step 2: Retrieve a secret](#tutorial-basic-step2)
++ [Step 3: Cleanup resources](#tutorials_basic-step-cleanup)
++ [Related resources](#tutorials_basic-step-next)
 
-Users new to Secrets Manager can benefit from enrolling in the 30 day free trial and not receive billing for the activity performed in this tutorial\.
+## Permissions<a name="tutorials_basic-permissions"></a>
 
-## Prerequisites<a name="tut-basic-prereqs"></a>
+This tutorial assumes you have an AWS account, and you can sign in to AWS as an IAM user with the following permissions:
++ `secretsmanager:CreateSecret`
++ `secretsmanager:ListSecrets`
++ `secretsmanager:GetSecretValue`
 
-This tutorial assumes you can access an AWS account, and you can sign in to AWS as an IAM user with permissions to create and retrieve secrets in the AWS Secrets Manager console, or use equivalent commands in the AWS CLI\. For more information on configuring IAM users, refer to the [IAM documentation\.](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html)
+For more information, see [Attach a permissions policy to an identity](auth-and-access_iam-policies.md)\.
 
-## Step 1: Create and store your secret in AWS Secrets Manager<a name="tutorial-basic-step1"></a>
+## Step 1: Create a secret<a name="tutorial-basic-step1"></a>
 
-**To store your secret by using the console**
+To create a secret, you can use the console to enter the secret details\. In this tutorial, the secret is a single string\. 
 
-1. Sign in to the AWS Secrets Manager console at [https://console\.aws\.amazon\.com/secretsmanager/](https://console.aws.amazon.com/secretsmanager/)\.
+**To create a secret**
 
-1. Choose **Store a new secret**\.
+1. Open the Secrets Manager console at [https://console\.aws\.amazon\.com/secretsmanager/](https://console.aws.amazon.com/secretsmanager/)\.
+
+1. Under **Secrets**, choose **Store a new secret**\.
 
 1. On the **Store a new secret** page, do the following:
 
    1. For Secret type, choose **Other type of secret**\. 
 
-   1. For **Key/value pairs**, in the first field, enter **MyPassword**\. In the second field, enter a password\. This is the text that will be encrypted when you store the secret\.
+   1. For **Key/value pairs**, in the first field, enter **Password**\. In the second field, enter a password\. This will be encrypted when you save the secret\.
 
-   1. For **Encryption key**, keep **DefaultEncryptionKey**\. 
+   1. For **Encryption key**, keep **DefaultEncryptionKey** to use the AWS managed key for Secrets Manager\. There is no cost for using this key\.
 
    1. Choose **Next**\.
 
-1. On the next page, for **Secret name**, enter **tutorial/MyFirstSecret**, and then at the bottom of the page, choose **Next**\.
+1. On the **Secret name and description** page, for **Secret name**, enter **TutorialSecret**, and then at the bottom of the page, choose **Next**\.
 
-1. On the next page, keep **Disable automatic rotation**, and then at the bottom of the page, choose **Next**\.
+1. On the **Secret rotation ** page, keep **Disable automatic rotation**, and then at the bottom of the page, choose **Next**\.
 
-1. On the **Review** page, you can check your secret settings\.
+1. On the **Review** page, review the secret details, and then choose **Store**\.
 
-   In **Sample code**, you can copy the code to paste in your applications\. These examples retrieve the secret value that you stored\. In this tutorial, you stored a password\. 
+    Secrets Manager console returns to the list of secrets in your account and the new secret is now in the list\.
 
-   Choose **Store**\.
+## Step 2: Retrieve a secret<a name="tutorial-basic-step2"></a>
 
-    Secrets Manager console returns to the list of secrets in your account and your new secret is now in the list\.
+Now that you've stored a secret, you can retrieve it from Secrets Manager using the console\. For other ways of retrieving secrets, see [Retrieve secrets from AWS Secrets Manager](retrieving-secrets.md)\.
 
-**To store your secret by using the CLI**
-
-1. Open a command prompt to run the AWS CLI\. If you haven't installed the AWS CLI, see [Installing the AWS Command Line Interface](https://docs.aws.amazon.com/cli/latest/userguide/installing.html)\. 
-
-1. Enter the following command:
-
-   ```
-   $ aws secretsmanager create-secret --name tutorial/MyFirstSecret --secret-string EXAMPLE-PASSWORD
-   {
-       "ARN": "arn:aws:secretsmanager:us-east-2-2:111122223333:secret:tutorial/MyFirstSecret-a1b2c3",
-       "Name": "tutorial/MyFirstSecret",
-       "VersionId": "EXAMPLE1-90ab-cdef-fedc-ba987EXAMPLE"
-   }
-   ```
-
-## Step 2: Retrieve your secret from AWS Secrets Manager<a name="tutorial-basic-step2"></a>
-
-**To retrieve your secret by using the console**
+**To retrieve a secret**
 
 1. Open the Secrets Manager console at [https://console\.aws\.amazon\.com/secretsmanager/](https://console.aws.amazon.com/secretsmanager/)\.
 
-1. On the **Secrets** list page, choose **tutorial/MyFirstSecret**\. 
+1. On the **Secrets** list page, choose **TutorialSecret**\. 
 
 1. On the **Secrets details** page, in the **Secret value** section, choose **Retrieve secret value**\.
 
-   You can view your secret as either key\-value pairs, or on the **Plaintext** tab as a JSON text structure\.
+   You can view your secret as a key value pair or on the **Plaintext** tab as JSON\.
 
-**To retrieve your secret by using the CLI**
+## Step 3: Cleanup resources<a name="tutorials_basic-step-cleanup"></a>
 
-1. Open a command prompt to run the AWS CLI\. If you haven't installed the AWS CLI, see [Installing the AWS Command Line Interface](https://docs.aws.amazon.com/cli/latest/userguide/installing.html)\. 
+To avoid potential charges, delete the secret you created in this tutorial\.
 
-1. Enter the following command:
+**To delete a secret**
 
-   ```
-   $ aws secretsmanager get-secret-value --secret-id tutorial/MyFirstSecret
-   {
-       "ARN": "arn:aws:secretsmanager:us-east-2:111122223333:secret:tutorial/MyFirstSecret-a1b2c3",
-       "Name": "tutorial/MyFirstSecret",
-       "VersionId": "EXAMPLE1-90ab-cdef-fedc-ba987EXAMPLE",
-       "SecretString": "S3@ttl3R0cks",
-       "VersionStages": [
-           "AWSCURRENT"
-       ],
-       "CreatedDate": 1522680764.668
-   }
-   ```
+1. Open the Secrets Manager console at [https://console\.aws\.amazon\.com/secretsmanager/](https://console.aws.amazon.com/secretsmanager/)\.
+
+1. In the list of secrets, select **TutorialSecret**, choose **Actions**, and then choose **Delete**\.
+
+1. In the **Disable secret and schedule deletion** dialog box, in **Waiting period**, enter **7**, the minimum number of days to wait before the deletion becomes permanent\. You can't delete a secret immediately by using the console\. To delete a secret immediately, you must use the [AWS CLI](manage_delete-secret.md#manage_delete-secret_cli)\.
+
+1. Choose **Schedule deletion**\.
+
+## Related resources<a name="tutorials_basic-step-next"></a>
+
+For more information, see:
++ [Create and manage secrets with AWS Secrets Manager](managing-secrets.md)
++ [Retrieve secrets from AWS Secrets Manager](retrieving-secrets.md)

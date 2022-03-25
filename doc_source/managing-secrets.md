@@ -11,4 +11,3 @@ This section describes how to create, update, retrieve, search, and delete secre
 + [Replicate an AWS Secrets Manager secret to other AWS Regions](create-manage-multi-region-secrets.md)
 + [Promote a replica secret to a standalone secret](standalone-secret.md)
 + [Tag secrets](managing-secrets_tagging.md)
-+ [Automate secret creation in AWS CloudFormation](integrating_cloudformation.md)
