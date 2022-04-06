@@ -26,9 +26,9 @@ Next, rotation tests the `AWSPENDING` version of the secret by using it to acces
 **Step 4: Finish the rotation \(`finishSecret`\)**  
 Finally, rotation moves the label `AWSCURRENT` from the previous secret version to this version\. Secrets Manager adds the `AWSPREVIOUS` staging label to the previous version, so that you retain the last known good version of the secret\. 
 
-During rotation, Secrets Manager logs events that indicate the state of rotation\. For more information, see [Use AWS CloudTrail to log activity for your secrets](monitoring.md#monitoring_CTlong)\.
+During rotation, Secrets Manager logs events that indicate the state of rotation\. For more information, see [Logging AWS Secrets Manager events with AWS CloudTrail](retrieve-ct-entries.md)\.
 
-After rotation is successful, applications that [Retrieve secrets from AWS Secrets Manager](retrieving-secrets.md) from Secrets Manager automatically get the updated credentials\. For more details about how each step of rotation works, see the [Secrets Manager rotation function templates](reference_available-rotation-templates.md)\.
+After rotation is successful, applications that [Retrieve secrets from AWS Secrets Manager in code](retrieving-secrets.md) from Secrets Manager automatically get the updated credentials\. For more details about how each step of rotation works, see the [Secrets Manager rotation function templates](reference_available-rotation-templates.md)\.
 
 To turn on automatic rotation, see: 
 + [Automatically rotate an Amazon RDS, Amazon DocumentDB, or Amazon Redshift secret](rotate-secrets_turn-on-for-db.md) 

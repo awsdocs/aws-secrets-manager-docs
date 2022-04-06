@@ -41,7 +41,7 @@ Before you begin, you need the following:
 
    1. Under **Rotation function**, do the following:
       + To have Secrets Manager create a rotation function for you based on the [Rotation function templates](reference_available-rotation-templates.md) for your secret, choose **Create a new Lambda function** and enter a name for your new function\. Secrets Manager adds "SecretsManager" to the beginning of your function name\.
-      + To use a rotation function that you or Secrets Manager already created, choose **Use an existing Lambda function**\. You can reuse a rotation function you used for another secret if the rotation strategy is the same\.
+      + To use a rotation function that you or Secrets Manager already created, choose **Use an existing Lambda function**\. You can reuse a rotation function you used for another secret if the rotation strategy is the same\. The rotation functions listed under **Recommended VPC configurations** have the same VPC and security group as the database, so you don't have to make any changes for the rotation function to be able to make calls to the database\.
 
    1. For **Use separate credentials to rotate this secret**, do one of the following:
       + For the [Single user rotation strategy](rotating-secrets_strategies.md#rotating-secrets-one-user-one-password), choose **No**\.

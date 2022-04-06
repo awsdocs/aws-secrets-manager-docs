@@ -40,7 +40,7 @@ To create a secret, you need the permissions granted by the **SecretsManagerRead
         + On the **Plaintext** tab, enter your secret in any format\. 
 
    1. For **Encryption key**, choose the AWS KMS key that Secrets Manager uses to encrypt the protected text in the secret:
-      + Choose **DefaultEncryptionKey** to use the AWS managed key for Secrets Manager\. There is no cost for using this key\.
+      + Choose **aws/secretsmanager** to use the AWS managed key for Secrets Manager\. There is no cost for using this key\.
       + Choose another KMS key from the list\. You must have the following permissions: `kms:Encrypt`, `kms:Decrypt`, and `kms:GenerateDataKey`\.
       + Choose **Add new key** to go to the AWS KMS console to create a customer managed key\. You must have `kms:CreateKey` permission\. You will be charged for KMS keys that you create\. 
 

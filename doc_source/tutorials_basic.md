@@ -48,7 +48,7 @@ To create a secret, you can use the console to enter the secret details\. In thi
 
 ## Step 2: Retrieve a secret<a name="tutorial-basic-step2"></a>
 
-Now that you've stored a secret, you can retrieve it from Secrets Manager using the console\. For other ways of retrieving secrets, see [Retrieve secrets from AWS Secrets Manager](retrieving-secrets.md)\.
+Now that you've stored a secret, you can retrieve it from Secrets Manager using the console\. For other ways of retrieving secrets, see [Retrieve secrets from AWS Secrets Manager in code](retrieving-secrets.md)\.
 
 **To retrieve a secret**
 
@@ -78,4 +78,4 @@ To avoid potential charges, delete the secret you created in this tutorial\.
 
 For more information, see:
 + [Create and manage secrets with AWS Secrets Manager](managing-secrets.md)
-+ [Retrieve secrets from AWS Secrets Manager](retrieving-secrets.md)
++ [Retrieve secrets from AWS Secrets Manager in code](retrieving-secrets.md)

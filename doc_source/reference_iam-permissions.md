@@ -55,7 +55,11 @@ If you include string conditions from the following table in your permissions po
 
 ## Block broad access to secrets with `BlockPublicPolicy` condition<a name="iam-contextkeys-blockpublicpolicy"></a>
 
-In identity policies that allow the action `PutResourcePolicy`, we recommend you use `BlockPublicPolicy: true`\. This condition means that users can only attach a resource policy to a secret if the policy doesn't allow broad access\. The following example shows how to use `BlockPublicPolicy`\.
+In identity policies that allow the action `PutResourcePolicy`, we recommend you use `BlockPublicPolicy: true`\. This condition means that users can only attach a resource policy to a secret if the policy doesn't allow broad access\. 
+
+Secrets Manager uses Zelkova automated reasoning to analyze resource policies for broad access\. For more information about Zelkova, see [ How AWS uses automated reasoning to help you achieve security at scale](https://aws.amazon.com/blogs/security/protect-sensitive-data-in-the-cloud-with-automated-reasoning-zelkova/) on the AWS Security Blog\.
+
+The following example shows how to use `BlockPublicPolicy`\.
 
 ```
 {

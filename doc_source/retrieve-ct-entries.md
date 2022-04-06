@@ -1,4 +1,4 @@
-# View CloudTrail log file entries for Secrets Manager<a name="retrieve-ct-entries"></a>
+# Logging AWS Secrets Manager events with AWS CloudTrail<a name="retrieve-ct-entries"></a>
 
 AWS CloudTrail records all [API calls for Secrets Manager](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_Operations.html) as events, including calls from the Secrets Manager console\. CloudTrail also captures the following events:
 + `RotationAbandoned` event \- Secrets Manager removed the AWSPENDING label from an existing version of a secret\. When you manually create a new version of a secret, you send a message signalling the abandonment of the current ongoing rotation in favor of the new secret version\. As a result, Secrets Manager removes the AWSPENDING label to allow future rotations to succeed and publish a CloudTrail event to provide awareness of the change\. 
@@ -9,7 +9,9 @@ AWS CloudTrail records all [API calls for Secrets Manager](https://docs.aws.amaz
 + `CancelSecretVersionDelete` event \- A delete cancellation for a secret version\. 
 + `EndSecretVersionDelete` event \- An ending secret version deletion\.
 
-The CloudTrail console enables you to view events that occurred within the past 90 days\.
+You can use the CloudTrail console to view the last 90 days of recorded events\. For an ongoing record of events in your AWS account, including events for Secrets Manager, create a trail so that CloudTrail delivers log files to an Amazon S3 bucket\. See [Creating a trail for your AWS account](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-create-and-update-a-trail.html)\. You can also configure CloudTrail to receive CloudTrail log files from [multiple AWS accounts](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-receive-logs-from-multiple-accounts.html) and [AWS Regions](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/receive-cloudtrail-log-files-from-multiple-regions.html)\.
+
+You can configure other AWS services to further analyze and act upon the data collected in CloudTrail logs\. See [AWS service integrations with CloudTrail logs](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-aws-service-specific-topics.html#cloudtrail-aws-service-specific-topics-integrations)\. You can also get notifications when CloudTrail publishes new log files to your Amazon S3 bucket\. See [Configuring Amazon SNS notifications for CloudTrail](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/getting_notifications_top_level.html)\.
 
 **To retrieve Secrets Manager events from CloudTrail logs \(console\)**
 
@@ -23,7 +25,7 @@ The CloudTrail console enables you to view events that occurred within the past 
 
 1. To see additional details, choose the expand arrow next to event\. To see all of the information available, choose **View event**\.
 
-## AWS CLI or SDK<a name="w340aac27c13c11"></a>
+## AWS CLI or SDK<a name="w381aac25b7c13"></a>
 
 **To retrieve Secrets Manager events from CloudTrail logs \(AWS CLI or SDK\)**
 
@@ -54,7 +56,7 @@ The CloudTrail console enables you to view events that occurred within the past 
    }
    ```
 
-## CloudTrail log examples for Secrets Manager<a name="understanding-service-name-entries"></a>
+## Examples of Secrets Manager log entries<a name="understanding-service-name-entries"></a>
 
 The following example shows a CloudTrail log entry for a sample `CreateSecret` call:
 

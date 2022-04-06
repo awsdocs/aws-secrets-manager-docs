@@ -13,7 +13,7 @@ The Lambda functions for [supported databases](intro.md#full-rotation-support) d
 When you use the AWS CLI and enter commands in a command shell, there is a risk of the command history being accessed or utilities having access to your command parameters\. See [Mitigate the risks of using the AWS CLI to store your secrets](security_cli-exposure-risks.md)\.
 
 **Run everything in a VPC **  
-We recommend that you run as much of your infrastructure as possible on private networks that are not accessible from the public internet\. See [Running everything in a VPC ](integrating_vpc.md)\.
+We recommend that you run as much of your infrastructure as possible on private networks that are not accessible from the public internet\. See [Using an AWS Secrets Manager VPC endpoint](vpc-endpoint-overview.md)\.
 
 **Rotate secrets on a schedule**  
 If you don't change your secrets for a long period of time, the secrets become more likely to be compromised\. We recommend that you rotate your secrets every 30 days\. See [Rotate AWS Secrets Manager secrets](rotating-secrets.md)

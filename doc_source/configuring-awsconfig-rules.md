@@ -1,6 +1,12 @@
 # Audit secrets for compliance by using AWS Config<a name="configuring-awsconfig-rules"></a>
 
-You can use AWS Config to evaluate your secrets and assess how well they comply with your internal practices, industry guidelines, and regulations\. 
+You can use AWS Config to evaluate your secrets and assess how well they comply with your internal practices, industry guidelines, and regulations\. You define your internal security and compliance requirements for secrets using AWS Config rules\. Then AWS Config can identify secrets that don't conform to your rules\. You can also track changes to secret metadata, rotation configuration, the KMS key used for secret encryption, the Lambda rotation function, and tags associated with a secret\.
+
+## <a name="monitoring_CClong"></a>
+
+You can receive notifications from Amazon SNS about your secret configurations\. For example, you can receive Amazon SNS notifications for a list of secrets not configured for rotation which enables you to drive security best practices for rotating secrets\.
+
+If you have secrets in multiple AWS accounts and AWS Regions in your organization, you can aggregate that configuration and compliance data\. 
 
 Monitoring secrets with AWS Config is supported in all AWS Regions except Asia Pacific \(Jakarta\)\.
 

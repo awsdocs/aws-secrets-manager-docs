@@ -56,7 +56,7 @@ A cron expression for Secrets Manager must have **0** in the minutes field becau
 |  Every Saturday at 6:00 PM\.  |  `cron(0 18 ? * SAT *)`  | 
 |  The first day of every month at 8:00 AM\.  |  `cron(0 8 1 * ? *)`  | 
 |  Every three months on Sunday at 1:00 AM\.  |  `cron(0 1 * 1/3 SUN *)`  | 
-|  The last day of every month at 5:00 PM\.  |  `cron(0 5 L * ? *)`  | 
+|  The last day of every month at 5:00 PM\.  |  `cron(0 17 L * ? *)`  | 
 |  Monday through Friday at 8:00 AM\.  |  `cron(0 8 ? * MON-FRI *)`  | 
 |  First and 15th day of every month at 4:00 PM\.  |  `cron(0 16 1,15 * ? *)`  | 
 |  First Sunday of every month at midnight\.  |  `cron(0 0 ? * SUN#1 *)`  | 
