@@ -13,7 +13,7 @@ Before you begin, install the ASCP: [Install the ASCP](integrating_csi_driver.md
    CLUSTERNAME=<CLUSTERNAME>
    ```
 
-1. Create a test secret\. For more information, see [Create a secret](manage_create-basic-secret.md)\.
+1. Create a test secret\. For more information, see [Create and manage secrets with AWS Secrets Manager](managing-secrets.md)\.
 
    ```
    aws --region "$REGION" secretsmanager  create-secret --name MySecret --secret-string '{"username":"lijuan", "password":"hunter2"}'

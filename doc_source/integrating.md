@@ -25,6 +25,7 @@
 + [Amazon Lookout for Metrics](integrating_how-services-use-secrets_LFMlong.md)
 + [Amazon Managed Streaming for Apache Kafka](integrating_how-services-use-secrets_MSKlong.md)
 + [Amazon Managed Workflows for Apache Airflow](integrating_how-services-use-secrets_mwaa.md)
++ [AWS Migration Hub](integrating_how-services-use-secrets_migration-hub.md)
 + [AWS OpsWorks for Chef Automate](integrating_how-services-use-secrets_OPSCAlong.md)
 + [Amazon RDS](integrating_how-services-use-secrets_RDS.md)
 + [Amazon Redshift](integrating_how-services-use-secrets_RS.md)

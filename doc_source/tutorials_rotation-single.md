@@ -312,6 +312,6 @@ Otherwise, to avoid potential charges, and to remove the EC2 instance that has a
 + AWS CloudFormation stack\. For instructions, see [Delete a stack](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-delete-stack.html)\.
 
 ## Next steps<a name="tutorials_rotation-single_step-next"></a>
-+ Learn how to retrieve secrets in your applications\. See [Retrieve secrets from AWS Secrets Manager in code](retrieving-secrets.md)\.
++ Learn how to retrieve secrets in your applications\. See [Retrieve secrets from AWS Secrets Manager](retrieving-secrets.md)\.
 + Learn how to create a secret with automatic rotation using AWS CloudFormation, see [ AWS::SecretsManager::RotationSchedule](https://docs.aws.amazon.com/https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-secretsmanager-rotationschedule.html) in the AWS CloudFormation User Guide\.
 + Learn about other rotation schedules\. See [Schedule expressions in Secrets Manager rotation](rotate-secrets_schedule.md)\.

@@ -106,7 +106,7 @@ When you configure rotation, if you let Secrets Manager create the rotation func
                 "secretsmanager:GetRandomPassword",
                 "secretsmanager:GetSecretValue",
                 "secretsmanager:PutSecretValue",
-                "secretsmanager:UpdateSecretVersionStage",
+                "secretsmanager:UpdateSecretVersionStage"
             ],
             "Resource": "*"
         }
@@ -128,7 +128,7 @@ Also, if your rotation uses separate master secret credentials to rotate this se
                 "secretsmanager:GetRandomPassword",
                 "secretsmanager:GetSecretValue",
                 "secretsmanager:PutSecretValue",
-                "secretsmanager:UpdateSecretVersionStage",
+                "secretsmanager:UpdateSecretVersionStage"
             ],
             "Resource": "*"
         },

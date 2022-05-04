@@ -1,8 +1,8 @@
 # Rotate a secret immediately<a name="rotate-secrets_now"></a>
 
 You can only rotate a secret that has rotation configured\. This can be a secret that currently has automatic rotation turned on, or one that previously had rotation turned on\. Turn on automatic rotation for:
-+ [Amazon RDS, Amazon DocumentDB, or Amazon Redshift secret](rotate-secrets_turn-on-for-db.md)
-+ [Other type of secret](rotate-secrets_turn-on-for-other.md)
++ [Rotate DB credentials](rotate-secrets_turn-on-for-db.md)
++ [Rotate a secret](rotate-secrets_turn-on-for-other.md)
 
 **To rotate a secret immediately \(console\)**
 

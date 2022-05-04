@@ -28,8 +28,8 @@ Finally, rotation moves the label `AWSCURRENT` from the previous secret version 
 
 During rotation, Secrets Manager logs events that indicate the state of rotation\. For more information, see [Logging AWS Secrets Manager events with AWS CloudTrail](retrieve-ct-entries.md)\.
 
-After rotation is successful, applications that [Retrieve secrets from AWS Secrets Manager in code](retrieving-secrets.md) from Secrets Manager automatically get the updated credentials\. For more details about how each step of rotation works, see the [Secrets Manager rotation function templates](reference_available-rotation-templates.md)\.
+After rotation is successful, applications that [Retrieve secrets from AWS Secrets Manager](retrieving-secrets.md) from Secrets Manager automatically get the updated credentials\. For more details about how each step of rotation works, see the [Secrets Manager rotation function templates](reference_available-rotation-templates.md)\.
 
 To turn on automatic rotation, see: 
 + [Automatically rotate an Amazon RDS, Amazon DocumentDB, or Amazon Redshift secret](rotate-secrets_turn-on-for-db.md) 
-+ [Automatically rotate another type of secret](rotate-secrets_turn-on-for-other.md)
++ [Automatically rotate a secret](rotate-secrets_turn-on-for-other.md)

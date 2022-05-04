@@ -45,7 +45,7 @@ A secret has *versions* which hold copies of the encrypted secret value\. When y
 
 You can use a secret across multiple AWS Regions by *replicating* it\. When you replicate a secret, you create a copy of the original or *primary secret* called a *replica secret*\. The replica secret remains linked to the primary secret\. See [Replicate an AWS Secrets Manager secret to other AWS Regions](create-manage-multi-region-secrets.md)\.
 
-See [Create a secret](manage_create-basic-secret.md)\.
+See [Create and manage secrets with AWS Secrets Manager](managing-secrets.md)\.
 
 ### Rotation<a name="term_rotation"></a>
 

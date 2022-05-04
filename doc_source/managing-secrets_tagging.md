@@ -11,7 +11,7 @@ Create tags for:
 
 For more information, see [AWS Tagging Strategies](https://aws.amazon.com/answers/account-management/aws-tagging-strategies/) on the *AWS Answers* website\.
 
-You can tag your secrets [when you create them](manage_create-basic-secret.md) or [when you edit them](manage_update-secret.md)\.
+You can tag your secrets when you create them or when you edit them\.
 
 **To change tags for your secret \(console\)**
 

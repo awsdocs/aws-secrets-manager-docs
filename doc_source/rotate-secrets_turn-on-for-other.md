@@ -1,4 +1,4 @@
-# Automatically rotate another type of secret<a name="rotate-secrets_turn-on-for-other"></a>
+# Automatically rotate a secret<a name="rotate-secrets_turn-on-for-other"></a>
 
 Secrets Manager provides complete rotation templates for Amazon RDS, Amazon DocumentDB, and Amazon Redshift secrets\. For more information, see [Automatically rotate an Amazon RDS, Amazon DocumentDB, or Amazon Redshift secret](rotate-secrets_turn-on-for-db.md)\.
 

@@ -49,7 +49,7 @@ aws lambda add-permission --function-name ARN_of_lambda_function --principal sec
 The following examples show inline policies for Lambda function execution roles\. To create an execution role and attach a permissions policy, see [AWS Lambda execution role](https://docs.aws.amazon.com/lambda/latest/dg/lambda-intro-execution-role.html)\.
 
 **Example IAM execution role inline policy for single user rotation strategy**  
-For an [Amazon RDS, Amazon DocumentDB, or Amazon Redshift secret](rotate-secrets_turn-on-for-db.md), Secrets Manager creates the IAM execution role and attaches this policy for you\.   
+For an [Rotate DB credentials](rotate-secrets_turn-on-for-db.md), Secrets Manager creates the IAM execution role and attaches this policy for you\.   
 The following example policy allows the function to:  
 + Run Secrets Manager operations for secrets that are configured to use this rotation function\.
 + Create a new password\.
@@ -97,7 +97,7 @@ The following example policy allows the function to:
 ```
 
 **Example IAM execution role inline policy statement for alternating users strategy**  
-For an [Amazon RDS, Amazon DocumentDB, or Amazon Redshift secret](rotate-secrets_turn-on-for-db.md), Secrets Manager creates the IAM execution role and attaches this policy for you\.   
+For an [Rotate DB credentials](rotate-secrets_turn-on-for-db.md), Secrets Manager creates the IAM execution role and attaches this policy for you\.   
 The following example policy allows the function to:  
 + Run Secrets Manager operations for secrets that are configured to use this rotation function\.
 + Retrieve the credentials in the separate secret\. Secrets Manager uses the credentials in the separate secret to update the credentials in the rotated secret\.

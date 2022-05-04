@@ -1,6 +1,6 @@
 # Automatically rotate an Amazon RDS, Amazon DocumentDB, or Amazon Redshift secret<a name="rotate-secrets_turn-on-for-db"></a>
 
-Secrets Manager provides complete rotation templates for Amazon RDS, Amazon DocumentDB, and Amazon Redshift secrets\. For other types of secrets, see [Automatically rotate another type of secret](rotate-secrets_turn-on-for-other.md)\. 
+Secrets Manager provides complete rotation templates for Amazon RDS, Amazon DocumentDB, and Amazon Redshift secrets\. For other types of secrets, see [Automatically rotate a secret](rotate-secrets_turn-on-for-other.md)\. 
 
 Rotation functions for Amazon RDS \(except Oracle\) and Amazon DocumentDB automatically use Secure Socket Layer \(SSL\) or Transport Layer Security \(TLS\) to connect to your database, if it is available\. Otherwise they use an unencrypted connection\.
 
@@ -52,6 +52,20 @@ For help resolving common rotation issues, see [Troubleshoot AWS Secrets Manager
 ## AWS CLI<a name="rotating-secrets-built-in_cli"></a>
 
 To turn on rotation, see [rotate\-secret](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/rotate-secret.html)\.
+
+For Secrets Manager to be able to rotate the secret, you must make sure the JSON matches the [JSON structure of a database secret](reference_secret_json_structure.md)\. In particular, if you want to use the [Alternating users](rotating-secrets_strategies.md#rotating-secrets-two-users) strategy, your secret must contain the ARN of a superuser secret\.
+
+You also need a Lambda function that can rotate the secret\. You can create this function based on the [Secrets Manager rotation function templates](reference_available-rotation-templates.md) that Secrets Manager provides\. For [Single user](rotating-secrets_strategies.md#rotating-secrets-one-user-one-password), choose a template for single user rotation\. For [Alternating users](rotating-secrets_strategies.md#rotating-secrets-two-users), choose a template for alternating users rotation\.
+
+**To turn on automatic rotation**
++ In the AWS CLI, the following command turns on automatic rotation\. Secrets Manager rotates the secret once immediately, and then on the 1st and 15th day of every month between 4:00 PM and 6:00 PM UTC\.
+
+  ```
+  aws secretsmanager rotate-secret
+      --secret-id MySecret 
+      --rotation-lambda-arn arn:aws:lambda:us-east-2:123456789012:function:SecretsManagerMyLambdaFunction-alt-users
+      --rotation-rules "{\"ScheduleExpression\": \"cron(0 16 1,15 * ? *)\", \"Duration\": \"2h\"}"
+  ```
 
 ## AWS SDK<a name="rotating-secrets-built-in_sdk"></a>
 

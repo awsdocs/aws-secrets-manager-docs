@@ -2,19 +2,47 @@
 
 You can monitor AWS Secrets Manager using Amazon CloudWatch, which collects raw data and processes it into readable, near real\-time metrics\. These statistics are kept for 15 months, so that you can access historical information and gain a better perspective on how your web application or service is performing\. You can also set alarms that watch for certain thresholds, and send notifications or take actions when those thresholds are met\. For more information, see the [Amazon CloudWatch User Guide](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/)\.
 
-For Secrets Manager, you can use CloudWatch to alert you when your request rate for APIs reaches a specific threshold\. See [Create alarms to monitor Secrets Manager requests](#monitoring-cloudwatch_alarms)\. You can also use CloudWatch to monitor estimated Secrets Manager charges\. For more information, see [Creating a billing alarm to monitor your estimated AWS charges](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/monitor_estimated_charges_with_cloudwatch.html)\.
+For Secrets Manager, you can use CloudWatch to alert you when your request rate for APIs or the number of secrets in your account reaches a specific threshold\. You can also use CloudWatch to monitor estimated Secrets Manager charges\. For more information, see [Creating a billing alarm to monitor your estimated AWS charges](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/monitor_estimated_charges_with_cloudwatch.html)\.
 
-## Create alarms to monitor Secrets Manager requests<a name="monitoring-cloudwatch_alarms"></a>
+**Topics**
++ [Secrets Manager metrics and dimensions](#monitoring-cloudwatch_alarms_secretcount)
++ [Create alarms to monitor Secrets Manager metrics](#monitoring-cloudwatch_alarms)
++ [Secrets Manager events](#monitoring-cloudwatch_events)
++ [Amazon CloudWatch Synthetics canaries](#monitoring-cloudwatch_canaries)
++ [Monitor secrets scheduled for deletion](monitoring_cloudwatch_deleted-secrets.md)
 
-Secrets Manager requests that you can monitor as CloudWatch metrics include `GetSecretValue`, `DescribeSecret`, `ListSecrets`, and others\. To find metrics, in the CloudWatch console, choose **All metrics**, and then in the search box, enter your search term, for example **secrets**\.
+## Secrets Manager metrics and dimensions<a name="monitoring-cloudwatch_alarms_secretcount"></a>
 
-You can create a CloudWatch alarm that sends an Amazon SNS message when the value of the metric changes and causes the alarm to change state\. An alarm watches a metric over a time period you specify, and performs actions based on the value of the metric relative to a given threshold over a number of time periods\. Alarms invoke actions for sustained state changes only\. CloudWatch alarms do not invoke actions simply because they are in a particular state; the state must have changed and been maintained for a specified number of periods\.
+The `AWS/SecretsManager` namespace includes the following metrics\.
 
-For more information, see [Create a CloudWatch alarm based on a static threshold](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/ConsoleAlarms.html)\.
+
+| Metric | Description | 
+| --- | --- | 
+|  `SecretCount`  |  The number of secrets in your account, including secrets that are marked for deletion\.  Units: Count  | 
+
+The following dimensions are supported for the Secrets Manager metrics\.
+
+
+|  Dimension  |  Description  | 
+| --- | --- | 
+|  Service  | The name of the AWS service containing the resource\. For Secrets Manager, the value for this dimention is Secrets Manager\. | 
+|  Type  | The type of entity that is being reported\. For Secrets Manager, the value for this dimention is Resource\. | 
+|  Resource  | The type of resource that is running\. For Secrets Manager, the value for this dimention is SecretCount\. | 
+|  Class  | None\. | 
+
+Secrets Manager API requests that you can monitor using CloudWatch metrics include `GetSecretValue`, `DescribeSecret`, `ListSecrets`, and others\. To find metrics, in the CloudWatch console, choose **All metrics**, and then in the search box, enter your search term, for example **secrets**\.
+
+## Create alarms to monitor Secrets Manager metrics<a name="monitoring-cloudwatch_alarms"></a>
+
+You can create a CloudWatch alarm that sends an Amazon SNS message when the value of the metric changes and causes the alarm to change state\. An alarm watches a metric over a time period you specify, and performs actions based on the value of the metric relative to a given threshold over a number of time periods\. Alarms invoke actions for sustained state changes only\. CloudWatch alarms do not invoke actions simply because they are in a particular state; the state must have changed and been maintained for a specified number of periods\. 
+
+For more information, see [ Using Amazon CloudWatch alarms](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/AlarmThatSendsEmail.html)\.
 
 ## Secrets Manager events<a name="monitoring-cloudwatch_events"></a>
 
-Secrets Manager integrates with Amazon EventBridge to notify you of certain events that affect your secrets\. With Amazon EventBridge, you can be notified of Secrets Manager events that happen in CloudWatch except `Get*` API calls\. You can configure EventBridge rules that look for these events and then send new generated events to an Amazon SNS topic that emails or text messages to subscribers\. For more information, see [Creating Amazon EventBridge rules that react to events](eventbridge/latest/userguide/eb-create-rule.html)\.
+Secrets Manager integrates with Amazon EventBridge to notify you of certain events that affect your secrets\. With Amazon EventBridge, you can be notified of Secrets Manager events that happen except `Get*` API calls\. You can configure EventBridge rules that look for these events and then send new generated events to an Amazon SNS topic that emails or text messages to subscribers\. 
+
+For more information, see [Creating Amazon EventBridge rules that react to events](eventbridge/latest/userguide/eb-create-rule.html)\.
 
 ## Amazon CloudWatch Synthetics canaries<a name="monitoring-cloudwatch_canaries"></a>
 

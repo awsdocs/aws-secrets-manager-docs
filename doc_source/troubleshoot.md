@@ -41,7 +41,7 @@ For more information about how some other AWS services are affected by eventual 
 
 ## “Cannot generate a data key with an asymmetric KMS key” when creating a secret<a name="asymmetrical-key"></a>
 
-Secrets Manager uses a symmetric KMS key associated with a secret to generate a data key for each secret value\. Secrets Manager also uses the KMS key to decrypt that data key when it needs to decrypt the encrypted secret value\. You can track the requests and responses in AWS CloudTrail events, Amazon CloudWatch Logs, and audit trails\. Verify you are using a symmetric KMS key instead of an asymmetric KMS key\. You cannot use an asymmetric KMS key\. 
+Secrets Manager uses a [symmetric encryption KMS key](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#symmetric-cmks) associated with a secret to generate a data key for each secret value\. You can't use an asymmetric KMS key\. Verify you are using a symmetric encryption KMS key instead of an asymmetric KMS key\. For instructions, see [Identifying asymmetric KMS keys](https://docs.aws.amazon.com/kms/latest/developerguide/find-symm-asymm.html)\.
 
 ## An AWS CLI or AWS SDK operation can't find my secret from a partial ARN<a name="ARN_secretnamehyphen"></a>
 

@@ -4,7 +4,7 @@ Because of the critical nature of secrets, AWS Secrets Manager intentionally mak
 
 You can't delete a primary secret if it is replicated to other Regions\. First delete the replicas, then delete the primary secret\. When you delete a replica, it is deleted immediately\.
 
-You can't directly delete a version of a secret\. Instead, you remove all staging labels from the secret using the AWS CLI or AWS SDK\. This marks the secret as deprecated, and then Secrets Manager can automatically delete the version in the background\.
+You can't directly delete a version of a secret\. Instead, you remove all staging labels from the version using the AWS CLI or AWS SDK\. This marks the version as deprecated, and then Secrets Manager can automatically delete the version in the background\.
 
 If you don't know whether an application still uses a secret, you can create an Amazon CloudWatch alarm to alert you to any attempts to access a secret during the recovery window\. For more information, see [Monitor secrets scheduled for deletion](monitoring_cloudwatch_deleted-secrets.md)\.
 

@@ -6,7 +6,7 @@ Secrets Manager rotates your secret at any time during a *rotation window*\. For
 
 To turn on rotation, see:
 +  [Automatically rotate an Amazon RDS, Amazon DocumentDB, or Amazon Redshift secret](rotate-secrets_turn-on-for-db.md)
-+ [Automatically rotate another type of secret](rotate-secrets_turn-on-for-other.md)
++ [Automatically rotate a secret](rotate-secrets_turn-on-for-other.md)
 
 ## Rate expressions<a name="rotate-secrets_schedule-rate"></a>
 
