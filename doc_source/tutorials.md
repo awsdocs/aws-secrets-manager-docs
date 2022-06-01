@@ -1,6 +1,7 @@
 # AWS Secrets Manager tutorials<a name="tutorials"></a>
 
 **Topics**
-+ [Tutorial: Create and retrieve a secret in AWS Secrets Manager](tutorials_basic.md)
-+ [Tutorial: Set up single user rotation for AWS Secrets Manager](tutorials_rotation-single.md)
-+ [Tutorial: Set up alternating users rotation for AWS Secrets Manager](tutorials_rotation-alternating.md)
++ [Move hardcoded secrets to AWS Secrets Manager](hardcoded.md)
++ [Move hardcoded database credentials to AWS Secrets Manager](hardcoded-db-creds.md)
++ [Set up single user rotation for AWS Secrets Manager](tutorials_rotation-single.md)
++ [Set up alternating users rotation for AWS Secrets Manager](tutorials_rotation-alternating.md)

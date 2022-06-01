@@ -2,6 +2,8 @@
 
 To store credentials for Amazon Relational Database Service \(Amazon RDS\), Amazon Aurora, Amazon Redshift, or Amazon DocumentDB, follow these steps\. When you use the AWS CLI or one of the SDKs to store the secret, you must provide the secret in the [JSON structure of a database secret](reference_secret_json_structure.md)\. When you use the console to store a database secret, Secrets Manager automatically creates it in the correct JSON structure\.
 
+When you store database credentials for a source database that is replicated to other Regions, the secret contains connection information for the source database\. If you then replicate the secret, the replicas are copies of the source secret and contain the same connection information\. You can add additional key/value pairs to the secret for regional connection information\.
+
 To create a secret, you need the permissions granted by the **SecretsManagerReadWrite** [AWS managed policy](reference_available-policies.md)\.
 
 **To create a secret \(console\)**

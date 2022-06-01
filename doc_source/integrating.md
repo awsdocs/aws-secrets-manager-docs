@@ -12,6 +12,7 @@
 + [AWS Elemental Live](integrating_ELVlong.md)
 + [AWS Elemental MediaConnect](integrating_how-services-use-secrets_EMXlong.md)
 + [AWS Elemental MediaConvert](integrating_how-services-use-secrets_EMClong.md)
++ [CodeGuru Reviewer](integrating-codeguru.md)
 + [AWS Elemental MediaPackage](integrating_how-services-use-secrets_EMPlong.md)
 + [AWS Elemental MediaTailor](integrating_how-services-use-secrets_MediaTailor.md)
 + [Amazon EMR](integrating-emr.md)

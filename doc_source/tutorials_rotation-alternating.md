@@ -1,4 +1,4 @@
-# Tutorial: Set up alternating users rotation for AWS Secrets Manager<a name="tutorials_rotation-alternating"></a>
+# Set up alternating users rotation for AWS Secrets Manager<a name="tutorials_rotation-alternating"></a>
 
 In this tutorial, you learn how to set up alternating users rotation for a secret that contains database credentials\. *Alternating users rotation* is a rotation strategy where Secrets Manager clones the user and then alternates which user's credentials are updated\. This strategy is a good choice if you need high availability for your secret, because one of the alternating users has current credentials to RDS while the other one is being updated\. For more information, see [Rotation strategies](rotating-secrets_strategies.md)\. 
 
@@ -23,7 +23,7 @@ For information about how to set up permissions in a production environment, see
 
 ## Prerequisites<a name="tutorials_rotation-alternating-step-setup"></a>
 
-The prerequisite for this tutorial is [Tutorial: Set up single user rotation for AWS Secrets Manager](tutorials_rotation-single.md)\. Don't clean up the resources at the end of the first tutorial\. After that tutorial, you have a realistic environment with an Amazon RDS database and a Secrets Manager secret\. The secret contains admin credentials for the database, and it is set up to rotate every 10 days\. 
+The prerequisite for this tutorial is [Set up single user rotation for AWS Secrets Manager](tutorials_rotation-single.md)\. Don't clean up the resources at the end of the first tutorial\. After that tutorial, you have a realistic environment with an Amazon RDS database and a Secrets Manager secret\. The secret contains admin credentials for the database, and it is set up to rotate every 10 days\. 
 
 You also have a connection configured in MySQL Workbench to connect to the database with the admin credentials\.
 

@@ -6,11 +6,15 @@ The ARN for replicated secrets shows the Region the replica is in, for example:
 + Primary secret: `arn:aws::secretsmanager:Region1:123456789012:secret:MySecret-a1b2c3`
 + Replica secret: `arn:aws::secretsmanager:Region2:123456789012:secret:MySecret-a1b2c3`\.
 
+When you store database credentials for a source database that is replicated to other Regions, the secret contains connection information for the source database\. If you then replicate the secret, the replicas are copies of the source secret and contain the same connection information\. You can add additional key/value pairs to the secret for regional connection information\.
+
 If you turn on rotation for your primary secret, Secrets Manager rotates the secret in the primary Region, and the new secret value propagates to all of the associated replica secrets\. You don't have to manage rotation individually for all of the replica secrets\. 
 
 You can replicate secrets across all of your enabled AWS Regions\. However, if you use Secrets Manager in special AWS Regions such as AWS GovCloud \(US\) or China Regions, you can only configure secrets and the replicas within these specialized AWS Regions\. You can't replicate a secret in your enabled AWS Regions to a specialized Region or replicate secrets from a specialized region to a commercial region\. 
 
 Before you can replicate a secret to another Region, you must enable that Region\. For more information, see [Managing AWS Regions\.](https://docs.aws.amazon.com/general/latest/gr/rande-manage.html#rande-manage-enable)
+
+It is possible to use a secret across multiple Regions without replicating it by calling the Secrets Manager endpoint in the Region where the secret is stored\. For a list of endpoints, see [AWS Secrets Manager endpoints](https://docs.aws.amazon.com/general/latest/gr/asm.html)\. 
 
 **To replicate a secret to other Regions \(console\)**
 

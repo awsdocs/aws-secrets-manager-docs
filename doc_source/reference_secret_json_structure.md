@@ -2,6 +2,8 @@
 
 If you want to turn on automatic rotation in Secrets Manager for a database credential secret, the secret must be in the correct JSON structure\. During rotation, Secrets Manager uses the information in the secret to connect to the database and update the credentials there\. When you use the AWS CLI or one of the SDKs to store a secret, you must provide the secret in one of the following structures\. When you use the console to store a database secret, Secrets Manager automatically creates it in the correct JSON structure\.
 
+You can add more key/value pairs to a database secret, for example to contain connection information for replica databases in other Regions\.
+
 **Topics**
 + [Amazon RDS MariaDB secret structure](#reference_secret_json_structure_rds-maria)
 + [Amazon RDS MySQL secret structure](#reference_secret_json_structure_rds-mysql)

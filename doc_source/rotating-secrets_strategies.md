@@ -14,7 +14,7 @@ This is the simplest rotation strategy, and it is appropriate for most use cases
 + Users created as necessary, called *ad\-hoc users*\. 
 + Users who enter their password interactively instead of having an application programmatically retrieve it from Secrets Manager\. This type of user does not expect to have to change their user name as well as password\. 
 
-For detailed instructions, see [Tutorial: Set up single user rotation for AWS Secrets Manager](tutorials_rotation-single.md)\.
+For detailed instructions, see [Set up single user rotation for AWS Secrets Manager](tutorials_rotation-single.md)\.
 
 While this type of rotation is happening, there is a short period of time between when the password in the database changes and when the corresponding secret updates\. In this time, there is a low risk of the database denying calls that use the rotated credentials\. You can mitigate this risk with an [appropriate retry strategy](http://aws.amazon.com/blogs/architecture/exponential-backoff-and-jitter/)\.
 
@@ -32,7 +32,7 @@ The alternating users strategy updates credentials for two users in one secret\.
 
 Because most users don't have permission to clone themselves, Secrets Manager uses a `superuser` to do the cloning\. You provide the credentials for the `superuser` in another secret\. 
 
-For detailed instructions, see [Tutorial: Set up alternating users rotation for AWS Secrets Manager](tutorials_rotation-alternating.md)\.
+For detailed instructions, see [Set up alternating users rotation for AWS Secrets Manager](tutorials_rotation-alternating.md)\.
 
 This strategy is appropriate for:
 + Applications and databases with permission models where one role owns the database tables and a second role for the application has permission to access the tables\.

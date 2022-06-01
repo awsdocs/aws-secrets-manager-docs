@@ -67,13 +67,7 @@ The following example policy allows the function to:
                 "secretsmanager:PutSecretValue",
                 "secretsmanager:UpdateSecretVersionStage"
             ],
-            "Resource": "SecretARN",
-            "Condition": {
-                "StringEquals": {
-                    "secretsmanager:resource/AllowRotationLambdaArn": "LambdaRotationFunctionARN",
-                    "aws:SourceAccount": "111122223333"
-                }
-            }
+            "Resource": "SecretARN"
         },
         {
             "Effect": "Allow",
@@ -116,13 +110,7 @@ The following example policy allows the function to:
                 "secretsmanager:PutSecretValue",
                 "secretsmanager:UpdateSecretVersionStage"
             ],
-            "Resource": "SecretARN",
-            "Condition": {
-                "StringEquals": {
-                    "secretsmanager:resource/AllowRotationLambdaArn": "LambdaRotationFunctionARN",
-                    "aws:SourceAccount": "111122223333"
-                }
-            }
+            "Resource": "SecretARN"
         },
         {
             "Effect": "Allow",

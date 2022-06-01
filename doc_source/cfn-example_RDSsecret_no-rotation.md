@@ -2,7 +2,7 @@
 
 This example creates a secret and an Amazon RDS MySQL DB instance using the credentials in the secret as the user and password\. Secrets Manager generates a password with 32 characters\. As a security best practice, the database is in an Amazon VPC\. 
 
-For a tutorial to turn on rotation for the secret created in this template, see [Tutorial: Set up single user rotation for AWS Secrets Manager](tutorials_rotation-single.md)\.
+For a tutorial to turn on rotation for the secret created in this template, see [Set up single user rotation for AWS Secrets Manager](tutorials_rotation-single.md)\.
 
 For an example with automatic rotation already turned on, see [Create a secret with Amazon RDS credentials with automatic rotation](cfn-example_RDSsecret.md)\.
 

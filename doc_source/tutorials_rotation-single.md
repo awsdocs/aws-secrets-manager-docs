@@ -1,4 +1,4 @@
-# Tutorial: Set up single user rotation for AWS Secrets Manager<a name="tutorials_rotation-single"></a>
+# Set up single user rotation for AWS Secrets Manager<a name="tutorials_rotation-single"></a>
 
 In this tutorial, you learn how to set up single user rotation for a secret that contains database admin credentials\. *Single user rotation* is a rotation strategy where Secrets Manager updates a single user's credentials in both the secret and the database\. For more information, see [Rotation strategies](rotating-secrets_strategies.md)\. 
 
@@ -303,7 +303,7 @@ This shows that the secret rotation is successful\. The updated password in the 
 
 ## Step 5: Clean up resources<a name="tutorials_rotation-single_step-cleanup"></a>
 
-If you want to try another rotation strategy, *alternating users rotation*, skip cleaning up resources and go to [Tutorial: Set up alternating users rotation for AWS Secrets Manager](tutorials_rotation-alternating.md)\. 
+If you want to try another rotation strategy, *alternating users rotation*, skip cleaning up resources and go to [Set up alternating users rotation for AWS Secrets Manager](tutorials_rotation-alternating.md)\. 
 
 Otherwise, to avoid potential charges, and to remove the EC2 instance that has access to the internet, delete the following resources you created in this tutorial:
 + Amazon EC2 instance\. For instructions, see [Terminate an instance](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/terminating-instances.html#terminating-instances-console)\.
