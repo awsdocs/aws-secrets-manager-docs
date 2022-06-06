@@ -19,7 +19,7 @@ To create a secret, you need the permissions granted by the **SecretsManagerRead
       + **Amazon DocumentDB database**
       + **Amazon Redshift cluster**
 
-   1. For **Credentials**, enter the credentials for the databse\.
+   1. For **Credentials**, enter the credentials for the database\.
 
    1. For **Encryption key**, choose the AWS KMS key that Secrets Manager uses to encrypt the secret value:
       + For most cases, choose **aws/secretsmanager** to use the AWS managed key for Secrets Manager\. There is no cost for using this key\.
