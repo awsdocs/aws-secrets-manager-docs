@@ -53,7 +53,7 @@ Next, you create a secret to store the credentials of the user you just created\
 
 1. Choose **Store a new secret**\.
 
-1. On the **Store a new secret** page, do the following:
+1. On the **Choose secret type** page, do the following:
 
    1. For **Secret type**, choose **Credentials for Amazon RDS database**\.
 
@@ -61,9 +61,9 @@ Next, you create a secret to store the credentials of the user you just created\
 
    1. For **Database**, choose **secretsmanagertutorialdb**\.
 
-1. On the **Secret name and description** page, for **Secret name**, enter **SecretsManagerTutorialAppuser** and then choose **Next**\.
+1. On the **Configure secret** page, for **Secret name**, enter **SecretsManagerTutorialAppuser** and then choose **Next**\.
 
-1. On the **Secret rotation** page, do the following:
+1. On the **Configure rotation** page, do the following:
 
    1. Turn on **Automatic rotation**\.
 

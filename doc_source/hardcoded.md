@@ -24,7 +24,7 @@ The first step is to copy the existing hardcoded secret into Secrets Manager\. I
 
 1. Choose **Store a new secret**\.
 
-1. On the **Store a new secret **page, do the following:
+1. On the **Choose secret type** page, do the following:
 
    1. For **Secret type**, choose **Other type of secret**\.
 
@@ -36,7 +36,7 @@ The first step is to copy the existing hardcoded secret into Secrets Manager\. I
 
    1. Choose **Next**\.
 
-1. On the **Secret name and description** page, do the following:
+1. On the **Choose secret type** page, do the following:
 
    1. Enter a descriptive **Secret name** and **Description**\. 
 
@@ -60,7 +60,7 @@ The first step is to copy the existing hardcoded secret into Secrets Manager\. I
 
    1. At the bottom of the page, choose **Next**\.
 
-1. On the **Secret rotation** page, keep rotation off\. Choose **Next**\.
+1. On the **Configure rotation** page, keep rotation off\. Choose **Next**\.
 
 1. On the **Review** page, review your secret details, and then choose **Store**\.
 

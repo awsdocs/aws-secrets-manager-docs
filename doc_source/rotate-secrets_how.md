@@ -28,6 +28,8 @@ Finally, rotation moves the label `AWSCURRENT` from the previous secret version 
 
 During rotation, Secrets Manager logs events that indicate the state of rotation\. For more information, see [Logging AWS Secrets Manager events with AWS CloudTrail](retrieve-ct-entries.md)\.
 
+If any rotation step fails, Secrets Manager retries the entire rotation process multiple times\.
+
 After rotation is successful, applications that [Retrieve secrets from AWS Secrets Manager](retrieving-secrets.md) from Secrets Manager automatically get the updated credentials\. For more details about how each step of rotation works, see the [Secrets Manager rotation function templates](reference_available-rotation-templates.md)\.
 
 To turn on automatic rotation, see: 

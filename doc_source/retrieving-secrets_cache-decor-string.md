@@ -8,5 +8,6 @@ from aws_secretsmanager_caching import InjectKeywordedSecretString,  InjectSecre
 
 cache = SecretCache()
 
-@InjectSecretString ( 'mysecret' ,  cache ) def function_to_be_decorated( arg1,  arg2,  arg3):
+@InjectSecretString ( 'mysecret' ,  cache ) 
+def function_to_be_decorated( arg1,  arg2,  arg3):
 ```

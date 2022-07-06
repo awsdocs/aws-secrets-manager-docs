@@ -42,7 +42,7 @@ For more information, see [ Using Amazon CloudWatch alarms](https://docs.aws.ama
 
 Secrets Manager integrates with Amazon EventBridge to notify you of certain events that affect your secrets\. With Amazon EventBridge, you can be notified of Secrets Manager events that happen except `Get*` API calls\. You can configure EventBridge rules that look for these events and then send new generated events to an Amazon SNS topic that emails or text messages to subscribers\. 
 
-For more information, see [Creating Amazon EventBridge rules that react to events](eventbridge/latest/userguide/eb-create-rule.html)\.
+For more information, see [Creating Amazon EventBridge rules that react to events](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-create-rule.html)\.
 
 ## Amazon CloudWatch Synthetics canaries<a name="monitoring-cloudwatch_canaries"></a>
 

@@ -38,4 +38,4 @@ You have two connectivity options between your private network and AWS Secrets M
 
 ### Traffic between AWS resources in the same Region<a name="traffic-in-same-region"></a>
 
-If want to secure traffic between Secrets Manager and API clients in AWS, set up an [AWS PrivateLink](https://aws.amazon.com/privatelink/) to privately access Secrets Manager API endpoints\. 
+If you want to secure traffic between Secrets Manager and API clients in AWS, set up an [AWS PrivateLink](https://aws.amazon.com/privatelink/) to privately access Secrets Manager API endpoints\. 

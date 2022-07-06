@@ -12,7 +12,7 @@ To create a secret, you need the permissions granted by the **SecretsManagerRead
 
 1. Choose **Store a new secret**\.
 
-1. On the **Store a new secret **page, do the following:
+1. On the **Choose secret type** page, do the following:
 
    1. For **Secret type**, choose the type of database credentials to store:
       + **Amazon RDS database** \(includes Aurora\)
@@ -31,7 +31,7 @@ To create a secret, you need the permissions granted by the **SecretsManagerRead
 
    1. Choose **Next**\.
 
-1. On the **Secret name and description** page, do the following:
+1. On the **Configure secret** page, do the following:
 
    1. Enter a descriptive **Secret name** and **Description**\. 
 
@@ -43,9 +43,11 @@ To create a secret, you need the permissions granted by the **SecretsManagerRead
 
    1. Choose **Next**\.
 
-1. \(Optional\) On the **Secret rotation** page, you can turn on automatic rotation\. You can also keep rotation off for now and then turn it on later\. For more information, see [Rotate secrets](rotating-secrets.md)\. Choose **Next**\.
+1. \(Optional\) On the **Configure rotation** page, you can turn on automatic rotation\. You can also keep rotation off for now and then turn it on later\. For more information, see [Rotate secrets](rotating-secrets.md)\. Choose **Next**\.
 
 1. On the **Review** page, review your secret details, and then choose **Store**\.
+
+   Secrets Manager returns to the list of secrets\. If your new secret doesn't appear, choose the refresh button\.
 
 ## AWS CLI<a name="create_database_secret_cli"></a>
 

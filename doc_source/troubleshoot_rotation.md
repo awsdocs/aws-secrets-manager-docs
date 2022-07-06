@@ -20,9 +20,9 @@ When the rotation function doesn't operate the way you expect, you should first 
 
 **To view the CloudWatch logs for your Lambda function**
 
-1. Open the AWS Lambda console at [https://console\.aws\.amazon\.com/lambda/](https://console.aws.amazon.com/lambda/)\.
+1. Open the Secrets Manager console at [https://console\.aws\.amazon\.com/secretsmanager/](https://console.aws.amazon.com/secretsmanager/)\.
 
-1. From the list of functions, choose the name of the Lambda function associated with your secret\.
+1. Choose your secret, and then on the details page, under **Rotation configuration**, choose the Lambda rotation function\. The Lambda console opens\.
 
 1. On the **Monitor** tab, choose **Logs**, and then choose **View logs in CloudWatch**\.
 

@@ -127,7 +127,7 @@ Create a security group to allow inbound SSH traffic to access a Amazon EC2 bast
 
 ### Prereq D: Amazon EC2 instance<a name="tutorials_rotation-single_step-setup_ec2"></a>
 
-To access the database in the VPN, you use a bastion host\. The bastion host is also in the VPN, but it allows your local computer to connect to it with SSH\. From the bastion host, you can access the database\.
+To access the database in the VPC, you use a bastion host\. The bastion host is also in the VPC, but it allows your local computer to connect to it with SSH\. From the bastion host, you can access the database\.
 
 **To create an EC2 instance for your bastion host**
 

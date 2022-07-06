@@ -19,6 +19,7 @@ from aws_secretsmanager_caching import SecretCache
   
   cache = SecretCache()
   
-  @InjectKeywordedSecretString ( secret_id = 'mysecret' ,  cache = cache ,  func_username = 'username' ,  func_password = 'password' ) def function_to_be_decorated( func_username,  func_password):
+  @InjectKeywordedSecretString ( secret_id = 'mysecret' ,  cache = cache ,  func_username = 'username' ,  func_password = 'password' ) 
+  def function_to_be_decorated( func_username,  func_password):
        print( 'Do something with the func_username and func_password parameters')
 ```

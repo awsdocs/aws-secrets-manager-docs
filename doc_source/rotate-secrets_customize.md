@@ -6,28 +6,15 @@ You can modify those rotation functions, for example, if you need to test that a
 
 For information about what Secrets Manager expects in the rotation function, see [How rotation works](rotate-secrets_how.md) and [Using AWS Lambda with Secrets Manager](https://docs.aws.amazon.com/lambda/latest/dg/with-secrets-manager.html)\. 
 
-**To find the rotation function for a secret \(console\)**
+**To edit the rotation function for a secret \(console\)**
 
 1. Open the Secrets Manager console at [https://console\.aws\.amazon\.com/secretsmanager/](https://console.aws.amazon.com/secretsmanager/)\.
 
 1. From the list of secrets, choose your secret\.
 
-1. In the **Rotation configuration** section, in the rotation ARN, the part that follows `:function:` is the name of the function\.
+1. In the **Rotation configuration** section, under **Rotation configuration**, choose the Lambda rotation function\. The Lambda console opens\.
 
-**To find the rotation function for a secret \(AWS CLI\)**
-+ 
-
-  ```
-  $ aws secretsmanager describe-secret --secret-id SecretARN
-  ```
-
-**To edit a Lambda function**
-
-1. Open the AWS Lambda console at [https://console\.aws\.amazon\.com/lambda/](https://console.aws.amazon.com/lambda/)\.
-
-1. Choose your Lambda rotation function\.
-
-1.  On the **Function code** menu, choose **Export function**\.
+1. On the **Function code** menu, choose **Export function**\.
 
 1. In the **Export your function** dialog box, choose **Download deployment package**\.
 
