@@ -1,0 +1,5 @@
+# How Amazon Redshift query editor v2 uses AWS Secrets Manager<a name="integrating_how-services-use-secrets_sqlworkbench"></a>
+
+Amazon Redshift query editor v2 is a web\-based SQL client application that you can use to author and run queries on your Amazon Redshift data warehouse\. When you use the query editor v2 to connect to a database, Amazon Redshift can store your credentials in a Secrets Manager secret with the prefix `sqlworkbench`\. The cost of storing the secret is included with the charge for using Amazon Redshift\. To update the secret, you must use Amazon Redshift rather than Secrets Manager\. For more information, see [Working with query editor v2 ](https://docs.aws.amazon.com/redshift/latest/mgmt/query-editor-v2-using.html) in the *Amazon Redshift Cluster Management Guide*\.
+
+For the previous query editor, see [How Amazon Redshift uses AWS Secrets Manager](integrating_how-services-use-secrets_RS.md)\.

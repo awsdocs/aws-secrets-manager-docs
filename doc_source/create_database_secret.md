@@ -1,6 +1,6 @@
 # Create a database secret<a name="create_database_secret"></a>
 
-To store credentials for Amazon Relational Database Service \(Amazon RDS\), Amazon Aurora, Amazon Redshift, or Amazon DocumentDB, follow these steps\. When you use the AWS CLI or one of the SDKs to store the secret, you must provide the secret in the [JSON structure of a database secret](reference_secret_json_structure.md)\. When you use the console to store a database secret, Secrets Manager automatically creates it in the correct JSON structure\.
+To store credentials for Amazon RDS, Amazon Aurora, Amazon Redshift, or Amazon DocumentDB, follow these steps\. When you use the AWS CLI or one of the SDKs to store the secret, you must provide the secret in the [JSON structure of a database secret](reference_secret_json_structure.md)\. When you use the console to store a database secret, Secrets Manager automatically creates it in the correct JSON structure\.
 
 When you store database credentials for a source database that is replicated to other Regions, the secret contains connection information for the source database\. If you then replicate the secret, the replicas are copies of the source secret and contain the same connection information\. You can add additional key/value pairs to the secret for regional connection information\.
 
@@ -23,7 +23,7 @@ To create a secret, you need the permissions granted by the **SecretsManagerRead
 
    1. For **Encryption key**, choose the AWS KMS key that Secrets Manager uses to encrypt the secret value:
       + For most cases, choose **aws/secretsmanager** to use the AWS managed key for Secrets Manager\. There is no cost for using this key\.
-      + If you need to access the secret from another AWS account, choose a customer managed key from the list or choose **Add new key** to create one\. You will be charged for KMS keys that you create\. 
+      + If you need to access the secret from another AWS account, or if you want to use your own KMS key so that you can rotate it or apply a key policy to it, choose a customer managed key from the list or choose **Add new key** to create one\. You will be charged for KMS keys that you create\. 
 
         You must have the following permissions to the key: `kms:Encrypt`, `kms:Decrypt`, and `kms:GenerateDataKey`\. For more information about cross\-account access, see [Permissions for users in a different account](auth-and-access_examples_cross.md)\. 
 

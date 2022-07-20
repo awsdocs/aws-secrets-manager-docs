@@ -18,7 +18,7 @@ To create a secret, you need the permissions granted by the **SecretsManagerRead
 
    1. For **Encryption key**, choose the AWS KMS key that Secrets Manager uses to encrypt the secret value:
       + For most cases, choose **aws/secretsmanager** to use the AWS managed key for Secrets Manager\. There is no cost for using this key\.
-      + If you need to access the secret from another AWS account, choose a customer managed key from the list or choose **Add new key** to create one\. You will be charged for KMS keys that you create\. 
+      + If you need to access the secret from another AWS account, or if you want to use your own KMS key so that you can rotate it or apply a key policy to it, choose a customer managed key from the list or choose **Add new key** to create one\. You will be charged for KMS keys that you create\. 
 
         You must have the following permissions to the key: `kms:Encrypt`, `kms:Decrypt`, and `kms:GenerateDataKey`\. For more information about cross\-account access, see [Permissions for users in a different account](auth-and-access_examples_cross.md)\. 
 

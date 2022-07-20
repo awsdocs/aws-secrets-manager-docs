@@ -4,4 +4,6 @@ Amazon Redshift is a fully managed, petabyte\-scale data warehouse service in th
 
 When you call the Amazon Redshift Data API, you can pass credentials for the cluster by using a secret in Secrets Manager\. For more information, see [Using the Amazon Redshift Data API](https://docs.aws.amazon.com/redshift/latest/mgmt/data-api.html)\.
 
-When you use the Amazon Redshift query editor to connect to a cluster, it stores your credentials in a Secrets Manager secret\. For more information, see [Working with query editor](https://docs.aws.amazon.com/redshift/latest/mgmt/query-editor-v2-using.html)\.
+When you use the Amazon Redshift query editor to connect to a database, Amazon Redshift can store your credentials in a Secrets Manager secret with the prefix `redshiftqueryeditor`\. You are charged for that secret\. For more information, see [Querying a database using the query editor](https://docs.aws.amazon.com/redshift/latest/mgmt/query-editor.html) in the *Amazon Redshift Cluster Management Guide*\.
+
+For query editor v2, see [How Amazon Redshift query editor v2 uses AWS Secrets Manager](integrating_how-services-use-secrets_sqlworkbench.md)\.

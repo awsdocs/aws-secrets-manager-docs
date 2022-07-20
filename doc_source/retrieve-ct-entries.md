@@ -25,7 +25,7 @@ You can configure other AWS services to further analyze and act upon the data co
 
 1. To see additional details, choose the expand arrow next to event\. To see all of the information available, choose **View event**\.
 
-## AWS CLI or SDK<a name="w409aac23b7c13"></a>
+## AWS CLI or SDK<a name="w414aac23b7c13"></a>
 
 **To retrieve Secrets Manager events from CloudTrail logs \(AWS CLI or SDK\)**
 

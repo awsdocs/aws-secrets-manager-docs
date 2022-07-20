@@ -1,6 +1,0 @@
-# How AWS Glue DataBrew uses AWS Secrets Manager<a name="integrating_how-services-use-secrets_BRUlong"></a>
-
-AWS Glue DataBrew is a visual data preparation tool that you can use to clean and normalize data without writing any code\. In DataBrew, a set of data transformation steps is called a recipe\. DataBrew provides the following recipe steps to perform transformations on personally identifiable information \(PII\) in a dataset, which use a Secrets Manager secret as an encryption key:
-+ [https://docs.aws.amazon.com/databrew/latest/dg/recipe-actions.DETERMINISTIC_DECRYPT.html](https://docs.aws.amazon.com/databrew/latest/dg/recipe-actions.DETERMINISTIC_DECRYPT.html)
-+ [https://docs.aws.amazon.com/databrew/latest/dg/recipe-actions.DETERMINISTIC_ENCRYPT.html](https://docs.aws.amazon.com/databrew/latest/dg/recipe-actions.DETERMINISTIC_ENCRYPT.html)
-+ [https://docs.aws.amazon.com/databrew/latest/dg/recipe-actions.CRYPTOGRAPHIC_HASH.html](https://docs.aws.amazon.com/databrew/latest/dg/recipe-actions.CRYPTOGRAPHIC_HASH.html)

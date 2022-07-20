@@ -10,6 +10,7 @@ For issues related to rotation, see [Troubleshoot AWS Secrets Manager rotation o
 + [Changes I make aren't always immediately visible\.](#troubleshoot_general_eventual-consistency)
 + [“Cannot generate a data key with an asymmetric KMS key” when creating a secret](#asymmetrical-key)
 + [An AWS CLI or AWS SDK operation can't find my secret from a partial ARN](#ARN_secretnamehyphen)
++ [This secret is managed by an AWS service, and you must use that service to update it\.](#troubleshoot-service-linked-secrets)
 
 ## "Access denied" messages when sending requests to Secrets Manager<a name="troubleshoot_general_access-denied-service"></a>
 
@@ -62,3 +63,9 @@ If you call the following operation, which only uses part of the secret ARN, the
 ```
 $ aws secretsmanager describe-secret --secret-id arn:aws:secretsmanager:us-east-2:111122223333:secret:MySecret-abcdef
 ```
+
+## This secret is managed by an AWS service, and you must use that service to update it\.<a name="troubleshoot-service-linked-secrets"></a>
+
+If you encounter this message while trying to modify a secret, the secret can only be updated by using the managing service listed in the message\. For more information, see [Secrets managed by other AWS services](service-linked-secrets.md)\.
+
+To determine who manages a secret, you can review the secret name\. Secrets managed by other services are prefixed with the ID of that service\. Or, in the AWS CLI, call [describe\-secret](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/describe-secret.html), and then review the field `OwningService`\. 

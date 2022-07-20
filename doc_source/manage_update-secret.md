@@ -1,8 +1,12 @@
 # Modify a secret<a name="manage_update-secret"></a>
 
-You can modify some parts of a secret after you create it: the description, resource\-based policy, the encryption key, and tags\. You can also change the encrypted secret value; however, we recommend you use rotation to update secret values that contain credentials\. Rotation updates both the secret in Secrets Manager and the credentials on the database or service\. This keeps the secret automatically synchronized so when clients request a secret value, they always get a working set of credentials\. For more information, see [Rotate AWS Secrets Manager secrets](rotating-secrets.md)\.
+You can modify the metadata of a secret after it is created, depending on who created the secret\. For secrets created by other services, you might need to use the other service to update or rotate it\. 
 
-**To update a secret \(console\)**
+To determine who manages a secret, you can review the secret name\. Secrets managed by other services are prefixed with the ID of that service\. Or, in the AWS CLI, call [describe\-secret](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/describe-secret.html), and then review the field `OwningService`\. For more information, see [Secrets managed by other AWS services](service-linked-secrets.md)\.
+
+For secrets you manage, you can modify the description, resource\-based policy, the encryption key, and tags\. You can also change the encrypted secret value; however, we recommend you use rotation to update secret values that contain credentials\. Rotation updates both the secret in Secrets Manager and the credentials on the database or service\. This keeps the secret automatically synchronized so when clients request a secret value, they always get a working set of credentials\. For more information, see [Rotate AWS Secrets Manager secrets](rotating-secrets.md)\.
+
+**To update a secret you manage \(console\)**
 
 1. Open the Secrets Manager console at [https://console\.aws\.amazon\.com/secretsmanager/](https://console.aws.amazon.com/secretsmanager/)\.
 

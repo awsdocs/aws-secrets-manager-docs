@@ -18,7 +18,7 @@ In applications, you can retrieve your secrets by calling [https://docs.aws.amaz
 You can also retrieve secrets within other AWS services:
 + For Amazon EKS, you can use [AWS Secrets and Configuration Provider \(ASCP\)](integrating_csi_driver.md) to mount secrets as files in Amazon EKS\.
 + For AWS Batch, you can [reference secrets](integrating_BATCH.md) in a job definition\.
-+  For AWS CloudFormation, you can [create secrets](integrating_cloudformation.md) and reference secrets in a CloudFormation stack\.
++  For AWS CloudFormation, you can [create secrets](integrating_cloudformation.md) and [reference secrets](cfn-example_reference-secret.md) in a CloudFormation stack\.
 + For Amazon ECS, you can [reference secrets](integrating-fargate.md) in a container definition\.
 + For AWS IoT Greengrass, you can [reference secrets](integrating-greengrass.md) in a Greengrass group\.
 + For Parameter Store, you can [reference secrets](integrating_parameterstore.md) in a parameter\.
