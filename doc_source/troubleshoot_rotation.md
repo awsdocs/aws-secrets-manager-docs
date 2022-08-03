@@ -6,6 +6,7 @@ Rotating secrets in AWS Secrets Manager requires you to use a Lambda function th
 
 **Topics**
 + [I want to find the diagnostic logs for my Lambda rotation function](#tshoot-rotation-find-logs)
++ [Rotation fails and the CloudTrail log shows timeout](#tshoot-lambda-network-access)
 + [I get "access denied" when trying to configure rotation for my secret](#tshoot-lambda-initialconfig-perms)
 + [My first rotation fails after I enable rotation](#tshoot-lambda-initialconfig-mastersecret)
 + [Rotation fails because the secret value is not formatted as expected by the rotation function\.](#tshoot-lambda-mismatched-secretvalue)
@@ -28,6 +29,10 @@ When the rotation function doesn't operate the way you expect, you should first 
 
    The CloudWatch console opens and displays the logs for your function\.
 
+## Rotation fails and the CloudTrail log shows timeout<a name="tshoot-lambda-network-access"></a>
+
+The most common reason for a timeout during rotation is that the rotation function cannot access either Secrets Manager or the target database or service\. For information about the access you need to set up, see [Network access for the rotation function](rotation-network-rqmts.md)\.
+
 ## I get "access denied" when trying to configure rotation for my secret<a name="tshoot-lambda-initialconfig-perms"></a>
 
 When you add a Lambda rotation function Amazon Resource Name \(ARN\) to your secret, Secrets Manager checks the permissions of the function\. The role policy for the function must grant the Secrets Manager service principal `secretsmanager.amazonaws.com` permission to invoke the function \(`lambda:InvokeFunction`\)\. 
@@ -37,6 +42,8 @@ You can add this permission by running the following AWS CLI command:
 ```
 aws lambda add-permission --function-name ARN_of_lambda_function --principal secretsmanager.amazonaws.com --action lambda:InvokeFunction --statement-id SecretsManagerAccess
 ```
+
+For more information, see [Permissions for rotation](rotating-secrets-required-permissions-function.md)\.
 
 ## My first rotation fails after I enable rotation<a name="tshoot-lambda-initialconfig-mastersecret"></a>
 
@@ -159,9 +166,7 @@ If you set up automatic secret rotation before December 20, 2021, your rotation 
 
 **To determine when your rotation function was created**
 
-1. In the Secrets Manager console [https://console\.aws\.amazon\.com/secretsmanager/](https://console.aws.amazon.com/secretsmanager/), open your secret\. In the **Rotation configuration** section, under **Lambda rotation function**, you see the **Lambda function ARN**, for example, `arn:aws:lambda:aws-region:123456789012:function:SecretsManagerMyRotationFunction`\. Copy the function name from the end of the ARN, in this example `SecretsManagerMyRotationFunction`\.
-
-1. In the AWS Lambda console [https://console\.aws\.amazon\.com/lambda/](https://console.aws.amazon.com/lambda/), under **Functions**, paste your Lambda function name in the search box, choose Enter, and then choose the Lambda function\. 
+1. In the Secrets Manager console [https://console\.aws\.amazon\.com/secretsmanager/](https://console.aws.amazon.com/secretsmanager/), open your secret\. In the **Rotation configuration** section, under **Lambda rotation function**, choose the Lambda function\. The Lambda console opens\.
 
 1. In the function details page, on the **Configuration** tab, under **Tags**, copy the value next to the key **aws:cloudformation:stack\-name**\.
 

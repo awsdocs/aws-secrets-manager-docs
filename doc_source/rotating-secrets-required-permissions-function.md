@@ -41,7 +41,7 @@ The following policy allows Secrets Manager to invoke the Lambda function specif
 Alternately, you can add this permission by running the following AWS CLI command:
 
 ```
-aws lambda add-permission --function-name ARN_of_lambda_function --principal secretsmanager.amazonaws.com --action lambda:InvokeFunction --statement-id SecretsManagerAccess
+aws lambda add-permission --function-name LambdaRotationFunctionARN --principal secretsmanager.amazonaws.com --action lambda:InvokeFunction --source-account 111122223333 --statement-id SecretsManagerAccess
 ```
 
 ## Lambda function execution role inline policy<a name="rotating_execution-role-policy"></a>

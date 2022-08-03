@@ -1,6 +1,8 @@
 # AWS Secrets Manager quotas<a name="reference_limits"></a>
 
-This section specifies quotas for AWS Secrets Manager\. For Secrets Manager quotas for resources, see [Maximum quotas](#reference_limits_max-min)\. For Secrets Manager APIs, read APIs have high TPS quotas, and control plane APIs that are less frequently called have lower TPS quotas\. For more information, see [Rate quotas](#reference_limits_rates)\. 
+This section specifies quotas for AWS Secrets Manager\. For Secrets Manager quotas for resources, see [Maximum quotas](#reference_limits_max-min)\. For Secrets Manager APIs, read APIs have high TPS quotas, and control plane APIs that are less frequently called have lower TPS quotas\. 
+
+Your AWS client might see calls to Secrets Manager fail due to rate limiting\. When you exceed an API request quota, Secrets Manager throttles the request\. To respond, use a backoff and retry strategy\. See [Add retries to your application](quotas_throttling.md)\.
 
 For information about **Service Endpoints**, see [AWS Secrets Manager endpoints and quotas](https://docs.aws.amazon.com/general/latest/gr/asm.html) which includes regional service endpoints\. You may operate multiple regions in your account, such as US East \(N\. Virginia\) Region and US West \(N\. California\) Region, and each quota is specific to each region\.
 

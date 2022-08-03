@@ -6,8 +6,9 @@ You and AWS share the responsibility for security\. The [shared responsibility m
 + **Security of the cloud** – AWS is responsible for protecting the infrastructure that runs AWS services in the AWS Cloud\. AWS also provides you with services you can use securely\. Third\-party auditors regularly test and verify the effectiveness of our security as part of the [AWS Compliance Programs\.](https://aws.amazon.com/compliance/programs/) To learn about the compliance programs that apply to AWS Secrets Manager, see [AWS Services in Scope by Compliance Program](https://aws.amazon.com/compliance/services-in-scope/)\. 
 + **Security in the cloud** – Your AWS service determines your responsibility\. You are also responsible for other factors including the sensitivity of your data, your company’s requirements, and applicable laws and regulations\. 
 
+For more resources, see [ Security Pillar \- AWS Well\-Architected Framework](https://docs.aws.amazon.com/wellarchitected/latest/security-pillar/welcome.html)\.
+
 **Topics**
-+ [Secrets Manager best practices](best-practices.md)
 + [Mitigate the risks of using the AWS CLI to store your secrets](security_cli-exposure-risks.md)
 + [Data protection in AWS Secrets Manager](data-protection.md)
 + [Secret encryption and decryption](security-encryption.md)

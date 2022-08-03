@@ -27,24 +27,18 @@ Secrets Manager is a regional service and only secrets within the selected regio
 
 ## AWS CLI<a name="manage_search-secret_cli"></a>
 
-To find secrets stored in Secrets Manager, use [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/list-secret.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/list-secret.html) , as shown in the following example\.
+To find secrets stored in Secrets Manager, use [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/list-secret.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/list-secret.html)\. These are the filter keys you can use:
++ `description`
++ `name`
++ `tag-key`
++ `tag-value`
++ `primary-region`
++ `all` \(searches all of the above keys\)
 
 The following example searches for secrets with the keyword **conducts** in the description\. 
 
 ```
 $ aws secretsmanager list-secrets --filters Key=description,Values=conducts
-{
-   [
-    {
-        "Description": "Conducts an AWS SecretsManager rotation for RDS MySQL using single user rotation scheme", 
-        "SecretName": "SecretsManager-rotation-lambda"
-    }, 
-    {
-        "Description": "Conducts an AWS SecretsManager rotation for RDS MySQL using single user rotation scheme", 
-        "SecretName": "SecretsManager-rotation-Developers"
-    }
-]
-}
 ```
 
 ## AWS SDK<a name="manage_search-secret_sdk"></a>

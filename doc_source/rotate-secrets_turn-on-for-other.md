@@ -2,7 +2,7 @@
 
 Secrets Manager provides complete rotation templates for Amazon RDS, Amazon DocumentDB, and Amazon Redshift secrets\. For more information, see [Automatically rotate an Amazon RDS, Amazon DocumentDB, or Amazon Redshift secret](rotate-secrets_turn-on-for-db.md)\.
 
-For other types of secrets, you create your own rotation function\. Secrets Manager provides a [Generic rotation function template](reference_available-rotation-templates.md#sar-template-generic) that you can use as a starting point\. If you use the Secrets Manager console or AWS Serverless Application Repository console to create your function from the template, then the Lambda execution role is also automatically set up\. 
+For other types of secrets, you create your own rotation function\. Secrets Manager provides a [Other types of secrets](reference_available-rotation-templates.md#OTHER_rotation_templates) that you can use as a starting point\. If you use the Secrets Manager console or AWS Serverless Application Repository console to create your function from the template, then the Lambda execution role is also automatically set up\. 
 
 Another way to automatically rotate a secret is to use AWS CloudFormation to create the secret, and include `AWS::SecretsManager::RotationSchedule`\. See [Automate secret creation in AWS CloudFormation](https://docs.aws.amazon.com/secretsmanager/latest/userguide/integrating_cloudformation.html)\.
 
@@ -33,7 +33,7 @@ Before you begin, you need the following:
 
       1. If you already created a rotation function for this type of secret, choose it\.
 
-      1. Otherwise, choose **Create function**\. In the Lambda console, create your new rotation function\. If you see **Browse serverless app repository**, choose it, choose **Show apps that create custom IAM roles or resource policies**, and then choose **SecretsManagerRotationTemplate**\. Otherwise, choose **Author from scratch** and use the [Generic rotation function template](reference_available-rotation-templates.md#sar-template-generic) as a starting point for your function\. Implement each of the steps described in [How rotation works](rotate-secrets_how.md)\.
+      1. Otherwise, choose **Create function**\. In the Lambda console, create your new rotation function\. If you see **Browse serverless app repository**, choose it, choose **Show apps that create custom IAM roles or resource policies**, and then choose **SecretsManagerRotationTemplate**\. Otherwise, choose **Author from scratch** and use the [Other types of secrets](reference_available-rotation-templates.md#OTHER_rotation_templates) as a starting point for your function\. Implement each of the steps described in [How rotation works](rotate-secrets_how.md)\.
 
          When your function is complete, return to the Secrets Manager console to finish your secret\. For **Choose a Lambda function**, choose the refresh button\. Then in the list of functions, choose your new function\.
 

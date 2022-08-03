@@ -14,4 +14,13 @@ Some AWS services that store secrets on your behalf restrict you from updating t
 | opsworks\-cm | [How AWS OpsWorks for Chef Automate uses AWS Secrets Manager](integrating_how-services-use-secrets_opsworks-cm.md) | 
 | sqlworkbench | [How Amazon Redshift query editor v2 uses AWS Secrets Manager](integrating_how-services-use-secrets_sqlworkbench.md) | 
 
+**To find secrets that are managed by other AWS services**
++ Do one of the following:
+  + In the Secrets Manager console, in the search box, choose **Tag key** and then enter `aws:secretsmanager:owningService`\.
+  + In the AWS CLI, enter the following command:
+
+    ```
+    aws secretsmanager list-secrets --filter Key="tag-key",Values="aws:secretsmanager:owningService"
+    ```
+
 For other services that integrate with Secrets Manager, see [AWS services that use Secrets Manager secrets](integrating.md)\.

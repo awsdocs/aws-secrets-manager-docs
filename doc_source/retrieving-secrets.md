@@ -21,4 +21,5 @@ You can also retrieve secrets within other AWS services:
 +  For AWS CloudFormation, you can [create secrets](integrating_cloudformation.md) and [reference secrets](cfn-example_reference-secret.md) in a CloudFormation stack\.
 + For Amazon ECS, you can [reference secrets](integrating-fargate.md) in a container definition\.
 + For AWS IoT Greengrass, you can [reference secrets](integrating-greengrass.md) in a Greengrass group\.
++ For AWS Lambda, you can [reference secrets](integrating-lambda.md) in a Lambda function\.
 + For Parameter Store, you can [reference secrets](integrating_parameterstore.md) in a parameter\.

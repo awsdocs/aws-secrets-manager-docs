@@ -1,8 +1,14 @@
 # Secrets Manager rotation function templates<a name="reference_available-rotation-templates"></a>
 
-To create a Lambda rotation function with any of the following templates, we recommend you use the procedures in [Automatically rotate an Amazon RDS, Amazon DocumentDB, or Amazon Redshift secret](rotate-secrets_turn-on-for-db.md) or [Automatically rotate a secret](rotate-secrets_turn-on-for-other.md)\. Secrets Manager includes the required dependencies when you turn on rotation, unless you create your Lambda rotation function by hand\. The templates support Python 3\.7\. 
+For secrets that contain credentials for Amazon RDS, Amazon Redshift, and Amazon DocumentDB, we recommend you use the procedures in [Rotate DB credentials](rotate-secrets_turn-on-for-db.md) rather than creating a rotation function by hand\. 
 
-Secrets Manager provides the following rotation function templates:
+For other types of secrets, you create a rotation function based on the rotation function template supplied by Secrets Manager\. For more information, see [How rotation works](rotate-secrets_how.md)\. 
+
+If you create your Lambda rotation function by hand, you must also:
++ Set up [Permissions for rotation](rotating-secrets-required-permissions-function.md)\.
++ Make sure the rotation function can access both the secret and the database or other service\. See [Network access for the rotation function](rotation-network-rqmts.md)\. 
+
+The templates support Python 3\.7\. 
 
 **Topics**
 + [Amazon RDS databases](#RDS_rotation_templates)
@@ -30,6 +36,7 @@ Secrets Manager provides the following rotation function templates:
 + **Rotation strategy:** [Single user rotation strategy](rotating-secrets_strategies.md#rotating-secrets-one-user-one-password)\.
 + **`SecretString` structure:** [Amazon RDS MariaDB secret structure](reference_secret_json_structure.md#reference_secret_json_structure_rds-maria)\.
 + **Source code: **[https://github\.com/aws\-samples/aws\-secrets\-manager\-rotation\-lambdas/tree/master/SecretsManagerRDSMariaDBRotationSingleUser/lambda\_function\.py](https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerRDSMariaDBRotationSingleUser/lambda_function.py)
++ **Dependency: **PyMySQL 
 
 ### Amazon RDS MariaDB alternating users<a name="sar-template-mariadb-multiuser"></a>
 + **Template name:** SecretsManagerRDSMariaDBRotationMultiUser
@@ -37,6 +44,7 @@ Secrets Manager provides the following rotation function templates:
 + **Rotation strategy:** [Alternating users rotation strategy](rotating-secrets_strategies.md#rotating-secrets-two-users)\.
 + **`SecretString` structure:** [Amazon RDS MariaDB secret structure](reference_secret_json_structure.md#reference_secret_json_structure_rds-maria)\.
 + **Source code:** [https://github\.com/aws\-samples/aws\-secrets\-manager\-rotation\-lambdas/tree/master/SecretsManagerRDSMariaDBRotationMultiUser/lambda\_function\.py](https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerRDSMariaDBRotationMultiUser/lambda_function.py)
++ **Dependency: **PyMySQL 
 
 ### Amazon RDS MySQL single user<a name="sar-template-mysql-singleuser"></a>
 + **Template name:** SecretsManagerRDSMySQLRotationSingleUser
@@ -44,6 +52,7 @@ Secrets Manager provides the following rotation function templates:
 + **Rotation strategy:** [Single user rotation strategy](rotating-secrets_strategies.md#rotating-secrets-one-user-one-password)\.
 + **Expected `SecretString` structure:** [Amazon RDS MySQL secret structure](reference_secret_json_structure.md#reference_secret_json_structure_rds-mysql)\.
 + **Source code:** [https://github\.com/aws\-samples/aws\-secrets\-manager\-rotation\-lambdas/tree/master/SecretsManagerRDSMySQLRotationSingleUser/lambda\_function\.py](https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerRDSMySQLRotationSingleUser/lambda_function.py)
++ **Dependency: **PyMySQL 
 
 ### Amazon RDS MySQL alternating users<a name="sar-template-mysql-multiuser"></a>
 + **Template name:** SecretsManagerRDSMySQLRotationMultiUser
@@ -51,6 +60,7 @@ Secrets Manager provides the following rotation function templates:
 + **Rotation strategy:** [Alternating users rotation strategy](rotating-secrets_strategies.md#rotating-secrets-two-users)\.
 + **Expected `SecretString` structure:** [Amazon RDS MySQL secret structure](reference_secret_json_structure.md#reference_secret_json_structure_rds-mysql)\.
 + **Source code: ** [https://github\.com/aws\-samples/aws\-secrets\-manager\-rotation\-lambdas/tree/master/SecretsManagerRDSMySQLRotationMultiUser/lambda\_function\.py](https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerRDSMySQLRotationMultiUser/lambda_function.py)
++ **Dependency: **PyMySQL 
 
 ### Amazon RDS Oracle single user<a name="sar-template-oracle-singleuser"></a>
 + **Template name:** SecretsManagerRDSOracleRotationSingleUser
@@ -58,6 +68,7 @@ Secrets Manager provides the following rotation function templates:
 + **Rotation strategy:** [Single user rotation strategy](rotating-secrets_strategies.md#rotating-secrets-one-user-one-password)\.
 + **Expected `SecretString` structure:** [Amazon RDS Oracle secret structure](reference_secret_json_structure.md#reference_secret_json_structure_rds-oracle)\.
 + **Source code: **[https://github\.com/aws\-samples/aws\-secrets\-manager\-rotation\-lambdas/tree/master/SecretsManagerRDSOracleRotationSingleUser/lambda\_function\.py](https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerRDSOracleRotationSingleUser/lambda_function.py)
++ **Dependency: **cx\_Oracle
 
 ### Amazon RDS Oracle alternating users<a name="sar-template-oracle-multiuser"></a>
 + **Template name:** SecretsManagerRDSOracleRotationMultiUser
@@ -65,6 +76,7 @@ Secrets Manager provides the following rotation function templates:
 + **Rotation strategy:** [Alternating users rotation strategy](rotating-secrets_strategies.md#rotating-secrets-two-users)\.
 + **Expected `SecretString` structure:** [Amazon RDS Oracle secret structure](reference_secret_json_structure.md#reference_secret_json_structure_rds-oracle)\.
 + **Source code: **[https://github\.com/aws\-samples/aws\-secrets\-manager\-rotation\-lambdas/tree/master/SecretsManagerRDSOracleRotationMultiUser/lambda\_function\.py](https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerRDSOracleRotationMultiUser/lambda_function.py)
++ **Dependency: **cx\_Oracle
 
 ### Amazon RDS PostgreSQL single user<a name="sar-template-postgre-singleuser"></a>
 + **Template name:** SecretsManagerRDSPostgreSQLRotationSingleUser
@@ -72,6 +84,7 @@ Secrets Manager provides the following rotation function templates:
 + **Rotation strategy:** [Single user rotation strategy](rotating-secrets_strategies.md#rotating-secrets-one-user-one-password)\.
 + **Expected `SecretString` structure:** [Amazon RDS PostgreSQL secret structure](reference_secret_json_structure.md#reference_secret_json_structure_rds-postgres)\.
 + **Source code: **[https://github\.com/aws\-samples/aws\-secrets\-manager\-rotation\-lambdas/tree/master/SecretsManagerRDSPostgreSQLRotationSingleUser/lambda\_function\.py](https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerRDSPostgreSQLRotationSingleUser/lambda_function.py)
++ **Dependency: **PyGreSQL
 
 ### Amazon RDS PostgreSQL alternating users<a name="sar-template-postgre-multiuser"></a>
 + **Template name:** SecretsManagerRDSPostgreSQLRotationMultiUser
@@ -79,6 +92,7 @@ Secrets Manager provides the following rotation function templates:
 + **Rotation strategy:** [Alternating users rotation strategy](rotating-secrets_strategies.md#rotating-secrets-two-users)\.
 + **Expected `SecretString` structure:** [Amazon RDS PostgreSQL secret structure](reference_secret_json_structure.md#reference_secret_json_structure_rds-postgres)\.
 + **Source code: **[https://github\.com/aws\-samples/aws\-secrets\-manager\-rotation\-lambdas/tree/master/SecretsManagerRDSPostgreSQLRotationMultiUser/lambda\_function\.py](https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerRDSPostgreSQLRotationMultiUser/lambda_function.py)
++ **Dependency: **PyGreSQL
 
 ### Amazon RDS Microsoft SQLServer single user<a name="sar-template-sqlserver-singleuser"></a>
 + **Template name:** SecretsManagerRDSSQLServerRotationSingleUser
@@ -86,6 +100,7 @@ Secrets Manager provides the following rotation function templates:
 + **Rotation strategy:** [Single user rotation strategy](rotating-secrets_strategies.md#rotating-secrets-one-user-one-password)\.
 + **Expected `SecretString` structure:** [Amazon RDS Microsoft SQLServer secret structure](reference_secret_json_structure.md#reference_secret_json_structure_RDS_sqlserver)\.
 + **Source code: **[https://github\.com/aws\-samples/aws\-secrets\-manager\-rotation\-lambdas/tree/master/SecretsManagerRDSSQLServerRotationSingleUser/lambda\_function\.py](https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerRDSSQLServerRotationSingleUser/lambda_function.py)
++ **Dependency: **Pymssql 
 
 ### Amazon RDS Microsoft SQLServer alternating users<a name="sar-template-sqlserver-multiuser"></a>
 + **Template name:** SecretsManagerRDSSQLServerRotationMultiUser
@@ -93,6 +108,7 @@ Secrets Manager provides the following rotation function templates:
 + **Rotation strategy:** [Alternating users rotation strategy](rotating-secrets_strategies.md#rotating-secrets-two-users)\.
 + **Expected `SecretString` structure:** [Amazon RDS Microsoft SQLServer secret structure](reference_secret_json_structure.md#reference_secret_json_structure_RDS_sqlserver)\.
 + **Source code: **[https://github\.com/aws\-samples/aws\-secrets\-manager\-rotation\-lambdas/tree/master/SecretsManagerRDSSQLServerRotationMultiUser/lambda\_function\.py](https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerRDSSQLServerRotationMultiUser/lambda_function.py)
++ **Dependency: **Pymssql 
 
 ## Amazon DocumentDB \(with MongoDB compatibility\) databases<a name="NON-RDS_rotation_templates"></a>
 
@@ -102,6 +118,7 @@ Secrets Manager provides the following rotation function templates:
 + **Rotation strategy:** [Single user rotation strategy](rotating-secrets_strategies.md#rotating-secrets-one-user-one-password)\.
 + **Expected `SecretString` structure:** [Amazon DocumentDB secret structure](reference_secret_json_structure.md#reference_secret_json_structure_docdb)\.
 + **Source code:** [https://github\.com/aws\-samples/aws\-secrets\-manager\-rotation\-lambdas/tree/master/SecretsManagerMongoDBRotationSingleUser/lambda\_function\.py](https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerMongoDBRotationSingleUser/lambda_function.py)
++ **Dependency: **Pymongo 
 
 ### Amazon DocumentDB alternating users<a name="sar-template-mongodb-multiuser"></a>
 + **Template name:** SecretsManagerMongoDBRotationMultiUser
@@ -109,6 +126,7 @@ Secrets Manager provides the following rotation function templates:
 + **Rotation strategy:** [Alternating users rotation strategy](rotating-secrets_strategies.md#rotating-secrets-two-users)\.
 + **Expected `SecretString` structure:** [Amazon DocumentDB secret structure](reference_secret_json_structure.md#reference_secret_json_structure_docdb)\.
 + **Source code: ** [https://github\.com/aws\-samples/aws\-secrets\-manager\-rotation\-lambdas/tree/master/SecretsManagerMongoDBRotationMultiUser/lambda\_function\.py](https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerMongoDBRotationMultiUser/lambda_function.py)
++ **Dependency: **Pymongo 
 
 ## Amazon Redshift<a name="template-redshift"></a>
 
@@ -118,6 +136,7 @@ Secrets Manager provides the following rotation function templates:
 + **Rotation strategy:** [Single user rotation strategy](rotating-secrets_strategies.md#rotating-secrets-one-user-one-password)\.
 + **Expected `SecretString` structure:** [Amazon Redshift secret structure](reference_secret_json_structure.md#reference_secret_json_structure_RS)\.
 + **Source code: ** [https://github\.com/aws\-samples/aws\-secrets\-manager\-rotation\-lambdas/tree/master/SecretsManagerRedshiftRotationSingleUser/lambda\_function\.py](https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerRedshiftRotationSingleUser/lambda_function.py)
++ **Dependency: **PyGreSQL 
 
 ### Amazon Redshift alternating users<a name="sar-template-redshift-multiuser"></a>
 + **Template name:** SecretsManagerRedshiftRotationMultiUser
@@ -125,12 +144,10 @@ Secrets Manager provides the following rotation function templates:
 + **Rotation strategy:** [Alternating users rotation strategy](rotating-secrets_strategies.md#rotating-secrets-two-users)\.
 + **Expected `SecretString` structure:** [Amazon Redshift secret structure](reference_secret_json_structure.md#reference_secret_json_structure_RS)\.
 + **Source code: ** [https://github\.com/aws\-samples/aws\-secrets\-manager\-rotation\-lambdas/tree/master/SecretsManagerRedshiftRotationMultiUser/lambda\_function\.py](https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerRedshiftRotationMultiUser/lambda_function.py)
++ **Dependency: **PyGreSQL 
 
 ## Other types of secrets<a name="OTHER_rotation_templates"></a>
 
-### Generic rotation function template<a name="sar-template-generic"></a>
+Secrets Manager provides this template as a starting point for you to create a rotation function for any type of secret\. For more information, see [How rotation works](rotate-secrets_how.md)\.
 + **Template name:** SecretsManagerRotationTemplate
-+ **Supported database/service:** None\. You supply the code to interact with whatever service you want\.
-+ **Rotation strategy:** You can use this template to implement your own strategy\. Rotation templates have four steps: [How rotation works](rotate-secrets_how.md)\. To use a rotation function that you created based on this template, see [Automatically rotate a secret](rotate-secrets_turn-on-for-other.md)\.
-+ **Expected `SecretString` structure:** You define this\.
 + **Source code: ** [https://github\.com/aws\-samples/aws\-secrets\-manager\-rotation\-lambdas/tree/master/SecretsManagerRotationTemplate/lambda\_function\.py](https://github.com/aws-samples/aws-secrets-manager-rotation-lambdas/tree/master/SecretsManagerRotationTemplate/lambda_function.py)

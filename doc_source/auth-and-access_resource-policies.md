@@ -30,7 +30,7 @@ $ aws secretsmanager get-resource-policy --secret-id production/MyAwesomeAppSecr
 {
   "ARN": "arn:aws:secretsmanager:us-east-2:123456789012:secret:production/MyAwesomeAppSecret-a1b2c3",
   "Name": "MyAwesomeAppSecret",
-  "ResourcePolicy": "{\"Version\":\"2012-10-17\",\"Statement\":{\"Effect\":\"Allow\",\"Principal\":{\"AWS\":[\"arn:aws:iam::111122223333:root\",\"arn:aws:iam::444455556666:root\"]},\"Action\":[\"secretsmanager:GetSecret\",\"secretsmanager:GetSecretValue\"],\"Resource\":\"*\"}}"
+  "ResourcePolicy": "{\"Version\":\"2012-10-17\",\"Statement\":{\"Effect\":\"Allow\",\"Principal\":{\"AWS\":[\"arn:aws:iam::111122223333:root\",\"arn:aws:iam::444455556666:root\"]},\"Action\":[\"secretsmanager:GetSecretValue\"],\"Resource\":\"*\"}}"
 }
 ```
 

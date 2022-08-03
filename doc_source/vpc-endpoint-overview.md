@@ -1,6 +1,6 @@
 # Using an AWS Secrets Manager VPC endpoint<a name="vpc-endpoint-overview"></a>
 
-You can establish a private connection between your VPC and Secrets Manager by creating an *interface VPC endpoint*\. Interface endpoints are powered by [AWS PrivateLink](http://aws.amazon.com/privatelink), a technology that enables you to privately access Secrets Manager APIs without an internet gateway, NAT device, VPN connection, or AWS Direct Connect connection\. Instances in your VPC don't need public IP addresses to communicate with Secrets Manager APIs\. Traffic between your VPC and Secrets Manager does not leave the AWS network\. 
+We recommend that you run as much of your infrastructure as possible on private networks that are not accessible from the public internet\. You can establish a private connection between your VPC and Secrets Manager by creating an *interface VPC endpoint*\. Interface endpoints are powered by [AWS PrivateLink](http://aws.amazon.com/privatelink), a technology that enables you to privately access Secrets Manager APIs without an internet gateway, NAT device, VPN connection, or AWS Direct Connect connection\. Instances in your VPC don't need public IP addresses to communicate with Secrets Manager APIs\. Traffic between your VPC and Secrets Manager does not leave the AWS network\. 
 
 Each interface endpoint is represented by one or more [Elastic Network Interfaces](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-eni.html) in your subnets\. 
 
