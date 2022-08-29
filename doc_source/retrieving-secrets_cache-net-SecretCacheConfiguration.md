@@ -8,13 +8,13 @@ Cache configuration options for a [SecretsManagerCache](retrieving-secrets_cache
 
 `public uint CacheItemTTL { get; set; }`
 
-The TTL of a cache item in milliseconds\. The default is `3600000` ms or 1 hour\. 
+The TTL of a cache item in milliseconds\. The default is `3600000` ms or 1 hour\. The maximum is `4294967295` ms or approximately 49.7 days\.
 
 ### MaxCacheSize<a name="retrieving-secrets_cache-net-SecretCacheConfiguration-properties_MaxCacheSize"></a>
 
 `public ushort MaxCacheSize { get; set; }`
 
-The maximum cache size\. The default is 1024 secrets\.
+The maximum cache size\. The default is 1024 secrets\. The maximum is 65,535.
 
 ### VersionStage<a name="retrieving-secrets_cache-net-SecretCacheConfiguration-properties_VersionStage"></a>
 
