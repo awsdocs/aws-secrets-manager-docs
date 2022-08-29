@@ -12,11 +12,17 @@ To download the source code, see [Caching client for \.NET](https://github.com/a
 
 To use the cache, first instantiate it, then retrieve your secret by using `GetSecretString` or `GetSecretBinary`\. On successive retrievals, the cache returns the cached copy of the secret\.
 
-To get the package from `Nuget`:
+To install the package from NuGet, using the dotnet CLI, enter the below command in the directory containing your project:
+
+```
+dotnet add package AWSSDK.SecretsManager.Caching --version 1.0.4
+```
+
+Or manually copy & add the below package reference to your `.csproj` file:
 
 ```
 <ItemGroup>
-    <PackageReference Include="AWSSDK.SecretsManager.Caching" Version="1.0.3" />
+    <PackageReference Include="AWSSDK.SecretsManager.Caching" Version="1.0.4" />
 </ItemGroup>
 ```
 
