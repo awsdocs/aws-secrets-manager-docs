@@ -29,21 +29,22 @@ To get the package from `Nuget`:
 The following code example shows a method that retrieves a secret named *MySecret*\.  
 
 ```
-using System;
-using Amazon.SecretsManager.Extensions.Caching.SecretsManagerCache;
+using Amazon.SecretsManager.Extensions.Caching;
 
-namespace LambdaExample {
-    public class CachingExample 
+namespace LambdaExample
+{
+    public class CachingExample
     {
-        private SecretsManagerCache cache = new SecretsManagerCache();
-        private const String MySecretName ="MySecret";
+        private const string MySecretName = "MySecret";
 
-        public async Task<Response>  FunctionHandlerAsync(String input, ILambdaContext context)
+        private SecretsManagerCache cache = new SecretsManagerCache();
+
+        public async Task<Response> FunctionHandlerAsync(string input, ILambdaContext context)
         {
-            String MySecret = await cache.GetSecretString(MySecretName);
-            
+            string mySecret = await cache.GetSecretString(MySecretName);
+
             // Use the secret, return success
-            
+
         }
     }
 }
