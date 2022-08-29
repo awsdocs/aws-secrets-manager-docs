@@ -48,3 +48,35 @@ namespace LambdaExample {
     }
 }
 ```
+
+**Example: Configuring the cache refresh duration / time to live (TTL)**  
+The following code example shows a method that retrieve a secret named *MySecret*, with a configured cache refresh duration of 24 hours after which the secret is refreshed.
+
+This is done by instantiating the `SecretCacheConfiguration` class with the `CacheItemTTL` property set to `86400000` ms (24 hours) and then passing the object into the constructor of the `SecretsManagerCache` class.
+
+```
+using Amazon.SecretsManager.Extensions.Caching;
+
+namespace LambdaExample
+{
+    public class CachingExample
+    {
+        private const string MySecretName = "MySecret";
+        
+        private static SecretCacheConfiguration cacheConfiguration = new SecretCacheConfiguration
+        {
+            CacheItemTTL = 86400000
+        };
+
+        private SecretsManagerCache cache = new SecretsManagerCache(cacheConfiguration);
+
+        public async Task<Response> FunctionHandlerAsync(string input, ILambdaContext context)
+        {
+            string mySecret = await cache.GetSecretString(MySecretName);
+
+            // Use the secret, return success
+
+        }
+    }
+}
+```
