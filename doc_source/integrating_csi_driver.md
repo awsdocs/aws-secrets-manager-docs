@@ -110,7 +110,7 @@ The following example shows a `SecretProviderClass` that mounts six files in Ama
 1. A specific version of a secret\.
 
 ```
-apiVersion: secrets-store.csi.x-k8s.io/v1alpha1
+apiVersion: secrets-store.csi.x-k8s.io/v1
 kind: SecretProviderClass
 metadata:
   name: aws-secrets
