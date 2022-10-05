@@ -90,7 +90,7 @@ Test that your application works as expected with the secret in place of the har
 
 The last step is to revoke the hardcoded credentials by rotating the secret\. *Rotation* is the process of periodically updating a secret\. When you rotate a secret, you update the credentials in both the secret and the database\. Secrets Manager can automatically rotate a secret for you on a schedule you set\.
 
-Part of setting up rotation is ensuring that the Lambda rotation function can access both Secrets Manager and your database\. When you turn on automatic rotation, Secrets Manager creates the Lambda rotation function in the same VPC as your database so that it has network access to the database\. The Lambda rotation function must also be able to make calls to Secrets Manager to update the secret\. We recommend that you create a Secrets Manager endpoint in the VPC so that calls from Lambda to Secrets Manager don't leave AWS infrastructure\. For more information, see [Network access for the rotation function](rotation-network-rqmts.md)\. For instructions, see [Using an AWS Secrets Manager VPC endpoint](vpc-endpoint-overview.md)\.
+Part of setting up rotation is ensuring that the Lambda rotation function can access both Secrets Manager and your database\. When you turn on automatic rotation, Secrets Manager creates the Lambda rotation function in the same VPC as your database so that it has network access to the database\. The Lambda rotation function must also be able to make calls to Secrets Manager to update the secret\. We recommend that you create a Secrets Manager endpoint in the VPC so that calls from Lambda to Secrets Manager don't leave AWS infrastructure\. For instructions, see [Using an AWS Secrets Manager VPC endpoint](vpc-endpoint-overview.md)\.
 
 **To turn on rotation**
 
@@ -131,5 +131,4 @@ Test that your application works as expected with the rotated secret\.
 After you remove a hardcoded secret from your code, some ideas to consider next:
 + You can improve performance and reduce costs by caching secrets\. For more information, see [Retrieve secrets from AWS Secrets Manager](retrieving-secrets.md)\.
 + You can choose a different rotation schedule\. For more information, see [Schedule expressions in Secrets Manager rotation](rotate-secrets_schedule.md)\.
-+ You can choose a different rotation strategy\. For more information, see [Rotation strategies](rotating-secrets_strategies.md)\.
 + To find hardcoded secrets in your Java and Python applications, we recommend [Amazon CodeGuru Reviewer](https://docs.aws.amazon.com/codeguru/latest/reviewer-ug/welcome.html)\.

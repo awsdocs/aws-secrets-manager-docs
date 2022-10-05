@@ -14,7 +14,7 @@ We strongly recommend that you never put confidential or sensitive information, 
 
 ## Encryption at rest<a name="encryption-at-rest"></a>
 
-Secrets Manager uses encryption via AWS Key Management Service \(AWS KMS\) to protect the confidentiality of data at rest\. AWS KMS provides a key storage and encryption service used by many AWS services\. Secrets Manager associates every secret with a KMS key\. The associated KMS key can either be the Secrets Manager AWS managed key for the account, or you can create your own customer managed key in AWS KMS\. For more information, see [Secret encryption and decryption](security-encryption.md)\. 
+Secrets Manager uses encryption via AWS Key Management Service \(AWS KMS\) to protect the confidentiality of data at rest\. AWS KMS provides a key storage and encryption service used by many AWS services\. Secrets Manager associates every secret with a KMS key\. The associated KMS key can either be the Secrets Manager AWS managed key for the account, or you can create your own customer managed key in AWS KMS\. For more information, see [Secret encryption and decryption in AWS Secrets Manager](security-encryption.md)\. 
 
 ## Encryption in transit<a name="encryption-in-transit"></a>
 
@@ -39,7 +39,7 @@ Post\-quantum TLS for Secrets Manager is available in all AWS Regions except for
 
 ## Encryption key management<a name="encryption-key-management"></a>
 
-When Secrets Manager needs to encrypt a new version of the protected secret data, Secrets Manager sends a request to AWS KMS to generate a new data key from the KMS key\. Secrets Manager uses this data key for [envelope encryption](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#enveloping)\. Secrets Manager stores the encrypted data key with the encrypted secret\. When the secret needs to be decrypted, Secrets Manager asks AWS KMS to decrypt the data key\. Secrets Manager then uses the decrypted data key to decrypt the encrypted secret\. Secrets Manager never stores the data key in unencrypted form and removes the key from memory as soon as possible\. For more information, see [Secret encryption and decryption](security-encryption.md)\.
+When Secrets Manager needs to encrypt a new version of the protected secret data, Secrets Manager sends a request to AWS KMS to generate a new data key from the KMS key\. Secrets Manager uses this data key for [envelope encryption](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#enveloping)\. Secrets Manager stores the encrypted data key with the encrypted secret\. When the secret needs to be decrypted, Secrets Manager asks AWS KMS to decrypt the data key\. Secrets Manager then uses the decrypted data key to decrypt the encrypted secret\. Secrets Manager never stores the data key in unencrypted form and removes the key from memory as soon as possible\. For more information, see [Secret encryption and decryption in AWS Secrets Manager](security-encryption.md)\.
 
 ## Inter\-network traffic privacy<a name="inter-network-traffic-privacy"></a>
 

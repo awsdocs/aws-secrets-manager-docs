@@ -1,4 +1,4 @@
-# Create a Secrets Manager secret with automatic rotation and an Amazon Redshift cluster with AWS CloudFormation<a name="cfn-example_Redshift-secret"></a>
+# Create an AWS Secrets Manager secret with automatic rotation and an Amazon Redshift cluster with AWS CloudFormation<a name="cfn-example_Redshift-secret"></a>
 
 This example creates a secret and an Amazon Redshift cluster using the credentials in the secret as the user and password\. The template also creates a Lambda rotation function from the [Rotation function templates](reference_available-rotation-templates.md) and configures the secret to automatically rotate between 8:00 AM and 10:00 AM UTC on the first day of every month\. As a security best practice, the cluster is in an Amazon VPC\. 
 

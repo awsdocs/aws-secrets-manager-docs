@@ -1,4 +1,4 @@
-# Monitoring Secrets Manager with Amazon CloudWatch<a name="monitoring-cloudwatch"></a>
+# Monitoring AWS Secrets Manager with Amazon CloudWatch<a name="monitoring-cloudwatch"></a>
 
 You can monitor AWS Secrets Manager using Amazon CloudWatch, which collects raw data and processes it into readable, near real\-time metrics\. These statistics are kept for 15 months, so that you can access historical information and gain a better perspective on how your web application or service is performing\. You can also set alarms that watch for certain thresholds, and send notifications or take actions when those thresholds are met\. For more information, see the [Amazon CloudWatch User Guide](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/)\.
 
@@ -9,7 +9,7 @@ For Secrets Manager, you can use CloudWatch to alert you when your request rate 
 + [Create alarms to monitor Secrets Manager metrics](#monitoring-cloudwatch_alarms)
 + [Secrets Manager events](#monitoring-cloudwatch_events)
 + [Amazon CloudWatch Synthetics canaries](#monitoring-cloudwatch_canaries)
-+ [Monitor secrets scheduled for deletion](monitoring_cloudwatch_deleted-secrets.md)
++ [Monitor AWS Secrets Manager secrets scheduled for deletion by using Amazon CloudWatch](monitoring_cloudwatch_deleted-secrets.md)
 
 ## Secrets Manager metrics and dimensions<a name="monitoring-cloudwatch_alarms_secretcount"></a>
 
@@ -18,9 +18,9 @@ The `AWS/SecretsManager` namespace includes the following metrics\.
 
 | Metric | Description | 
 | --- | --- | 
-|  `SecretCount`  |  The number of secrets in your account, including secrets that are marked for deletion\.  Units: Count  | 
+|  `ResourceCount`  |  The number of secrets in your account, including secrets that are marked for deletion\. The metric is published hourly\. Units: Count  | 
 
-The following dimensions are supported for the Secrets Manager metrics\.
+Dimensions for the Secrets Manager metrics\.
 
 
 |  Dimension  |  Description  | 

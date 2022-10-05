@@ -1,13 +1,13 @@
-# Permissions for users in a different account<a name="auth-and-access_examples_cross"></a>
+# Permissions to AWS Secrets Manager secrets for users in a different account<a name="auth-and-access_examples_cross"></a>
 
 To allow users in one account to access secrets in another account \(*cross\-account access*\), you must allow access both in a resource policy and in an identity policy\. This is different than granting access to identities in the same account as the secret\.
 
-You must also allow the identity to use the KMS key that the secret is encrypted with\. This is because you can't use the AWS managed key \(`aws/secretsmanager`\) for cross\-account access\. Instead, you must encrypt your secret with a KMS key that you create, and then attach a key policy to it\. There is a charge for creating KMS keys\. To change the encryption key for a secret, see [Modify a secret](manage_update-secret.md)\.
+You must also allow the identity to use the KMS key that the secret is encrypted with\. This is because you can't use the AWS managed key \(`aws/secretsmanager`\) for cross\-account access\. Instead, you must encrypt your secret with a KMS key that you create, and then attach a key policy to it\. There is a charge for creating KMS keys\. To change the encryption key for a secret, see [Modify an AWS Secrets Manager secret](manage_update-secret.md)\.
 
 The following example policies assume you have a secret and encryption key in *Account1*, and an identity in *Account2* that you want to allow to access the secret value\.
 
 **Step 1: Attach a resource policy to the secret in *Account1***
-+ The following policy allows *ApplicationRole* in *Account2* to access the secret in *Account1*\. To use this policy, see [Attach a permissions policy to a secret](auth-and-access_resource-policies.md)\.
++ The following policy allows *ApplicationRole* in *Account2* to access the secret in *Account1*\. To use this policy, see [Attach a permissions policy to an AWS Secrets Manager secret](auth-and-access_resource-policies.md)\.
 
   ```
   {

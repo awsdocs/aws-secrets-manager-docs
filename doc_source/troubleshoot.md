@@ -2,7 +2,7 @@
 
 Use the information here to help you diagnose and fix issues that you might encounter when you're working with Secrets Manager\.
 
-For issues related to rotation, see [Troubleshoot AWS Secrets Manager rotation of secrets](troubleshoot_rotation.md)\.
+For issues related to rotation, see [Troubleshoot AWS Secrets Manager rotation](troubleshoot_rotation.md)\.
 
 **Topics**
 + ["Access denied" messages when sending requests to Secrets Manager](#troubleshoot_general_access-denied-service)
@@ -66,6 +66,6 @@ $ aws secretsmanager describe-secret --secret-id arn:aws:secretsmanager:us-east-
 
 ## This secret is managed by an AWS service, and you must use that service to update it\.<a name="troubleshoot-service-linked-secrets"></a>
 
-If you encounter this message while trying to modify a secret, the secret can only be updated by using the managing service listed in the message\. For more information, see [Secrets managed by other AWS services](service-linked-secrets.md)\.
+If you encounter this message while trying to modify a secret, the secret can only be updated by using the managing service listed in the message\. For more information, see [AWS Secrets Manager secrets managed by other AWS services](service-linked-secrets.md)\.
 
 To determine who manages a secret, you can review the secret name\. Secrets managed by other services are prefixed with the ID of that service\. Or, in the AWS CLI, call [describe\-secret](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/describe-secret.html), and then review the field `OwningService`\. 

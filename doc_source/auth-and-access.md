@@ -14,7 +14,7 @@ We recommend you do not grant administrator permissions to end users\. While thi
 
 By using IAM permission policies, you control which users or services have access to your secrets\. A *permissions policy* describes who can perform which actions on which resources\. You can: 
 + [Attach a permissions policy to an identity](auth-and-access_iam-policies.md)
-+ [Attach a permissions policy to a secret](auth-and-access_resource-policies.md)
++ [Attach a permissions policy to an AWS Secrets Manager secret](auth-and-access_resource-policies.md)
 
 ## Permissions for Lambda rotation functions<a name="auth-and-access_rotate"></a>
 

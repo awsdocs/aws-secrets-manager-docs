@@ -1,4 +1,4 @@
-# Create a database secret<a name="create_database_secret"></a>
+# Create an AWS Secrets Manager database secret<a name="create_database_secret"></a>
 
 To store credentials for Amazon RDS, Amazon Aurora, Amazon Redshift, or Amazon DocumentDB, follow these steps\. When you use the AWS CLI or one of the SDKs to store the secret, you must provide the secret in the [JSON structure of a database secret](reference_secret_json_structure.md)\. When you use the console to store a database secret, Secrets Manager automatically creates it in the correct JSON structure\.
 
@@ -25,7 +25,7 @@ To create a secret, you need the permissions granted by the **SecretsManagerRead
       + For most cases, choose **aws/secretsmanager** to use the AWS managed key for Secrets Manager\. There is no cost for using this key\.
       + If you need to access the secret from another AWS account, or if you want to use your own KMS key so that you can rotate it or apply a key policy to it, choose a customer managed key from the list or choose **Add new key** to create one\. You will be charged for KMS keys that you create\. 
 
-        You must have the following permissions to the key: `kms:Encrypt`, `kms:Decrypt`, and `kms:GenerateDataKey`\. For more information about cross\-account access, see [Permissions for users in a different account](auth-and-access_examples_cross.md)\. 
+        You must have the following permissions to the key: `kms:Encrypt`, `kms:Decrypt`, and `kms:GenerateDataKey`\. For more information about cross\-account access, see [Permissions to AWS Secrets Manager secrets for users in a different account](auth-and-access_examples_cross.md)\. 
 
    1. For **Database**, choose your database\.
 
@@ -33,11 +33,11 @@ To create a secret, you need the permissions granted by the **SecretsManagerRead
 
 1. On the **Configure secret** page, do the following:
 
-   1. Enter a descriptive **Secret name** and **Description**\. 
+   1. Enter a descriptive **Secret name** and **Description**\. Secret names must contain 1\-512 Unicode characters\.
 
-   1. \(Optional\) In the **Tags** section, add tags to your secret\. For tagging strategies, see [Tag secrets](managing-secrets_tagging.md)\. Don't store sensitive information in tags because they aren't encrypted\.
+   1. \(Optional\) In the **Tags** section, add tags to your secret\. For tagging strategies, see [Tag AWS Secrets Manager secrets](managing-secrets_tagging.md)\. Don't store sensitive information in tags because they aren't encrypted\.
 
-   1. \(Optional\) In **Resource permissions**, to add a resource policy to your secret, choose **Edit permissions**\. For more information, see [Attach a permissions policy to a secret](auth-and-access_resource-policies.md)\.
+   1. \(Optional\) In **Resource permissions**, to add a resource policy to your secret, choose **Edit permissions**\. For more information, see [Attach a permissions policy to an AWS Secrets Manager secret](auth-and-access_resource-policies.md)\.
 
    1. \(Optional\) In **Replicate secret**, to replicate your secret to another AWS Region, choose **Replicate secret**\. You can replicate your secret now or come back and replicate it later\. For more information, see [Replicate a secret to other Regions](create-manage-multi-region-secrets.md)\.
 
@@ -51,7 +51,7 @@ To create a secret, you need the permissions granted by the **SecretsManagerRead
 
 ## AWS CLI<a name="create_database_secret_cli"></a>
 
-To create a secret by using the AWS CLI, first create a JSON file that contains your secret\. For Secrets Manager to be able to rotate the secret, you must make sure the JSON matches the [JSON structure of a database secret](reference_secret_json_structure.md)\. For more information, see [Automatically rotate an Amazon RDS, Amazon DocumentDB, or Amazon Redshift secret](rotate-secrets_turn-on-for-db.md)\.
+To create a secret by using the AWS CLI, first create a JSON file that contains your secret\. For Secrets Manager to be able to rotate the secret, you must make sure the JSON matches the [JSON structure of a database secret](reference_secret_json_structure.md)\. For more information, see [Set up automatic rotation for Amazon RDS, Amazon Redshift, or Amazon DocumentDB secrets using the console](rotate-secrets_turn-on-for-db.md)\.
 
 Then use the [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/create-secret.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/create-secret.html) operation to store the secret in Secrets Manager\.
 

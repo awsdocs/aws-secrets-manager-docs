@@ -1,4 +1,4 @@
-# Determine who has permissions to your secrets<a name="determine-acccess_examine-iam-policies"></a>
+# Determine who has permissions to your AWS Secrets Manager secrets<a name="determine-acccess_examine-iam-policies"></a>
 
 By default, IAM identities don't have permission to access secrets\. When authorizing access to a secret, Secrets Manager evaluates the resource\-based policy attached to the secret and all identity\-based policies attached to the IAM user or role sending the request\. To do this, Secrets Manager uses a process similar to the one described in [Determining whether a request is allowed or denied](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html#policy-eval-denyallow) in the *IAM User Guide*\.
 

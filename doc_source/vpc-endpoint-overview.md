@@ -10,7 +10,7 @@ For more information, see [Interface VPC endpoints \(AWS PrivateLink\)](https://
 
 Before you set up an interface VPC endpoint for Secrets Manager, ensure that you review [Interface endpoint properties and limitations](https://docs.aws.amazon.com/vpc/latest/userguide/vpce-interface.html#vpce-interface-limitations) in the *Amazon VPC User Guide*\. 
 
-Automatic secret rotation uses a Lamba function, and the Lambda function makes requests to both the database and Secrets Manager\. When you turn on automatic rotation, Secrets Manager creates the Lambda function in the same VPC as your database\. We recommend you create a Secrets Manager endpoint in the same VPC so that requests from the Lambda rotation function to Secrets Manager don't leave the Amazon network\. For more information, see [Network access for the rotation function](rotation-network-rqmts.md)\.
+Automatic secret rotation uses a Lamba function, and the Lambda function makes requests to both the database and Secrets Manager\. When you turn on automatic rotation, Secrets Manager creates the Lambda function in the same VPC as your database\. We recommend you create a Secrets Manager endpoint in the same VPC so that requests from the Lambda rotation function to Secrets Manager don't leave the Amazon network\. 
 
 Secrets Manager supports making calls to all of its API actions from your VPC\. 
 

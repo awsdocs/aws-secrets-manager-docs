@@ -1,4 +1,4 @@
-# Create secrets in AWS CloudFormation<a name="integrating_cloudformation"></a>
+# Create AWS Secrets Manager secrets in AWS CloudFormation<a name="cloudformation"></a>
 
 You can create secrets in a CloudFormation stack by using the `[ AWS::SecretsManager::Secret](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-secretsmanager-secret.html)` resource in a CloudFormation template\. 
 
@@ -18,3 +18,4 @@ For information about creating resources with AWS CloudFormation, see [Learn tem
 + [Create a secret with Amazon RDS credentials with automatic rotation](cfn-example_RDSsecret.md)
 + [Create a secret with Amazon Redshift credentials with automatic rotation](cfn-example_Redshift-secret.md)
 + [Create a secret with Amazon DocumentDB credentials with automatic rotation](cfn-example_DocDB-secret.md)
++ [How Secrets Manager uses AWS CloudFormation](how-asm-uses-cfn.md)

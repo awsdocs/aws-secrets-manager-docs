@@ -1,4 +1,4 @@
-# AWS services that use Secrets Manager secrets<a name="integrating"></a>
+# AWS services that use AWS Secrets Manager secrets<a name="integrating"></a>
 
 Many AWS services use Secrets Manager to store secrets\. In some services, you create the secret\. In other services, the service creates secrets on your behalf\.
 
@@ -9,13 +9,13 @@ Many AWS services use Secrets Manager to store secrets\. In some services, you c
 + [AWS AppSync](integrating_how-services-use-secrets_APSYlong.md)
 + [Amazon Athena](integrating_how-services-use-secrets_ATElong.md)
 + [AWS CodeBuild](integrating-codebuild.md)
++ [Amazon CodeGuru Reviewer](integrating-codeguru.md)
 + [AWS Direct Connect](integrating_how-services-use-secrets_directconnect.md)
 + [AWS Directory Service](integrating_how-services-use-secrets_Dir.md)
 + [Amazon DocumentDB](integrating_how-services-use-secrets_DocDBlong.md)
 + [AWS Elemental Live](integrating_ELVlong.md)
 + [AWS Elemental MediaConnect](integrating_how-services-use-secrets_EMXlong.md)
 + [AWS Elemental MediaConvert](integrating_how-services-use-secrets_EMClong.md)
-+ [CodeGuru Reviewer](integrating-codeguru.md)
 + [AWS Elemental MediaPackage](integrating_how-services-use-secrets_EMPlong.md)
 + [AWS Elemental MediaTailor](integrating_how-services-use-secrets_MediaTailor.md)
 + [Amazon EMR](integrating-emr.md)

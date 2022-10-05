@@ -26,7 +26,7 @@ You can add more key/value pairs to a database secret, for example to contain co
 }
 ```
 
-To use the [Alternating users rotation strategy](rotating-secrets_strategies.md#rotating-secrets-two-users), also include the name\-value pair:
+To use the [Rotation strategy: alternating users](getting-started.md#rotating-secrets-two-users), also include the name\-value pair:
 
 ```
     "masterarn": "<the ARN of the elevated secret>"
@@ -45,7 +45,7 @@ To use the [Alternating users rotation strategy](rotating-secrets_strategies.md#
 }
 ```
 
-To use the [Alternating users rotation strategy](rotating-secrets_strategies.md#rotating-secrets-two-users), also include the name\-value pair:
+To use the [Rotation strategy: alternating users](getting-started.md#rotating-secrets-two-users), also include the name\-value pair:
 
 ```
     "masterarn": "<the ARN of the elevated secret>"
@@ -64,7 +64,7 @@ To use the [Alternating users rotation strategy](rotating-secrets_strategies.md#
 }
 ```
 
-To use the [Alternating users rotation strategy](rotating-secrets_strategies.md#rotating-secrets-two-users), also include the name\-value pair:
+To use the [Rotation strategy: alternating users](getting-started.md#rotating-secrets-two-users), also include the name\-value pair:
 
 ```
     "masterarn": "<the ARN of the elevated secret>"
@@ -83,7 +83,7 @@ To use the [Alternating users rotation strategy](rotating-secrets_strategies.md#
 }
 ```
 
-To use the [Alternating users rotation strategy](rotating-secrets_strategies.md#rotating-secrets-two-users), also include the name\-value pair:
+To use the [Rotation strategy: alternating users](getting-started.md#rotating-secrets-two-users), also include the name\-value pair:
 
 ```
     "masterarn": "<the ARN of the elevated secret>"
@@ -102,7 +102,7 @@ To use the [Alternating users rotation strategy](rotating-secrets_strategies.md#
 }
 ```
 
-To use the [Alternating users rotation strategy](rotating-secrets_strategies.md#rotating-secrets-two-users), also include the name\-value pair:
+To use the [Rotation strategy: alternating users](getting-started.md#rotating-secrets-two-users), also include the name\-value pair:
 
 ```
     "masterarn": "<the ARN of the elevated secret>"
@@ -121,7 +121,7 @@ To use the [Alternating users rotation strategy](rotating-secrets_strategies.md#
 }
 ```
 
-To use the [Alternating users rotation strategy](rotating-secrets_strategies.md#rotating-secrets-two-users), also include the name\-value pair:
+To use the [Rotation strategy: alternating users](getting-started.md#rotating-secrets-two-users), also include the name\-value pair:
 
 ```
     "masterarn": "<the ARN of the elevated secret>"
@@ -140,7 +140,7 @@ To use the [Alternating users rotation strategy](rotating-secrets_strategies.md#
 }
 ```
 
-To use the [Alternating users rotation strategy](rotating-secrets_strategies.md#rotating-secrets-two-users), also include the name\-value pair:
+To use the [Rotation strategy: alternating users](getting-started.md#rotating-secrets-two-users), also include the name\-value pair:
 
 ```
     "masterarn": "<the ARN of the elevated secret>"

@@ -1,4 +1,4 @@
-# Restore a secret<a name="manage_restore-secret"></a>
+# Restore an AWS Secrets Manager secret<a name="manage_restore-secret"></a>
 
 Secrets Manager considers a secret scheduled for deletion *deprecated* and you can no longer directly access it\. After the recovery window has passed, Secrets Manager deletes the secret permanently\. Once Secrets Manager deletes the secret, you can't recover it\. Before the end of the recovery window, you can recover the secret and make it accessible again\. This removes the `DeletionDate` field, which cancels the scheduled permanent deletion\.
 

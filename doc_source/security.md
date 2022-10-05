@@ -9,8 +9,8 @@ You and AWS share the responsibility for security\. The [shared responsibility m
 For more resources, see [ Security Pillar \- AWS Well\-Architected Framework](https://docs.aws.amazon.com/wellarchitected/latest/security-pillar/welcome.html)\.
 
 **Topics**
-+ [Mitigate the risks of using the AWS CLI to store your secrets](security_cli-exposure-risks.md)
++ [Mitigate the risks of using the AWS CLI to store your AWS Secrets Manager secrets](security_cli-exposure-risks.md)
 + [Data protection in AWS Secrets Manager](data-protection.md)
-+ [Secret encryption and decryption](security-encryption.md)
++ [Secret encryption and decryption in AWS Secrets Manager](security-encryption.md)
 + [Infrastructure security in AWS Secrets Manager](infrastructure-security.md)
 + [Resiliency in AWS Secrets Manager](disaster-recovery-resiliency.md)

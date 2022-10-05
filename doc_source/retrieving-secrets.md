@@ -12,14 +12,16 @@ In applications, you can retrieve your secrets by calling [https://docs.aws.amaz
 + For JavaScript applications, call the SDK directly with [https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SecretsManager.html#getSecretValue-property](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SecretsManager.html#getSecretValue-property)\.
 + For PHP applications, call the SDK directly with [https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-secretsmanager-2017-10-17.html#getsecretvalue](https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-secretsmanager-2017-10-17.html#getsecretvalue)\.
 + For Ruby applications, call the SDK directly with [https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SecretsManager/Client.html#get_secret_value-instance_method](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SecretsManager/Client.html#get_secret_value-instance_method)\.
++ For GitHub Actions, see [Use AWS Secrets Manager secrets in GitHub jobs](retrieving-secrets_github.md)\.
 
-## Within other AWS services<a name="retrieving-secrets_services"></a>
+## Within other systems and AWS services<a name="retrieving-secrets_services"></a>
 
-You can also retrieve secrets within other AWS services:
-+ For Amazon EKS, you can use [AWS Secrets and Configuration Provider \(ASCP\)](integrating_csi_driver.md) to mount secrets as files in Amazon EKS\.
+You can also retrieve secrets within the following:
 + For AWS Batch, you can [reference secrets](integrating_BATCH.md) in a job definition\.
-+  For AWS CloudFormation, you can [create secrets](integrating_cloudformation.md) and [reference secrets](cfn-example_reference-secret.md) in a CloudFormation stack\.
++  For AWS CloudFormation, you can [create secrets](cloudformation.md) and [reference secrets](cfn-example_reference-secret.md) in a CloudFormation stack\.
 + For Amazon ECS, you can [reference secrets](integrating-fargate.md) in a container definition\.
++ For Amazon EKS, you can use [AWS Secrets and Configuration Provider \(ASCP\)](integrating_csi_driver.md) to mount secrets as files in Amazon EKS\.
++ For GitHub, you can use the [Secrets Manager GitHub action](retrieving-secrets_github.md) to add secrets as environment variables in your GitHub jobs\.
 + For AWS IoT Greengrass, you can [reference secrets](integrating-greengrass.md) in a Greengrass group\.
 + For AWS Lambda, you can [reference secrets](integrating-lambda.md) in a Lambda function\.
 + For Parameter Store, you can [reference secrets](integrating_parameterstore.md) in a parameter\.

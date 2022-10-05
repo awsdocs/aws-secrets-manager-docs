@@ -1,17 +1,10 @@
 # Logging AWS Secrets Manager events with AWS CloudTrail<a name="retrieve-ct-entries"></a>
 
-AWS CloudTrail records all [API calls for Secrets Manager](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_Operations.html) as events, including calls from the Secrets Manager console\. CloudTrail also captures the following events:
-+ `RotationAbandoned` event \- Secrets Manager removed the AWSPENDING label from an existing version of a secret\. When you manually create a new version of a secret, you send a message signalling the abandonment of the current ongoing rotation in favor of the new secret version\. As a result, Secrets Manager removes the AWSPENDING label to allow future rotations to succeed and publish a CloudTrail event to provide awareness of the change\. 
-+ `RotationStarted` event \- A secret started rotation\. 
-+ `RotationSucceeded` event \- A successful rotation event\.
-+ `RotationFailed` event \- Secret rotation failed\. 
-+ `StartSecretVersionDelete` event \- a mechanism that notifies you of the start deletion for a secret version\.
-+ `CancelSecretVersionDelete` event \- A delete cancellation for a secret version\. 
-+ `EndSecretVersionDelete` event \- An ending secret version deletion\.
+AWS CloudTrail records all API calls for Secrets Manager as events, including calls from the Secrets Manager console, as well as several other events for rotation and secret version deletion\.
 
-You can use the CloudTrail console to view the last 90 days of recorded events\. For an ongoing record of events in your AWS account, including events for Secrets Manager, create a trail so that CloudTrail delivers log files to an Amazon S3 bucket\. See [Creating a trail for your AWS account](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-create-and-update-a-trail.html)\. You can also configure CloudTrail to receive CloudTrail log files from [multiple AWS accounts](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-receive-logs-from-multiple-accounts.html) and [AWS Regions](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/receive-cloudtrail-log-files-from-multiple-regions.html)\.
+You can use the CloudTrail console to view the last 90 days of recorded events\. For an ongoing record of events in your AWS account, including events for Secrets Manager, create a trail so that CloudTrail delivers log files to an Amazon S3 bucket\. See [Creating a trail for your AWS account](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-create-and-update-a-trail.html)\. You can also configure CloudTrail to receive CloudTrail log files from [multiple AWS accounts](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-receive-logs-from-multiple-accounts.html) and [AWS Regions](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/receive-cloudtrail-log-files-from-multiple-regions.html)\. 
 
-You can configure other AWS services to further analyze and act upon the data collected in CloudTrail logs\. See [AWS service integrations with CloudTrail logs](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-aws-service-specific-topics.html#cloudtrail-aws-service-specific-topics-integrations)\. You can also get notifications when CloudTrail publishes new log files to your Amazon S3 bucket\. See [Configuring Amazon SNS notifications for CloudTrail](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/getting_notifications_top_level.html)\.
+You can configure other AWS services to further analyze and act upon the data collected in CloudTrail logs\. See [AWS service integrations with CloudTrail logs](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-aws-service-specific-topics.html#cloudtrail-aws-service-specific-topics-integrations)\. You can also get notifications when CloudTrail publishes new log files to your Amazon S3 bucket\. See [Configuring Amazon SNS notifications for CloudTrail](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/getting_notifications_top_level.html)\. 
 
 **To retrieve Secrets Manager events from CloudTrail logs \(console\)**
 
@@ -19,111 +12,144 @@ You can configure other AWS services to further analyze and act upon the data co
 
 1. Ensure that the console points to the region where your events occurred\. The console shows only those events that occurred in the selected region\. Choose the region from the drop\-down list in the upper\-right corner of the console\.
 
-1. In the left\-hand navigation pane, choose **Event history**\.
+1. In the left\-hand navigation pane, choose **Event history**\. 
 
-1. Choose **Filter** criteria and/or a **Time range** to help you find the event that you're looking for\. For example, to see all Secrets Manager events, for **Select attribute**, choose **Event source**\. Then, for **Enter event source**, choose **secretsmanager\.amazonaws\.com**\.
+1. Choose **Filter** criteria and/or a **Time range** to help you find the event that you're looking for\. For example, to see all Secrets Manager events, for **Select attribute**, choose **Event source**\. Then, for **Enter event source**, choose **secretsmanager\.amazonaws\.com**\. 
 
-1. To see additional details, choose the expand arrow next to event\. To see all of the information available, choose **View event**\.
+1. To see additional details, choose the expand arrow next to event\. To see all of the information available, choose **View event**\. 
 
-## AWS CLI or SDK<a name="w414aac23b7c13"></a>
+**To retrieve Secrets Manager events from CloudTrail logs \(AWS CLI\)**
++ In the AWS CLI, use the following command\. 
 
-**To retrieve Secrets Manager events from CloudTrail logs \(AWS CLI or SDK\)**
+  ```
+  aws cloudtrail lookup-events --region us-east-1 --lookup-attributes AttributeKey=EventSource,AttributeValue=secretsmanager.amazonaws.com
+  ```
 
-1. Open a command window to run AWS CLI commands\.
+## Secrets Manager log entries<a name="w445aac25b7c13"></a>
 
-1. Run a command similar to the following example\. 
+**CancelRotateSecret**  
+Generated by the [CancelRotateSecret](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_CancelRotateSecret.html) operation\. For information about rotation, see [Rotate AWS Secrets Manager secrets](rotating-secrets.md)\.
 
-   ```
-   $ aws cloudtrail lookup-events --region us-east-1 --lookup-attributes AttributeKey=EventSource,AttributeValue=secretsmanager.amazonaws.com
-   {
-       "Events": [
-           {
-               "EventId": "EXAMPLE1-90ab-cdef-fedc-ba987EXAMPLE",
-               "EventName": "CreateSecret",
-               "EventTime": 1525106994.0,
-               "Username": "Administrator",
-               "Resources": [],
-               "CloudTrailEvent": "{\"eventVersion\":\"1.05\",\"userIdentity\":{\"type\":\"IAMUser\",\"principalId\":\"AKIAIOSFODNN7EXAMPLE\",
-                     \"arn\":\"arn:aws:iam::123456789012:user/Administrator\",\"accountId\":\"123456789012\",\"accessKeyId\":\"AKIAIOSFODNN7EXAMPLE\",
-                     \"userName\":\"Administrator\"},\"eventTime\":\"2018-04-30T16:49:54Z\",\"eventSource\":\"secretsmanager.amazonaws.com\",
-                     \"eventName\":\"CreateSecret\",\"awsRegion\":\"us-east-2\",\"sourceIPAddress\":\"192.168.100.101\",
-                     \"userAgent\":\"<useragent string>\",\"requestParameters\":{\"name\":\"MyTestSecret\",
-                     \"clientRequestToken\":\"EXAMPLE2-90ab-cdef-fedc-ba987EXAMPLE\"},\"responseElements\":null,
-                     \"requestID\":\"EXAMPLE3-90ab-cdef-fedc-ba987EXAMPLE\",\"eventID\":\"EXAMPLE4-90ab-cdef-fedc-ba987EXAMPLE\",
-                     \"eventType\":\"AwsApiCall\",\"recipientAccountId\":\"123456789012\"}"
-           }
-       ]
-   }
-   ```
+**CancelSecretVersionDelete**  
+If you call `DeleteSecret` on a secret that has versions, and then later call `RestoreSecret`, Secrets Manager logs this event for each secret version that was restored\. For information about restoring a deleted secret, see [Restore an AWS Secrets Manager secret](manage_restore-secret.md)\. 
 
-## Examples of Secrets Manager log entries<a name="understanding-service-name-entries"></a>
+**CreateSecret**  
+Generated by the [CreateSecret](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_CreateSecret.html) operation\. For information about creating secrets, see [Create and manage secrets with AWS Secrets Manager](managing-secrets.md)\.
 
-The following example shows a CloudTrail log entry for a sample `CreateSecret` call:
+**DeleteResourcePolicy**  
+Generated by the [DeleteResourcePolicy](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_DeleteResourcePolicy.html) operation\. For information about permissions, see [Authentication and access control for AWS Secrets Manager](auth-and-access.md)\.
 
-```
-  {
-    "eventVersion": "1.05",
-    "userIdentity": {
-      "type": "Root",
-      "principalId": "123456789012",
-      "arn": "arn:aws:iam::123456789012:root",
-      "accountId": "123456789012",
-      "accessKeyId": "AKIAIOSFODNN7EXAMPLE",
-      "userName": "myusername",
-      "sessionContext": {"attributes": {
-        "mfaAuthenticated": "false",
-        "creationDate": "2018-04-03T17:43:50Z"
-      }}
-    },
-    "eventTime": "2018-04-03T17:50:55Z",
-    "eventSource": "secretsmanager.amazonaws.com",
-    "eventName": "CreateSecret",
-    "awsRegion": "us-east-2",
-    "requestParameters": {
-      "name": "MyDatabaseSecret",
-      "clientRequestToken": "EXAMPLE1-90ab-cdef-fedc-ba987EXAMPLE"
-    },
-    "responseElements": null,
-    "requestID": "EXAMPLE2-90ab-cdef-fedc-ba987EXAMPLE",
-    "eventID": "EXAMPLE3-90ab-cdef-fedc-ba987EXAMPLE",
-    "eventType": "AwsApiCall",
-    "recipientAccountId": "123456789012"
-}
-```
+**DeleteSecret**  
+Generated by the [DeleteSecret](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_DeleteSecret.html) operation\. For information about deleting secrets, see [Delete an AWS Secrets Manager secret](manage_delete-secret.md)\.
 
-The following example shows a CloudTrail log entry for a sample `DeleteSecret` call:
+**DescribeSecret**  
+Generated by the [DescribeSecret](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_DescribeSecret.html) operation\. 
+
+**EndSecretVersionDelete**  
+Generated when a secret version is deleted\. For more information, see [Delete an AWS Secrets Manager secret](manage_delete-secret.md)\.
+
+**GetRandomPassword**  
+Generated by the [GetRandomPassword](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetRandomPassword.html) operation\. 
+
+**GetResourcePolicy**  
+Generated by the [GetResourcePolicy](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetResourcePolicy.html) operation\. For information about permissions, see [Authentication and access control for AWS Secrets Manager](auth-and-access.md)\.
+
+**GetSecretValue**  
+Generated by the [GetSecretValue](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html) operation\. For information about retrieving secrets, see [Retrieve secrets from AWS Secrets Manager](retrieving-secrets.md)\.
+
+**ListSecrets**  
+Generated by the [ListSecrets](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_ListSecrets.html) operation\. For information about listing secrets, see [Find secrets in AWS Secrets Manager](manage_search-secret.md)\.
+
+**ListSecretVersionIds**  
+Generated by the [ListSecretVersionIds](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_ListSecretVersionIds.html) operation\.
+
+**PutResourcePolicy**  
+Generated by the [PutResourcePolicy](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_PutResourcePolicy.html) operation\. For information about permissions, see [Authentication and access control for AWS Secrets Manager](auth-and-access.md)\.
+
+**PutSecretValue**  
+Generated by the [PutSecretValue](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_PutSecretValue.html) operation\. For information about updating a secret, see [Modify an AWS Secrets Manager secret](manage_update-secret.md)\.
+
+**RemoveRegionsFromReplication**  
+Generated by the [RemoveRegionsFromReplication](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_RemoveRegionsFromReplication.html) operation\. For information about replicating a secret, see [Replicate an AWS Secrets Manager secret to other AWS Regions](create-manage-multi-region-secrets.md)\.
+
+**ReplicateSecretToRegions**  
+Generated by the [ReplicateSecretToRegions](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_ReplicateSecretToRegions.html) operation\. For information about replicating a secret, see [Replicate an AWS Secrets Manager secret to other AWS Regions](create-manage-multi-region-secrets.md)\.
+
+**RestoreSecret**  
+Generated by the [RestoreSecret](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_RestoreSecret.html) operation\. For information about restoring a deleted secret, see [Restore an AWS Secrets Manager secret](manage_restore-secret.md)\.
+
+**RotateSecret**  
+Generated by the [RotateSecret](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_RotateSecret.html) operation\. For information about rotation, see [Rotate AWS Secrets Manager secrets](rotating-secrets.md)\.
+
+**RotationStarted**  
+Generated when Secrets Manager starts rotating a secret\. For information about rotation, see [Rotate AWS Secrets Manager secrets](rotating-secrets.md)\.
+
+**RotationAbandoned**  
+Generated when Secrets Manager abandons a rotation attempt and removes the `AWSPENDING` label from an existing version of a secret\. Secrets Manager abandons rotation when you create a new version of a secret during rotation\. For information about rotation, see [Rotate AWS Secrets Manager secrets](rotating-secrets.md)\.
+
+**RotationFailed**  
+Generated when rotation fails\. For information about rotation, see [Troubleshoot AWS Secrets Manager rotation](troubleshoot_rotation.md)\.
+
+**RotationSucceeded**  
+Generated when a secret is successfully rotated\. For information about rotation, see [Rotate AWS Secrets Manager secrets](rotating-secrets.md)\.
+
+**StartSecretVersionDelete**  
+Generated when Secrets Manager starts deletion for a secret version\. For information about deleting secrets, see [Delete an AWS Secrets Manager secret](manage_delete-secret.md)\.
+
+**StopReplicationToReplica**  
+Generated by the [StopReplicationToReplica](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_StopReplicationToReplica.html) operation\. For information about replicating a secret, see [Replicate an AWS Secrets Manager secret to other AWS Regions](create-manage-multi-region-secrets.md)\.
+
+**TagResource**  
+Generated by the [TagResource](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_TagResource.html) operation\. For information about tagging a secret, see [Tag AWS Secrets Manager secrets](managing-secrets_tagging.md)\.
+
+**TestRotationStarted**  
+Generated when Secrets Manager starts testing rotation for a secret that is not scheduled for immediate rotation\. For information about rotation, see [Rotate AWS Secrets Manager secrets](rotating-secrets.md)\.
+
+**TestRotationSucceeded**  
+Generated when Secrets Manager successfully tests rotation for a secret that is not scheduled for immediate rotation\. For information about rotation, see [Rotate AWS Secrets Manager secrets](rotating-secrets.md)\.
+
+**TestRotationFailed**  
+Generated when Secrets Manager tests rotation for a secret that is not scheduled for immediate rotation and rotation failed\. For information about rotation, see [Troubleshoot AWS Secrets Manager rotation](troubleshoot_rotation.md)\.
+
+**UntagResource**  
+Generated by the [UntagResource](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UntagResource.html) operation\. For information about untagging a secret, see [Tag AWS Secrets Manager secrets](managing-secrets_tagging.md)\.
+
+**UpdateSecret**  
+Generated by the [UpdateSecret](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UpdateSecret.html) operation\. For information about updating a secret, see [Modify an AWS Secrets Manager secret](manage_update-secret.md)\.
+
+**UpdateSecretVersionStage**  
+Generated by the [UpdateSecretVersionStage](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UpdateSecretVersionStage.html) operation\. For information about version stages, see [Version](getting-started.md#term_version)\.
+
+**ValidateResourcePolicy**  
+Generated by the [ValidateResourcePolicy](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_ValidateResourcePolicy.html) operation\. For information about permissions, see [Authentication and access control for AWS Secrets Manager](auth-and-access.md)\.
+
+## Example log entry<a name="w445aac25b7c15"></a>
 
 ```
 {
-    "eventVersion": "1.05",
+    "eventVersion": "1.08",
     "userIdentity": {
-      "type": "Root",
-      "principalId": "123456789012",
-      "arn": "arn:aws:iam::123456789012:root",
-      "accountId": "123456789012",
-      "accessKeyId": "AKIAIOSFODNN7EXAMPLE",
-      "userName": "myusername",
-      "sessionContext": {"attributes": {
-        "mfaAuthenticated": "false",
-        "creationDate": "2018-04-03T17:43:50Z"
-      }}
+        "accountId": "123456789012",
+        "invokedBy": "secretsmanager.amazonaws.com"
     },
-    "eventTime": "2018-04-03T17:51:02Z",
+    "eventTime": "2022-09-13T02:17:48Z",
     "eventSource": "secretsmanager.amazonaws.com",
-    "eventName": "DeleteSecret",
+    "eventName": "RotationFailed",
     "awsRegion": "us-east-2",
-    "requestParameters": {
-      "recoveryWindowInDays": 30,
-      "secretId": "MyDatabaseSecret"
+    "sourceIPAddress": "secretsmanager.amazonaws.com",
+    "userAgent": "secretsmanager.amazonaws.com",
+    "errorMessage": "Error when executing lambda arn:aws:lambda:us-east-2:123456789012:function:SecretsManagertest-alternating-users-rotation2 during setSecret step",
+    "requestParameters": null,
+    "responseElements": null,
+    "additionalEventData": {
+        "SecretId": "arn:aws:secretsmanager:us-east-2:123456789012:secret:MyDatabaseSecret-a1b2c3"
     },
-    "responseElements": {
-      "name": "MyDatabaseSecret",
-      "deletionDate": "May 3, 2018 5:51:02 PM",
-      "aRN": "arn:aws:secretsmanager:us-east-2:123456789012:secret:MyDatabaseSecret-a1b2c3"
-    },
-    "requestID": "EXAMPLE2-90ab-cdef-fedc-ba987EXAMPLE",
+    "requestID": "Rotation-arn:aws:secretsmanager:us-east-2:123456789012:secret:MyDatabaseSecret-a1b2c3-eeb681b1-a07d-4aeb-9b61-1ee6590ec295",
     "eventID": "EXAMPLE3-90ab-cdef-fedc-ba987EXAMPLE",
-    "eventType": "AwsApiCall",
-    "recipientAccountId": "123456789012"
+    "readOnly": false,
+    "eventType": "AwsServiceEvent",
+    "managementEvent": true,
+    "recipientAccountId": "123456789012",
+    "eventCategory": "Management"
 }
 ```

@@ -1,8 +1,8 @@
-# Permissions reference for Secrets Manager<a name="reference_iam-permissions"></a>
+# Permissions reference for AWS Secrets Manager<a name="reference_iam-permissions"></a>
 
 To see the elements that make up a permissions policy, see [JSON policy document structure](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies-introduction) and [IAM JSON policy elements reference](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements.html)\. 
 
-To get started writing your own permissions policy, see [Permissions policy examples](auth-and-access_examples.md)\.
+To get started writing your own permissions policy, see [Permissions policy examples for AWS Secrets Manager](auth-and-access_examples.md)\.
 
 ## Secrets Manager actions<a name="reference_iam-permissions_actions"></a>
 

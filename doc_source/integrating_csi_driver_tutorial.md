@@ -1,4 +1,4 @@
-# Tutorial: Create and mount a secret in an Amazon EKS pod<a name="integrating_csi_driver_tutorial"></a>
+# Tutorial: Create and mount an AWS Secrets Manager secret in an Amazon EKS pod<a name="integrating_csi_driver_tutorial"></a>
 
 In this tutorial, you create an example secret in Secrets Manager, and then you mount the secret in an Amazon EKS pod and deploy it\. 
 
@@ -44,7 +44,7 @@ Before you begin, install the ASCP: [Install the ASCP](integrating_csi_driver.md
    eksctl create iamserviceaccount --name nginx-deployment-sa --region="$REGION" --cluster "$CLUSTERNAME" --attach-policy-arn "$POLICY_ARN" --approve --override-existing-serviceaccounts
    ```
 
-1. Create the `SecretProviderClass` to specify which secret to mount in the pod\. The following command uses `ExampleSecretProviderClass.yaml` in the [ASCP GitHub repo examples](https://github.com/aws/secrets-store-csi-driver-provider-aws/blob/main/examples) directory to mount the secret you created in step 1\. For information about creating your own `SecretProviderClass`, see [`SecretProviderClass`](integrating_csi_driver.md#integrating_csi_driver_SecretProviderClass)\.
+1. Create the `SecretProviderClass` to specify which secret to mount in the pod\. The following command uses `ExampleSecretProviderClass.yaml` in the [ASCP GitHub repo examples](https://github.com/aws/secrets-store-csi-driver-provider-aws/blob/main/examples) directory to mount the secret you created in step 2\. For information about creating your own `SecretProviderClass`, see [`SecretProviderClass`](integrating_csi_driver.md#integrating_csi_driver_SecretProviderClass)\.
 
    ```
    kubectl apply -f https://raw.githubusercontent.com/aws/secrets-store-csi-driver-provider-aws/main/examples/ExampleSecretProviderClass.yaml

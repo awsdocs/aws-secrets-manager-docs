@@ -1,17 +1,12 @@
-# Tag secrets<a name="managing-secrets_tagging"></a>
+# Tag AWS Secrets Manager secrets<a name="managing-secrets_tagging"></a>
 
-Secrets Manager defines a *tag* as a label consisting of a key that you define and an optional value\. You can use tags to make it easy to manage, search, and filter secrets and other resources in your AWS account\. When you tag your secrets, use a standard naming scheme across all of your resources\. Tags are case sensitive\. Never store sensitive information for a secret in a tag\.
+Secrets Manager defines a *tag* as a label consisting of a key that you define and an optional value\. You can use tags to make it easy to manage, search, and filter secrets and other resources in your AWS account\. When you tag your secrets, use a standard naming scheme across all of your resources\. For more information, see the [Tagging Best Practices](https://docs.aws.amazon.com/whitepapers/latest/tagging-best-practices/tagging-best-practices.html) whitepaper\.
 
-To find secrets with a specific tag, see [Find secrets in AWS Secrets Manager](manage_search-secret.md)\.
+You can grant or deny access to a secret by checking the tags attached to the secret\. For more information, see [Example: Control access to secrets using tags](auth-and-access_examples.md#tag-secrets-abac)\.
 
-Create tags for:
-+ **Security/access control** – You can grant or deny access to a secret by checking the tags attached to the secret\. See [Example: Control access to secrets using tags](auth-and-access_examples.md#tag-secrets-abac)\.
-+ **Automation** – You can use tags to filter resources for automation\. For example, some customers run automated start/stop scripts to turn off development environments during non\-business hours to reduce costs\. You can create and then check for a tag indicating if a specific Amazon EC2 instance should be included in the shutdown\.
-+ **Filtering** – You can find secrets by tags in the console, AWS CLI, and SDKs\. AWS also provides the Resource Groups tool to create a custom console that consolidates and organizes your resources based on their tags\. For more information, see [Working with Resource Groups](https://docs.aws.amazon.com/) in the *AWS Management Console Getting Started Guide*\.
+You can find secrets by tags in the console, AWS CLI, and SDKs\. AWS also provides the [Resource Groups](https://docs.aws.amazon.com/ARG/latest/userguide/resource-groups.html) tool to create a custom console that consolidates and organizes your resources based on their tags\. To find secrets with a specific tag, see [Find secrets in AWS Secrets Manager](manage_search-secret.md)\.
 
-For more information, see [AWS Tagging Strategies](https://aws.amazon.com/answers/account-management/aws-tagging-strategies/) on the *AWS Answers* website\.
-
-You can tag your secrets when you create them or when you edit them\.
+Tags are case sensitive\. Never store sensitive information for a secret in a tag\. You can tag your secrets when you create them or when you edit them\.
 
 **To change tags for your secret \(console\)**
 

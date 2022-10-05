@@ -1,6 +1,6 @@
 # Set up single user rotation for AWS Secrets Manager<a name="tutorials_rotation-single"></a>
 
-In this tutorial, you learn how to set up single user rotation for a secret that contains database admin credentials\. *Single user rotation* is a rotation strategy where Secrets Manager updates a single user's credentials in both the secret and the database\. For more information, see [Rotation strategies](rotating-secrets_strategies.md)\. 
+In this tutorial, you learn how to set up single user rotation for a secret that contains database admin credentials\. *Single user rotation* is a rotation strategy where Secrets Manager updates a single user's credentials in both the secret and the database\. For more information, see [Rotation strategy: single user](getting-started.md#rotating-secrets-one-user-one-password)\. 
 
 A large part of this tutorial is setting up a realistic environment\. To show you how rotation works, this tutorial uses an example Amazon RDS MySQL database\. For security, the database is in a VPC that doesn't allow internet access\. To connect to the database from your local computer through the internet, you use a *bastion host*, a server in the VPC that can connect to the database, but that also allows SSH connections from the internet\. The bastion host in this tutorial is an Amazon EC2 instance, and the security groups for the instance prevent other types of connections\. 
 
@@ -41,7 +41,7 @@ For information about how to set up permissions in a production environment, see
 Rather than creating these resources through the console, for this tutorial you use AWS CloudFormation with a provided template to create a CloudFormation stack\. For more information about CloudFormation and templates, see [AWS CloudFormation concepts](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-whatis-concepts.html)\.
 
 **To get the CloudFormation template**
-+ Go to [Create a Secrets Manager secret for an Amazon RDS MySQL DB instance with AWS CloudFormation](cfn-example_RDSsecret_no-rotation.md), and save the code to a new file\. You can use either JSON or YAML\.
++ Go to [Create an AWS Secrets Manager secret for an Amazon RDS MySQL DB instance with AWS CloudFormation](cfn-example_RDSsecret_no-rotation.md), and save the code to a new file\. You can use either JSON or YAML\.
 
 **To create the stack from the template**
 
@@ -231,7 +231,7 @@ If the credentials are valid, then MySQL Workbench opens to the design page for 
 
 ## Step 2: Create a Secrets Manager endpoint<a name="tutorials_rotation-single_step-network"></a>
 
-The next step is to create a Secrets Manager endpoint within the VPC\. When you set up automatic rotation, Secrets Manager creates the Lambda rotation function within the VPC so that it has access to the database\. The Lambda rotation function also calls Secrets Manager\. By creating a Secrets Manager endpoint within the VPC, you ensure that calls from Lambda to Secrets Manager don't leave AWS infrastructure\. Instead, they are routed to the Secrets Manager endpoint within the VPC\. For more information, see [Network access for the rotation function](rotation-network-rqmts.md)\.
+The next step is to create a Secrets Manager endpoint within the VPC\. When you set up automatic rotation, Secrets Manager creates the Lambda rotation function within the VPC so that it has access to the database\. The Lambda rotation function also calls Secrets Manager\. By creating a Secrets Manager endpoint within the VPC, you ensure that calls from Lambda to Secrets Manager don't leave AWS infrastructure\. Instead, they are routed to the Secrets Manager endpoint within the VPC\.
 
 **To create a Secrets Manager endpoint within the VPC**
 

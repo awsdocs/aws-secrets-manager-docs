@@ -1,4 +1,4 @@
-# Create a Secrets Manager secret for an Amazon RDS MySQL DB instance with AWS CloudFormation<a name="cfn-example_RDSsecret_no-rotation"></a>
+# Create an AWS Secrets Manager secret for an Amazon RDS MySQL DB instance with AWS CloudFormation<a name="cfn-example_RDSsecret_no-rotation"></a>
 
 This example creates a secret and an Amazon RDS MySQL DB instance using the credentials in the secret as the user and password\. Secrets Manager generates a password with 32 characters\. As a security best practice, the database is in an Amazon VPC\. 
 

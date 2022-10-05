@@ -1,6 +1,6 @@
 # Set up alternating users rotation for AWS Secrets Manager<a name="tutorials_rotation-alternating"></a>
 
-In this tutorial, you learn how to set up alternating users rotation for a secret that contains database credentials\. *Alternating users rotation* is a rotation strategy where Secrets Manager clones the user and then alternates which user's credentials are updated\. This strategy is a good choice if you need high availability for your secret, because one of the alternating users has current credentials to RDS while the other one is being updated\. For more information, see [Rotation strategies](rotating-secrets_strategies.md)\. 
+In this tutorial, you learn how to set up alternating users rotation for a secret that contains database credentials\. *Alternating users rotation* is a rotation strategy where Secrets Manager clones the user and then alternates which user's credentials are updated\. This strategy is a good choice if you need high availability for your secret, because one of the alternating users has current credentials to RDS while the other one is being updated\. For more information, see [Rotation strategy: alternating users](getting-started.md#rotating-secrets-two-users)\. 
 
 To set up alternating users rotation, you need two secrets:
 + One secret with the credentials that you want to rotate\.
@@ -113,7 +113,7 @@ This shows that the secret rotation is successful\. The credentials in the secre
 
 To avoid potential charges, and to remove the EC2 instance that has access to the internet, delete the following resources you created in this tutorial and its prerequisites:
 + Amazon EC2 instance\. For instructions, see [Terminate an instance](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/terminating-instances.html#terminating-instances-console)\.
-+ Secrets Manager secret `SecretsManagerTutorialAppuser`\. See [Delete a secret](manage_delete-secret.md)\.
++ Secrets Manager secret `SecretsManagerTutorialAppuser`\. See [Delete an AWS Secrets Manager secret](manage_delete-secret.md)\.
 + Secrets Manager endpoint\. For instructions, see [Delete a VPC endpoint](https://docs.aws.amazon.com/vpc/latest/privatelink/delete-vpc-endpoint.html)\.
 + Internet gateway\. First [Detach an internet gateway from your VPC](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html#detach-igw), then [Delete an internet gateway](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html#delete-igw)\.
 + AWS CloudFormation stack\. For instructions, see [Delete a stack](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-delete-stack.html)\.

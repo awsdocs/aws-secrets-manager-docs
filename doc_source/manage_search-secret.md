@@ -4,23 +4,23 @@ When you search for secrets without a filter, Secrets Manager matches keywords i
 
 You can apply the following filters to your search:
 
-Name  
+**Name**  
 Matches the beginning of secret names; case\-sensitive\. For example, **Name:** **Data** returns a secret named DatabaseSecret, but not databaseSecret or MyData\. 
 
-Description  
+**Description**  
 Matches the words in secret descriptions, not case\-sensitive\. For example, **Description**: **My Description** matches secrets with the following descriptions:   
 + My Description
 + my description
 + My basic description
 + Description of my secret
 
-Replicated secrets  
+**Replicated secrets**  
 You can filter for primary secrets, replica secrets, or secrets that aren't replicated\.
 
-Tag keys  
+**Tag keys**  
 Matches the beginning of tag keys; case\-sensitive\. For example, **Tag key:** **Prod** returns secrets with the tag Production and Prod1, but not secrets with the tag prod or 1 Prod\.
 
-Tag values  
+**Tag values**  
 Matches the beginning of tag values; case\-sensitive\. For example, **Tag value:** **Prod** returns secrets with the tag Production and Prod1, but not secrets with the tag value prod or 1 Prod\. 
 
 Secrets Manager is a regional service and only secrets within the selected region are returned\.
@@ -35,7 +35,7 @@ To find secrets stored in Secrets Manager, use [https://docs.aws.amazon.com/cli/
 + `primary-region`
 + `all` \(searches all of the above keys\)
 
-The following example searches for secrets with the keyword **conducts** in the description\. 
+The following example searches for secrets with the keyword **conducts** in the description\. There are no quotation marks around the search term\. Regular expressions are not supported\.
 
 ```
 $ aws secretsmanager list-secrets --filters Key=description,Values=conducts

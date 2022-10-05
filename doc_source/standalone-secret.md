@@ -1,4 +1,4 @@
-# Promote a replica secret to a standalone secret<a name="standalone-secret"></a>
+# Promote a replica secret to a standalone secret in AWS Secrets Manager<a name="standalone-secret"></a>
 
 A replica secret is a secret that is replicated from a primary in another AWS Region\. It has the same secret value and metadata as the primary, but it can be encrypted with a different KMS key\. A replica secret can't be updated independently from its primary secret, except for its encryption key\. Promoting a replica secret disconnects the replica secret from the primary secret and makes the replica secret a standalone secret\. Changes to the primary secret won't replicate to the standalone secret\. 
 

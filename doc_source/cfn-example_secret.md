@@ -1,4 +1,4 @@
-# Create a Secrets Manager secret with AWS CloudFormation<a name="cfn-example_secret"></a>
+# Create an AWS Secrets Manager secret with AWS CloudFormation<a name="cfn-example_secret"></a>
 
 This example creates a secret named **CloudFormationCreatedSecret\-*a1b2c3d4e5f6***\. The secret value is the following JSON, with a 32\-character password that is generated when the secret is created\.
 

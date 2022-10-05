@@ -8,28 +8,32 @@ You can use IAM roles and policies to limit access to your secrets to specific A
 
 If you use Secrets Manager automatic rotation for your secrets, you can also use the Secrets Store CSI Driver rotation reconciler feature to ensure you are retrieving the latest secret from Secrets Manager\. For more information, see [Auto rotation of mounted contents and synced Kubernetes Secrets](https://secrets-store-csi-driver.sigs.k8s.io/topics/secret-auto-rotation.html)\.
 
-For a tutorial about how to use the ASCP, see [Tutorial: Create and mount a secret in an Amazon EKS pod](integrating_csi_driver_tutorial.md)\.
+For a tutorial about how to use the ASCP, see [Tutorial: Create and mount an AWS Secrets Manager secret in an Amazon EKS pod](integrating_csi_driver_tutorial.md)\.
 
 To learn how to integrate Parameter Store with Amazon EKS, see [Use Parameter Store parameters in Amazon Elastic Kubernetes Service](https://docs.aws.amazon.com/systems-manager/latest/userguide/integrating_csi_driver.html)\. 
 
 ## Install the ASCP<a name="integrating_csi_driver_install"></a>
 
-The ASCP is available on GitHub in the [secrets\-store\-csi\-provider\-aws](https://github.com/aws/secrets-store-csi-driver-provider-aws) repository\. The repo also contains example YAML files for creating and mounting a secret\. You first install the Kubernetes Secrets Store CSI Driver, and then you install the ASCP\.
+The ASCP is available on GitHub in the [secrets\-store\-csi\-provider\-aws](https://github.com/aws/secrets-store-csi-driver-provider-aws) repository\. The repo also contains example YAML files for creating and mounting a secret\. 
 
 **To install the ASCP**
++ To install the Secrets Store CSI Driver and ASCP by using Helm, use the following commands\. 
 
-1. To install the Secrets Store CSI Driver, run the following commands\. For full installation instructions, see [Installation](https://secrets-store-csi-driver.sigs.k8s.io/getting-started/installation.html) in the Secrets Store CSI Driver Book\.
+  ```
+  helm repo add secrets-store-csi-driver https://kubernetes-sigs.github.io/secrets-store-csi-driver/charts
+  helm install -n kube-system csi-secrets-store secrets-store-csi-driver/secrets-store-csi-driver
+  
+  helm repo add aws-secrets-manager https://aws.github.io/secrets-store-csi-driver-provider-aws
+  helm install -n kube-system secrets-provider-aws aws-secrets-manager/secrets-store-csi-driver-provider-aws
+  ```
 
-   ```
-   helm repo add secrets-store-csi-driver https://kubernetes-sigs.github.io/secrets-store-csi-driver/charts
-   helm install -n kube-system csi-secrets-store secrets-store-csi-driver/secrets-store-csi-driver
-   ```
+  Alternatively, to install by using the YAML file in the deployment directory, use the following commands\.
 
-1. To install the ASCP, use the YAML file in the GitHub repo deployment directory\.
-
-   ```
-   kubectl apply -f https://raw.githubusercontent.com/aws/secrets-store-csi-driver-provider-aws/main/deployment/aws-provider-installer.yaml
-   ```
+  ```
+  helm repo add secrets-store-csi-driver https://kubernetes-sigs.github.io/secrets-store-csi-driver/charts
+  helm install -n kube-system csi-secrets-store secrets-store-csi-driver/secrets-store-csi-driver
+  kubectl apply -f https://raw.githubusercontent.com/aws/secrets-store-csi-driver-provider-aws/main/deployment/aws-provider-installer.yaml
+  ```
 
 ## Step 1: Set up access control<a name="integrating_csi_driver_access"></a>
 
@@ -39,7 +43,7 @@ The ASCP retrieves the pod identity and exchanges it for the IAM role\. ASCP ass
 
 For information about creating policies, see [Attach a permissions policy to an identity](auth-and-access_iam-policies.md)\.
 
-For a tutorial about how to use the ASCP, see [Tutorial: Create and mount a secret in an Amazon EKS pod](integrating_csi_driver_tutorial.md)\.
+For a tutorial about how to use the ASCP, see [Tutorial: Create and mount an AWS Secrets Manager secret in an Amazon EKS pod](integrating_csi_driver_tutorial.md)\.
 
 ## Step 2: Mount secrets in Amazon EKS<a name="integrating_csi_driver_mount"></a>
 
@@ -49,7 +53,7 @@ The `SecretProviderClass` must be in the same namespace as the Amazon EKS pod it
 
 If Amazon EKS does not have internet access, for the provider to access Secrets Manager, you need to set up a [VPC endpoint](vpc-endpoint-overview.md)\.
 
-For a tutorial about how to use the ASCP, see [Tutorial: Create and mount a secret in an Amazon EKS pod](integrating_csi_driver_tutorial.md)\.
+For a tutorial about how to use the ASCP, see [Tutorial: Create and mount an AWS Secrets Manager secret in an Amazon EKS pod](integrating_csi_driver_tutorial.md)\.
 
 ## `SecretProviderClass`<a name="integrating_csi_driver_SecretProviderClass"></a>
 

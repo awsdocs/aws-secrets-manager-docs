@@ -1,4 +1,4 @@
-# Monitor secrets scheduled for deletion<a name="monitoring_cloudwatch_deleted-secrets"></a>
+# Monitor AWS Secrets Manager secrets scheduled for deletion by using Amazon CloudWatch<a name="monitoring_cloudwatch_deleted-secrets"></a>
 
 You can use a combination of AWS CloudTrail, Amazon CloudWatch Logs, and Amazon Simple Notification Service \(Amazon SNS\) to create an alarm that notifies you of any attempts to access a secret pending deletion\. If you receive a notification from an alarm, you might want to cancel deletion of the secret to give yourself more time to determine if you really want to delete it\. Your investigation might result in the secret being restored because you still need the secret\. Alternatively, you might need to update the user with details of the new secret to use\.
 

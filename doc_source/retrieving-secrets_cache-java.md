@@ -6,7 +6,7 @@ The cache policy is Least Recently Used \(LRU\), so when the cache must discard 
 
 To use the component, you must have the following: 
 + A Java 8 or higher development environment\. See [Java SE Downloads](https://www.oracle.com/technetwork/java/javase/downloads/index.html) on the Oracle website\.
-+ The AWS SDK for Java\. See [AWS SDKs](asm_access.md#asm-sdks)\.
++ The AWS SDK 1\.x for Java\. You can use both versions of the AWS SDK for Java in your projects\. For more information, see [Using the SDK for Java 1\.x and 2\.x side\-by\-side](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/migration-side-by-side.html)\.
 
 To download the source code, see [Secrets Manager Java\-based caching client component](https://github.com/aws/aws-secretsmanager-caching-java) on GitHub\.
 

@@ -1,4 +1,4 @@
-# Secret encryption and decryption<a name="security-encryption"></a>
+# Secret encryption and decryption in AWS Secrets Manager<a name="security-encryption"></a>
 
 Secrets Manager uses [envelope encryption](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#enveloping) with AWS KMS [keys](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#master_keys) and [data keys](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#data-keys) to protect each secret value\. Whenever the secret value in a secret changes, Secrets Manager generates a new data key to protect it\. The data key is encrypted under a KMS key and stored in the metadata of the secret\. To decrypt the secret, Secrets Manager first decrypts the encrypted data key using the KMS key in AWS KMS\. 
 
@@ -61,11 +61,9 @@ In the past, Secrets Manager validation calls did not include an encryption cont
 
 ## Permissions for the KMS key<a name="security-encryption-authz"></a>
 
-When Secrets Manager uses a KMS key in cryptographic operations, it acts on behalf of the user who is creating or changing the secret value in the secret\.
-
-To use the KMS key for a secret on your behalf, the user must have the following permissions\. You can specify these required permissions in an IAM policy or key policy\.
-+ kms:GenerateDataKey
-+ kms:Decrypt
+When Secrets Manager uses a KMS key in cryptographic operations, it acts on behalf of the user who is accessing or updating the secret value\.
++ To retrieve a secret, the user must have `kms:Decrypt` permission granted in either an IAM policy or a key policy\.
++ To update the secret, the user must have both `kms:Decrypt` and `kms:GenerateDataKey` permission granted in either an IAM policy or a key policy\.
 
 To allow the KMS key to be used only for requests that originate in Secrets Manager, you can use the [kms:ViaService condition key](https://docs.aws.amazon.com/kms/latest/developerguide/policy-conditions.html#conditions-kms-via-service) with the `secretsmanager.<Region>.amazonaws.com` value\.
 

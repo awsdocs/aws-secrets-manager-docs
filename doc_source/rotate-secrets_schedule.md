@@ -5,8 +5,8 @@ When you turn on automatic rotation, you can use a **cron\(\)** or **rate\(\)** 
 Secrets Manager rotates your secret at any time during a *rotation window*\. For a `rate()` expression, the rotation window automatically starts at midnight\. For a `cron()` expression, the rotation window opens at the time you specify\. By default, the rotation window closes at the end of the day\. You can set a **Window duration** to shorten the rotation window\. The rotation window must not go into the next UTC day, or in other words, the start hour plus the window duration must be less than or equal to 24 hours\.
 
 To turn on rotation, see:
-+  [Automatically rotate an Amazon RDS, Amazon DocumentDB, or Amazon Redshift secret](rotate-secrets_turn-on-for-db.md)
-+ [Automatically rotate a secret](rotate-secrets_turn-on-for-other.md)
++  [Set up automatic rotation for Amazon RDS, Amazon Redshift, or Amazon DocumentDB secrets using the console](rotate-secrets_turn-on-for-db.md)
++ [Set up automatic rotation for AWS Secrets Manager secrets using the console](rotate-secrets_turn-on-for-other.md)
 
 ## Rate expressions<a name="rotate-secrets_schedule-rate"></a>
 
@@ -55,7 +55,7 @@ A cron expression for Secrets Manager must have **0** in the minutes field becau
 | Every day at 10:00 AM\. |  `cron(0 10 * * ? *)`  | 
 |  Every Saturday at 6:00 PM\.  |  `cron(0 18 ? * SAT *)`  | 
 |  The first day of every month at 8:00 AM\.  |  `cron(0 8 1 * ? *)`  | 
-|  Every three months on Sunday at 1:00 AM\.  |  `cron(0 1 * 1/3 SUN *)`  | 
+|  Every three months on the first Sunday at 1:00 AM\.  |  `cron(0 1 ? 1/3 SUN#1 *)`  | 
 |  The last day of every month at 5:00 PM\.  |  `cron(0 17 L * ? *)`  | 
 |  Monday through Friday at 8:00 AM\.  |  `cron(0 8 ? * MON-FRI *)`  | 
 |  First and 15th day of every month at 4:00 PM\.  |  `cron(0 16 1,15 * ? *)`  | 

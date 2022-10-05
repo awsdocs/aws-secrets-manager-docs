@@ -11,4 +11,4 @@ You can use identity\-based policies to:
 + Control who can create new secrets, and who can access secrets that haven't been created yet\.
 + Grant an IAM group access to secrets\.
 
-For more information, see [Permissions policy examples](auth-and-access_examples.md)\.
+For more information, see [Permissions policy examples for AWS Secrets Manager](auth-and-access_examples.md)\.

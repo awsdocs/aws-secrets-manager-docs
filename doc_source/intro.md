@@ -89,7 +89,7 @@ You can also choose to enable rotation on the following services, fully supporte
 + Amazon DocumentDB 
 + Amazon Redshift 
 
-You can also store secrets for almost any other kind of database or service\. However, to automatically rotate the secrets, you need to create and configure a custom Lambda rotation function\. For more information about writing a custom Lambda function for a database or service, see [How rotation works](rotate-secrets_how.md)\. 
+You can also store secrets for almost any other kind of database or service\. However, to automatically rotate the secrets, you need to create and configure a custom Lambda rotation function\. For more information about writing a custom Lambda function for a database or service, see [How rotation works](rotating-secrets.md#rotate-secrets_how)\. 
 
 ### Control access to secrets<a name="features_control-access"></a>
 

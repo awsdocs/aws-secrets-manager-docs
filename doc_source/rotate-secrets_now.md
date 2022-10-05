@@ -1,8 +1,9 @@
-# Rotate a secret immediately<a name="rotate-secrets_now"></a>
+# Rotate an AWS Secrets Manager secret immediately<a name="rotate-secrets_now"></a>
 
-You can only rotate a secret that has rotation configured\. This can be a secret that currently has automatic rotation turned on, or one that previously had rotation turned on\. Turn on automatic rotation for:
-+ [Rotate DB credentials](rotate-secrets_turn-on-for-db.md)
-+ [Rotate a secret](rotate-secrets_turn-on-for-other.md)
+You can only rotate a secret that has rotation configured\. To determine whether a secret has been configured for rotation, in the console, view the secret and scroll down to the **Rotation configuration** section\. If **Rotation status** is **Enabled**, then the secret is configured for rotation\. Or in the AWS CLI, call [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/describe-secret.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/describe-secret.html)\. If the response has a `RotationLambdaARN` and `RotationRules`, then the secret is configured for rotation\. If not, you can set up automatic rotation:
++ [Automatic rotation for database secrets \(console\)](rotate-secrets_turn-on-for-db.md)
++ [Automatic rotation \(console\)](rotate-secrets_turn-on-for-other.md)
++ [Automatic rotation \(AWS CLI\)](rotate-secrets-cli.md)
 
 **To rotate a secret immediately \(console\)**
 
@@ -14,10 +15,9 @@ You can only rotate a secret that has rotation configured\. This can be a secret
 
 1. In the **Rotate secret** dialog box, choose **Rotate**\.
 
-## AWS SDK and AWS CLI<a name="rotate-secrets_now_cli"></a>
+**To rotate a secret immediately \(AWS CLI\)**
++ Call [rotate\-secret](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/rotate-secret.html):
 
-To rotate a secret immediately, see [rotate\-secret](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/rotate-secret.html)\.
-
-## AWS SDK<a name="rotate-secrets_now_sdk"></a>
-
-To rotate a secret immediately, use the [RotateSecret](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_RotateSecret.html) action\. For more information, see [AWS SDKs](asm_access.md#asm-sdks)\.
+  ```
+  aws secretsmanager rotate-secret --secret-id mySecret
+  ```

@@ -1,4 +1,4 @@
-# Delete a secret<a name="manage_delete-secret"></a>
+# Delete an AWS Secrets Manager secret<a name="manage_delete-secret"></a>
 
 Because of the critical nature of secrets, AWS Secrets Manager intentionally makes deleting a secret difficult\. Secrets Manager does not immediately delete secrets\. Instead, Secrets Manager immediately makes the secrets inaccessible and scheduled for deletion after a recovery window of a minimum of seven days\. Until the recovery window ends, you can recover a secret you previously deleted\. There is no charge for secrets that you have marked for deletion\. 
 
@@ -6,7 +6,7 @@ You can't delete a primary secret if it is replicated to other Regions\. First d
 
 You can't directly delete a version of a secret\. Instead, you remove all staging labels from the version using the AWS CLI or AWS SDK\. This marks the version as deprecated, and then Secrets Manager can automatically delete the version in the background\.
 
-If you don't know whether an application still uses a secret, you can create an Amazon CloudWatch alarm to alert you to any attempts to access a secret during the recovery window\. For more information, see [Monitor secrets scheduled for deletion](monitoring_cloudwatch_deleted-secrets.md)\.
+If you don't know whether an application still uses a secret, you can create an Amazon CloudWatch alarm to alert you to any attempts to access a secret during the recovery window\. For more information, see [Monitor AWS Secrets Manager secrets scheduled for deletion by using Amazon CloudWatch](monitoring_cloudwatch_deleted-secrets.md)\.
 
 To delete a secret, you must have `secretsmanager:ListSecrets` and `secretsmanager:DeleteSecret` permissions\.
 

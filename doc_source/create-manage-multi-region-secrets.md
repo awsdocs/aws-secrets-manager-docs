@@ -6,6 +6,8 @@ The ARN for replicated secrets shows the Region the replica is in, for example:
 + Primary secret: `arn:aws::secretsmanager:Region1:123456789012:secret:MySecret-a1b2c3`
 + Replica secret: `arn:aws::secretsmanager:Region2:123456789012:secret:MySecret-a1b2c3`\.
 
+For pricing information for replica secrets, see [AWS Secrets Manager Pricing](https://aws.amazon.com/secrets-manager/pricing/)\.
+
 When you store database credentials for a source database that is replicated to other Regions, the secret contains connection information for the source database\. If you then replicate the secret, the replicas are copies of the source secret and contain the same connection information\. You can add additional key/value pairs to the secret for regional connection information\.
 
 If you turn on rotation for your primary secret, Secrets Manager rotates the secret in the primary Region, and the new secret value propagates to all of the associated replica secrets\. You don't have to manage rotation individually for all of the replica secrets\. 
@@ -14,7 +16,7 @@ You can replicate secrets across all of your enabled AWS Regions\. However, if y
 
 Before you can replicate a secret to another Region, you must enable that Region\. For more information, see [Managing AWS Regions\.](https://docs.aws.amazon.com/general/latest/gr/rande-manage.html#rande-manage-enable)
 
-It is possible to use a secret across multiple Regions without replicating it by calling the Secrets Manager endpoint in the Region where the secret is stored\. For a list of endpoints, see [AWS Secrets Manager endpoints](https://docs.aws.amazon.com/general/latest/gr/asm.html)\. 
+It is possible to use a secret across multiple Regions without replicating it by calling the Secrets Manager endpoint in the Region where the secret is stored\. For a list of endpoints, see [AWS Secrets Manager endpoints](https://docs.aws.amazon.com/general/latest/gr/asm.html)\. To use replication to improve your workload's resilience, see [Disaster Recovery \(DR\) Architecture on AWS, Part I: Strategies for Recovery in the Cloud](http://aws.amazon.com/blogs/architecture/disaster-recovery-dr-architecture-on-aws-part-i-strategies-for-recovery-in-the-cloud/)\.
 
 **To replicate a secret to other Regions \(console\)**
 
@@ -47,7 +49,7 @@ It is possible to use a secret across multiple Regions without replicating it by
 To replicate a secret, use the [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/replicate-secret-to-regions.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/replicate-secret-to-regions.html) action\. The following example replicates a secret to US East \(N\. Virginia\)\. 
 
 ```
-$ aws secretsmanager replicate-secret-to-regions --secret-id production/DBWest --add-replica-regions region us-east-1        
+$ aws secretsmanager replicate-secret-to-regions --secret-id production/DBWest --add-replica-regions Region=us-east-1        
 ```
 
 ## AWS SDK<a name="create-manage-multi-region-secrets_SDK"></a>

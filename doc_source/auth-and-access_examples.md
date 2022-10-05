@@ -1,4 +1,4 @@
-# Permissions policy examples<a name="auth-and-access_examples"></a>
+# Permissions policy examples for AWS Secrets Manager<a name="auth-and-access_examples"></a>
 
 A permissions policy is JSON structured text\. See [JSON policy document structure](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies-introduction)\. 
 
@@ -11,7 +11,7 @@ Permissions policies that you attach to resources and identities are very simila
   + In a policy attached to a secret, `*` means the policy applies to this secret\.
   + In a policy attached to an identity, `*` means the policy applies to all resources, including secrets, in the account\. 
 
-To attach a policy to a secret, see [Attach a permissions policy to a secret](auth-and-access_resource-policies.md)\.
+To attach a policy to a secret, see [Attach a permissions policy to an AWS Secrets Manager secret](auth-and-access_resource-policies.md)\.
 
 To attach a policy to an identity, see [Attach a permissions policy to an identity](auth-and-access_iam-policies.md)\.
 
@@ -26,12 +26,12 @@ To attach a policy to an identity, see [Attach a permissions policy to an identi
 
 ## Example: Permission to retrieve secret values<a name="auth-and-access_examples_read"></a>
 
-To grant permission to retrieve secret values, you can attach policies to secrets or identities\. For help determining which type of policy to use, see [Identity\-based policies and resource\-based policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_identity-vs-resource.html)\. For information about how to attach a policy, see [Attach a permissions policy to a secret](auth-and-access_resource-policies.md) and [Attach a permissions policy to an identity](auth-and-access_iam-policies.md)\.
+To grant permission to retrieve secret values, you can attach policies to secrets or identities\. For help determining which type of policy to use, see [Identity\-based policies and resource\-based policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_identity-vs-resource.html)\. For information about how to attach a policy, see [Attach a permissions policy to an AWS Secrets Manager secret](auth-and-access_resource-policies.md) and [Attach a permissions policy to an identity](auth-and-access_iam-policies.md)\.
 
 The following examples show two different ways to grant access to a secret\. The first example is a resource\-based policy that you can attach to a secret\. This example is useful when you want to grant access to a single secret to multiple users or roles\. The second example is an identity\-based policy that you can attach to a user or role in IAM\. This example is useful when you want to grant access to an IAM group\.
 
 **Example Read one secret \(attach to a secret\)**  
-You can grant access to a secret by attaching the following policy to the secret\. To use this policy, see [Attach a permissions policy to a secret](auth-and-access_resource-policies.md)\.  
+You can grant access to a secret by attaching the following policy to the secret\. To use this policy, see [Attach a permissions policy to an AWS Secrets Manager secret](auth-and-access_resource-policies.md)\.  
 
 ```
 {
@@ -151,7 +151,7 @@ If you need to access Secrets Manager from within a VPC, you can make sure that 
 Make sure that requests to access the secret from other AWS services also come from the VPC, otherwise this policy will deny them access\.
 
 **Example Require requests to come through a VPC endpoint \(attach to secret\)**  
-The following policy allows a user to perform Secrets Manager operations only when the request comes through the VPC endpoint *`vpce-1234a5678b9012c`*\. To use this policy, see [Attach a permissions policy to a secret](auth-and-access_resource-policies.md)\.  
+The following policy allows a user to perform Secrets Manager operations only when the request comes through the VPC endpoint *`vpce-1234a5678b9012c`*\. To use this policy, see [Attach a permissions policy to an AWS Secrets Manager secret](auth-and-access_resource-policies.md)\.  
 
 ```
 {
@@ -175,7 +175,7 @@ The following policy allows a user to perform Secrets Manager operations only wh
 ```
 
 **Example Require requests to come from a VPC \(attach to secret\)**  
-The following policy allows commands to create and manage secrets only when they come from *`vpc-12345678`*\. In addition, the policy allows operations that use access the secret encrypted value only when the requests come from `vpc-2b2b2b2b`\. You might use a policy like this one if you run an application in one VPC, but you use a second, isolated VPC for management functions\. To use this policy, see [Attach a permissions policy to a secret](auth-and-access_resource-policies.md)\.  
+The following policy allows commands to create and manage secrets only when they come from *`vpc-12345678`*\. In addition, the policy allows operations that use access the secret encrypted value only when the requests come from `vpc-2b2b2b2b`\. You might use a policy like this one if you run an application in one VPC, but you use a second, isolated VPC for management functions\. To use this policy, see [Attach a permissions policy to an AWS Secrets Manager secret](auth-and-access_resource-policies.md)\.  
 
 ```
 {
@@ -252,7 +252,7 @@ One strategy is to attach tags to both secrets and IAM identities\. Then you cre
 Using tags to control permissions is helpful in environments that are growing rapidly and helps with situations where policy management becomes cumbersome\. For more information, see [What is ABAC for AWS?](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction_attribute-based-access-control.html) 
 
 **Example Allow access to roles that have the same tags as secrets \(attach to a secret\)**  
-The following policy grants `GetSecretValue` to account *`123456789012`* only if the tag *`AccessProject`* has the same value for the secret and the role\. To use this policy, see [Attach a permissions policy to a secret](auth-and-access_resource-policies.md)\.  
+The following policy grants `GetSecretValue` to account *`123456789012`* only if the tag *`AccessProject`* has the same value for the secret and the role\. To use this policy, see [Attach a permissions policy to an AWS Secrets Manager secret](auth-and-access_resource-policies.md)\.  
 
 ```
 {
