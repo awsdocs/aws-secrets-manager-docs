@@ -9,7 +9,7 @@ To use the Secrets Manager SQL Connection drivers:
 + Your secret must be in the [JSON structure of a database secret](reference_secret_json_structure.md)\. To check the format, in the Secrets Manager console, view your secret and choose **Retrieve secret value**\. Alternatively, in the AWS CLI, call [get\-secret\-value](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/get-secret-value.html)\.
 + If your database is replicated to other Regions, to connect to a replica database in another Region, you specify the regional endpoint and port when you create the connection\. You can store regional connection information in the secret as extra key/value pairs, in SSM Parameter Store parameters, or in your code configuration\. 
 
-To add the driver to your project, in your Maven build file `pom.xml`, add the following dependency for the driver\. For more information, see [Secrets Manager SQL Connection Library](https://mvnrepository.com/artifact/com.amazonaws.secretsmanager/aws-secretsmanager-jdbc) on the Maven Repository website\.
+To add the driver to your project, in your Maven build file `pom.xml`, add the following dependency for the driver\. For more information, see [Secrets Manager SQL Connection Library](https://search.maven.org/artifact/com.amazonaws.secretsmanager/aws-secretsmanager-jdbc) on the Maven Central Repository website\.
 
 ```
 <dependency>
