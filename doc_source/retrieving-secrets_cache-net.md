@@ -4,6 +4,8 @@ When you retrieve a secret, you can use the Secrets Manager \.NET\-based caching
 
 The cache policy is Least Recently Used \(LRU\), so when the cache must discard a secret, it discards the least recently used secret\. By default, the cache refreshes secrets every hour\. You can configure how often the secret is refreshed in the cache, and you can hook into the secret retrieval to add more functionality\.
 
+The cache does not force garbage collection once cache references are freed\. The cache implementation is focused around the cache itself, and is not security hardened or focused\. If you require additional security such as encrypting items in the cache, use the interfaces and abstract methods provided\.
+
 To use the component, you must have the following:
 + \.NET Framework 4\.6\.1 or higher, or \.NET Standard 2\.0 or higher\. See [Download \.NET](https://dotnet.microsoft.com/en-us/download) on the Microsoft \.NET website\.
 + The AWS SDK for \.NET\. See [AWS SDKs](asm_access.md#asm-sdks)\.
@@ -12,19 +14,20 @@ To download the source code, see [Caching client for \.NET](https://github.com/a
 
 To use the cache, first instantiate it, then retrieve your secret by using `GetSecretString` or `GetSecretBinary`\. On successive retrievals, the cache returns the cached copy of the secret\.
 
-To install the package from NuGet, using the dotnet CLI, enter the below command in the directory containing your project:
+**To get the caching package**
++ Do one of the following:
+  + Run the following \.NET CLI command in your project directory\.
 
-```
-dotnet add package AWSSDK.SecretsManager.Caching --version 1.0.4
-```
+    ```
+    dotnet add package AWSSDK.SecretsManager.Caching --version 1.0.4
+    ```
+  + Add the following package reference to your `.csproj` file\.
 
-Or manually copy & add the below package reference to your `.csproj` file:
-
-```
-<ItemGroup>
-    <PackageReference Include="AWSSDK.SecretsManager.Caching" Version="1.0.4" />
-</ItemGroup>
-```
+    ```
+    <ItemGroup>
+        <PackageReference Include="AWSSDK.SecretsManager.Caching" Version="1.0.4" />
+    </ItemGroup>
+    ```
 
 **Topics**
 + [SecretsManagerCache](retrieving-secrets_cache-net-SecretsManagerCache.md)
@@ -35,31 +38,29 @@ Or manually copy & add the below package reference to your `.csproj` file:
 The following code example shows a method that retrieves a secret named *MySecret*\.  
 
 ```
-using Amazon.SecretsManager.Extensions.Caching;
+using Amazon.SecretsManager.Extensions.Caching.SecretsManagerCache;
 
-namespace LambdaExample
+namespace LambdaExample 
 {
-    public class CachingExample
+    public class CachingExample 
     {
-        private const string MySecretName = "MySecret";
+        private const string MySecretName ="MySecret";
 
         private SecretsManagerCache cache = new SecretsManagerCache();
 
-        public async Task<Response> FunctionHandlerAsync(string input, ILambdaContext context)
+        public async Task<Response>  FunctionHandlerAsync(string input, ILambdaContext context)
         {
-            string mySecret = await cache.GetSecretString(MySecretName);
-
+            string MySecret = await cache.GetSecretString(MySecretName);
+            
             // Use the secret, return success
-
+            
         }
     }
 }
 ```
 
-**Example: Configuring the cache refresh duration / time to live (TTL)**  
-The following code example shows a method that retrieve a secret named *MySecret*, with a configured cache refresh duration of 24 hours after which the secret is refreshed.
-
-This is done by instantiating the `SecretCacheConfiguration` class with the `CacheItemTTL` property set to `86400000` ms (24 hours) and then passing the object into the constructor of the `SecretsManagerCache` class.
+**Example: Configure the time to live \(TTL\) cache refresh duration**  
+The following code example shows a method that retrieves a secret named *MySecret* and sets the TTL cache refresh duration to 24 hours\.  
 
 ```
 using Amazon.SecretsManager.Extensions.Caching;
@@ -74,15 +75,12 @@ namespace LambdaExample
         {
             CacheItemTTL = 86400000
         };
-
         private SecretsManagerCache cache = new SecretsManagerCache(cacheConfiguration);
-
         public async Task<Response> FunctionHandlerAsync(string input, ILambdaContext context)
         {
             string mySecret = await cache.GetSecretString(MySecretName);
 
             // Use the secret, return success
-
         }
     }
 }

@@ -14,7 +14,7 @@ We strongly recommend that you never put confidential or sensitive information, 
 
 ## Encryption at rest<a name="encryption-at-rest"></a>
 
-Secrets Manager uses encryption via AWS Key Management Service \(AWS KMS\) to protect the confidentiality of data at rest\. AWS KMS provides a key storage and encryption service used by many AWS services\. Secrets Manager associates every secret with a KMS key\. The associated KMS key can either be the Secrets Manager AWS managed key for the account, or you can create your own customer managed key in AWS KMS\. For more information, see [Secret encryption and decryption in AWS Secrets Manager](security-encryption.md)\. 
+Secrets Manager uses encryption via AWS Key Management Service \(AWS KMS\) to protect the confidentiality of data at rest\. AWS KMS provides a key storage and encryption service used by many AWS services\. Every secret in Secrets Manager is encrypted with a unique data key\. Each data key is protected by a KMS key\. You can choose to use default encryption with the Secrets Manager AWS managed key for the account, or you can create your own customer managed key in AWS KMS\. Using a customer managed key gives you more granular authorization controls over your KMS key activities\. For more information, see [Secret encryption and decryption in AWS Secrets Manager](security-encryption.md)\. 
 
 ## Encryption in transit<a name="encryption-in-transit"></a>
 

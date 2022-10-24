@@ -51,7 +51,7 @@ See [Create and manage secrets with AWS Secrets Manager](managing-secrets.md)\.
 
 *Rotation* is the process of periodically updating a secret to make it more difficult for an attacker to access the credentials\. In Secrets Manager, you can set up automatic rotation for your secrets\. When Secrets Manager rotates a secret, it updates the credentials in both the secret and the database or service\. See [Rotate AWS Secrets Manager secrets](rotating-secrets.md)\.
 
-### Rotation strategy<a name="rotation-stragegy"></a>
+### Rotation strategy<a name="rotation-strategy"></a>
 
 **Topics**
 + [Single user](#rotating-secrets-one-user-one-password)

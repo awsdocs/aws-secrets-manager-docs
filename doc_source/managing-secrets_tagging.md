@@ -4,7 +4,7 @@ Secrets Manager defines a *tag* as a label consisting of a key that you define a
 
 You can grant or deny access to a secret by checking the tags attached to the secret\. For more information, see [Example: Control access to secrets using tags](auth-and-access_examples.md#tag-secrets-abac)\.
 
-You can find secrets by tags in the console, AWS CLI, and SDKs\. AWS also provides the [Resource Groups](https://docs.aws.amazon.com/ARG/latest/userguide/resource-groups.html) tool to create a custom console that consolidates and organizes your resources based on their tags\. To find secrets with a specific tag, see [Find secrets in AWS Secrets Manager](manage_search-secret.md)\.
+You can find secrets by tags in the console, AWS CLI, and SDKs\. AWS also provides the [Resource Groups](https://docs.aws.amazon.com/ARG/latest/userguide/resource-groups.html) tool to create a custom console that consolidates and organizes your resources based on their tags\. To find secrets with a specific tag, see [Find secrets in AWS Secrets Manager](manage_search-secret.md)\. Secrets Manager doesn't support tag\-based cost allocation\.
 
 Tags are case sensitive\. Never store sensitive information for a secret in a tag\. You can tag your secrets when you create them or when you edit them\.
 

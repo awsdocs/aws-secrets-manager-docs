@@ -13,6 +13,8 @@ For secrets you manage, you can modify the description, resource\-based policy, 
 1. From the list of secrets, choose your secret\.
 
 1. On the secret details page, do any of the following:
+
+   **Note** that you can't change the name or ARN of a secret\. 
    + To update the description, in the **Secrets details** section, choose **Actions**, and then choose **Edit description**\.
    + To update the encryption key, in the **Secrets details** section, choose **Actions**, and then choose **Edit encryption key**\. See [Secret encryption and decryption in AWS Secrets Manager](security-encryption.md)\.
    + To update tags, in the **Tags** section, choose **Edit**\. See [Tag AWS Secrets Manager secrets](managing-secrets_tagging.md)\.

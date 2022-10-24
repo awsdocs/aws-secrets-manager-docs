@@ -23,5 +23,5 @@ You can also retrieve secrets within the following:
 + For Amazon EKS, you can use [AWS Secrets and Configuration Provider \(ASCP\)](integrating_csi_driver.md) to mount secrets as files in Amazon EKS\.
 + For GitHub, you can use the [Secrets Manager GitHub action](retrieving-secrets_github.md) to add secrets as environment variables in your GitHub jobs\.
 + For AWS IoT Greengrass, you can [reference secrets](integrating-greengrass.md) in a Greengrass group\.
-+ For AWS Lambda, you can [reference secrets](integrating-lambda.md) in a Lambda function\.
++ For AWS Lambda, you can [reference secrets](retrieving-secrets_lambda.md) in a Lambda function\.
 + For Parameter Store, you can [reference secrets](integrating_parameterstore.md) in a parameter\.

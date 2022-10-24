@@ -1,5 +1,0 @@
-# Use AWS Secrets Manager secrets in AWS Lambda<a name="integrating-lambda"></a>
-
-Lambda is a compute service that lets you run code without provisioning or managing servers\. Lambda runs your code on a high\-availability compute infrastructure and performs all of the administration of the compute resources, including server and operating system maintenance, capacity provisioning and automatic scaling, code monitoring and logging\.
-
-If you store database credentials in Secrets Manager secrets, you can send them to Lambda functions so that the functions can use the secrets to connect and query the databases\. For more information, see [provide database credentials to Lambda functions by using AWS Secrets Manager](https://aws.amazon.com/blogs/security/how-to-securely-provide-database-credentials-to-lambda-functions-by-using-aws-secrets-manager/)\.

@@ -71,7 +71,7 @@ If the secret is encrypted with a KMS key other than the AWS managed key `aws/se
 
 ## Policy statement for alternating users strategy<a name="rotating-secrets-required-permissions-function-alternating-example"></a>
 
-For information about the *alternating users rotation strategy*, see [Rotation strategy](getting-started.md#rotation-stragegy)\.
+For information about the *alternating users rotation strategy*, see [Rotation strategy](getting-started.md#rotation-strategy)\.
 
 The following example policy allows the function to:
 + Run Secrets Manager operations for *SecretARN*\.

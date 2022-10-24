@@ -5,7 +5,7 @@ Secrets Manager provides rotation function templates for several types of creden
 + [Other types of credentials \(console instructions\)](rotate-secrets_turn-on-for-other.md)
 + [Other types of credentials \(AWS CLI instructions\)](rotate-secrets-cli.md)
 
-## Rotation templates<a name="w445aac19c19b5b7"></a>
+## Rotation templates<a name="w458aac19c19b5b7"></a>
 
 **Contents**
 + [Amazon RDS databases](#RDS_rotation_templates)
@@ -30,6 +30,18 @@ Secrets Manager provides rotation function templates for several types of creden
 The templates support Python 3\.9\. 
 
 ### Amazon RDS databases<a name="RDS_rotation_templates"></a>
+
+**Topics**
++ [Amazon RDS MariaDB single user](#sar-template-mariadb-singleuser)
++ [Amazon RDS MariaDB alternating users](#sar-template-mariadb-multiuser)
++ [Amazon RDS MySQL single user](#sar-template-mysql-singleuser)
++ [Amazon RDS MySQL alternating users](#sar-template-mysql-multiuser)
++ [Amazon RDS Oracle single user](#sar-template-oracle-singleuser)
++ [Amazon RDS Oracle alternating users](#sar-template-oracle-multiuser)
++ [Amazon RDS PostgreSQL single user](#sar-template-postgre-singleuser)
++ [Amazon RDS PostgreSQL alternating users](#sar-template-postgre-multiuser)
++ [Amazon RDS Microsoft SQLServer single user](#sar-template-sqlserver-singleuser)
++ [Amazon RDS Microsoft SQLServer alternating users](#sar-template-sqlserver-multiuser)
 
 #### Amazon RDS MariaDB single user<a name="sar-template-mariadb-singleuser"></a>
 + **Template name:** SecretsManagerRDSMariaDBRotationSingleUser

@@ -1,0 +1,3 @@
+# How Amazon QuickSight uses AWS Secrets Manager<a name="integrating_how-services-use-secrets_QS"></a>
+
+Amazon QuickSight is a cloud\-scale business intelligence \(BI\) service you can use for analytics, data visualization, and reporting\. You can use a variety of data sources in Amazon QuickSight\. If you store database credentials in Secrets Manager secrets, Amazon QuickSight can use those secrets to connect to the databases\. For more information, see [Using AWS Secrets Manager secrets in place of database credentials in Amazon QuickSight](https://docs.aws.amazon.com/quicksight/latest/user/secrets-manager-integration.html)\.

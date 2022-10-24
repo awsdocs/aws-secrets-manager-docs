@@ -31,6 +31,7 @@ Many AWS services use Secrets Manager to store secrets\. In some services, you c
 + [Amazon Managed Workflows for Apache Airflow](integrating_how-services-use-secrets_mwaa.md)
 + [AWS Migration Hub](integrating_how-services-use-secrets_migration-hub.md)
 + [AWS OpsWorks for Chef Automate](integrating_how-services-use-secrets_opsworks-cm.md)
++ [Amazon QuickSight](integrating_how-services-use-secrets_QS.md)
 + [Amazon RDS](integrating_how-services-use-secrets_RDS.md)
 + [Amazon Redshift](integrating_how-services-use-secrets_RS.md)
 + [Amazon Redshift query editor v2](integrating_how-services-use-secrets_sqlworkbench.md)

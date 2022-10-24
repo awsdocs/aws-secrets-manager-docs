@@ -4,6 +4,8 @@ When you retrieve a secret, you can use the Secrets Manager Python\-based cachin
 
 The cache policy is Least Recently Used \(LRU\), so when the cache must discard a secret, it discards the least recently used secret\. By default, the cache refreshes secrets every hour\. You can configure how often the secret is refreshed in the cache, and you can hook into the secret retrieval to add more functionality\.
 
+The cache does not force garbage collection once cache references are freed\. The cache implementation is focused around the cache itself, and is not security hardened or focused\. If you require additional security such as encrypting items in the cache, use the interfaces and abstract methods provided\.
+
 To use the component, you must have the following: 
 + Python 3\.6 or later\.
 + botocore 1\.12 or higher\. See [AWS SDK for Python](https://aws.amazon.com/sdk-for-python/) and [Botocore](https://botocore.amazonaws.com/v1/documentation/api/latest/index.html)\. 

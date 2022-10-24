@@ -4,6 +4,8 @@ When you retrieve a secret, you can use the Secrets Manager Java\-based caching 
 
 The cache policy is Least Recently Used \(LRU\), so when the cache must discard a secret, it discards the least recently used secret\. By default, the cache refreshes secrets every hour\. You can configure how often the secret is refreshed in the cache, and you can hook into the secret retrieval to add more functionality\.
 
+The cache does not force garbage collection once cache references are freed\. The cache implementation is focused around the cache itself, and is not security hardened or focused\. If you require additional security such as encrypting items in the cache, use the interfaces and abstract methods provided\.
+
 To use the component, you must have the following: 
 + A Java 8 or higher development environment\. See [Java SE Downloads](https://www.oracle.com/technetwork/java/javase/downloads/index.html) on the Oracle website\.
 + The AWS SDK 1\.x for Java\. You can use both versions of the AWS SDK for Java in your projects\. For more information, see [Using the SDK for Java 1\.x and 2\.x side\-by\-side](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/migration-side-by-side.html)\.
