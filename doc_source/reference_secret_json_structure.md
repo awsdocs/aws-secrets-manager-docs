@@ -1,8 +1,10 @@
-# JSON structure of AWS Secrets Manager database credential secrets<a name="reference_secret_json_structure"></a>
+# JSON structure of AWS Secrets Manager secrets<a name="reference_secret_json_structure"></a>
 
-If you want to turn on automatic rotation in Secrets Manager for a database credential secret, the secret must be in the correct JSON structure\. During rotation, Secrets Manager uses the information in the secret to connect to the database and update the credentials there\. When you use the AWS CLI or one of the SDKs to store a secret, you must provide the secret in one of the following structures\. When you use the console to store a database secret, Secrets Manager automatically creates it in the correct JSON structure\.
+If you want to turn on automatic rotation for a Secrets Manager secret, it must be in the correct JSON structure\. During rotation, Secrets Manager uses the information in the secret to connect to the credential source and update the credentials there\. 
 
-You can add more key/value pairs to a database secret, for example to contain connection information for replica databases in other Regions\.
+Note that when you use the console to store a database secret, Secrets Manager automatically creates it in the correct JSON structure\.
+
+You can add more key/value pairs to a secret, for example in a database secret, to contain connection information for replica databases in other Regions\.
 
 **Topics**
 + [Amazon RDS MariaDB secret structure](#reference_secret_json_structure_rds-maria)
@@ -12,6 +14,7 @@ You can add more key/value pairs to a database secret, for example to contain co
 + [Amazon RDS Microsoft SQLServer secret structure](#reference_secret_json_structure_RDS_sqlserver)
 + [Amazon DocumentDB secret structure](#reference_secret_json_structure_docdb)
 + [Amazon Redshift secret structure](#reference_secret_json_structure_RS)
++ [Amazon ElastiCache secret structure](#reference_secret_json_structure_ELC)
 
 ## Amazon RDS MariaDB secret structure<a name="reference_secret_json_structure_rds-maria"></a>
 
@@ -145,3 +148,15 @@ To use the [Rotation strategy: alternating users](getting-started.md#rotating-se
 ```
     "masterarn": "<the ARN of the elevated secret>"
 ```
+
+## Amazon ElastiCache secret structure<a name="reference_secret_json_structure_ELC"></a>
+
+```
+{
+  "password": "<password>",
+  "username": "<username>" 
+  "user_arn": "ARN of the Amazon EC2 user"
+}
+```
+
+For more information, see [Automatically rotating passwords for users](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/User-Secrets-Manager.html) in the *Amazon ElastiCache User Guide*\.

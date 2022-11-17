@@ -49,7 +49,7 @@ Rotation functions for Amazon RDS \(except Oracle\) and Amazon DocumentDB automa
 
    1. Under **Rotation schedule**, enter your schedule in UTC time zone in either the **Schedule expression builder** or as a **Schedule expression**\. Secrets Manager stores your schedule as a `rate()` or `cron()` expression\. The rotation window automatically starts at midnight unless you specify a **Start time**\. For more information, see [Schedule expressions](rotate-secrets_schedule.md)\.
 
-   1. \(Optional\) For **Window duration**, choose the length of the window during which you want Secrets Manager to rotate your secret, for example **3h** for a three hour window\. The window must not go into the next UTC day\. The rotation window automatically ends at the end of the day if you don't specify **Window duration**\. 
+   1. \(Optional\) For **Window duration**, choose the length of the window during which you want Secrets Manager to rotate your secret, for example **3h** for a three hour window\. The window must not extend into the next rotation window\. If you don't specify **Window duration**, for a rotation schedule in hours, the window automatically closes after one hour\. For a rotation schedule in days, the window automatically closes at the end of the day\. 
 
    1. \(Optional\) Choose **Rotate immediately when the secret is stored** to rotate your secret when you save your changes\. If you clear the checkbox, then the first rotation will begin on the schedule you set\.
 
@@ -87,7 +87,7 @@ In the resource policy for your rotation function, we recommend that you include
 To be able to rotate a secret, the Lambda rotation function must be able to access both the secret and the database or service\.
 
 **To access a secret**  
-Your Lambda rotation function must be able to access a Secrets Manager endpoint\. If your Lambda function can access the internet, then you can use a public endpoint\. To find an endpoint, see [AWS Secrets Manager endpoints and quotas](https://docs.aws.amazon.com/general/latest/gr/asm.html)\.  
+Your Lambda rotation function must be able to access a Secrets Manager endpoint\. If your Lambda function can access the internet, then you can use a public endpoint\. To find an endpoint, see [Secrets Manager endpoints ](asm_access.md#endpoints)\.  
 If your Lambda function runs in a VPC that doesn't have internet access, we recommend you configure Secrets Manager service private endpoints within your VPC\. Your VPC can then intercept requests addressed to the public regional endpoint and redirect them to the private endpoint\. For more information, see [VPC endpoint](vpc-endpoint-overview.md)\.  
 Alternatively, you can enable your Lambda function to access a Secrets Manager public endpoint by adding a [NAT gateway](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html) or an [internet gateway](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html) to your VPC, which allows traffic from your VPC to reach the public endpoint\. This exposes your VPC to more risk because an IP address for the gateway can be attacked from the public Internet\.
 

@@ -6,6 +6,8 @@ A large part of this tutorial is setting up a realistic environment\. To show yo
 
 As part of the prerequisites for the tutorial, you also create a secret that contains admin credentials for the database\. The secret doesn't initially have rotation turned on\. In this tutorial, you'll learn how to turn on automatic rotation\.
 
+Secrets Manager rotation uses an AWS Lambda function to update the secret and the database\. For information about the costs of using a Lambda function, see [Pricing](intro.md#asm_pricing)\.
+
 **Contents**
 + [Permissions](#tutorials_rotation-single_permissions)
 + [Prerequisites](#tutorials_rotation-single_step-setup)

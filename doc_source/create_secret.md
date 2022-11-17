@@ -1,6 +1,6 @@
 # Create an AWS Secrets Manager secret<a name="create_secret"></a>
 
-To store API keys, access tokens, credentials that aren't for databases, and other secrets in Secrets Manager, follow these steps\.
+To store API keys, access tokens, credentials that aren't for databases, and other secrets in Secrets Manager, follow these steps\. For an Amazon ElastiCache secret, if you want to turn on rotation, you must store the secret in the [expected JSON structure](reference_secret_json_structure.md#reference_secret_json_structure_ELC)\.
 
 To create a secret, you need the permissions granted by the **SecretsManagerReadWrite** [AWS managed policy](reference_available-policies.md)\.
 
@@ -18,7 +18,7 @@ To create a secret, you need the permissions granted by the **SecretsManagerRead
 
    1. For **Encryption key**, choose the AWS KMS key that Secrets Manager uses to encrypt the secret value:
       + For most cases, choose **aws/secretsmanager** to use the AWS managed key for Secrets Manager\. There is no cost for using this key\.
-      + If you need to access the secret from another AWS account, or if you want to use your own KMS key so that you can rotate it or apply a key policy to it, choose a customer managed key from the list or choose **Add new key** to create one\. You will be charged for KMS keys that you create\. 
+      + If you need to access the secret from another AWS account, or if you want to use your own KMS key so that you can rotate it or apply a key policy to it, choose a customer managed key from the list or choose **Add new key** to create one\. For information about the costs of using a customer managed key, see [Pricing](intro.md#asm_pricing)\.
 
         You must have the following permissions to the key: `kms:Encrypt`, `kms:Decrypt`, and `kms:GenerateDataKey`\. For more information about cross\-account access, see [Permissions to AWS Secrets Manager secrets for users in a different account](auth-and-access_examples_cross.md)\. 
 

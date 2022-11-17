@@ -13,6 +13,7 @@ Many AWS services use Secrets Manager to store secrets\. In some services, you c
 + [AWS Direct Connect](integrating_how-services-use-secrets_directconnect.md)
 + [AWS Directory Service](integrating_how-services-use-secrets_Dir.md)
 + [Amazon DocumentDB](integrating_how-services-use-secrets_DocDBlong.md)
++ [Amazon ElastiCache](integrating_ELC.md)
 + [AWS Elemental Live](integrating_ELVlong.md)
 + [AWS Elemental MediaConnect](integrating_how-services-use-secrets_EMXlong.md)
 + [AWS Elemental MediaConvert](integrating_how-services-use-secrets_EMClong.md)

@@ -119,6 +119,8 @@ When you use Secrets Manager, you pay only for what you use, and no minimum or s
 
 You can use the AWS managed key \(`aws/secretsmanager`\) that Secrets Manager creates to encrypt your secrets for free\. If you create your own KMS keys to encrypt your secrets, AWS charges you at the current AWS KMS rate\. For more information, see [AWS Key Management Service pricing](https://aws.amazon.com/kms/pricing)\.
 
+When you turn on automatic rotation, Secrets Manager uses an AWS Lambda function to rotate the secret, and you are charged for the rotation function at the current Lambda rate\. For more information, see [AWS Lambda Pricing](http://aws.amazon.com/lambda/pricing/)\. 
+
 If you enable AWS CloudTrail on your account, you can obtain logs of the API calls that Secrets Manager sends out\. Secrets Manager logs all events as management events\. AWS CloudTrail stores the first copy of all management events for free\. However, you can incur charges for Amazon S3 for log storage and for Amazon SNS if you enable notification\. Also, if you set up additional trails, the additional copies of management events can incur costs\. For more information, see [AWS CloudTrail pricing](https://aws.amazon.com/cloudtrail/pricing)\.
 
 ## Support and feedback for AWS Secrets Manager<a name="support-and-feedback"></a>

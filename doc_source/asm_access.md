@@ -5,6 +5,7 @@
 + [Command line tools](#asm-cli)
 + [AWS SDKs](#asm-sdks)
 + [HTTPS Query API](#asm-sdks_query-api)
++ [Secrets Manager endpoints](#endpoints)
 
 ## Secrets Manager console<a name="asm-console"></a>
 
@@ -41,3 +42,13 @@ For SDK documentation, see:
 The HTTPS Query API gives you [programmatic access](https://docs.aws.amazon.com/secretsmanager/latest/apireference/Welcome.html) to Secrets Manager and AWS\. The HTTPS Query API allows you to issue HTTPS requests directly to the service\. 
 
 Although you can make direct calls to the Secrets Manager HTTPS Query API, we recommend that you use one of the SDKs instead\. The SDK performs many useful tasks you otherwise must perform manually\. For example, the SDKs automatically sign your requests and convert responses into a structure syntactically appropriate to your language\.
+
+To make HTTPS calls to Secrets Manager, you connect to a Secrets Manager endpoint\.
+
+## Secrets Manager endpoints<a name="endpoints"></a>
+
+To connect programmatically to Secrets Manager, you use an *endpoint*, the URL of the entry point for the service\. The AWS SDKs and the AWS CLI automatically use the default endpoint for the service in an AWS Region\. But you can specify an alternate endpoint for your API requests\. 
+
+Secrets Manager offers endpoints that support [Federal Information Processing Standard \(FIPS\) 140\-2](http://aws.amazon.com/compliance/fips/) in some Regions\.
+
+[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/secretsmanager/latest/userguide/asm_access.html)

@@ -4,7 +4,6 @@ A *secret* can be a password, a set of credentials such as a user name and passw
 
 **Topics**
 + [Create an AWS Secrets Manager database secret](create_database_secret.md)
-+ [JSON structure of AWS Secrets Manager database credential secrets](reference_secret_json_structure.md)
 + [Create an AWS Secrets Manager secret](create_secret.md)
 + [Modify an AWS Secrets Manager secret](manage_update-secret.md)
 + [Find secrets in AWS Secrets Manager](manage_search-secret.md)

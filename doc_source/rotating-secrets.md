@@ -2,6 +2,8 @@
 
 *Rotation* is the process of periodically updating a secret\. When you rotate a secret, you update the credentials in both the secret and the database or service\. In Secrets Manager, you can set up automatic rotation for your secrets\. 
 
+Secrets Manager rotation uses an AWS Lambda function to update the secret and the database\. For information about the costs of using a Lambda function, see [Pricing](intro.md#asm_pricing)\.
+
 **Topics**
 + [How rotation works](#rotate-secrets_how)
 + [Automatic rotation for database secrets \(console\)](rotate-secrets_turn-on-for-db.md)
@@ -9,7 +11,6 @@
 + [Automatic rotation \(AWS CLI\)](rotate-secrets-cli.md)
 + [Rotate a secret immediately](rotate-secrets_now.md)
 + [Troubleshoot rotation](troubleshoot_rotation.md)
-+ [Rotation reference](rotate-reference.md)
 
 ## How rotation works<a name="rotate-secrets_how"></a>
 

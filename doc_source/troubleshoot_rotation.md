@@ -22,7 +22,7 @@ Secrets Manager uses a Lambda function to rotate secrets\. For more information,
 
 If there is no activity after "Found credentials in environment variables", and the task duration is long, for example the default Lambda timeout of 30000ms, then the Lambda function may be timing out while trying to reach the Secrets Manager endpoint\.
 
-Your Lambda rotation function must be able to access a Secrets Manager endpoint\. If your Lambda function can access the internet, then you can use a public endpoint\. To find an endpoint, see [AWS Secrets Manager endpoints and quotas](https://docs.aws.amazon.com/general/latest/gr/asm.html)\.
+Your Lambda rotation function must be able to access a Secrets Manager endpoint\. If your Lambda function can access the internet, then you can use a public endpoint\. To find an endpoint, see [Secrets Manager endpoints ](asm_access.md#endpoints)\.
 
 If your Lambda function runs in a VPC that doesn't have internet access, we recommend you configure Secrets Manager service private endpoints within your VPC\. Your VPC can then intercept requests addressed to the public regional endpoint and redirect them to the private endpoint\. For more information, see [VPC endpoint](vpc-endpoint-overview.md)\.
 
@@ -46,7 +46,7 @@ For more information, see [Creating a VPC endpoint policy for Secrets Manager](v
 
 ## Error: "Key is missing from secret JSON"<a name="tshoot-lambda-mismatched-secretvalue"></a>
 
-A Lambda rotation function requires the secret value to be in a specific JSON structure\. If you see this error, then the JSON might be missing a key that the rotation function tried to access\. For information about the JSON structure for each type of secret, see [JSON structure of AWS Secrets Manager database credential secrets ](reference_secret_json_structure.md)\.
+A Lambda rotation function requires the secret value to be in a specific JSON structure\. If you see this error, then the JSON might be missing a key that the rotation function tried to access\. For information about the JSON structure for each type of secret, see [JSON structure of AWS Secrets Manager secrets ](reference_secret_json_structure.md)\.
 
 ## Error: "setSecret: Unable to log into database"<a name="troubleshoot_rotation_setSecret"></a>
 

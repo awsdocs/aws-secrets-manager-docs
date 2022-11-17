@@ -38,13 +38,13 @@ If you choose the *alternating users strategy*, you must [Create a database secr
 
 To rotate a secret, you need a rotation function\. A rotation function is a Lambda function that Secrets Manager calls to rotate your secret\.
 
-For a function that can rotate an Amazon RDS, Amazon Redshift, or Amazon DocumentDB secret, you can copy the code from the [appropriate template supplied by Secrets Manager](reference_available-rotation-templates.md)\.
+For a function that can rotate an Amazon RDS, Amazon Redshift, Amazon DocumentDB, or Amazon ElastiCache secret, you can copy the code from the appropriate [template supplied by Secrets Manager](reference_available-rotation-templates.md)\.
 
 For all other types of secrets, use the [generic rotation template](reference_available-rotation-templates.md#OTHER_rotation_templates) as a starting point to write your own rotation function\. 
 
 Save your rotation function in a ZIP file *my\-function\.zip* along with any required dependencies\.
 
-As you write your function, be cautious about including debugging or logging statements\. These statements can cause information in your function to be written to Amazon CloudWatch, so you need to make sure the log doesn't include any sensitive data from the include sensitive information collected during development\.
+As you write your function, be cautious about including debugging or logging statements\. These statements can cause information in your function to be written to Amazon CloudWatch, so you need to make sure the log doesn't include any sensitive information collected during development\.
 
 For examples of log statements, see the [AWS Secrets Manager rotation function templates](reference_available-rotation-templates.md) source code\.
 
@@ -65,18 +65,18 @@ If your function doesn't already have it, copy the code from the [SecretsManager
 There are four steps to rotating a secret, which correspond to the following four methods of a Lambda rotation function\. 
 
 **Topics**
-+ [`create_secret`](#w458aac19c13c19c27)
-+ [`set_secret`](#w458aac19c13c19c29)
-+ [`test_secret`](#w458aac19c13c19c31)
-+ [`finish_secret`](#w458aac19c13c19c33)
++ [`create_secret`](#w137aac19c15c19c27)
++ [`set_secret`](#w137aac19c15c19c29)
++ [`test_secret`](#w137aac19c15c19c31)
++ [`finish_secret`](#w137aac19c15c19c33)
 
-### `create_secret`<a name="w458aac19c13c19c27"></a>
+### `create_secret`<a name="w137aac19c15c19c27"></a>
 
 In `create_secret`, you first check if a secret exists by calling [https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html#SecretsManager.Client.get_secret_value](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html#SecretsManager.Client.get_secret_value) with the passed\-in `ClientRequestToken`\. If there's no secret, you create a new secret with [https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html#SecretsManager.Client.create_secret](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html#SecretsManager.Client.create_secret) and the token as the `VersionId`\. Then you can generate a new secret value with [https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html#SecretsManager.Client.get_random_password](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html#SecretsManager.Client.get_random_password)\. You must ensure the new secret value only includes characters that are valid for the database or service\. Exclude characters by using the `ExcludeCharacters` parameter\. Call [https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html#SecretsManager.Client.put_secret_value](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html#SecretsManager.Client.put_secret_value) to store it with the staging label `AWSPENDING`\. Storing the new secret value in `AWSPENDING` helps ensure idempotency\. If rotation fails for any reason, you can refer to that secret value in subsequent calls\. See [How do I make my Lambda function idempotent](https://aws.amazon.com/premiumsupport/knowledge-center/lambda-function-idempotent/)\.
 
 As you test your function, use the AWS CLI to see version stages: call [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/describe-secret.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/describe-secret.html) and look at `VersionIdsToStages`\.
 
-### `set_secret`<a name="w458aac19c13c19c29"></a>
+### `set_secret`<a name="w137aac19c15c19c29"></a>
 
 In `set_secret`, you change the credential in the database or service to match the new secret value in the `AWSPENDING` version of the secret\. 
 
@@ -88,11 +88,11 @@ The rotation function is a privileged deputy that has the authorization to acces
 
   Also check that the destination service resource is the same\. For a database, check that the `AWSCURRENT` and `AWSPENDING` host names are the same\.
 
-### `test_secret`<a name="w458aac19c13c19c31"></a>
+### `test_secret`<a name="w137aac19c15c19c31"></a>
 
 In `test_secret`, you test the `AWSPENDING` version of the secret by using it to access the database or service\.
 
-### `finish_secret`<a name="w458aac19c13c19c33"></a>
+### `finish_secret`<a name="w137aac19c15c19c33"></a>
 
 In `finish_secret`, you use [https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html#SecretsManager.Client.update_secret_version_stage](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html#SecretsManager.Client.update_secret_version_stage) to move the staging label `AWSCURRENT` from the previous secret version to the new secret version\. Secrets Manager automatically adds the `AWSPREVIOUS` staging label to the previous version, so that you retain the last known good version of the secret\. 
 
@@ -142,7 +142,7 @@ A [Lambda execution role](https://docs.aws.amazon.com/lambda/latest/dg/lambda-in
 To be able to rotate a secret, the Lambda rotation function must be able to access both the secret and the database or service\.
 
 **To access a secret**  
-Your Lambda rotation function must be able to access a Secrets Manager endpoint\. If your Lambda function can access the internet, then you can use a public endpoint\. To find an endpoint, see [AWS Secrets Manager endpoints and quotas](https://docs.aws.amazon.com/general/latest/gr/asm.html)\.  
+Your Lambda rotation function must be able to access a Secrets Manager endpoint\. If your Lambda function can access the internet, then you can use a public endpoint\. To find an endpoint, see [Secrets Manager endpoints ](asm_access.md#endpoints)\.  
 If your Lambda function runs in a VPC that doesn't have internet access, we recommend you configure Secrets Manager service private endpoints within your VPC\. Your VPC can then intercept requests addressed to the public regional endpoint and redirect them to the private endpoint\. For more information, see [VPC endpoint](vpc-endpoint-overview.md)\.  
 Alternatively, you can enable your Lambda function to access a Secrets Manager public endpoint by adding a [NAT gateway](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html) or an [internet gateway](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html) to your VPC, which allows traffic from your VPC to reach the public endpoint\. This exposes your VPC to more risk because an IP address for the gateway can be attacked from the public Internet\.
 

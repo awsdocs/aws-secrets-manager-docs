@@ -6,6 +6,8 @@ To set up alternating users rotation, you need two secrets:
 + One secret with the credentials that you want to rotate\.
 + A second secret that has credentials for an administrator or superuser who has permissions to both change the first users's password and clone the first user\. 
 
+Secrets Manager rotation uses an AWS Lambda function to update the secret and the database\. For information about the costs of using a Lambda function, see [Pricing](intro.md#asm_pricing)\.
+
 **Contents**
 + [Permissions](#tutorials_rotation-alternating-permissions)
 + [Prerequisites](#tutorials_rotation-alternating-step-setup)

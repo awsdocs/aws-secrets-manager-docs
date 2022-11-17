@@ -34,7 +34,7 @@ The first step is to copy the existing hardcoded credentials into a secret in Se
 
    1. For **Credentials**, enter the existing hardcoded credentials for the databse\.
 
-   1. For **Encryption key**, choose **aws/secretsmanager** to use the AWS managed key for Secrets Manager\. There is no cost for using this key\. You can also use your own customer managed key, for example to [access the secret from another AWS account](auth-and-access_examples_cross.md)\. 
+   1. For **Encryption key**, choose **aws/secretsmanager** to use the AWS managed key for Secrets Manager\. There is no cost for using this key\. You can also use your own customer managed key, for example to [access the secret from another AWS account](auth-and-access_examples_cross.md)\. For information about the costs of using a customer managed key, see [Pricing](intro.md#asm_pricing)\.
 
    1. For **Database**, choose your database\.
 

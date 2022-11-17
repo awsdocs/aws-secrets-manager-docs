@@ -39,7 +39,7 @@ In this step, you set a rotation schedule for your secret and create an empty ro
 
    1. Under **Rotation schedule**, enter your schedule in UTC time zone in either the **Schedule expression builder** or as a **Schedule expression**\. Secrets Manager stores your schedule as a `rate()` or `cron()` expression\. The rotation window automatically starts at midnight unless you specify a **Start time**\. For more information, see [Schedule expressions](rotate-secrets_schedule.md)\.
 
-   1. \(Optional\) For **Window duration**, choose the length of the window during which you want Secrets Manager to rotate your secret, for example **3h** for a three hour window\. The window must not go into the next UTC day\. The rotation window automatically ends at the end of the day if you don't specify **Window duration**\. 
+   1. \(Optional\) For **Window duration**, choose the length of the window during which you want Secrets Manager to rotate your secret, for example **3h** for a three hour window\. The window must not extend into the next rotation window\. If you don't specify **Window duration**, for a rotation schedule in hours, the window automatically closes after one hour\. For a rotation schedule in days, the window automatically closes at the end of the day\. 
 
    1. \(Optional\) Choose **Rotate immediately when the secret is stored** to rotate your secret when you save your changes\. If you clear the checkbox, then the first rotation will begin on the schedule you set\.
 
@@ -54,7 +54,7 @@ In this step, you set a rotation schedule for your secret and create an empty ro
 
           1. Choose the **SecretsManagerRotationTemplate** tile\.
 
-          1. On the **Review, configure and deploy** page, in the **Application settings** tile, fill in the required fields, and then choose **Deploy**\. For a list of endpoints, see [AWS Secrets Manager endpoints](https://docs.aws.amazon.com/general/latest/gr/asm.html)\.
+          1. On the **Review, configure and deploy** page, in the **Application settings** tile, fill in the required fields, and then choose **Deploy**\. For a list of endpoints, see [Secrets Manager endpoints ](asm_access.md#endpoints)\.
         + If you don't see **Browse serverless app repository**, your AWS Region might not support the AWS Serverless Application Repository\. Choose **Author from scratch**\.
 
           1. For **Function name**, enter a name for your rotation function\.
@@ -78,8 +78,7 @@ In this step, you set a rotation schedule for your secret and create an empty ro
                          "Service": "secretsmanager.amazonaws.com"
                          },
                      "Action": "lambda:InvokeFunction",
-                     "Resource": "LambdaRotationFunctionARN",
-                     }
+                     "Resource": "LambdaRotationFunctionARN"
                  }
                  ]
              }
@@ -119,7 +118,7 @@ In the resource policy for your rotation function, we recommend that you include
 To be able to rotate a secret, the Lambda rotation function must be able to access the secret\. If your secret contains credentials, then the Lambda function must also be able to access the source of those credentials, such as a database or service\.
 
 **To access a secret**  
-Your Lambda rotation function must be able to access a Secrets Manager endpoint\. If your Lambda function can access the internet, then you can use a public endpoint\. To find an endpoint, see [AWS Secrets Manager endpoints and quotas](https://docs.aws.amazon.com/general/latest/gr/asm.html)\.  
+Your Lambda rotation function must be able to access a Secrets Manager endpoint\. If your Lambda function can access the internet, then you can use a public endpoint\. To find an endpoint, see [Secrets Manager endpoints ](asm_access.md#endpoints)\.  
 If your Lambda function runs in a VPC that doesn't have internet access, we recommend you configure Secrets Manager service private endpoints within your VPC\. Your VPC can then intercept requests addressed to the public regional endpoint and redirect them to the private endpoint\. For more information, see [VPC endpoint](vpc-endpoint-overview.md)\.  
 Alternatively, you can enable your Lambda function to access a Secrets Manager public endpoint by adding a [NAT gateway](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html) or an [internet gateway](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html) to your VPC, which allows traffic from your VPC to reach the public endpoint\. This exposes your VPC to more risk because an IP address for the gateway can be attacked from the public Internet\.
 
@@ -130,9 +129,9 @@ To allow the Lambda function to access the database or service, you must make su
 
 ## Step 5: Write the rotation function code<a name="rotate-secrets_turn-on-for-other_step5"></a>
 
-The rotation function you created in Step 1 is a starting point for your function\. You write the code for your specific use case\.
+The rotation function you created in Step 1 is a starting point for your function\. You write the code for your specific use case\. For a function that can rotate an Amazon ElastiCache secret, you can copy the code from the appropriate [template supplied by Secrets Manager](reference_available-rotation-templates.md)\.
 
-As you write your function, be cautious about including debugging or logging statements\. These statements can cause information in your function to be written to Amazon CloudWatch, so you need to make sure the log doesn't include any sensitive data from the include sensitive information collected during development\.
+As you write your function, be cautious about including debugging or logging statements\. These statements can cause information in your function to be written to Amazon CloudWatch, so you need to make sure the log doesn't include any sensitive information collected during development\.
 
 For examples of log statements, see the [AWS Secrets Manager rotation function templates](reference_available-rotation-templates.md) source code\.
 
@@ -153,18 +152,18 @@ If your function doesn't already have it, copy the code from the [SecretsManager
 There are four steps to rotating a secret, which correspond to the following four methods of a Lambda rotation function\. 
 
 **Topics**
-+ [`create_secret`](#w458aac19c11c27c21)
-+ [`set_secret`](#w458aac19c11c27c23)
-+ [`test_secret`](#w458aac19c11c27c25)
-+ [`finish_secret`](#w458aac19c11c27c27)
++ [`create_secret`](#w137aac19c13c27c21)
++ [`set_secret`](#w137aac19c13c27c23)
++ [`test_secret`](#w137aac19c13c27c25)
++ [`finish_secret`](#w137aac19c13c27c27)
 
-### `create_secret`<a name="w458aac19c11c27c21"></a>
+### `create_secret`<a name="w137aac19c13c27c21"></a>
 
 In `create_secret`, you first check if a secret exists by calling [https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html#SecretsManager.Client.get_secret_value](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html#SecretsManager.Client.get_secret_value) with the passed\-in `ClientRequestToken`\. If there's no secret, you create a new secret with [https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html#SecretsManager.Client.create_secret](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html#SecretsManager.Client.create_secret) and the token as the `VersionId`\. Then you can generate a new secret value with [https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html#SecretsManager.Client.get_random_password](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html#SecretsManager.Client.get_random_password)\. You must ensure the new secret value only includes characters that are valid for the database or service\. Exclude characters by using the `ExcludeCharacters` parameter\. Call [https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html#SecretsManager.Client.put_secret_value](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html#SecretsManager.Client.put_secret_value) to store it with the staging label `AWSPENDING`\. Storing the new secret value in `AWSPENDING` helps ensure idempotency\. If rotation fails for any reason, you can refer to that secret value in subsequent calls\. See [How do I make my Lambda function idempotent](https://aws.amazon.com/premiumsupport/knowledge-center/lambda-function-idempotent/)\.
 
 As you test your function, use the AWS CLI to see version stages: call [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/describe-secret.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/describe-secret.html) and look at `VersionIdsToStages`\.
 
-### `set_secret`<a name="w458aac19c11c27c23"></a>
+### `set_secret`<a name="w137aac19c13c27c23"></a>
 
 In `set_secret`, you change the credential in the database or service to match the new secret value in the `AWSPENDING` version of the secret\. 
 
@@ -176,11 +175,11 @@ The rotation function is a privileged deputy that has the authorization to acces
 
   Also check that the destination service resource is the same\. For a database, check that the `AWSCURRENT` and `AWSPENDING` host names are the same\.
 
-### `test_secret`<a name="w458aac19c11c27c25"></a>
+### `test_secret`<a name="w137aac19c13c27c25"></a>
 
 In `test_secret`, you test the `AWSPENDING` version of the secret by using it to access the database or service\.
 
-### `finish_secret`<a name="w458aac19c11c27c27"></a>
+### `finish_secret`<a name="w137aac19c13c27c27"></a>
 
 In `finish_secret`, you use [https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html#SecretsManager.Client.update_secret_version_stage](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html#SecretsManager.Client.update_secret_version_stage) to move the staging label `AWSCURRENT` from the previous secret version to the new secret version\. Secrets Manager automatically adds the `AWSPREVIOUS` staging label to the previous version, so that you retain the last known good version of the secret\. 
 

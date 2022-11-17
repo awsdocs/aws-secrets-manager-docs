@@ -16,7 +16,7 @@ You can replicate secrets across all of your enabled AWS Regions\. However, if y
 
 Before you can replicate a secret to another Region, you must enable that Region\. For more information, see [Managing AWS Regions\.](https://docs.aws.amazon.com/general/latest/gr/rande-manage.html#rande-manage-enable)
 
-It is possible to use a secret across multiple Regions without replicating it by calling the Secrets Manager endpoint in the Region where the secret is stored\. For a list of endpoints, see [AWS Secrets Manager endpoints](https://docs.aws.amazon.com/general/latest/gr/asm.html)\. To use replication to improve your workload's resilience, see [Disaster Recovery \(DR\) Architecture on AWS, Part I: Strategies for Recovery in the Cloud](http://aws.amazon.com/blogs/architecture/disaster-recovery-dr-architecture-on-aws-part-i-strategies-for-recovery-in-the-cloud/)\.
+It is possible to use a secret across multiple Regions without replicating it by calling the Secrets Manager endpoint in the Region where the secret is stored\. For a list of endpoints, see [Secrets Manager endpoints ](asm_access.md#endpoints)\. To use replication to improve your workload's resilience, see [Disaster Recovery \(DR\) Architecture on AWS, Part I: Strategies for Recovery in the Cloud](http://aws.amazon.com/blogs/architecture/disaster-recovery-dr-architecture-on-aws-part-i-strategies-for-recovery-in-the-cloud/)\.
 
 **To replicate a secret to other Regions \(console\)**
 
