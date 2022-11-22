@@ -101,7 +101,7 @@ Next, test that your application works as expected with the new secret\.
 ## Next steps<a name="hardcoded_step-next"></a>
 
 After you remove a hardcoded secret from your code, some ideas to consider next:
-+ To find hardcoded secrets in your Java and Python applications, we recommend [Amazon CodeGuru Reviewer](https://docs.aws.amazon.com/codeguru/latest/reviewer-ug/welcome.html)\.
++ To find hardcoded secrets in your Java and Python applications, we recommend [Amazon CodeGuru Reviewer](https://docs.aws.amazon.com/codeguru/latest/reviewer-ug/welcome.html)\. For applications written in other programming languages, take a look at open-source CLIs like [TruffleHog v3](https://github.com/trufflesecurity/trufflehog) and [detect-secrets](https://github.com/Yelp/detect-secrets) or solutions like [GitGuardian Secrets Detection](https://www.gitguardian.com/monitor-internal-repositories-for-secrets)\.
 + You can improve performance and reduce costs by caching secrets\. For more information, see [Retrieve secrets from AWS Secrets Manager](retrieving-secrets.md)\.
 + For secrets that you access from multiple Regions, consider replicating your secret to improve latency\. For more information, see [Replicate an AWS Secrets Manager secret to other AWS Regions](create-manage-multi-region-secrets.md)\.
 + In this tutorial, you granted *RoleToRetrieveSecretAtRuntime* only the permission to retrieve the secret value\. To grant the role more permissions, for example to get metadata about the secret or to view a list of secrets, see [Permissions policy examples for AWS Secrets Manager](auth-and-access_examples.md)\. 
