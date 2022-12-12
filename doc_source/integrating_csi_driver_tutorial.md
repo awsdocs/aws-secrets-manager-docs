@@ -44,7 +44,7 @@ Before you begin, install the ASCP: [Install the ASCP](integrating_csi_driver.md
    eksctl create iamserviceaccount --name nginx-deployment-sa --region="$REGION" --cluster "$CLUSTERNAME" --attach-policy-arn "$POLICY_ARN" --approve --override-existing-serviceaccounts
    ```
 
-1. Create the `SecretProviderClass` to specify which secret to mount in the pod\. The following command uses `ExampleSecretProviderClass.yaml` in the [ASCP GitHub repo examples](https://github.com/aws/secrets-store-csi-driver-provider-aws/blob/main/examples) directory to mount the secret you created in step 2\. For information about creating your own `SecretProviderClass`, see [`SecretProviderClass`](integrating_csi_driver.md#integrating_csi_driver_SecretProviderClass)\.
+1. Create the `SecretProviderClass` to specify which secret to mount in the pod\. The following command uses `ExampleSecretProviderClass.yaml` in the [ASCP GitHub repo examples](https://github.com/aws/secrets-store-csi-driver-provider-aws/blob/main/examples) directory to mount the secret you created in step 2\. For information about creating your own `SecretProviderClass`, see [`SecretProviderClass`](integrating_csi_driver_SecretProviderClass.md)\.
 
    ```
    kubectl apply -f https://raw.githubusercontent.com/aws/secrets-store-csi-driver-provider-aws/main/examples/ExampleSecretProviderClass.yaml
@@ -67,29 +67,3 @@ Before you begin, install the ASCP: [Install the ASCP](integrating_csi_driver.md
    ```
    {"username":"lijuan", "password":"hunter2"}
    ```
-
-## Troubleshoot<a name="integrating_csi_driver_trouble"></a>
-
-You can view most errors by describing the pod deployment\. 
-
-**To see error messages for your container**
-
-1. Get a list of pod names with the following command\. If you aren't using the default namespace, use `-n <NAMESPACE>`\.
-
-   ```
-   kubectl get pods
-   ```
-
-1. To describe the pod, in the following command, for *<PODID>* use the pod ID from the pods you found in the previous step\. If you aren't using the default namespace, use `-n <NAMESPACE>`\.
-
-   ```
-   kubectl describe pod/<PODID>
-   ```
-
-**To see errors for the ASCP**
-+ To find more information in the provider logs, in the following command, for *<PODID>* use the ID of the *csi\-secrets\-store\-provider\-aws* pod\.
-
-  ```
-  kubectl -n kube-system get pods
-  kubectl -n kube-system logs pod/<PODID>
-  ```

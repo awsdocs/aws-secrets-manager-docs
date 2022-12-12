@@ -18,8 +18,8 @@ The AWS command line tools allows you to issue commands at your system command l
 When you enter commands in a command shell, there is a risk of the command history being accessed or utilities having access to your command parameters\. See [Mitigate the risks of using the AWS CLI to store your AWS Secrets Manager secrets](security_cli-exposure-risks.md)\.
 
 AWS provides two sets of command line tools: 
-+ [AWS Command Line Interface \(AWS CLI\)](https://docs.aws.amazon.com/cli/latest/userguide/) 
-+ [AWS Tools for Windows PowerShell](https://docs.aws.amazon.com/powershell/latest/userguide/)
++ [AWS Command Line Interface \(AWS CLI\)](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/index.html) 
++ [AWS Tools for Windows PowerShell](https://docs.aws.amazon.com/powershell/latest/reference/)
 
 ## AWS SDKs<a name="asm-sdks"></a>
 

@@ -28,40 +28,54 @@ For secrets you manage, you can modify the description, resource\-based policy, 
 
 ## AWS CLI<a name="manage_update-secret_CLI"></a>
 
-To update a secret by using the AWS CLI, use the [update\-secret](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_UpdateSecret.html) or [put\-secret\-value](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_PutSecretValue.html) operation\. To tag a secret, see [Tag AWS Secrets Manager secrets](managing-secrets_tagging.md)\.
-
-**Example: Update secret description**  
-The following example adds or replaces the description with the one in the `--description` parameter\.  
+**Example Update secret description**  
+The following [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/update-secret.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/update-secret.html) example updates the description of a secret\.  
 
 ```
-$ aws secretsmanager update-secret --secret-id production/MyAwesomeAppSecret --description 'This is the description I want to attach to the secret.'
-            {
-              "ARN": "arn:aws:secretsmanager:us-east-2:111122223333:secret:production/MyAwesomeAppSecret-AbCdEf",
-              "Name": "production/MyAwesomeAppSecret",
-              "VersionId": "EXAMPLE1-90ab-cdef-fedc-ba987EXAMPLE"
-              }
+aws secretsmanager update-secret \
+    --secret-id MyTestSecret \
+    --description "This is a new description for the secret."
 ```
 
-**Example: Update encryption key**  
-The following example adds or replaces the encryption key for this secret\.   
-When you change the encryption key, Secrets Manager re\-encrypts versions of the secret that have the staging labels `AWSCURRENT`, `AWSPENDING`, and `AWSPREVIOUS` under the new encryption key\. When the secret value changes, Secrets Manager also encrypts it under the new key\. You can use the old key or the new one to decrypt the secret when you retrieve it\.  
+**Example Update the encryption key associated with a secret**  
+The following [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/update-secret.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/update-secret.html) example updates the KMS key used to encrypt the secret value\. The KMS key must be in the same region as the secret\.  
 
 ```
-$ aws secretsmanager update-secret --secret-id production/MyAwesomeAppSecret --kms-key-id arn:aws:kms:Region:AccountId:key/EXAMPLE1-90ab-cdef-fedc-ba987EXAMPLE
+aws secretsmanager update-secret \
+    --secret-id MyTestSecret \
+    --kms-key-id arn:aws:kms:us-west-2:123456789012:key/EXAMPLE1-90ab-cdef-fedc-ba987EXAMPLE
 ```
 
-**Example: Update secret value**  
-When you update the secret value for a secret, Secrets Manager creates a new version with the `AWSCURRENT` staging label and moves the `AWSPREVIOUS` staging label to the version that previously had the label `AWSCURRENT`\.  
-We recommend you avoid calling `PutSecretValue` or `UpdateSecret` at a sustained rate of more than once every 10 minutes\. When you call `PutSecretValue` or `UpdateSecret` to update the secret value, Secrets Manager creates a new version of the secret\. Secrets Manager removes outdated versions when there are more than 100, but it does not remove versions created less than 24 hours ago\. If you update the secret value more than once every 10 minutes, you create more versions than Secrets Manager removes, and you will reach the quota for secret versions\.  
-The following example AWS CLI command updates the secret value for a secret\.   
+**Example Store a new secret value in a secret**  
+When you enter commands in a command shell, there is a risk of the command history being accessed or utilities having access to your command parameters\. See [Mitigate the risks of using the AWS CLI to store your AWS Secrets Manager secrets](security_cli-exposure-risks.md)\.  
+The following [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/put-secret-value.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/put-secret-value.html) creates a new version of a secret with two key\-value pairs\.  
 
 ```
-$ aws secretsmanager put-secret-value --secret-id production/MyAwesomeAppSecret --secret-string '{"username":"anika","password":"EXAMPLE-PASSWORD"}'
-          {
-            "SecretARN": "arn:aws:secretsmanager:us-east-2:123456789012:secret:production/MyAwesomeAppSecret-AbCdEf",
-            "SecretName": "production/MyAwesomeAppSecret",
-            "VersionId": "EXAMPLE1-90ab-cdef-fedc-ba987EXAMPLE"
-            }
+aws secretsmanager put-secret-value \
+    --secret-id MyTestSecret \
+    --secret-string "{\"user\":\"diegor\",\"password\":\"EXAMPLE-PASSWORD\"}"
+```
+
+**Example Store a new secret value from credentials in a JSON file**  
+When you enter commands in a command shell, there is a risk of the command history being accessed or utilities having access to your command parameters\. See [Mitigate the risks of using the AWS CLI to store your AWS Secrets Manager secrets](security_cli-exposure-risks.md)\.  
+The following [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/put-secret-value.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/put-secret-value.html) example creates a new version of a secret from credentials in a file\. For more information, see [Loading AWS CLI parameters from a file](https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-parameters-file.html) in the AWS CLI User Guide\.  
+
+```
+aws secretsmanager put-secret-value \
+    --secret-id MyTestSecret \
+    --secret-string file://mycreds.json
+```
+Contents of mycreds\.json:  
+
+```
+{
+    "engine": "mysql",
+    "username": "saanvis",
+    "password": "EXAMPLE-PASSWORD",
+    "host": "my-database-endpoint.us-west-2.rds.amazonaws.com",
+    "dbname": "myDatabase",
+    "port": "3306"
+}
 ```
 
 ## AWS SDK<a name="manage_update-secret_SDK"></a>

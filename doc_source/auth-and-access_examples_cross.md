@@ -43,7 +43,7 @@ The following example policies assume you have a secret and encryption key in *A
   ```
 
 **Step 3: Attach an identity policy to the identity in *Account2***
-+ The following policy allows *ApplicationRole* in *Account2* to access the secret in *Account1* and decrypt the secret value by using the encryption key which is also in *Account1*\. To use this policy, see [Attach a permissions policy to an identity](auth-and-access_iam-policies.md)\. You can find the ARN for your secret in the Secrets Manager console on the secret details page under **Secret ARN**\. Alternatively, you can call [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_DescribeSecret.html](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_DescribeSecret.html)\.
++ The following policy allows *ApplicationRole* in *Account2* to access the secret in *Account1* and decrypt the secret value by using the encryption key which is also in *Account1*\. To use this policy, see [Attach a permissions policy to an identity](auth-and-access_iam-policies.md)\. You can find the ARN for your secret in the Secrets Manager console on the secret details page under **Secret ARN**\. Alternatively, you can call [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/describe-secret.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/describe-secret.html)\.
 
   ```
   {

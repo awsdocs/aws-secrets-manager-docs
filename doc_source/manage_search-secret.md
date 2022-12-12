@@ -27,19 +27,27 @@ Secrets Manager is a regional service and only secrets within the selected regio
 
 ## AWS CLI<a name="manage_search-secret_cli"></a>
 
-To find secrets stored in Secrets Manager, use [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/list-secret.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/list-secret.html)\. These are the filter keys you can use:
+**Example List the secrets in your account**  
+The following [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/list-secrets.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/list-secrets.html) example gets a list of the secrets in your account\.  
+
+```
+aws secretsmanager list-secrets
+```
+
+**Example Filter the list of secrets in your account**  
+The following [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/list-secrets.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/list-secrets.html) example gets a list of the secrets in your account that have **Test** in the name\. Filtering by name is case sensitive\.  
+
+```
+aws secretsmanager list-secrets \
+    --filter Key="name",Values="Test"
+```
+Filter keys you can use:  
 + `description`
 + `name`
 + `tag-key`
 + `tag-value`
 + `primary-region`
 + `all` \(searches all of the above keys\)
-
-The following example searches for secrets with the keyword **conducts** in the description\. There are no quotation marks around the search term\. Regular expressions are not supported\.
-
-```
-$ aws secretsmanager list-secrets --filters Key=description,Values=conducts
-```
 
 ## AWS SDK<a name="manage_search-secret_sdk"></a>
 

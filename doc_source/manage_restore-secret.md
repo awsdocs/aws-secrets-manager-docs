@@ -18,17 +18,12 @@ To restore a secret and the metadata in the console, you must have `secretsmanag
 
 ## AWS CLI<a name="manage_restore-secret_CLI"></a>
 
-You can use the [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/restore-secret.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/restore-secret.html) command to retrieve a secret stored in Secrets Manager\.
-
-**Example**  
-The following example restores a previously deleted secret named "MyTestDatabase"\. This cancels the scheduled deletion and restores access to the secret\.  
+**Example Restore a previously deleted secret**  
+The following [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/restore-secret.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/restore-secret.html) example restores a secret that was previously scheduled for deletion\.  
 
 ```
-$ aws secretsmanager restore-secret --secret-id development/MyTestDatabase
-{
-    "ARN": "arn:aws:secretsmanager:us-east-2:111122223333:secret:development/MyTestDatabase-AbCdEf",
-    "Name": "development/MyTestDatabase"
-}
+aws secretsmanager restore-secret \
+    --secret-id MyTestSecret
 ```
 
 ## AWS SDK<a name="manage_restore-secret_SDK"></a>

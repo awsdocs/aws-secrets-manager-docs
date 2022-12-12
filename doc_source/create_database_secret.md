@@ -1,6 +1,6 @@
 # Create an AWS Secrets Manager database secret<a name="create_database_secret"></a>
 
-To store credentials for Amazon RDS, Amazon Aurora, Amazon Redshift, or Amazon DocumentDB, follow these steps\. When you use the AWS CLI or one of the SDKs to store the secret, you must provide the secret in the [JSON structure of a secret](reference_secret_json_structure.md)\. When you use the console to store a database secret, Secrets Manager automatically creates it in the correct JSON structure\.
+After you create a user in Amazon RDS, Amazon Aurora, Amazon Redshift, or Amazon DocumentDB, you can store their credentials in Secrets Manager by following these steps\. When you use the AWS CLI or one of the SDKs to store the secret, you must provide the secret in the [correct JSON structure](reference_secret_json_structure.md)\. When you use the console to store a database secret, Secrets Manager automatically creates it in the correct JSON structure\.
 
 When you store database credentials for a source database that is replicated to other Regions, the secret contains connection information for the source database\. If you then replicate the secret, the replicas are copies of the source secret and contain the same connection information\. You can add additional key/value pairs to the secret for regional connection information\.
 
@@ -51,40 +51,29 @@ To create a secret, you need the permissions granted by the **SecretsManagerRead
 
 ## AWS CLI<a name="create_database_secret_cli"></a>
 
-To create a secret by using the AWS CLI, first create a JSON file that contains your secret\. For Secrets Manager to be able to rotate the secret, you must make sure the JSON matches the [JSON structure of a secret](reference_secret_json_structure.md)\. For more information, see [Set up automatic rotation for Amazon RDS, Amazon Redshift, or Amazon DocumentDB secrets using the console](rotate-secrets_turn-on-for-db.md)\.
+When you enter commands in a command shell, there is a risk of the command history being accessed or utilities having access to your command parameters\. See [Mitigate the risks of using the AWS CLI to store your AWS Secrets Manager secrets](security_cli-exposure-risks.md)\.
 
-Then use the [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/create-secret.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/create-secret.html) operation to store the secret in Secrets Manager\.
+**Example Create a secret from credentials in a JSON file**  
+The following [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/create-secret.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/create-secret.html) example creates a secret from credentials in a file\. For more information, see [Loading AWS CLI parameters from a file](https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-parameters-file.html) in the AWS CLI User Guide\.  
+For Secrets Manager to be able to rotate the secret, you must make sure the JSON matches the [JSON structure of a secret](reference_secret_json_structure.md)\.  
 
-**To create a secret**
+```
+aws secretsmanager create-secret \
+    --name MyTestSecret \
+    --secret-string file://mycreds.json
+```
+Contents of mycreds\.json:  
 
-1. Create your secret in a file, for example a JSON file named **mycreds\.json**\. 
-
-   ```
-   {
-     "engine": "mysql",
-     "host": "<instance host name/resolvable DNS name>",
-     "username": "<username>",
-     "password": "<password>",
-     "dbname": "<database name. If not specified, defaults to None>",
-     "port": "<TCP port number. If not specified, defaults to 3306>"
-   }
-   ```
-
-1. In the AWS CLI, use the following command\.
-
-   ```
-   $ aws secretsmanager create-secret --name MySecret --secret-string file://mycreds.json
-   ```
-
-   The following shows the output\.
-
-   ```
-   {
-       "SecretARN": "arn:aws:secretsmanager:Region:AccountId:secret:MySecret-a1b2c3",
-       "SecretName": "MySecret",
-       "SecretVersionId": "EXAMPLE1-90ab-cdef-fedc-ba987EXAMPLE"
-   }
-   ```
+```
+{
+    "engine": "mysql",
+    "username": "saanvis",
+    "password": "EXAMPLE-PASSWORD",
+    "host": "my-database-endpoint.us-west-2.rds.amazonaws.com",
+    "dbname": "myDatabase",
+    "port": "3306"
+}
+```
 
 ## AWS SDK<a name="create_database_secret_sdk"></a>
 

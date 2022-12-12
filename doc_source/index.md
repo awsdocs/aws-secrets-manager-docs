@@ -66,6 +66,7 @@ sponsored by Amazon.
    + [Use AWS Secrets Manager secrets in Amazon Elastic Container Service](integrating-fargate.md)
    + [Use AWS Secrets Manager secrets in Amazon Elastic Kubernetes Service](integrating_csi_driver.md)
       + [Tutorial: Create and mount an AWS Secrets Manager secret in an Amazon EKS pod](integrating_csi_driver_tutorial.md)
+      + [SecretProviderClass](integrating_csi_driver_SecretProviderClass.md)
    + [Use AWS Secrets Manager secrets in GitHub jobs](retrieving-secrets_github.md)
    + [Use AWS Secrets Manager secrets in AWS IoT Greengrass](integrating-greengrass.md)
    + [Use AWS Secrets Manager secrets in AWS Lambda functions](retrieving-secrets_lambda.md)

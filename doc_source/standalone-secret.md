@@ -18,14 +18,12 @@ If you promote a replica, be sure to update the corresponding applications to us
 
 ## AWS CLI<a name="standalone-secret-cli"></a>
 
-To promote a replica to a standalone secret, use the [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/stop-replication-to-replica.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/stop-replication-to-replica.html) action\. You must call this action from the replica secret Region\.
-
-**Example**  
-The following example promotes a replica secret to a standalone\.   
+**Example Promote a replica secret to a primary**  
+The following [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/stop-replication-to-replica.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/stop-replication-to-replica.html) example removes the link between a replica secret to the primary\. The replica secret is promoted to a primary secret in the replica region\. You must call [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/stop-replication-to-replica.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/stop-replication-to-replica.html) from within the replica region\.  
 
 ```
-$ aws secretsmanager stop-replication-to-replica \
-        --secret-id development/MyTestDatabase
+aws secretsmanager stop-replication-to-replica \
+    --secret-id MyTestSecret
 ```
 
 ## AWS SDK<a name="standalone-secret-sdk"></a>

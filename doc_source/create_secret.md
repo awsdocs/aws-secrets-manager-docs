@@ -44,34 +44,34 @@ To create a secret, you need the permissions granted by the **SecretsManagerRead
 
 ## AWS CLI<a name="create_secret_cli"></a>
 
-To create a secret by using the AWS CLI, you first create a JSON file or binary file that contains your secret\. Then you use the [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/create-secret.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/create-secret.html) operation\.
+When you enter commands in a command shell, there is a risk of the command history being accessed or utilities having access to your command parameters\. See [Mitigate the risks of using the AWS CLI to store your AWS Secrets Manager secrets](security_cli-exposure-risks.md)\.
 
-**To create a secret**
+**Example Create a secret**  
+The following [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/create-secret.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/create-secret.html) example creates a secret with two key\-value pairs\.  
 
-1. Create your secret in a file, for example a JSON file named **mycreds\.json**\.
+```
+aws secretsmanager create-secret \
+    --name MyTestSecret \
+    --description "My test secret created with the CLI." \
+    --secret-string "{\"user\":\"diegor\",\"password\":\"EXAMPLE-PASSWORD\"}"
+```
 
-   ```
-   {
-         "username": "saanvi",
-         "password": "EXAMPLE-PASSWORD"
-   }
-   ```
+**Example Create a secret from credentials in a JSON file**  
+The following [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/create-secret.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/create-secret.html) example creates a secret from credentials in a file\. For more information, see [Loading AWS CLI parameters from a file](https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-parameters-file.html) in the AWS CLI User Guide\.  
 
-1. In the AWS CLI, use the following command\.
+```
+aws secretsmanager create-secret \
+    --name MyTestSecret \
+    --secret-string file://mycreds.json
+```
+Contents of mycreds\.json:  
 
-   ```
-   $ aws secretsmanager create-secret --name MySecret --secret-string file://mycreds.json
-   ```
-
-   The following shows the output\.
-
-   ```
-   {
-       "SecretARN": "arn:aws:secretsmanager:Region:AccountId:secret:MySecret-a1b2c3",
-       "SecretName": "MySecret",
-       "SecretVersionId": "EXAMPLE1-90ab-cdef-fedc-ba987EXAMPLE"
-   }
-   ```
+```
+{
+    "username": "diegor",
+    "password": "EXAMPLE-PASSWORD"
+}
+```
 
 ## AWS SDK<a name="create_secret_sdk"></a>
 

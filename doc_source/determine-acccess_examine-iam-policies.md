@@ -21,7 +21,7 @@ When multiple policies apply to a request, Secrets Manager uses a hierarchy to c
 **To view the resource\-based policy for a secret**
 + Do one of the following:
   + Open the Secrets Manager console at [https://console\.aws\.amazon\.com/secretsmanager/](https://console.aws.amazon.com/secretsmanager/)\. In the secret details page for your secret, in the **Resource permissions** section, choose **Edit permissions**\.
-  + Use the AWS CLI or AWS SDK to call [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetResourcePolicy.html](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetResourcePolicy.html)\.
+  + Use the AWS CLI to call [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/get-resource-policy.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/get-resource-policy.html) or AWS SDK to call [https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetResourcePolicy.html](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetResourcePolicy.html)\.
 
 **To determine who has access through identity\-based policies**
 + Use the IAM policy simulator\. See [Testing IAM policies with the IAM policy simulator](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_testing-policies.html)

@@ -20,44 +20,47 @@ When you attach a resource\-based policy to a secret in the console, Secrets Man
 
 ## AWS CLI<a name="auth-and-access_resource_cli"></a>
 
-To retrieve the policy attached to the secret, use [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/get-resource-policy.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/get-resource-policy.html)\.
-
-**Example**  
-The following CLI command retrieves the policy attached to the secret\.  
+**Example Retrieve a resource policy**  
+The following [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/get-resource-policy.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/get-resource-policy.html) example retrieves the resource\-based policy attached to a secret\.  
 
 ```
-$ aws secretsmanager get-resource-policy --secret-id production/MyAwesomeAppSecret
+aws secretsmanager get-resource-policy \
+    --secret-id MyTestSecret
+```
+
+**Example Delete a resource policy**  
+The following [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/delete-resource-policy.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/delete-resource-policy.html) example deletes the resource\-based policy attached to a secret\.  
+
+```
+aws secretsmanager delete-resource-policy \
+    --secret-id MyTestSecret
+```
+
+**Example Add a resource policy**  
+The following [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/put-resource-policy.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/put-resource-policy.html) example adds a permissions policy to a secret, checking first that the policy does not provide broad access to the secret\. The policy is read from a file\. For more information, see [Loading AWS CLI parameters from a file](https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-parameters-file.html) in the AWS CLI User Guide\.  
+
+```
+aws secretsmanager put-resource-policy \
+    --secret-id MyTestSecret \
+    --resource-policy file://mypolicy.json \
+    --block-public-policy
+```
+Contents of `mypolicy.json`:  
+
+```
 {
-  "ARN": "arn:aws:secretsmanager:us-east-2:123456789012:secret:production/MyAwesomeAppSecret-a1b2c3",
-  "Name": "MyAwesomeAppSecret",
-  "ResourcePolicy": "{\"Version\":\"2012-10-17\",\"Statement\":{\"Effect\":\"Allow\",\"Principal\":{\"AWS\":[\"arn:aws:iam::111122223333:root\",\"arn:aws:iam::444455556666:root\"]},\"Action\":[\"secretsmanager:GetSecretValue\"],\"Resource\":\"*\"}}"
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::123456789012:role/MyRole"
+            },
+            "Action": "secretsmanager:GetSecretValue",
+            "Resource": "*"
+        }
+    ]
 }
-```
-
-To delete the policy attached to the secret, use [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/delete-resource-policy.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/delete-resource-policy.html)\.
-
-**Example**  
-The following CLI command deletes the policy attached to the secret\.  
-
-```
-$ aws secretsmanager delete-resource-policy --secret-id production/MyAwesomeAppSecret
-{
-  "ARN": "arn:aws:secretsmanager:us-east-2:123456789012:secret:production/MyAwesomeAppSecret-a1b2c3",
-  "Name": "production/MyAwesomeAppSecret"
-}
-```
-
-To attach a policy for the secret, use [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/put-resource-policy.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/put-resource-policy.html)\. If there is already a policy attached, the command first removes it, and then attaches the new policy\. The policy must be formatted as JSON structured text\. See [JSON policy document structure](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies-introduction)\.
-
-**Example**  
-The following CLI command attaches the resource\-based policy attached to the secret\. The policy is defined in the file `secretpolicy.json`\. Use the [Permissions policy examples for AWS Secrets Manager](auth-and-access_examples.md) to get started writing your policy\.  
-
-```
-$ aws secretsmanager put-resource-policy --secret-id production/MyAwesomeAppSecret --resource-policy file://secretpolicy.json 
-{
-  "ARN": "arn:aws:secretsmanager:us-east-2:123456789012:secret:production/MyAwesomeAppSecret-a1b2c3",
-  "Name": "MyAwesomeAppSecret"
-  }
 ```
 
 ## AWS SDK<a name="auth-and-access_resource_sdk"></a>

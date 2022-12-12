@@ -42,53 +42,31 @@ To delete a secret, you must have `secretsmanager:ListSecrets` and `secretsmanag
 
 ## AWS CLI<a name="manage_delete-secret_cli"></a>
 
-To delete a secret, use the [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/delete-secret.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/delete-secret.html) action\. To delete a version of a secret, use the [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/update-secret-version-stage.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/update-secret-version-stage.html) action to remove all of the staging labels\. Secrets Manager can then delete the version in the background\. To find the version ID of the version you want to delete, use [ListSecretVersionIds](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_ListSecretVersionIds.html)\.
-
-To delete a replica, use the the [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/stop-replication-to-replica.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/stop-replication-to-replica.html) action\.
-
-**Example**  
-The following example marks for deletion the secret named "MyTestDatabase" and schedules deletion after a recovery window of 14 days\. At any time after the date and time specified in the `DeletionDate` field, Secrets Manager permanently deletes the secret\.  
+**Example Delete a secret**  
+The following [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/delete-secret.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/delete-secret.html) example deletes a secret\. You can recover the secret with [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/restore-secret.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/restore-secret.html) until the date and time in the DeletionDate response field\. To delete a secret that is replicated to other regions, first remove its replicas with [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/remove-regions-from-replication.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/remove-regions-from-replication.html), and then call [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/delete-secret.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/delete-secret.html)\.  
 
 ```
-$ aws secretsmanager delete-secret --secret-id development/MyTestDatabase --recovery-window-in-days 14
-{
-    "ARN": "arn:aws:secretsmanager:us-east-2:111122223333:secret:development/MyTestDatabase-AbCdEf",
-    "Name": "development/MyTestDatabase",
-    "DeletionDate": 1510089380.309
-}
+aws secretsmanager delete-secret \
+    --secret-id MyTestSecret \
+    --recovery-window-in-days 7
 ```
 
-**Example**  
-The following example immediately deletes the secret without a recovery window\. The `DeletionDate` response field shows the current date and time instead of a future time\. **This secret cannot be recovered\.**  
+**Example Delete a secret immediately**  
+The following [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/delete-secret.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/delete-secret.html) example deletes a secret immediately without a recovery window\. You can't recover this secret\.  
 
 ```
-$ aws secretsmanager delete-secret --secret-id development/MyTestDatabase --force-delete-without-recovery
-{
-    "ARN": "arn:aws:secretsmanager:us-east-2:111122223333:secret:development/MyTestDatabase-AbCdEf",
-    "Name": "development/MyTestDatabase",
-    "DeletionDate": 1508750180.309
-}
+aws secretsmanager delete-secret \
+    --secret-id MyTestSecret \
+    --force-delete-without-recovery
 ```
 
-**Example**  
-The following example deletes a replica secret\.  
+**Example Delete a replica secret**  
+The following [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/remove-regions-from-replication.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/remove-regions-from-replication.html) example deletes a replica secret in eu\-west\-3\. To delete a primary secret that is replicated to other regions, first delete the replicas and then call [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/delete-secret.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/delete-secret.html)\.  
 
 ```
-$ aws secretsmanager remove-regions-from-replication --secret-id development/MyTestDatabase --remove-replica-regions us-east-1 
-```
-
-**Example**  
-The following example removes the `AWSPREVIOUS` staging label from a version of the secret named "MyTestDatabase"\.   
-
-```
-$ aws secretsmanager update-secret-version-stage \
-        --secret-id development/MyTestDatabase \
-        --remove-from-version-id EXAMPLE1-90ab-cdef-fedc-ba987EXAMPLE 
-        --version-stage AWSPREVIOUS
-{
-    "ARN": "arn:aws:secretsmanager:us-east-2:111122223333:secret:development/MyTestDatabase-AbCdEf",
-    "Name": "development/MyTestDatabase"
-}
+aws secretsmanager remove-regions-from-replication \
+    --secret-id MyTestSecret \
+    --remove-replica-regions eu-west-3
 ```
 
 ## AWS SDK<a name="manage_delete-secret_sdk"></a>

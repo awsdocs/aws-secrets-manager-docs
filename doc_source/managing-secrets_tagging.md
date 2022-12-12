@@ -18,22 +18,32 @@ Tags are case sensitive\. Never store sensitive information for a secret in a ta
 
 ## AWS CLI<a name="managing-secrets_tagging-cli"></a>
 
-To change tags for your secret, use the [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/tag-resource.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/tag-resource.html) or [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/untag-resource.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/untag-resource.html) operation\.
-
-**Example**  
-The following example adds or replaces the tags with those provided by the `--tags` parameter\. Tag key names and values are case sensitive, and tag keys must be unique\. The parameter is expected to be a JSON array of `Key` and `Value` elements:  
+**Example Add a tag to a secret**  
+The following [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/tag-resource.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/tag-resource.html) example shows how to attach a tag with shorthand syntax\.  
 
 ```
-$ aws secretsmanager tag-resource --secret-id MySecret2 --tags Key=costcenter,Value=12345
+aws secretsmanager tag-resource \
+            --secret-id MyTestSecret \
+            --tags Key=FirstTag,Value=FirstValue
 ```
 
-**Example**  
-The following example AWS CLI command removes the tags with the key "environment" from the specified secret:  
+**Example Add multiple tags to a secret**  
+The following [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/tag-resource.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/tag-resource.html) example attaches two key\-value tags to a secret\.  
 
 ```
-$ aws secretsmanager untag-resource --secret-id MySecret2 --tag-keys 'environment'
+aws secretsmanager tag-resource \
+            --secret-id MyTestSecret \
+            --tags '[{"Key": "FirstTag", "Value": "FirstValue"}, {"Key": "SecondTag", "Value": "SecondValue"}]'
 ```
-The `tag-resource` command doesn't return any output\. 
+
+**Example Remove tags from a secret**  
+The following [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/untag-resource.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/untag-resource.html) example removes two tags from a secret\. For each tag, both key and value are removed\.  
+
+```
+aws secretsmanager untag-resource \
+            --secret-id MyTestSecret \
+            --tag-keys '[ "FirstTag", "SecondTag"]'
+```
 
 ## AWS SDK<a name="managing-secrets_tagging-sdk"></a>
 

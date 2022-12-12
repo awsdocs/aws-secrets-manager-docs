@@ -15,9 +15,12 @@ You can only rotate a secret that has rotation configured\. To determine whether
 
 1. In the **Rotate secret** dialog box, choose **Rotate**\.
 
-**To rotate a secret immediately \(AWS CLI\)**
-+ Call [rotate\-secret](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/rotate-secret.html):
+## AWS CLI<a name="rotate-secrets_now_cli"></a>
 
-  ```
-  aws secretsmanager rotate-secret --secret-id mySecret
-  ```
+**Example Rotate a secret immediately**  
+The following [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/rotate-secret.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/rotate-secret.html) example starts an immediate rotation\. The output shows the VersionId of the new secret version created by rotation\. The secret must already have rotation configured\.  
+
+```
+aws secretsmanager rotate-secret \
+    --secret-id MyTestSecret
+```

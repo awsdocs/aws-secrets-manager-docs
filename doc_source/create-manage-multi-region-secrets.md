@@ -46,10 +46,13 @@ It is possible to use a secret across multiple Regions without replicating it by
 
 ## AWS CLI<a name="create-manage-multi-region-secrets_CLI"></a>
 
-To replicate a secret, use the [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/replicate-secret-to-regions.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/replicate-secret-to-regions.html) action\. The following example replicates a secret to US East \(N\. Virginia\)\. 
+**Example Replicate a secret to another region**  
+The following [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/replicate-secret-to-regions.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/replicate-secret-to-regions.html) example replicates a secret to eu\-west\-3\. The replica is encrypted with the AWS managed key aws/secretsmanager\.  
 
 ```
-$ aws secretsmanager replicate-secret-to-regions --secret-id production/DBWest --add-replica-regions Region=us-east-1        
+aws secretsmanager replicate-secret-to-regions \
+    --secret-id MyTestSecret \
+    --add-replica-regions Region=eu-west-3
 ```
 
 ## AWS SDK<a name="create-manage-multi-region-secrets_SDK"></a>

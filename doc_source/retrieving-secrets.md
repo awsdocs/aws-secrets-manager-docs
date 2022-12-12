@@ -25,3 +25,22 @@ You can also retrieve secrets within the following:
 + For AWS IoT Greengrass, you can [reference secrets](integrating-greengrass.md) in a Greengrass group\.
 + For AWS Lambda, you can [reference secrets](retrieving-secrets_lambda.md) in a Lambda function\.
 + For Parameter Store, you can [reference secrets](integrating_parameterstore.md) in a parameter\.
+
+## AWS CLI<a name="retrieving-secrets_cli"></a>
+
+**Example Retrieve the encrypted secret value of a secret**  
+The following [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/get-secret-value.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/get-secret-value.html) example gets the current secret value\.  
+
+```
+aws secretsmanager get-secret-value \
+    --secret-id MyTestSecret
+```
+
+**Example Retrieve the previous secret value**  
+The following [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/get-secret-value.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/get-secret-value.html) example gets the previous secret value\.  
+
+```
+aws secretsmanager get-secret-value \
+        --secret-id MyTestSecret
+        --version-stage AWSPREVIOUS
+```
