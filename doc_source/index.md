@@ -72,6 +72,7 @@ sponsored by Amazon.
    + [Use AWS Secrets Manager secrets in AWS Lambda functions](retrieving-secrets_lambda.md)
    + [Use AWS Secrets Manager secrets in Parameter Store](integrating_parameterstore.md)
 + [Rotate AWS Secrets Manager secrets](rotating-secrets.md)
+   + [Managed rotation for AWS Secrets Manager secrets](rotate-secrets_managed.md)
    + [Set up automatic rotation for Amazon RDS, Amazon Redshift, or Amazon DocumentDB secrets using the console](rotate-secrets_turn-on-for-db.md)
    + [Set up automatic rotation for AWS Secrets Manager secrets using the console](rotate-secrets_turn-on-for-other.md)
    + [Set up automatic rotation for AWS Secrets Manager secrets using the AWS CLI](rotate-secrets-cli.md)

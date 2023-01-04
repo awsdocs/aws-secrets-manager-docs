@@ -6,8 +6,11 @@ You can download the source code from [GitHub](https://github.com/aws/aws-secret
 
 To use the Secrets Manager SQL Connection drivers:
 + Your application must be in Java 8 or higher\.
-+ Your secret must be in the [JSON structure of a secret](reference_secret_json_structure.md)\. To check the format, in the Secrets Manager console, view your secret and choose **Retrieve secret value**\. Alternatively, in the AWS CLI, call [get\-secret\-value](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/get-secret-value.html)\.
-+ If your database is replicated to other Regions, to connect to a replica database in another Region, you specify the regional endpoint and port when you create the connection\. You can store regional connection information in the secret as extra key/value pairs, in SSM Parameter Store parameters, or in your code configuration\. 
++ Your secret must be one of the following:
+  + A [database secret in the expected JSON structure](reference_secret_json_structure.md)\. To check the format, in the Secrets Manager console, view your secret and choose **Retrieve secret value**\. Alternatively, in the AWS CLI, call [get\-secret\-value](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/get-secret-value.html)\.
+  + An Amazon RDS [managed secret](integrating_how-services-use-secrets_RDS.md)\. For this type of secret, you must specify an endpoint and port when you establish the connection\.
+
+If your database is replicated to other Regions, to connect to a replica database in another Region, you specify the regional endpoint and port when you create the connection\. You can store regional connection information in the secret as extra key/value pairs, in SSM Parameter Store parameters, or in your code configuration\. 
 
 To add the driver to your project, in your Maven build file `pom.xml`, add the following dependency for the driver\. For more information, see [Secrets Manager SQL Connection Library](https://search.maven.org/artifact/com.amazonaws.secretsmanager/aws-secretsmanager-jdbc) on the Maven Central Repository website\.
 
@@ -21,9 +24,9 @@ To add the driver to your project, in your Maven build file `pom.xml`, add the f
 
 **Topics**
 + [Establish a connection to a database](#retrieving-secrets_jdbc_example)
-+ [Establish a connection to a replica database](#retrieving-secrets_jdbc_example_replica)
++ [Establish a connection by specifying the endpoint and port](#retrieving-secrets_jdbc_example_replica)
 + [Use c3p0 connection pooling to establish a connection](#retrieving-secrets_jdbc_example_c3po)
-+ [Use c3p0 connection pooling to establish a connection to a replica database](#retrieving-secrets_jdbc_example_c3p0_replica)
++ [Use c3p0 connection pooling to establish a connection by specifying the endpoint and port](#retrieving-secrets_jdbc_example_c3p0_replica)
 
 ## Establish a connection to a database<a name="retrieving-secrets_jdbc_example"></a>
 
@@ -103,11 +106,13 @@ conn = DriverManager.getConnection(URL, info);
 
 ------
 
-## Establish a connection to a replica database<a name="retrieving-secrets_jdbc_example_replica"></a>
+## Establish a connection by specifying the endpoint and port<a name="retrieving-secrets_jdbc_example_replica"></a>
 
-The following example shows how to establish a connection to a database using the credentials in a secret\. To connect to a replica database in another Region, you specify the endpoint and port for the connection\. 
+The following example shows how to establish a connection to a database using the credentials in a secret with an endpoint and port that you specify\. 
 
-Secrets that are replicated to other Regions can improve latency for the connection to the regional database, but they do not contain different connection information from the source secret\. Each replica is a copy of the source secret\. To store regional connection information in the secret, add more key/value pairs for the endpoint and port information for the Regions\.
+[Amazon RDS managed secrets](integrating_how-services-use-secrets_RDS.md) don't include the endpoint and port of the database\. To connect to a database using master credentials in a secret that's managed by Amazon RDS, you specify them in your code\. 
+
+[Secrets that are replicated to other Regions](create-manage-multi-region-secrets.md) can improve latency for the connection to the regional database, but they do not contain different connection information from the source secret\. Each replica is a copy of the source secret\. To store regional connection information in the secret, add more key/value pairs for the endpoint and port information for the Regions\. 
 
 Once you have the connection, you can use JDBC calls to access the database\. For more information, see [JDBC Basics](https://docs.oracle.com/javase/tutorial/jdbc/basics/index.html) on the Java documentation website\.
 
@@ -187,7 +192,7 @@ conn = DriverManager.getConnection(URL, info);
 
 ## Use c3p0 connection pooling to establish a connection<a name="retrieving-secrets_jdbc_example_c3po"></a>
 
-The following example shows a `c3p0.properties` file that uses the driver to retrieve credentials and connection information from the secret\. For `user` and `jdbcUrl`, enter the secret ID to configure the connection pool\. Then you can retrieve connections from the pool and use them as any other database connections\. For more information, see [JDBC Basics](https://docs.oracle.com/javase/tutorial/jdbc/basics/index.html) on the Java documentation website\.
+The following example shows how to establish a connection pool with a `c3p0.properties` file that uses the driver to retrieve credentials and connection information from the secret\. For `user` and `jdbcUrl`, enter the secret ID to configure the connection pool\. Then you can retrieve connections from the pool and use them as any other database connections\. For more information, see [JDBC Basics](https://docs.oracle.com/javase/tutorial/jdbc/basics/index.html) on the Java documentation website\.
 
 For more information about c3p0, see [c3p0](https://www.mchange.com/projects/c3p0/) on the Machinery For Change website\. 
 
@@ -229,9 +234,13 @@ c3p0.jdbcUrl=secretId
 
 ------
 
-## Use c3p0 connection pooling to establish a connection to a replica database<a name="retrieving-secrets_jdbc_example_c3p0_replica"></a>
+## Use c3p0 connection pooling to establish a connection by specifying the endpoint and port<a name="retrieving-secrets_jdbc_example_c3p0_replica"></a>
 
-The following example shows a `c3p0.properties` file that uses the driver to retrieve credentials and from the secret\. To connect to a replica database in another Region, you specify the endpoint and port directly or by retrieving them from key/value pairs in the secret\. Then you can retrieve connections from the pool and use them as any other database connections\. For more information, see [JDBC Basics](https://docs.oracle.com/javase/tutorial/jdbc/basics/index.html) on the Java documentation website\.
+The following example shows how to establish a connection pool with a `c3p0.properties` file that uses the the driver to retrieve credentials in a secret with an endpoint and port that you specify\. Then you can retrieve connections from the pool and use them as any other database connections\. For more information, see [JDBC Basics](https://docs.oracle.com/javase/tutorial/jdbc/basics/index.html) on the Java documentation website\.
+
+[Amazon RDS managed secrets](integrating_how-services-use-secrets_RDS.md) don't include the endpoint and port of the database\. To connect to a database using master credentials in a secret that's managed by Amazon RDS, you specify them in your code\. 
+
+[Secrets that are replicated to other Regions](create-manage-multi-region-secrets.md) can improve latency for the connection to the regional database, but they do not contain different connection information from the source secret\. Each replica is a copy of the source secret\. To store regional connection information in the secret, add more key/value pairs for the endpoint and port information for the Regions\. 
 
 ------
 #### [ MySQL ]

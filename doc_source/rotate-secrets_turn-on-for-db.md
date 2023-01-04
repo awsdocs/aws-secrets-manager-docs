@@ -4,6 +4,9 @@ Rotation is the process of periodically updating a secret\. When you rotate a se
 
 Secrets Manager uses Lambda functions to rotate secrets\. For an overview, see [How rotation works](rotating-secrets.md#rotate-secrets_how)\.
 
+**Tip**  
+For some [Secrets managed by other services](service-linked-secrets.md), you use *managed rotation*\. To use [Managed rotation](rotate-secrets_managed.md), you first create the secret through the managing service\.
+
 To set up rotation using the console, you need to first choose a rotation strategy\. Then you configure the secret for rotation, which creates a Lambda rotation function if you don't already have one\. The console also sets permissions for the Lambda function execution role\. The last step is to make sure that the Lambda rotation function can access both Secrets Manager and your database through the network\.
 
 To turn on automatic rotation, you must have permission to create the IAM execution role and attach a permission policy to it\. You need both `iam:CreateRole` and `iam:AttachRolePolicy` permissions\. 

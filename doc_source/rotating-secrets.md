@@ -2,10 +2,9 @@
 
 *Rotation* is the process of periodically updating a secret\. When you rotate a secret, you update the credentials in both the secret and the database or service\. In Secrets Manager, you can set up automatic rotation for your secrets\. 
 
-Secrets Manager rotation uses an AWS Lambda function to update the secret and the database\. For information about the costs of using a Lambda function, see [Pricing](intro.md#asm_pricing)\.
-
 **Topics**
 + [How rotation works](#rotate-secrets_how)
++ [Managed rotation](rotate-secrets_managed.md)
 + [Automatic rotation for database secrets \(console\)](rotate-secrets_turn-on-for-db.md)
 + [Automatic rotation \(console\)](rotate-secrets_turn-on-for-other.md)
 + [Automatic rotation \(AWS CLI\)](rotate-secrets-cli.md)
@@ -13,6 +12,11 @@ Secrets Manager rotation uses an AWS Lambda function to update the secret and th
 + [Troubleshoot rotation](troubleshoot_rotation.md)
 
 ## How rotation works<a name="rotate-secrets_how"></a>
+
+**Tip**  
+For some [Secrets managed by other services](service-linked-secrets.md), you use *managed rotation*\. To use [Managed rotation](rotate-secrets_managed.md), you first create the secret through the managing service\.
+
+Secrets Manager rotation uses an AWS Lambda function to update the secret and the database\. For information about the costs of using a Lambda function, see [Pricing](intro.md#asm_pricing)\.
 
 To rotate a secret, Secrets Manager calls a Lambda function according to the schedule you set up\. Secrets Manager uses [staging labels](https://docs.aws.amazon.com/secretsmanager/latest/userguide/getting-started.html#term_version) to label secret versions during rotation\. During rotation, Secrets Manager calls the same function several times, each time with different parameters\. Secrets Manager invokes the function with the following JSON request structure of parameters: 
 
@@ -49,5 +53,7 @@ If you set up automatic secret rotation before December 20, 2021, your rotation 
 During rotation, Secrets Manager logs events that indicate the state of rotation\. For more information, see [Logging AWS Secrets Manager events with AWS CloudTrail](retrieve-ct-entries.md)\.
 
 If any rotation step fails, Secrets Manager retries the entire rotation process multiple times\.
+
+When rotation is successful, the `AWSPENDING` staging label might be attached to the same version as the `AWSCURRENT` version, or it might not be attached to any version\. If the `AWSPENDING` staging label is present but not attached to the same version as `AWSCURRENT`, then any later invocation of rotation assumes that a previous rotation request is still in progress and returns an error\. When rotation is unsuccessful, the `AWSPENDING` staging label might be attached to an empty secret version\. For more information, see [Troubleshoot rotation](troubleshoot_rotation.md)\.
 
 After rotation is successful, applications that [Retrieve secrets from AWS Secrets Manager](retrieving-secrets.md) from Secrets Manager automatically get the updated credentials\. For more details about how each step of rotation works, see the [AWS Secrets Manager rotation function templates](reference_available-rotation-templates.md)\.

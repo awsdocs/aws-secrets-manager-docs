@@ -32,7 +32,7 @@ It is possible to use a secret across multiple Regions without replicating it by
 
    1. For **AWS Region**, choose the Region you want to replicate the secret to\.
 
-   1. \(Optional\) For **Encryption key**, choose a KMS key to encrypt the secret with\. The key must be in the replica Region, and you can choose the same key as the primary secret\.
+   1. \(Optional\) For **Encryption key**, choose a KMS key to encrypt the secret with\. The key must be in the replica Region\.
 
    1. \(Optional\) To add another Region, choose **Add more regions**\.
 

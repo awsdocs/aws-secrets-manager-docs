@@ -14,6 +14,9 @@ Matches the words in secret descriptions, not case\-sensitive\. For example, **D
 + My basic description
 + Description of my secret
 
+**Owning service**  
+Matches the beginning of the managing service ID prefix, not case\-sensitive\. For example, **my\-ser** matches secrets managed by services with the prefix my\-serv and my\-service\. For more information, see [Secrets managed by other services](service-linked-secrets.md)\. 
+
 **Replicated secrets**  
 You can filter for primary secrets, replica secrets, or secrets that aren't replicated\.
 
@@ -46,6 +49,7 @@ Filter keys you can use:
 + `name`
 + `tag-key`
 + `tag-value`
++ `owning-service`
 + `primary-region`
 + `all` \(searches all of the above keys\)
 

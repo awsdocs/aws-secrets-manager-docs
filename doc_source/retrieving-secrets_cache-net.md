@@ -1,8 +1,8 @@
 # Retrieve AWS Secrets Manager secrets in \.NET applications<a name="retrieving-secrets_cache-net"></a>
 
-When you retrieve a secret, you can use the Secrets Manager \.NET\-based caching component to cache it for future use\. Retrieving a cached secret is faster than retrieving it from Secrets Manager\. Because there is a cost for calling Secrets Manager APIs, using a cache can reduce your costs\. 
+When you retrieve a secret, you can use the Secrets Manager \.NET\-based caching component to cache it for future use\. Retrieving a cached secret is faster than retrieving it from Secrets Manager\. Because there is a cost for calling Secrets Manager APIs, using a cache can reduce your costs\.
 
-The cache policy is Least Recently Used \(LRU\), so when the cache must discard a secret, it discards the least recently used secret\. By default, the cache refreshes secrets every hour\. You can configure how often the secret is refreshed in the cache, and you can hook into the secret retrieval to add more functionality\.
+The cache policy is Least Recently Used \(LRU\), so when the cache must discard a secret, it discards the least recently used secret\. By default, the cache refreshes secrets every hour\. You can configure [how often the secret is refreshed](retrieving-secrets_cache-net-SecretCacheConfiguration.md#retrieving-secrets_cache-net-SecretCacheConfiguration-properties_CacheItemTTL) in the cache, and you can [hook into the secret retrieval](retrieving-secrets_cache-net-ISecretCacheHook.md) to add more functionality\.
 
 The cache does not force garbage collection once cache references are freed\. The cache implementation is focused around the cache itself, and is not security hardened or focused\. If you require additional security such as encrypting items in the cache, use the interfaces and abstract methods provided\.
 
@@ -38,7 +38,7 @@ To use the cache, first instantiate it, then retrieve your secret by using `GetS
 The following code example shows a method that retrieves a secret named *MySecret*\.  
 
 ```
-using Amazon.SecretsManager.Extensions.Caching.SecretsManagerCache;
+using Amazon.SecretsManager.Extensions.Caching;
 
 namespace LambdaExample 
 {

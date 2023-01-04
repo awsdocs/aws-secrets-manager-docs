@@ -21,10 +21,11 @@ For secrets you manage, you can modify the description, resource\-based policy, 
    + To update the secret value, in the **Secret value** section, choose **Retrieve secret value** and then choose **Edit**\. 
 
      Secrets Manager creates a new version of the secret with the staging label `AWSCURRENT`\. You can still access the old version\. From the CLI, use the [get\-secret\-value](https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html) action with `version-id` `AWSPREVIOUS`\. 
-   + To update rotation for your secret, choose Edit rotation\. See [Rotate AWS Secrets Manager secrets](rotating-secrets.md)\.
-   + To update permissions for your secret, choose Edit permissions\. See [Attach a permissions policy to an AWS Secrets Manager secret](auth-and-access_resource-policies.md)\.
+   + To update rotation for your secret, choose **Edit rotation**\. See [Rotate AWS Secrets Manager secrets](rotating-secrets.md)\.
+   + To update permissions for your secret, choose **Edit permissions**\. See [Attach a permissions policy to an AWS Secrets Manager secret](auth-and-access_resource-policies.md)\.
    + To replicate your secret to other Regions, see [Replicate a secret to other Regions](create-manage-multi-region-secrets.md)\.
    + If your secret has replicas, you can change the encryption key for a replica\. In the **Replicate secret** section, select the radio button for the replica, and then on the **Actions** menu, choose **Edit encryption key**\. See [Secret encryption and decryption in AWS Secrets Manager](security-encryption.md)\.
+   + To change a secret so that it is managed by another service, you need to recreate the secret in that service\. See [Secrets managed by other services](service-linked-secrets.md)\.
 
 ## AWS CLI<a name="manage_update-secret_CLI"></a>
 

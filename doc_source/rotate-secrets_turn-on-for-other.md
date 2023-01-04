@@ -152,18 +152,18 @@ If your function doesn't already have it, copy the code from the [SecretsManager
 There are four steps to rotating a secret, which correspond to the following four methods of a Lambda rotation function\. 
 
 **Topics**
-+ [`create_secret`](#w168aac19c13c27c21)
-+ [`set_secret`](#w168aac19c13c27c23)
-+ [`test_secret`](#w168aac19c13c27c25)
-+ [`finish_secret`](#w168aac19c13c27c27)
++ [`create_secret`](#w171aac19c13c27c21)
++ [`set_secret`](#w171aac19c13c27c23)
++ [`test_secret`](#w171aac19c13c27c25)
++ [`finish_secret`](#w171aac19c13c27c27)
 
-### `create_secret`<a name="w168aac19c13c27c21"></a>
+### `create_secret`<a name="w171aac19c13c27c21"></a>
 
 In `create_secret`, you first check if a secret exists by calling [https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html#SecretsManager.Client.get_secret_value](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html#SecretsManager.Client.get_secret_value) with the passed\-in `ClientRequestToken`\. If there's no secret, you create a new secret with [https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html#SecretsManager.Client.create_secret](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html#SecretsManager.Client.create_secret) and the token as the `VersionId`\. Then you can generate a new secret value with [https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html#SecretsManager.Client.get_random_password](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html#SecretsManager.Client.get_random_password)\. You must ensure the new secret value only includes characters that are valid for the database or service\. Exclude characters by using the `ExcludeCharacters` parameter\. Call [https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html#SecretsManager.Client.put_secret_value](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html#SecretsManager.Client.put_secret_value) to store it with the staging label `AWSPENDING`\. Storing the new secret value in `AWSPENDING` helps ensure idempotency\. If rotation fails for any reason, you can refer to that secret value in subsequent calls\. See [How do I make my Lambda function idempotent](https://aws.amazon.com/premiumsupport/knowledge-center/lambda-function-idempotent/)\.
 
 As you test your function, use the AWS CLI to see version stages: call [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/describe-secret.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/describe-secret.html) and look at `VersionIdsToStages`\.
 
-### `set_secret`<a name="w168aac19c13c27c23"></a>
+### `set_secret`<a name="w171aac19c13c27c23"></a>
 
 In `set_secret`, you change the credential in the database or service to match the new secret value in the `AWSPENDING` version of the secret\. 
 
@@ -174,11 +174,11 @@ The rotation function is a privileged deputy that has the authorization to acces
 + Check that the `AWSCURRENT` and `AWSPENDING` secret values are for the same resource\. For a username and password, check that the `AWSCURRENT` and `AWSPENDING` usernames are the same\. 
 + Check that the destination service resource is the same\. For a database, check that the `AWSCURRENT` and `AWSPENDING` host names are the same\.
 
-### `test_secret`<a name="w168aac19c13c27c25"></a>
+### `test_secret`<a name="w171aac19c13c27c25"></a>
 
 In `test_secret`, you test the `AWSPENDING` version of the secret by using it to access the database or service\.
 
-### `finish_secret`<a name="w168aac19c13c27c27"></a>
+### `finish_secret`<a name="w171aac19c13c27c27"></a>
 
 In `finish_secret`, you use [https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html#SecretsManager.Client.update_secret_version_stage](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html#SecretsManager.Client.update_secret_version_stage) to move the staging label `AWSCURRENT` from the previous secret version to the new secret version\. Secrets Manager automatically adds the `AWSPREVIOUS` staging label to the previous version, so that you retain the last known good version of the secret\. 
 
