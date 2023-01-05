@@ -25,9 +25,9 @@ Dimensions for the Secrets Manager metrics\.
 
 |  Dimension  |  Description  | 
 | --- | --- | 
-|  Service  | The name of the AWS service containing the resource\. For Secrets Manager, the value for this dimention is Secrets Manager\. | 
-|  Type  | The type of entity that is being reported\. For Secrets Manager, the value for this dimention is Resource\. | 
-|  Resource  | The type of resource that is running\. For Secrets Manager, the value for this dimention is SecretCount\. | 
+|  Service  | The name of the AWS service containing the resource\. For Secrets Manager, the value for this dimension is Secrets Manager\. | 
+|  Type  | The type of entity that is being reported\. For Secrets Manager, the value for this dimension is Resource\. | 
+|  Resource  | The type of resource that is running\. For Secrets Manager, the value for this dimension is SecretCount\. | 
 |  Class  | None\. | 
 
 Secrets Manager API requests that you can monitor using CloudWatch metrics include `GetSecretValue`, `DescribeSecret`, `ListSecrets`, and others\. To find metrics, in the CloudWatch console, choose **All metrics**, and then in the search box, enter your search term, for example **secrets**\.
