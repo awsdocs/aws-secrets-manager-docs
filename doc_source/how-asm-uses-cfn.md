@@ -1,5 +1,0 @@
-# How AWS Secrets Manager uses AWS CloudFormation<a name="how-asm-uses-cfn"></a>
-
-When you use the console to turn on rotation, Secrets Manager uses AWS CloudFormation to create resources for rotation\. If you create a new rotation function during that process, AWS CloudFormation creates an [https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html) based on the appropriate [Rotation function templates](reference_available-rotation-templates.md)\. Then AWS CloudFormation sets the [https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-secretsmanager-rotationschedule.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-secretsmanager-rotationschedule.html), which sets the rotation function and rotation rules for the secret\. You can view the AWS CloudFormation stack by choosing **View stack** in the banner after you turn on automatic rotation\.
-
-For information about turning on automatic rotation, see [Rotate AWS Secrets Manager secrets](rotating-secrets.md)\.

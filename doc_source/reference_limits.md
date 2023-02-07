@@ -1,6 +1,6 @@
 # AWS Secrets Manager quotas<a name="reference_limits"></a>
 
-Secrets Manager read APIs have high TPS quotas, and control plane APIs that are less frequently called have lower TPS quotas\. We recommend you avoid calling `PutSecretValue` or `UpdateSecret` at a sustained rate of more than once every 10 minutes\. When you call `PutSecretValue` or `UpdateSecret` to update the secret value, Secrets Manager creates a new version of the secret\. Secrets Manager removes outdated versions when there are more than 100, but it does not remove versions created less than 24 hours ago\. If you update the secret value more than once every 10 minutes, you create more versions than Secrets Manager removes, and you will reach the quota for secret versions\.
+Secrets Manager read APIs have high TPS quotas, and control plane APIs that are less frequently called have lower TPS quotas\. We recommend you avoid calling `PutSecretValue` or `UpdateSecret` at a sustained rate of more than once every 10 minutes\. When you call `PutSecretValue` or `UpdateSecret` to update the secret value, Secrets Manager creates a new version of the secret\. Secrets Manager removes unlabeled versions when there are more than 100, but it does not remove versions created less than 24 hours ago\. If you update the secret value more than once every 10 minutes, you create more versions than Secrets Manager removes, and you will reach the quota for secret versions\.
 
 You may operate multiple regions in your account, and each quota is specific to each region\.
 

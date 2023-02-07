@@ -1,6 +1,6 @@
 # Set up automatic rotation for Amazon RDS, Amazon Redshift, or Amazon DocumentDB secrets using the console<a name="rotate-secrets_turn-on-for-db"></a>
 
-Rotation is the process of periodically updating a secret\. When you rotate a secret, you update the credentials in both the secret and the database\. In Secrets Manager, you can set up automatic rotation for your database secrets\. For complete rotation tutorials, see [Single user rotation](tutorials_rotation-single.md) and [Alternating users rotation](tutorials_rotation-alternating.md)\.
+Rotation is the process of periodically updating a secret\. When you rotate a secret, you update the credentials in both the secret and the database\. In Secrets Manager, you can set up automatic rotation for your database secrets\.
 
 Secrets Manager uses Lambda functions to rotate secrets\. For an overview, see [How rotation works](rotating-secrets.md#rotate-secrets_how)\.
 

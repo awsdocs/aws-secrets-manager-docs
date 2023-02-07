@@ -18,7 +18,9 @@ For some [Secrets managed by other services](service-linked-secrets.md), you use
 
 Secrets Manager rotation uses an AWS Lambda function to update the secret and the database\. For information about the costs of using a Lambda function, see [Pricing](intro.md#asm_pricing)\.
 
-To rotate a secret, Secrets Manager calls a Lambda function according to the schedule you set up\. Secrets Manager uses [staging labels](https://docs.aws.amazon.com/secretsmanager/latest/userguide/getting-started.html#term_version) to label secret versions during rotation\. During rotation, Secrets Manager calls the same function several times, each time with different parameters\. Secrets Manager invokes the function with the following JSON request structure of parameters: 
+To rotate a secret, Secrets Manager calls a Lambda function according to the schedule you set up\. You can set a schedule to rotate after a period of time, for example every 30 days, or you can create a cron expression\. See [Schedule expressions](rotate-secrets_schedule.md)\. If you also manually update your secret value while automatic rotation is set up, then Secrets Manager considers that a valid rotation when it calculates the next rotation date\. 
+
+Secrets Manager uses [staging labels](https://docs.aws.amazon.com/secretsmanager/latest/userguide/getting-started.html#term_version) to label secret versions during rotation\. During rotation, Secrets Manager calls the same function several times, each time with different parameters\. Secrets Manager invokes the function with the following JSON request structure of parameters: 
 
 ```
 {

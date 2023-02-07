@@ -19,6 +19,12 @@ To install the component, use the following command\.
 $ pip install aws-secretsmanager-caching
 ```
 
+**Required permissions: **
++ `secretsmanager:DescribeSecret`
++ `secretsmanager:GetSecretValue`
+
+For more information, see [Permissions reference](reference_iam-permissions.md)\.
+
 **Topics**
 + [SecretCache](retrieving-secrets_cache-ref-secretcache.md)
 + [SecretCacheConfig](retrieving-secrets_cache-ref-secretcacheconfig.md)

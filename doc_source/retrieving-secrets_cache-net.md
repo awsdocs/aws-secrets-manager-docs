@@ -29,6 +29,12 @@ To use the cache, first instantiate it, then retrieve your secret by using `GetS
     </ItemGroup>
     ```
 
+**Required permissions: **
++ `secretsmanager:DescribeSecret`
++ `secretsmanager:GetSecretValue`
+
+For more information, see [Permissions reference](reference_iam-permissions.md)\.
+
 **Topics**
 + [SecretsManagerCache](retrieving-secrets_cache-net-SecretsManagerCache.md)
 + [SecretCacheConfiguration](retrieving-secrets_cache-net-SecretCacheConfiguration.md)

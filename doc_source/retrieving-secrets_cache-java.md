@@ -22,6 +22,12 @@ To add the component to your project, in your Maven pom\.xml file, include the f
 </dependency>
 ```
 
+**Required permissions: **
++ `secretsmanager:DescribeSecret`
++ `secretsmanager:GetSecretValue`
+
+For more information, see [Permissions reference](reference_iam-permissions.md)\.
+
 **Topics**
 + [SecretCache](retrieving-secrets_cache-java-ref_SecretCache.md)
 + [SecretCacheConfiguration](retrieving-secrets_cache-java-ref_SecretCacheConfiguration.md)

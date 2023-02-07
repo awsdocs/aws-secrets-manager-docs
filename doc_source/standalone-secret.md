@@ -10,11 +10,13 @@ If you promote a replica, be sure to update the corresponding applications to us
 
 1. Log in to the Secrets Manager at [https://console\.aws\.amazon\.com/secretsmanager/](https://console.aws.amazon.com/secretsmanager/)\. 
 
-1. On the **Secrets** page, choose the primary secret\.
+1. Navigate to the replica region\. 
 
-1. On the Secret details page, in the **Replicate secret** section, choose the ARN of the replica you want to promote\.
+1. On the **Secrets** page, choose the replica secret\.
 
-1. On the replica secret details page, choose **Promote to standalone secret**\. choose **Promote to standalone secret**\.
+1. On the replica secret details page, choose **Promote to standalone secret**\.
+
+1. In the **Promote replica to standalone secret** dialog box, enter the Region and then choose **Promote replica**\.
 
 ## AWS CLI<a name="standalone-secret-cli"></a>
 

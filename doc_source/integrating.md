@@ -4,7 +4,9 @@ Many AWS services use Secrets Manager to store secrets\. In some services, you c
 
 **Topics**
 + [Alexa for Business](integrating_how-services-use-secrets_ABUS.md)
++ [App Runner](integrating_how-services-use-secrets_ARlong.md)
 + [AWS App2Container](integrating_how-services-use-secrets_App2Container.md)
++ [AWS AppConfig](integrating_how-services-use-secrets_APPC.md)
 + [Amazon AppFlow](integrating_how-services-use-secrets_appflow.md)
 + [AWS AppSync](integrating_how-services-use-secrets_APSYlong.md)
 + [Amazon Athena](integrating_how-services-use-secrets_ATElong.md)

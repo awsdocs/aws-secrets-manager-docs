@@ -13,6 +13,12 @@ To download the source code, see [Secrets Manager Go caching client](https://git
 
 To set up a Go development environment, see [Golang Getting Started](https://golang.org/doc/install) on the Go Programming Language website\.
 
+**Required permissions: **
++ `secretsmanager:DescribeSecret`
++ `secretsmanager:GetSecretValue`
+
+For more information, see [Permissions reference](reference_iam-permissions.md)\.
+
 **Topics**
 + [type Cache](retrieving-secrets_cache-go_cache.md)
 + [type CacheConfig](retrieving-secrets_cache-go_CacheConfig.md)

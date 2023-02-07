@@ -42,7 +42,7 @@ For more information, see [Configuring Lambda function options](https://docs.aws
 For more information, see [Control traffic to resources using security groups](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html) in the *Amazon VPC User Guide*\.
 
 **The Secrets Manager VPC endpoint policy does not allow Lambda to use the VPC endpoint\. **  
-For more information, see [Creating a VPC endpoint policy for Secrets Manager](vpc-endpoint-overview.md#vpc-endpoint-policy)\.
+For more information, see [Using an AWS Secrets Manager VPC endpoint](vpc-endpoint-overview.md)\.
 
 ## Error: "Key is missing from secret JSON"<a name="tshoot-lambda-mismatched-secretvalue"></a>
 
@@ -59,6 +59,29 @@ To allow the Lambda function to access the database or service, you must make su
 
 **The credentials in the secret are incorrect\.**  
 If the task duration is short, then the Lambda rotation function might not be able to authenticate with the credentials in the secret\. Check the credentials by logging in manually with the information in the `AWSCURRENT` and `AWSPREVIOUS` versions of the secret using the AWS CLI command [https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/get-secret-value.html](https://docs.aws.amazon.com/cli/latest/reference/secretsmanager/get-secret-value.html)\.
+
+**The database uses `scram-sha-256` to encrypt passwords\.**  
+If your database is Aurora PostgreSQL version 13 or later and uses `scram-sha-256` to encrypt passwords, but the rotation function uses `libpq` version 9 or older which does not support `scram-sha-256`, then the rotation function can't connect to the database\.   
+
+**To determine which database users use `scram-sha-256` encryption**
++ See *Checking for users with non\-SCRAM passwords* in the blog [SCRAM Authentication in RDS for PostgreSQL 13](http://aws.amazon.com/blogs/database/scram-authentication-in-rds-for-postgresql-13/)\.
+
+**To determine which version of `libpq` your rotation function uses**
+
+1. On a Linux\-based computer, on the Lambda console, navigate to your rotation function and download the deployment bundle\. Uncompress the zip file into a work directory\.
+
+1. At a command line, in the work directory, run:
+
+   `readelf -a libpq.so.5 | grep RUNPATH`
+
+1. If you see the string *`PostgreSQL-9.4.x`*, or any major version less than 10, then the rotation function doesn't support `scram-sha-256`\.
+   + Output for a rotation function that doesn't support `scram-sha-256`:
+
+     `0x000000000000001d (RUNPATH) Library runpath: [/local/p4clients/pkgbuild-a1b2c/workspace/build/PostgreSQL/PostgreSQL-9.4.x_client_only.123456.0/AL2_x86_64/DEV.STD.PTHREAD/build/private/tmp/brazil-path/build.libfarm/lib:/local/p4clients/pkgbuild-a1b2c/workspace/src/PostgreSQL/build/private/install/lib]`
+   + Output for a rotation function that supports `scram-sha-256`:
+
+     `0x000000000000001d (RUNPATH) Library runpath: [/local/p4clients/pkgbuild-a1b2c/workspace/build/PostgreSQL/PostgreSQL-10.x_client_only.123456.0/AL2_x86_64/DEV.STD.PTHREAD/build/private/tmp/brazil-path/build.libfarm/lib:/local/p4clients/pkgbuild-a1b2c/workspace/src/PostgreSQL/build/private/install/lib]`
+If you set up automatic secret rotation before December 30, 2021, your rotation function bundled an older version of `libpq` that doesn't support `scram-sha-256`\. To support `scram-sha-256`, you need to [recreate your rotation function](rotate-secrets_turn-on-for-db.md)\. 
 
 **The database requires SSL/TLS access\.**  
 If your database requires an SSL/TLS connection, but the rotation function uses an unencrypted connection, then the rotation function can't connect to the database\. Rotation functions for Amazon RDS \(except Oracle\) and Amazon DocumentDB automatically use Secure Socket Layer \(SSL\) or Transport Layer Security \(TLS\) to connect to your database, if it is available\. Otherwise they use an unencrypted connection\.  

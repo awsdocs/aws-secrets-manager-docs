@@ -23,7 +23,7 @@ For more information, see [Authentication and access control for AWS Secrets Man
 
 ## Usage<a name="retrieving-secrets_github_usage"></a>
 
-To use the action, add a step to your workflow that uses the following sytax\.
+To use the action, add a step to your workflow that uses the following syntax\.
 
 ```
 - name: Step name
