@@ -1,3 +1,0 @@
-# How AWS Elemental MediaConvert uses AWS Secrets Manager<a name="integrating_how-services-use-secrets_EMClong"></a>
-
-AWS Elemental MediaConvert is a file\-based video processing service that provides scalable video processing for content owners and distributors with media libraries of any size\. To use MediaConvert to encode Kantar watermarks, you use Secrets Manager to store your Kantar credentials\. For more information, see [Using Kantar for audio watermarking in AWS Elemental MediaConvert outputs](https://docs.aws.amazon.com/mediaconvert/latest/ug/kantar-watermarking.html) in the *AWS Elemental MediaConvert User Guide*\.

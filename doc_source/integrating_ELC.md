@@ -1,3 +1,0 @@
-# How Amazon ElastiCache uses AWS Secrets Manager<a name="integrating_ELC"></a>
-
-In ElastiCache you can use a feature called Role\-Based Access Control \(RBAC\) to secure the cluster\. You can store these credentials in Secrets Manager\. Secrets Manager provides a [rotation template](reference_available-rotation-templates.md#template-ELC) for this type of secret\. For more information, see [Automatically rotating passwords for users](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/User-Secrets-Manager.html) in the *Amazon ElastiCache User Guide*\.

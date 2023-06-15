@@ -1,3 +1,0 @@
-# How Amazon FSx uses AWS Secrets Manager secrets<a name="integrating_FSx"></a>
-
-Amazon FSx for Windows File Server provides fully managed Microsoft Windows file servers, backed by a fully native Windows file system\. When you create or manage file shares, you can pass credentials from an AWS Secrets Manager secret\. For more information, see [File shares](https://docs.aws.amazon.com/fsx/latest/WindowsGuide/managing-file-shares.html) and [Migrating file share configurations to Amazon FSx](https://docs.aws.amazon.com/fsx/latest/WindowsGuide/migrate-file-share-config-to-fsx.html) in the *Amazon FSx for Windows File Server User Guide*\.
